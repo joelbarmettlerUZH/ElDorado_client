@@ -15,8 +15,7 @@ export class AuthenticationService {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
 
-    // TODO fill in your heroku-backend URL
-    this.apiUrl = '';
+    this.apiUrl = 'https://sopra-fs18-group17.herokuapp.com/';
   }
 
   login(user: User): Observable<User> {

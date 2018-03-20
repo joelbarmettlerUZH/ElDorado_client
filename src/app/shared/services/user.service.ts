@@ -11,8 +11,7 @@ export class UserService {
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) {
 
-    //TODO fill in your heroku-backend URL
-    this.apiUrl = '';
+    this.apiUrl = 'https://sopra-fs18-group17.herokuapp.com/';
   }
 
   getUsers(): Observable<User[]> {
@@ -23,4 +22,3 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl + '/users', httpOptions);
   }
 }
-
