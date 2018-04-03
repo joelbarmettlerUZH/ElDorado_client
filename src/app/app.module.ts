@@ -9,13 +9,15 @@ import {AuthenticationService} from './shared/services/authentication.service';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    GameComponent
+    GameComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,
