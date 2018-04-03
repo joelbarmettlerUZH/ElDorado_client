@@ -10,6 +10,7 @@ import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { TitleComponent } from './title/title.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
     AppComponent,
     LoginComponent,
     GameComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,
