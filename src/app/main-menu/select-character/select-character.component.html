@@ -5,11 +5,10 @@
 </div>
 
 <div *ngIf="selectedCharacter">
-
+  <input id="{{selectedCharacter.id}}" type="hidden">
   <h2>{{ selectedCharacter.name | uppercase }} Ready?</h2>
-  <div><span>(will be hidden) id: </span>{{selectedCharacter.id}}</div>
   <div>
-    <label>name:
+    <label>
       <input [(ngModel)]="selectedCharacter.name" placeholder="name">
     </label>
   </div>

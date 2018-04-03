@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
 import { TitleComponent } from './main-menu/title/title.component';
+import { ButtonsComponent } from './main-menu/buttons/buttons.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TitleComponent } from './main-menu/title/title.component';
     GameComponent,
     MainMenuComponent,
     SelectCharacterComponent,
-    TitleComponent
+    TitleComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,
