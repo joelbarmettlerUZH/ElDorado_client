@@ -10,6 +10,8 @@ import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
+import { TitleComponent } from './main-menu/title/title.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
     AppComponent,
     LoginComponent,
     GameComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    SelectCharacterComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,
