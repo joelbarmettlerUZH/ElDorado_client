@@ -1,0 +1,15 @@
+
+#Screen{
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+}
+
+#MainMenuScreen{
+  position: relative;
+  /*background: url('Assets/GUI_MainMenu/MainBackground.jpg') no-repeat center center fixed;*/
+  background: url('./../../assets/Gui_Elemente/GUI_MainMenu/MainBackground.jpg');
+  width: 100%;
+  height: 100%;
+}
