@@ -17,6 +17,7 @@ import { InGameScreenComponent } from './in-game-screen/in-game-screen.component
 import { OpponentBoardComponent } from './in-game-screen/opponent-board/opponent-board.component';
 import { PlayerBoardComponent } from './in-game-screen/player-board/player-board.component';
 import { SettingsBoardComponent } from './in-game-screen/settings-board/settings-board.component';
+import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SettingsBoardComponent } from './in-game-screen/settings-board/settings
     InGameScreenComponent,
     OpponentBoardComponent,
     PlayerBoardComponent,
-    SettingsBoardComponent
+    SettingsBoardComponent,
+    MarketplaceComponent
   ],
   imports: [
     BrowserModule,
