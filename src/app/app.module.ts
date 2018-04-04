@@ -23,6 +23,9 @@ import { CardBoardComponent } from './in-game-screen/card-board/card-board.compo
 import { CardSlotComponent } from './in-game-screen/card-slot/card-slot.component';
 import { ButtonBoardComponent } from './in-game-screen/button-board/button-board.component';
 import { CardComponent } from './in-game-screen/card/card.component';
+import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.component';
+import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
+import { MarketreserveComponent } from './in-game-screen/marketreserve/marketreserve.component';
 
 
 @NgModule({
@@ -44,6 +47,9 @@ import { CardComponent } from './in-game-screen/card/card.component';
     CardSlotComponent,
     ButtonBoardComponent,
     CardComponent,
+    MarketSlotComponent,
+    MarketboardComponent,
+    MarketreserveComponent,
   ],
   imports: [
     BrowserModule,
