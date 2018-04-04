@@ -1,0 +1,9 @@
+#title{
+
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/ElDorado_Schrift.png');
+  width: 825px;
+  height: 211.5px;
+  position: absolute;
+  right: 80px;
+}

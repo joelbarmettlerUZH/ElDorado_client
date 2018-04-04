@@ -10,7 +10,9 @@ import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { TitleComponent } from './title/title.component';
+import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
+import { TitleComponent } from './main-menu/title/title.component';
+import { ButtonsComponent } from './main-menu/buttons/buttons.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { TitleComponent } from './title/title.component';
     LoginComponent,
     GameComponent,
     MainMenuComponent,
-    TitleComponent
+    SelectCharacterComponent,
+    TitleComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,

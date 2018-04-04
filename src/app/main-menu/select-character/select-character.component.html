@@ -1,0 +1,15 @@
+<div *ngFor="let character of characters"
+     [class.selected]="character === selectedCharacter"
+     (click)="onSelect(character)">
+  <div id="{{character.id}}"></div>
+</div>
+
+<div *ngIf="selectedCharacter">
+  <input id="{{selectedCharacter.id}}" type="hidden">
+  <h2>{{ selectedCharacter.name | uppercase }} Ready?</h2>
+  <div>
+    <label>
+      <input [(ngModel)]="selectedCharacter.name" placeholder="name">
+    </label>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+#buttonboard{
+
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/button_area.png');
+  width: 245px;
+  height: 768px;
+  position: absolute;
+  left: 90px;
+  top: 0;
+}
+
+#menubutton-hostgame{
+
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  width: 245px;
+  height: 51px;
+  position: absolute;
+  top: 420px;
+}
+
+#menubutton-joingame{
+
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  width: 245px;
+  height: 51px;
+  position: absolute;
+  top: 500px;
+}
+
+#menubutton-manual{
+
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  width: 245px;
+  height: 51px;
+  position: absolute;
+  top: 580px;
+}
