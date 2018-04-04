@@ -57,6 +57,17 @@
   right: 471px;
 }
 
+
+#aaa .DEMO{
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_unselected.png');
+  position: absolute;
+  min-height: 40px;
+  width: 224px;
+  bottom: 150px;
+  right: 750px;
+}
+
 #sss{
 
   background-size: cover;
@@ -88,4 +99,18 @@
   width: 398px;
   bottom: 0;
   right: 180px;
+}
+
+#hubba {
+  position: absolute;
+  display: block;
+  bottom: 10px;
+
+
+}
+
+#buttonBackground {
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_selected.png');
+  width: 200px;
+  height: 40px;
 }

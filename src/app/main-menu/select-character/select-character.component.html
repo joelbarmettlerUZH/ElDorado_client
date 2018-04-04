@@ -5,11 +5,13 @@
 </div>
 
 <div *ngIf="selectedCharacter">
-  <input id="{{selectedCharacter.id}}" type="hidden">
   <h2>{{ selectedCharacter.name | uppercase }} Ready?</h2>
-  <div>
-    <label>
-      <input [(ngModel)]="selectedCharacter.name" placeholder="name">
+  <div id="{{selectedCharacter.id}}">
+
+    <div style="text-align: center;">
+    <label  id="hubba">
+         <input id="buttonBackground" [(ngModel)]="selectedCharacter.name" placeholder="name" style="text-align: center;" >
     </label>
+    </div>
   </div>
 </div>
