@@ -1,0 +1,8 @@
+import { Character } from './Character';
+
+export const CHARACTERS: Character[] = [
+  { id: 11, name: 'Reto', image: '../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png'},
+  { id: 12, name: 'Marius', image: '../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png' },
+  { id: 13, name: 'Joel', image: '../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png' },
+  { id: 14, name: 'Daniela', image: '../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png' }
+];
