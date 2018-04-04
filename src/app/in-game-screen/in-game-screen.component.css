@@ -1,0 +1,14 @@
+
+#Screen{
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+}
+
+#InGameScreen{
+  position: relative;
+  background: url('./../../assets/GUI_Game/Texture_Background.jpg');
+  width: 100%;
+  height: 100%;
+}

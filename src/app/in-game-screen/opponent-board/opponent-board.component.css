@@ -1,0 +1,26 @@
+.Board{
+  background-size: cover;
+  width: 199px;
+  height: 136px;
+  position: absolute;
+}
+
+#aaa{
+  top: 020px;
+  background-image: url('../../../assets/GUI_Game/Opponent_1.png');
+}
+
+#sss{
+  top: 120px;
+  background-image: url('../../../assets/GUI_Game/Opponent_2.png');
+}
+
+#ddd{
+  top: 220px;
+  background-image: url('../../../assets/GUI_Game/Opponent_3.png');
+}
+
+#fff{
+  top: 320px;
+  background-image: url('../../../assets/GUI_Game/Opponent_4.png');
+}

@@ -13,6 +13,10 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
 import { TitleComponent } from './main-menu/title/title.component';
 import { ButtonsComponent } from './main-menu/buttons/buttons.component';
+import { InGameScreenComponent } from './in-game-screen/in-game-screen.component';
+import { OpponentBoardComponent } from './in-game-screen/opponent-board/opponent-board.component';
+import { PlayerBoardComponent } from './in-game-screen/player-board/player-board.component';
+import { SettingsBoardComponent } from './in-game-screen/settings-board/settings-board.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { ButtonsComponent } from './main-menu/buttons/buttons.component';
     MainMenuComponent,
     SelectCharacterComponent,
     TitleComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    InGameScreenComponent,
+    OpponentBoardComponent,
+    PlayerBoardComponent,
+    SettingsBoardComponent
   ],
   imports: [
     BrowserModule,

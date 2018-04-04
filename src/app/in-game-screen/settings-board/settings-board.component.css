@@ -1,0 +1,9 @@
+#settings-board{
+
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/top_menu.png');
+  width: 825px;
+  height: 211.5px;
+  position: absolute;
+  right: 258px;
+}

@@ -1,3 +1,5 @@
-<p>
-  opponent-board works!
-</p>
+<div id="opponent-board">
+  <div *ngFor="let character of characters">
+    <div class="Board" id="{{character.id}}"></div>
+  </div>
+</div>

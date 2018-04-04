@@ -8,11 +8,11 @@
 </div> -->
 
 <div id="buttonboard">
-<div *ngFor="let button of buttons"
-     [class.selected]="button === selectedButton"
-     (click)="onSelect(button)">
-  <div id="{{button.id}}"></div>
-</div>
+  <div *ngFor="let button of buttons"
+       [class.selected]="button === selectedButton"
+       (click)="onSelect(button)">
+    <div id="{{button.id}}"></div>
+  </div>
 </div>
 
 <div *ngIf="selectedButton">
