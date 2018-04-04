@@ -1,0 +1,35 @@
+#Button-Board {
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/bottom_left.png');
+  width: 325px;
+  height: 235px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+button {
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Button_Endround.png');
+  width: 180px;
+  height: 44px;
+  position: absolute;
+  bottom: 20px;
+  left: 42px;
+  font-family: Arial;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}

@@ -1,0 +1,47 @@
+button {
+  background-size: cover;
+  width: 32px;
+  height: 33px;
+  position: absolute;
+  font-family: Arial;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+#Sell {
+  background-image: url('../../../assets/GUI_Game/Karte_buttons_sell.png');
+  bottom: 20px;
+  left: 42px;
+}
+
+#Discard {
+  background-image: url('../../../assets/GUI_Game/Karte_buttons_discard.png');
+  bottom: 20px;
+  left: 82px;
+}
+
+#Magnify {
+  background-image: url('../../../assets/GUI_Game/Karte_buttons_magnify.png');
+  bottom: 20px;
+  left: 120px;
+}
+
+.Card{
+  position: absolute;
+  background-size: cover;
+  bottom: 230px;
+  left: 40px;
+}

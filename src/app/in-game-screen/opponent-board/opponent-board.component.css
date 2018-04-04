@@ -6,21 +6,21 @@
 }
 
 #aaa{
-  top: 020px;
+  top: 0px;
   background-image: url('../../../assets/GUI_Game/Opponent_1.png');
 }
 
 #sss{
-  top: 120px;
+  top: 97px;
   background-image: url('../../../assets/GUI_Game/Opponent_2.png');
 }
 
 #ddd{
-  top: 220px;
+  top: 194px;
   background-image: url('../../../assets/GUI_Game/Opponent_3.png');
 }
 
 #fff{
-  top: 320px;
+  top: 291px;
   background-image: url('../../../assets/GUI_Game/Opponent_4.png');
 }

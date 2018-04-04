@@ -18,6 +18,11 @@ import { OpponentBoardComponent } from './in-game-screen/opponent-board/opponent
 import { PlayerBoardComponent } from './in-game-screen/player-board/player-board.component';
 import { SettingsBoardComponent } from './in-game-screen/settings-board/settings-board.component';
 import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.component';
+import { MapComponent } from './in-game-screen/map/map.component';
+import { CardBoardComponent } from './in-game-screen/card-board/card-board.component';
+import { CardSlotComponent } from './in-game-screen/card-slot/card-slot.component';
+import { ButtonBoardComponent } from './in-game-screen/button-board/button-board.component';
+import { CardComponent } from './in-game-screen/card/card.component';
 
 
 @NgModule({
@@ -33,7 +38,12 @@ import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.c
     OpponentBoardComponent,
     PlayerBoardComponent,
     SettingsBoardComponent,
-    MarketplaceComponent
+    MarketplaceComponent,
+    MapComponent,
+    CardBoardComponent,
+    CardSlotComponent,
+    ButtonBoardComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
