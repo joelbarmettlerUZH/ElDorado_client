@@ -1,5 +1,4 @@
-#buttonboard{
-
+#Main-Menu-Button-Board{
   background-size: cover;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/button_area.png');
   width: 245px;
@@ -9,8 +8,7 @@
   top: 0;
 }
 
-#menubutton-hostgame{
-
+#Host-Game{
   background-size: cover;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
   width: 245px;
@@ -19,8 +17,7 @@
   top: 420px;
 }
 
-#menubutton-joingame{
-
+#Join-Game{
   background-size: cover;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
   width: 245px;
@@ -29,8 +26,7 @@
   top: 500px;
 }
 
-#menubutton-manual{
-
+#Manuel{
   background-size: cover;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
   width: 245px;
@@ -38,3 +34,30 @@
   position: absolute;
   top: 580px;
 }
+
+button {
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Button_Endround.png');
+  width: 180px;
+  height: 44px;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  font-family: Arial;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+

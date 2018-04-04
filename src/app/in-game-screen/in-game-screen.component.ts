@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InGameScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(  private route: ActivatedRoute,
+                private location: Location) { }
 
   ngOnInit() {
   }

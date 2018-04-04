@@ -26,6 +26,7 @@ import { CardComponent } from './in-game-screen/card/card.component';
 import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.component';
 import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
 import { MarketreserveComponent } from './in-game-screen/marketreserve/marketreserve.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { MarketreserveComponent } from './in-game-screen/marketreserve/marketres
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    AppRoutingModule
   ],
   providers: [AuthenticationService, AuthGuardService, UserService],
   bootstrap: [AppComponent]

@@ -1,20 +1,6 @@
-<!-- <div id="buttonboard">
-  <div id="menubutton-hostgame"
-    [class.selected]="button === selectedButton"
-    (click)="onSelect(menubutton-hostgame)">
-  </div>
-  <div id="menubutton-joingame"></div>
-  <div id="menubutton-manual"></div>
-</div> -->
-
-<div id="buttonboard">
-  <div *ngFor="let button of buttons"
-       [class.selected]="button === selectedButton"
-       (click)="onSelect(button)">
-    <div id="{{button.id}}"></div>
-  </div>
+<div id="Main-Menu-Button-Board">
+  <button id="Host-Game">Host Game</button>
+  <button id="Join-Game" >Join Game</button>
+  <button id="Manuel">Manuel</button>
 </div>
 
-<div *ngIf="selectedButton">
-  {{selectedButton.action}}
-</div>
