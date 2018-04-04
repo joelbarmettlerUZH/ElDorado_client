@@ -1,0 +1,31 @@
+.Character {
+  background-size: cover;
+  position: absolute;
+  bottom: 149px;
+  left: 38px;
+}
+
+#aaa{
+  background-image: url('../../../assets/GUI_Game/Avatar_1.png');
+  width: 200px;
+  height: 271px;
+}
+
+#sss{
+  background-image: url('../../../assets/GUI_Game/Avatar_2.png');
+  width: 189px;
+  height: 271px;
+}
+
+#ddd{
+  background-image: url('../../../assets/GUI_Game/Avatar_3.png');
+  width: 289px;
+  height: 271px;
+}
+
+#fff{
+  background-image: url('../../../assets/GUI_Game/Avatar_4.png');
+  width: 308px;
+  height: 271px;
+}
+

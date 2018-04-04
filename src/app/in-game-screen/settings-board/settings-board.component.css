@@ -1,0 +1,21 @@
+
+#Decoration{
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/top_menu.png');
+  width: 639px;
+  height: 146px;
+  position: absolute;
+  top: 0px;
+  right: 356px;
+}
+
+#Panel{
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
+  width: 244px;
+  height: 311px;
+  position: absolute;
+  top: -205px;
+  right: 591px;
+}
+

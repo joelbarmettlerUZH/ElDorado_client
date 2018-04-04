@@ -1,0 +1,21 @@
+
+#Marketboard{
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Right_Markt.png');
+  width: 330px;
+  height: 768px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+#Marketreserve{
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Right_Markt_repeat.png');
+  width: 330px;
+  height: 768px;
+  position: absolute;
+  bottom: 0px;
+  right: 330px;
+}
+

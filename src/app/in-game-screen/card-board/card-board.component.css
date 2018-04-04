@@ -1,0 +1,33 @@
+#Card-Board{
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Bottom_Cards.png');
+  width: 695px;
+  height: 176px;
+  position: absolute;
+  bottom: 0px;
+  left: 268px;
+}
+
+#Slot1{
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+}
+
+#Slot2{
+  position: absolute;
+  bottom: 0px;
+  left: 170px;
+}
+
+#Slot3{
+  position: absolute;
+  bottom: 0px;
+  left: 320px;
+}
+
+#Slot4{
+  position: absolute;
+  bottom: 0px;
+  left: 470px;
+}
