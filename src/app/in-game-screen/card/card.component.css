@@ -5,6 +5,17 @@
   height: 170px;
 }
 
+.Card:hover {
+  background-color: #cfd8dc;
+}
+
+.Card:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+
 #Matrose{
   background-image: url('../../../assets/Gui_Elemente/Karten/Move_Blue_1.png');
 }
