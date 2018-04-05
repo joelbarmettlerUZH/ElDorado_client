@@ -26,7 +26,7 @@
   top: 500px;
 }
 
-#Manuel{
+#Manual{
   background-size: cover;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
   width: 245px;
@@ -42,12 +42,12 @@ button {
   height: 44px;
   position: absolute;
   bottom: 20px;
-  left: 0px;
+  left: 0;
   font-family: Arial;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
-  cursor: pointer;
+  /*cursor: pointer;*/
   cursor: hand;
 }
 
