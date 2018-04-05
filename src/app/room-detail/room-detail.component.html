@@ -1,0 +1,18 @@
+<div id="Black">
+  <div id="Screen" align="center">
+
+
+    <div id="Room-Details">
+      <div *ngIf="room">
+        <h2>{{ room.name | uppercase }} Details</h2>
+        <div><span>boardnumber: </span>{{room.boardnumber}}</div>
+        <div>
+          <label>name:
+            <input [(ngModel)]="room.name" placeholder="tollsterRoomNameEver">
+          </label>
+        </div>
+      </div>
+      <button (click)="goBack()">go back</button>
+    </div>
+  </div>
+</div>

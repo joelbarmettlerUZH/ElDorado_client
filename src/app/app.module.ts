@@ -2,11 +2,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {GameComponent} from './game/game.component';
-import {LoginComponent} from './login/login.component';
+// import {LoginComponent} from './login/login.component';
+// import {routing} from './app.routing';
 import {UserService} from './shared/services/user.service';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {AuthenticationService} from './shared/services/authentication.service';
-import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
@@ -27,12 +27,14 @@ import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.co
 import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
 import { MarketreserveComponent } from './in-game-screen/marketreserve/marketreserve.component';
 import { AppRoutingModule } from './/app-routing.module';
-
+import { RoomsComponent } from './rooms/rooms.component';
+import { RoomDetailComponent } from './room-detail/room-detail.component';
+import {RoomService} from './room.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    // LoginComponent,
     GameComponent,
     MainMenuComponent,
     SelectCharacterComponent,
@@ -51,15 +53,17 @@ import { AppRoutingModule } from './/app-routing.module';
     MarketSlotComponent,
     MarketboardComponent,
     MarketreserveComponent,
+    RoomsComponent,
+    RoomDetailComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routing,
+    // routing,
     AppRoutingModule
   ],
-  providers: [AuthenticationService, AuthGuardService, UserService],
+  providers: [AuthenticationService, AuthGuardService, UserService, RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,6 +1,11 @@
 <div id="Main-Menu-Button-Board">
+  <nav>
+  </nav>
+  <router-outlet></router-outlet>
   <button id="Host-Game">Host Game</button>
-  <button id="Join-Game" (click)="createRoom('roomnamehere', 3)">Join Game</button>
+  <a routerLink="/rooms">
+    <button id="Join-Game" (click)="createRoom('roomnamehere', 3)">Join Game</button>
+  </a>
   <button id="Manual">Manual</button>
 </div>
 
