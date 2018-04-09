@@ -5,6 +5,7 @@
     <div id="Room-Details">
       <div *ngIf="room">
         <h2>{{ room.name | uppercase }} Details</h2>
+        <div><span>id: </span>{{room.id}}</div>
         <div><span>boardnumber: </span>{{room.boardnumber}}</div>
         <div>
           <label>name:

@@ -8,7 +8,6 @@ import {UserService} from './shared/services/user.service';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
 import { TitleComponent } from './main-menu/title/title.component';
@@ -30,6 +29,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import {RoomService} from './room.service';
+import {HttpClientModule} from '@angular/common/http';
+import { HostComponent } from './host/host.component';
 
 @NgModule({
   declarations: [
@@ -55,13 +56,14 @@ import {RoomService} from './room.service';
     MarketreserveComponent,
     RoomsComponent,
     RoomDetailComponent,
+    HostComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     // routing,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [AuthenticationService, AuthGuardService, UserService, RoomService],
   bootstrap: [AppComponent]

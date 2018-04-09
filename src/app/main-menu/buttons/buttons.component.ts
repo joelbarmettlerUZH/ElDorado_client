@@ -19,11 +19,7 @@ export class ButtonsComponent implements OnInit {
     this.selectedButton = button;
   }
 
-  createRoom(roomName, roomNumber) {
-    const body = JSON.stringify(roomName, roomNumber);
-    return this.http.post('localhost:8080/api/v0/Room', body);
-  }
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
   }

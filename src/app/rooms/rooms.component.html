@@ -1,9 +1,10 @@
 <h2>My Rooms</h2>
 <ul class="rooms">
   <li *ngFor="let room of rooms">
-    <a routerLink="/detail/{{room.name}}">
+    <a routerLink="/detail/{{room.id}}">
       <span class="badge">{{room.boardnumber}}</span> {{room.name}}
     </a>
   </li>
+  <button (click)="goBack()">go back</button>
 </ul>
 

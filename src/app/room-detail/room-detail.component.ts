@@ -19,8 +19,8 @@ export class RoomDetailComponent implements OnInit {
     this.getRoom();
   }
   getRoom(): void {
-    const name = this.route.snapshot.paramMap.get('name');
-    this.roomService.getRoom(name)
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.roomService.getRoom(id)
       .subscribe(room => this.room = room);
   }
   goBack(): void {
