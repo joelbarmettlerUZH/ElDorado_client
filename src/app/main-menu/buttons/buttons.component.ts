@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { Button } from '../../button';
-import { BUTTONS } from '../../button-database';
+import { MAINMENUBUTTONS } from '../../button-database';
 import { Http, Response, URLSearchParams } from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 
@@ -12,12 +12,7 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ButtonsComponent implements OnInit {
-  buttons = BUTTONS;
-  selectedButton: Button;
-
-  onSelect(button: Button): void {
-    this.selectedButton = button;
-  }
+  buttons = MAINMENUBUTTONS;
 
   constructor() { }
 

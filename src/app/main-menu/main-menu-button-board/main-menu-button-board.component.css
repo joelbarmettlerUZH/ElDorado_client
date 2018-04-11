@@ -1,0 +1,19 @@
+#mainMenuButtonBoardStrip {
+  background-size: cover;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/button_area.png');
+  width: 245px;
+  height: 768px;
+  position: absolute;
+  left: 90px;
+  top: 0;
+}
+
+.button-area {
+  background-size: cover;
+  background-color: #5bc0de;
+  width: 245px;
+  height: 400px;
+  position: absolute;
+  left: 90px;
+  top: 350px;
+}

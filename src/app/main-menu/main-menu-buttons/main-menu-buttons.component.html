@@ -1,0 +1,5 @@
+<div id="mainMenuButtons">
+  <div *ngFor="let button of buttons">
+    <button class=button id="{{button.id}}" (click)="setSelectedButton(button.name)">{{button.name}}</button>
+  </div>
+</div>

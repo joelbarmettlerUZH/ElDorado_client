@@ -1,0 +1,11 @@
+<div id="mainMenuButtonBoard">
+  <div id="mainMenuButtonBoardStrip"></div>
+
+  <div class='button-area' *ngIf="selectedButtonName == 'menu' ">
+    <app-main-menu-buttons></app-main-menu-buttons>
+  </div>
+
+  <div class='button-area' *ngIf="selectedButtonName == 'host-game' ">
+    <app-host-buttons></app-host-buttons>
+  </div>
+</div>
