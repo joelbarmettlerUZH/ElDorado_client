@@ -1,0 +1,27 @@
+
+button {
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  width: 245px;
+  height: 51px;
+  font-family: Arial;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  left: 0px;
+  /*cursor: pointer;*/
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+

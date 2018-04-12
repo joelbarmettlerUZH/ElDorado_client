@@ -17,3 +17,13 @@
   left: 90px;
   top: 350px;
 }
+
+.button-area2 {
+  background-size: cover;
+  background-color: red;
+  width: 1245px;
+  height: 400px;
+  position: absolute;
+  left: 290px;
+  top: 350px;
+}

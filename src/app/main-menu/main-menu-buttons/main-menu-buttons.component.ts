@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../button-database';
 
 @Component({
@@ -7,17 +7,20 @@ import {MAINMENUBUTTONS} from '../../button-database';
   styleUrls: ['./main-menu-buttons.component.css']
 })
 export class MainMenuButtonsComponent implements OnInit {
+  @Input() name: string;
+  @Output() navigationRequestTo = new EventEmitter<string>();
   buttons = MAINMENUBUTTONS;
-  selectedButtonName: string;
 
   constructor() {
   }
 
-  setSelectedButton(buttonName: string) {
-    this.selectedButtonName = buttonName;
+  navigateTo(target: string) {
+    this.navigationRequestTo.emit(target);
+    console.log(target + ' Button wurde geklickt');
+    console.log('navigationRequestTo ' + target + ' gesendet!');
   }
 
   ngOnInit() {
-    this.selectedButtonName = 'menu';
+    // this.navigationTarget = 'menu';
   }
 }

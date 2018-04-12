@@ -1,11 +1,15 @@
-<div id="mainMenuButtonBoard">
+<div id="mainMenuButtonBoard" (navigationRequestTo)="navigationRequestTo($event)">
+
   <div id="mainMenuButtonBoardStrip"></div>
 
-  <div class='button-area' *ngIf="selectedButtonName == 'menu' ">
+
+  <div class='button-area' *ngIf="menubuttonMenuButtons">
     <app-main-menu-buttons></app-main-menu-buttons>
   </div>
 
-  <div class='button-area' *ngIf="selectedButtonName == 'host-game' ">
+
+  <div class='button-area2' *ngIf="myMap.get('menubutton-hostgame')">
     <app-host-buttons></app-host-buttons>
   </div>
+
 </div>
