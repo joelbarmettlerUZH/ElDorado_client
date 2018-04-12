@@ -6,6 +6,10 @@ button {
   width: 245px;
   height: 51px;
   font-family: Arial;
+  color: white;
+  font-size: 25px;
+  font-weight: normal;
+
   border: none;
   padding: 5px 10px;
   border-radius: 4px;

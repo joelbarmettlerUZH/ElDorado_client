@@ -1,10 +1,10 @@
-<div id="mainMenuButtonBoard" (navigationRequestTo)="navigationRequestTo($event)">
+<div id="mainMenuButtonBoard">
 
   <div id="mainMenuButtonBoardStrip"></div>
 
 
   <div class='button-area' *ngIf="menubuttonMenuButtons">
-    <app-main-menu-buttons></app-main-menu-buttons>
+    <app-main-menu-buttons (navigationRequestTo)="navigationRequestTo($event)"></app-main-menu-buttons>
   </div>
 
 

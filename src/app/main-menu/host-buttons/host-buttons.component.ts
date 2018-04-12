@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ROUTES} from '../../mock-routes';
 
 @Component({
   selector: 'app-host-buttons',
@@ -6,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./host-buttons.component.css']
 })
 export class HostButtonsComponent implements OnInit {
-
+  routes = ROUTES;
   constructor() {
   }
 
@@ -14,3 +15,6 @@ export class HostButtonsComponent implements OnInit {
   }
 
 }
+
+// ToDO: In Template set button position automatically
+

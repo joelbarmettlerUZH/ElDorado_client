@@ -1,27 +1,55 @@
-
-button {
+.subbutton {
   background-size: cover;
   position: absolute;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
-  width: 245px;
-  height: 51px;
+  background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
+  width: 218px;
+  height: 45px;
   font-family: Arial;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
-  left: 0px;
+  left: 0;
   /*cursor: pointer;*/
   cursor: hand;
 }
 
-button:hover {
-  background-color: #cfd8dc;
+.subbutton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
 }
 
-button:disabled {
-  background-color: #eee;
-  color: #ccc;
+.subbutton:disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
   cursor: auto;
 }
 
+#Route1 {
+  top: 0;
+}
+
+#Route2 {
+  top: 50px;
+}
+
+#Route3 {
+  top: 100px;
+}
+
+#Route4 {
+  top: 150px;
+}
+
+#Route5 {
+  top: 200px;
+}
+
+#Route6 {
+  top: 250px;
+}
+
+#Route7 {
+  top: 300px;
+}
 

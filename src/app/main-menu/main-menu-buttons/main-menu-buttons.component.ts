@@ -24,3 +24,6 @@ export class MainMenuButtonsComponent implements OnInit {
     // this.navigationTarget = 'menu';
   }
 }
+
+// ToDO: In Template set button positions automatically
+

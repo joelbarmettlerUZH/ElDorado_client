@@ -1,6 +1,6 @@
 <div id="hostButtons">
-  <button>Hi</button>
-  <!--<div *ngFor="let button of buttons">-->
-  <!--<button class=button id="{{button.id}}" (click)="navigateTo(button.name)">{{button.name}}</button>-->
-  <!--</div>-->
+  <!--<button>Hi</button>-->
+  <div *ngFor="let route of routes">
+    <button class=subbutton id="{{route.name}}">{{route.name}}</button>
+  </div>
 </div>
