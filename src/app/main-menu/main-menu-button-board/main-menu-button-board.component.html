@@ -4,12 +4,14 @@
 
 
   <div class='button-area' *ngIf="menubuttonMenuButtons">
-    <app-main-menu-buttons (navigationRequestTo)="navigationRequestTo($event)"></app-main-menu-buttons>
+    <app-main-menu-buttons (changeButtonsRequest)="changeButtons($event)"></app-main-menu-buttons>
   </div>
 
 
-  <div class='button-area2' *ngIf="myMap.get('menubutton-hostgame')">
+  <div class='button-area' *ngIf="myMap.get('menubutton-hostgame')">
     <app-host-buttons></app-host-buttons>
   </div>
+
+  <button class=smallButton id="homeButton" *ngIf="homeButton" (click)="navigateToMenu()">HOME</button>
 
 </div>

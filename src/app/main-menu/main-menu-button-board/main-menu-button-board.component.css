@@ -10,20 +10,49 @@
 
 .button-area {
   background-size: cover;
-  background-color: #5bc0de;
+  /*background-color: #5bc0de;*/
   width: 245px;
-  height: 400px;
+  height: 350px;
   position: absolute;
   left: 90px;
   top: 350px;
 }
 
-.button-area2 {
+/*.button-area2 {*/
+/*background-size: cover;*/
+/*background-color: red;*/
+/*width: 245px;*/
+/*height: 330px;*/
+/*position: absolute;*/
+/*left: 90px;*/
+/*top: 420px;*/
+/*}*/
+
+.smallButton {
   background-size: cover;
-  background-color: red;
-  width: 245px;
-  height: 330px;
   position: absolute;
-  left: 90px;
-  top: 420px;
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu.png');
+  width: 98px;
+  height: 33px;
+  font-family: Arial;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.smallButton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+}
+
+.smallButton:disabled {
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+  cursor: auto;
+}
+
+#homeButton {
+  top: 710px;
+  left: 167px;
 }

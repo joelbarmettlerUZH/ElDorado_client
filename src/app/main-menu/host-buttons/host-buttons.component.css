@@ -1,4 +1,34 @@
+
+.button {
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  width: 245px;
+  height: 51px;
+  font-family: Arial;
+  color: white;
+  font-size: 25px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  left: 0px;
+  /*cursor: pointer;*/
+  cursor: hand;
+}
+
+.button:hover {
+  background-color: #cfd8dc;
+}
+
+.button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
 .subbutton {
+  left: 15px;
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
@@ -11,9 +41,6 @@
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
-  left: 0;
-  /*cursor: pointer;*/
-  cursor: hand;
 }
 
 .subbutton:hover {
@@ -25,31 +52,37 @@
   cursor: auto;
 }
 
-#Route1 {
+#menubutton-hostgame {
   top: 0;
 }
 
+#roomName {
+  top: 60px;
+}
+
+#Route1 {
+  top: 110px;
+}
+
 #Route2 {
-  top: 50px;
+  top: 160px;
 }
 
 #Route3 {
-  top: 100px;
+  top: 210px;
 }
 
 #Route4 {
-  top: 150px;
+  top: 260px;
 }
 
 #Route5 {
-  top: 200px;
+  top: 310px;
 }
 
-#Route6 {
-  top: 250px;
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+  text-decoration-color: red;
 }
-
-#Route7 {
-  top: 300px;
-}
-

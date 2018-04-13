@@ -8,16 +8,16 @@ import {MAINMENUBUTTONS} from '../../button-database';
 })
 export class MainMenuButtonsComponent implements OnInit {
   @Input() name: string;
-  @Output() navigationRequestTo = new EventEmitter<string>();
+  @Output() changeButtonsRequest = new EventEmitter<string>();
   buttons = MAINMENUBUTTONS;
 
   constructor() {
   }
 
   navigateTo(target: string) {
-    this.navigationRequestTo.emit(target);
+    this.changeButtonsRequest.emit(target);
     console.log(target + ' Button wurde geklickt');
-    console.log('navigationRequestTo ' + target + ' gesendet!');
+    console.log('changeButtonsRequest ' + target + ' von main-menu-buttons gesendet! (Empfänger:main-menu-button-board)');
   }
 
   ngOnInit() {

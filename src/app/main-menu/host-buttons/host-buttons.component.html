@@ -1,5 +1,6 @@
 <div id="hostButtons">
-  <!--<button>Hi</button>-->
+  <button class=button id="{{hostButton.id}}">{{hostButton.name}}</button>
+  <input class=subbutton id="roomName" (ngModel)="Room.name" placeholder="BesterRoomNameEver"/>
   <div *ngFor="let route of routes">
     <button class=subbutton id="{{route.name}}">{{route.name}}</button>
   </div>

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTES} from '../../mock-routes';
+import {MAINMENUBUTTONS} from '../../button-database';
 
 @Component({
   selector: 'app-host-buttons',
@@ -8,6 +9,8 @@ import {ROUTES} from '../../mock-routes';
 })
 export class HostButtonsComponent implements OnInit {
   routes = ROUTES;
+  hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
+
   constructor() {
   }
 
@@ -17,4 +20,7 @@ export class HostButtonsComponent implements OnInit {
 }
 
 // ToDO: In Template set button position automatically
+// ToDO: In Template das, was von allen button Typen geshared wird, in eine Klasse
+
+
 

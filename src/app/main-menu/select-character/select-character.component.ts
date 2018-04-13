@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Character } from '../../character';
-import { CHARACTERS} from '../../character-database';
+import {Component, OnInit} from '@angular/core';
+import {Character} from '../../character';
+import {CHARACTERS} from '../../character-database';
 
 @Component({
   selector: 'app-select-character',
@@ -14,8 +14,12 @@ export class SelectCharacterComponent implements OnInit {
   onSelect(character: Character): void {
     this.selectedCharacter = character;
   }
-  constructor() { }
+
+  constructor() {
+  }
+
   ngOnInit() {
   }
+
 
 }
