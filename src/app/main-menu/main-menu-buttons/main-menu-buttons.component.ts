@@ -17,7 +17,7 @@ export class MainMenuButtonsComponent implements OnInit {
   navigateTo(target: string) {
     this.changeButtonsRequest.emit(target);
     console.log(target + ' Button wurde geklickt');
-    console.log('changeButtonsRequest ' + target + ' von main-menu-buttons gesendet! (Empfänger:main-menu-button-board)');
+    console.log('Gesendet: changeButtonsRequest | von main-menu-buttons | Target:' + target + ' | Empfänger:main-menu-button-board');
   }
 
   ngOnInit() {

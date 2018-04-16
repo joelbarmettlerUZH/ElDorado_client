@@ -28,7 +28,7 @@
 /*top: 420px;*/
 /*}*/
 
-.smallButton {
+.readyButton {
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/BackToMenu.png');
@@ -43,11 +43,11 @@
   border-radius: 4px;
 }
 
-.smallButton:hover {
+.readyButton:hover {
   background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
 }
 
-.smallButton:disabled {
+.readyButton:disabled {
   background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
   cursor: auto;
 }

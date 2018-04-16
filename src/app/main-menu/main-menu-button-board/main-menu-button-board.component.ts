@@ -28,32 +28,35 @@ export class MainMenuButtonBoardComponent implements OnInit {
   }
 
   changeButtons(target: string) {
-    console.log('MainMenuButtonBoardComponent: changeButtonsRequest mit target, ' + target + ', erhalten!');
+    console.log('Erhalten: changeButtonsRequest | von Main-Menu-Button-Board | target: ' + target);
     // console.log('target: ' + target);
     this.menubuttonMenuButtons = false;
     this.myMap.forEach(key => this.myMap.set(String(key), false));
     this.myMap.set(target, true);
-    // console.log('this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
-    // console.log('this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
-    // console.log('this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
-    // console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
+    console.log('this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
+    console.log('this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
+    console.log('this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
+    console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
     this.homeButton = true;
-    // console.log('this.homeButton: ' + this.homeButton)
+    console.log('this.homeButton: ' + this.homeButton);
     this.navigationRequest.emit(target);
-    console.log('navigationRequest von main-menu-button-board gesendet! (Empfänger: main-menu)');
+    console.log('Gesendet: navigationRequest | von main-menu-button-board | Target:' + target + ' | Empfänger: main-menu');
+
   }
 
 
   navigateToMenu() {
     console.log('navigateToMenu clicked');
-    // this.myMap.forEach(key => this.myMap.set(String(key), false)); // does not work??
-    // this.myMap.set('menubutton-hostgame', false); // does not work??
+    this.myMap.forEach(key => this.myMap.set(String(key), false)); // does not work??
+    this.myMap.set('menubutton-hostgame', false); // does not work??
     this.menubuttonMenuButtons = true;
     this.homeButton = false;
-    console.log('this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
-    console.log('this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
-    console.log('this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
-    console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
-    console.log('this.homeButton: ' + this.homeButton);
+    console.log('Info: this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
+    console.log('Info: this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
+    console.log('Info: this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
+    console.log('Info: this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
+    console.log('Info: this.homeButton: ' + this.homeButton);
+    this.navigationRequest.emit('main-menu');
+    console.log('Gesendet: navigationRequest | von main-menu-button-board | Target: main-menu | Empfänger: main-menu');
   }
 }

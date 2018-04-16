@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Room} from './room';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class RoomService {
@@ -12,6 +12,7 @@ export class RoomService {
   constructor(private http: HttpClient) {
   }
 
+  /** POST: get all rooms from the server */
   getRooms(): Observable<any[]> {
     return this.http.get<any[]>(this.elDoradoUrl)
       .pipe(
@@ -19,24 +20,13 @@ export class RoomService {
       );
   }
 
-  //
-  // Other APIs may bury the data that you want within an object.
-  // You might have to dig that data out by processing the
-  // Observable result with the RxJS map operator.
-  // Although not discussed here, there's an example of map in this getHeroNo404() method:
-
-  // getHeroNo404<Data>(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/?id=${id}`;
-  //   return this.http.get<Hero[]>(url)
-  //     .pipe(
-  //       map(heroes => heroes[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} hero id=${id}`);
-  //       }),
-  //       catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //     );
-  // }
+  /** POST: add a new room to the server */
+  addRoom(room: Room): Observable<Room> {
+    return this.http.post<Room>(this.elDoradoUrl, room)
+      .pipe(
+        catchError(this.handleError<Room>('addRoom'))
+      );
+  }
 
   /** GET room by id. Will 404 if id not found */
   getRoom(id: number): Observable<Room> {
@@ -66,3 +56,7 @@ export class RoomService {
     };
   }
 }
+
+// ToDo move to shared
+
+
