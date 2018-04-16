@@ -10,24 +10,24 @@ import {CHARACTERS} from '../../character-database';
 export class SelectCharacterComponent implements OnInit {
 
   areClickable: boolean;
-  areGreyedOut: boolean;
-  isSelected: boolean;
+
   characters = CHARACTERS;
   selectedCharacter: Character;
 
-  onSelect(character: Character): void {
-    if (this.areClickable) {
-      this.selectedCharacter = character;
-    }
-  }
+  character1AlreadyAssigned: boolean;
+  character2AlreadyAssigned: boolean;
+  character3AlreadyAssigned: boolean;
+  character4AlreadyAssigned: boolean;
+  AlreadyAssigned;
 
   constructor() {
   }
 
-  ngOnInit() {
-    this.areClickable = false;
-    this.areGreyedOut = false;
-    this.isSelected = false;
+  onSelect(character: Character): void {
+    if (this.areClickable) {
+      this.selectedCharacter = character;
+      console.log(this.selectedCharacter.name + 'is selected.');
+    }
   }
 
   generateMainMenuView() {
@@ -37,25 +37,25 @@ export class SelectCharacterComponent implements OnInit {
   generateHostView() {
     this.restoreCharacterDefault();
     this.areClickable = true;
-    this.areGreyedOut = true;
     this.selectedCharacter = this.characters[0];
   }
 
   generateJoinView() {
     this.restoreCharacterDefault();
     this.areClickable = true;
-    this.areGreyedOut = true;
   }
 
   generateManualView() {
     this.restoreCharacterDefault();
   }
 
-  private restoreCharacterDefault() {
-    this.selectedCharacter = null;
+  ngOnInit() {
     this.areClickable = false;
-    this.areGreyedOut = false;
-    this.isSelected = false;
+    this.character1AlreadyAssigned = false;
+    this.character2AlreadyAssigned = false;
+    this.character3AlreadyAssigned = false;
+    this.character4AlreadyAssigned = false;
+    this.selectedCharacter = null;
   }
 
   // if(mainMenuScreen = 'menubutton-joingame') {
@@ -75,6 +75,16 @@ export class SelectCharacterComponent implements OnInit {
   //   this.areClickable = true;
   // }
 
+  private restoreCharacterDefault() {
+    this.areClickable = false;
+
+    this.character1AlreadyAssigned = false;
+    this.character2AlreadyAssigned = false;
+    this.character3AlreadyAssigned = false;
+    this.character4AlreadyAssigned = false;
+
+    this.selectedCharacter = null;
+  }
 }
 
 // ToDo source the HTML character unit out to the seperate component: character

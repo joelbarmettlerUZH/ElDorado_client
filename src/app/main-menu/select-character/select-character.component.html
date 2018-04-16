@@ -1,13 +1,12 @@
-<div *ngFor="let character of characters"
-     [class.selected]="character === selectedCharacter"
-     (click)="onSelect(character)">
-  <div class="characterUnit" id="{{character.id}}">
+<div *ngFor="let character of characters">
+
+  <div class="characterUnit" id="{{character.id}}" [class.selected]="character === selectedCharacter">
     <div class="readyTick"></div>
-    <div class="image" [class.canBeGrayedout]="areGreyedOut==true" [class.isNotSelected]="isSelected==true"
-         id="image{{character.id}}"></div>
+    <div class="image" id="image{{character.id}}" (click)="onSelect(character)"></div>
     <input class="nameBox" placeholder=character.name>
     <button class=readyButton id="homeButton">Ready</button>
   </div>
+
 </div>
 
 
