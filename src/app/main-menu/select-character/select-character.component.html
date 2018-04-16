@@ -3,7 +3,7 @@
   <div class="characterUnit" id="{{character.id}}" [class.selected]="character === selectedCharacter">
     <div class="readyTick"></div>
     <div class="image" id="image{{character.id}}" (click)="onSelect(character)"></div>
-    <input class="nameBox" placeholder=character.name>
+    <input class="nameBox" placeholder=character.name *ngIf="character === selectedCharacter">
     <button class=readyButton id="homeButton">Ready</button>
   </div>
 

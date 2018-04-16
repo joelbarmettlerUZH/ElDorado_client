@@ -18,7 +18,6 @@ export class SelectCharacterComponent implements OnInit {
   character2AlreadyAssigned: boolean;
   character3AlreadyAssigned: boolean;
   character4AlreadyAssigned: boolean;
-  AlreadyAssigned;
 
   constructor() {
   }
