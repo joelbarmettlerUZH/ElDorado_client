@@ -1,10 +1,12 @@
 <div *ngFor="let character of characters">
 
   <div class="characterUnit" id="{{character.id}}" [class.selected]="character === selectedCharacter">
-    <div class="readyTick"></div>
+    <div class="readyTick" *ngIf="character.ready"></div>
     <div class="image" id="image{{character.id}}" (click)="onSelect(character)"></div>
     <input class="nameBox" placeholder=character.name *ngIf="character === selectedCharacter">
-    <button class=readyButton id="homeButton">Ready</button>
+    <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
+      Ready
+    </button>
   </div>
 
 </div>

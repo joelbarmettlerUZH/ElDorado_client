@@ -14,19 +14,8 @@ export class SelectCharacterComponent implements OnInit {
   characters = CHARACTERS;
   selectedCharacter: Character;
 
-  character1AlreadyAssigned: boolean;
-  character2AlreadyAssigned: boolean;
-  character3AlreadyAssigned: boolean;
-  character4AlreadyAssigned: boolean;
 
   constructor() {
-  }
-
-  onSelect(character: Character): void {
-    if (this.areClickable) {
-      this.selectedCharacter = character;
-      console.log(this.selectedCharacter.name + 'is selected.');
-    }
   }
 
   generateMainMenuView() {
@@ -50,39 +39,29 @@ export class SelectCharacterComponent implements OnInit {
 
   ngOnInit() {
     this.areClickable = false;
-    this.character1AlreadyAssigned = false;
-    this.character2AlreadyAssigned = false;
-    this.character3AlreadyAssigned = false;
-    this.character4AlreadyAssigned = false;
     this.selectedCharacter = null;
   }
 
-  // if(mainMenuScreen = 'menubutton-joingame') {
-  //   this.areClickable = true;
-  //   console.log('this.areClickable should be true, is: ' + this.areClickable);
-  // }
-  //
-  // if(mainMenuScreen = 'main-menu') {
-  //   this.areClickable = false;
-  // }
-  //
-  // if(mainMenuScreen = 'menubutton-hostgame') {
-  //   this.areClickable = true;
-  // }
-  //
-  // if(mainMenuScreen = 'menubutton-manual') {
-  //   this.areClickable = true;
-  // }
+  onSelect(character: Character): void {
+    if (this.areClickable) {
+      if (this.selectedCharacter) {
+        this.selectedCharacter.ready = false;
+      }
+      this.selectedCharacter = character;
+      console.log(this.selectedCharacter.name + 'is selected.');
+    }
+  }
+
+  onReady(character: Character) {
+    character.ready = true;
+  }
 
   private restoreCharacterDefault() {
     this.areClickable = false;
-
-    this.character1AlreadyAssigned = false;
-    this.character2AlreadyAssigned = false;
-    this.character3AlreadyAssigned = false;
-    this.character4AlreadyAssigned = false;
-
     this.selectedCharacter = null;
+    for (const character of this.characters) {
+      character.ready = false;
+    }
   }
 }
 
