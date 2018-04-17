@@ -29,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import {RoomService} from './room.service';
+import {PlayerService} from "./player.service";
 import {HttpClientModule} from '@angular/common/http';
 import { HostComponent } from './host/host.component';
 import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
@@ -71,7 +72,7 @@ import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-men
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthenticationService, AuthGuardService, UserService, RoomService],
+  providers: [AuthenticationService, AuthGuardService, UserService, RoomService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

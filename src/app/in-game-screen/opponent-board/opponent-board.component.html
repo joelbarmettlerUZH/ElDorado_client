@@ -1,5 +1,7 @@
 <div id="opponent-board">
-  <div *ngFor="let character of characters">
-    <div class="Board" id="{{character.id}}"></div>
+  <div *ngFor="let player of players">
+    <div class="Board" id="o{{player.playerId}}">
+      <img src="../../../assets/GUI_Game/Opponent_{{player.playerId}}.png">
+    </div>
   </div>
 </div>
