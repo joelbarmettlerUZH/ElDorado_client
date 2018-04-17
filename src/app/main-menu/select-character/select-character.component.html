@@ -2,8 +2,9 @@
 
   <div class="characterUnit" id="{{character.id}}" [class.selected]="character === selectedCharacter">
     <div class="readyTick" *ngIf="character.ready"></div>
-    <div class="image" id="image{{character.id}}" (click)="onSelect(character)"></div>
-    <input class="nameBox" placeholder=character.name *ngIf="character === selectedCharacter">
+    <div class="image" id="image{{character.id}}" [class.grayedoutPossible]="areClickable === true"
+         [class.grayedout]="character.assigned === false" (click)="onSelect(character)"></div>
+    <input class="nameBox" placeholder={{character.name}} *ngIf="character === selectedCharacter">
     <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
       Ready
     </button>

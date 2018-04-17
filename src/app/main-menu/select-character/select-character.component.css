@@ -29,7 +29,6 @@
   /*background-color: #bce8f1;*/
 }
 
-
 .readyTick {
   position: absolute;
   background-size: cover;
@@ -39,7 +38,6 @@
   width: 45px;
   height: 45px;
 }
-
 
 .readyButton {
   position: absolute;
@@ -56,15 +54,23 @@
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
+  text-decoration: none;
+}
+
+.readyButton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+}
+
+.readyButton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
 }
 
 .readyButton:hover {
   background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
 }
 
-.readyButton:disabled {
+.readyButton:active {
   background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
-  cursor: auto;
 }
 
 
@@ -79,6 +85,13 @@
   font-size: 20px;
   font-weight: normal;
   text-align: center;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  opacity: 1; /* Firefox */
 }
 
 .image {
@@ -112,17 +125,13 @@
   right: 0;
 }
 
-.selected {
-  background-color: #CFD8DC !important;
-  color: white;
-}
-
 .isNotSelected {
   opacity: 0.4; /* Real browsers */
   filter: alpha(opacity=60); /* MSIE */
 }
 
-.canBeGrayedout {
+.grayedoutPossible.grayedout {
   opacity: 0.4; /* Real browsers */
   filter: alpha(opacity=60); /* MSIE */
 }
+

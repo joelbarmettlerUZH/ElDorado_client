@@ -5,7 +5,7 @@
   <input class=subbutton id="roomName" (ngModel)="room.name" placeholder="BesterRoomNameEver"/>
 
   <div *ngFor="let route of routes">
-    <button class=subbutton id="{{route.name}}">{{route.name}}</button>
+    <button class=subbutton id="{{route.name}}" (click)="onRouteSelected(route)">{{route.name}}</button>
   </div>
 
 </div>

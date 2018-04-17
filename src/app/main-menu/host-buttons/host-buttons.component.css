@@ -43,13 +43,20 @@
   border-radius: 4px;
 }
 
+.subbutton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+.subbutton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
 .subbutton:hover {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
 }
 
-.subbutton:disabled {
+.subbutton:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
-  cursor: auto;
 }
 
 #menubutton-hostgame {
@@ -85,4 +92,11 @@ input {
   font-size: 1em;
   padding-left: .4em;
   text-decoration-color: red;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  opacity: 1; /* Firefox */
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTES} from '../../mock-routes';
 import {MAINMENUBUTTONS} from '../../button-database';
+import {Route} from '../../route';
 
 @Component({
   selector: 'app-host-buttons',
@@ -17,6 +18,8 @@ export class HostButtonsComponent implements OnInit {
   ngOnInit() {
   }
 
+  onRouteSelected(route: Route) {
+  }
 }
 
 // ToDO: In Template set button position automatically by TS

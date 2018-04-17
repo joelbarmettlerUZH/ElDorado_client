@@ -8,13 +8,13 @@ import {catchError} from 'rxjs/operators';
 @Injectable()
 export class RoomService {
 
-  private elDoradoUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/Room';  // URL to web api
+  private apiUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/Room';  // URL to web api
   constructor(private http: HttpClient) {
   }
 
   /** POST: get all rooms from the server */
   getRooms(): Observable<any[]> {
-    return this.http.get<any[]>(this.elDoradoUrl)
+    return this.http.get<any[]>(this.apiUrl)
       .pipe(
         catchError(this.handleError('getRooms', []))
       );
@@ -22,7 +22,7 @@ export class RoomService {
 
   /** POST: add a new room to the server */
   addRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(this.elDoradoUrl, room)
+    return this.http.post<Room>(this.apiUrl, room)
       .pipe(
         catchError(this.handleError<Room>('addRoom'))
       );
@@ -30,7 +30,7 @@ export class RoomService {
 
   /** GET room by id. Will 404 if id not found */
   getRoom(id: number): Observable<Room> {
-    const url = `${this.elDoradoUrl}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<Room>(url).pipe(
       catchError(this.handleError<Room>(`getRoom id=${id}`))
     );

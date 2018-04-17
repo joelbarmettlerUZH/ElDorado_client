@@ -14,7 +14,7 @@ import {SelectCharacterComponent} from './select-character/select-character.comp
 export class MainMenuComponent implements OnInit {
   @Output() changeCharacterRequest = new EventEmitter<string>();
   mainMenuScreen: string;
-  rooms: Room[];
+  rooms: any[] = [];
   myself: User = new User();
   // ToDO get myself from DB
   defaultRoom: Room = new Room();
@@ -43,7 +43,7 @@ export class MainMenuComponent implements OnInit {
     }
 
     if (this.mainMenuScreen === 'menubutton-hostgame') {
-      this.myself.userID = -100;
+      this.myself.userID = 1;
       this.myself.name = 'MyName';
       this.myself.character = 1;
       this.myself.ready = false;
@@ -72,16 +72,24 @@ export class MainMenuComponent implements OnInit {
   }
 
   private hostGame(defaultRoom) {
-    console.log('REST: room added');
-    this.roomService.addRoom(this.defaultRoom)
-      .subscribe(room => {
-        this.rooms.push(room);
-      });
+    // console.log('REST: room added');
+    // this.roomService.addRoom(this.defaultRoom)
+    //   .subscribe(room => {
+    //     this.rooms.push(room);
+    //   });
+
+
     this.childCharacter.generateHostView();
   }
 
   private joinGame() {
     this.childCharacter.generateJoinView();
+    console.log('REST: rooms got');
+    this.roomService.getRooms()
+      .subscribe(rooms => {
+        this.rooms = rooms;
+        console.log(this.rooms[0]);
+      });
 
   }
 

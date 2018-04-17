@@ -46,14 +46,17 @@ export class SelectCharacterComponent implements OnInit {
     if (this.areClickable) {
       if (this.selectedCharacter) {
         this.selectedCharacter.ready = false;
+        this.selectedCharacter.assigned = false;
       }
       this.selectedCharacter = character;
       console.log(this.selectedCharacter.name + 'is selected.');
+      character.assigned = true;
     }
   }
 
   onReady(character: Character) {
     character.ready = true;
+
   }
 
   private restoreCharacterDefault() {
@@ -61,6 +64,7 @@ export class SelectCharacterComponent implements OnInit {
     this.selectedCharacter = null;
     for (const character of this.characters) {
       character.ready = false;
+      character.assigned = false;
     }
   }
 }

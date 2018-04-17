@@ -7,8 +7,11 @@
     <app-main-menu-buttons (changeButtonsRequest)="changeButtons($event)"></app-main-menu-buttons>
   </div>
 
-
   <div class='button-area' *ngIf="myMap.get('menubutton-hostgame')">
+    <app-host-buttons></app-host-buttons>
+  </div>
+
+  <div class='button-area' *ngIf="myMap.get('menubutton-joingame')">
     <app-host-buttons></app-host-buttons>
   </div>
 
