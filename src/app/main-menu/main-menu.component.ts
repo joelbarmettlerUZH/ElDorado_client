@@ -21,6 +21,8 @@ export class MainMenuComponent implements OnInit {
 
   @ViewChild('childCharacter')
   private childCharacter: SelectCharacterComponent;
+  roomID: string;
+  private roomIDURI: string;
 
   constructor(
     private roomService: RoomService,
@@ -48,10 +50,10 @@ export class MainMenuComponent implements OnInit {
       this.myself.character = 1;
       this.myself.ready = false;
 
-      this.defaultRoom.id = -100;
-      this.defaultRoom.name = 'BesterRoomNameEver';
+      this.defaultRoom.id = 10;
+      this.defaultRoom.name = 'BesterRoomNameEver11';
       this.defaultRoom.users = [this.myself];
-      this.defaultRoom.boardnumber = 1;
+      this.defaultRoom.boardnumber = 2;
 
       this.hostGame(this.defaultRoom);
     }
@@ -72,13 +74,14 @@ export class MainMenuComponent implements OnInit {
   }
 
   private hostGame(defaultRoom) {
-    console.log('REST: room added');
-    this.roomService.addRoom(this.defaultRoom)
-      .subscribe(room => {
-        this.rooms.push(room);
+    console.log('REST: room created');
+    this.roomService.createRoom(this.defaultRoom.name, this.defaultRoom.boardnumber)
+      .subscribe(roomURL => {
+        this.roomIDURI = roomURL;
+        console.log(this.roomIDURI);
+        // this.roomID = roomURL.split('/').slice(-1)[0] ;
+        // console.log(this.roomID);
       });
-
-
     this.childCharacter.generateHostView();
   }
 
@@ -90,7 +93,6 @@ export class MainMenuComponent implements OnInit {
         this.rooms = rooms;
         console.log(this.rooms[0]);
       });
-
   }
 
   private consultManual() {

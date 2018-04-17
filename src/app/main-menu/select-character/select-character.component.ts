@@ -10,7 +10,6 @@ import {CHARACTERS} from '../../character-database';
 export class SelectCharacterComponent implements OnInit {
 
   areClickable: boolean;
-
   characters = CHARACTERS;
   selectedCharacter: Character;
 

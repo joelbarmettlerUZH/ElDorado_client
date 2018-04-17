@@ -47,15 +47,17 @@ export class MainMenuButtonBoardComponent implements OnInit {
 
   navigateToMenu() {
     console.log('navigateToMenu clicked');
-    this.myMap.forEach(key => this.myMap.set(String(key), false)); // does not work??
-    this.myMap.set('menubutton-hostgame', false); // does not work??
+    this.myMap.forEach(key => {
+      this.myMap.set(String(key), false);
+      console.log('Info: this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
+      console.log('Info: this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
+      console.log('Info: this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
+      console.log('Info: this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
+      console.log('Info: this.homeButton: ' + this.homeButton);
+    });
+    this.myMap.set('menubutton-hostgame', false);
     this.menubuttonMenuButtons = true;
     this.homeButton = false;
-    console.log('Info: this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
-    console.log('Info: this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
-    console.log('Info: this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
-    console.log('Info: this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
-    console.log('Info: this.homeButton: ' + this.homeButton);
     this.navigationRequest.emit('main-menu');
     console.log('Gesendet: navigationRequest | von main-menu-button-board | Target: main-menu | Empfänger: main-menu');
   }

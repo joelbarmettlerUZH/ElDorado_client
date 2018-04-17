@@ -36,6 +36,7 @@ import {MainMenuButtonsComponent} from './main-menu/main-menu-buttons/main-menu-
 import {RoomService} from './room.service';
 import {UserService} from './user.service';
 import {CharacterComponent} from './main-menu/character/character.component';
+import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {CharacterComponent} from './main-menu/character/character.component';
     HostButtonsComponent,
     MainMenuButtonsComponent,
     CharacterComponent,
+    JoinButtonsComponent,
   ],
   imports: [
     BrowserModule,

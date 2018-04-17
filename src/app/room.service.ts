@@ -21,10 +21,10 @@ export class RoomService {
   }
 
   /** POST: add a new room to the server */
-  addRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(this.apiUrl, room)
+  createRoom(name: string, boardnumber: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl, {name: name, boardnumber: boardnumber})
       .pipe(
-        catchError(this.handleError<Room>('addRoom'))
+        catchError(this.handleError<any>('createRoom'))
       );
   }
 
@@ -46,7 +46,7 @@ export class RoomService {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
       // this.log(`${operation} failed: ${error.message}`);
