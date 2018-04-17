@@ -1,5 +1,5 @@
 export class Character {
-  id: number;
+  id: string;
   name: string;
   image: string;
   assigned: boolean;

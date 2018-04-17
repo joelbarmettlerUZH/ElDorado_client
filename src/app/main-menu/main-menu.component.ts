@@ -72,11 +72,11 @@ export class MainMenuComponent implements OnInit {
   }
 
   private hostGame(defaultRoom) {
-    // console.log('REST: room added');
-    // this.roomService.addRoom(this.defaultRoom)
-    //   .subscribe(room => {
-    //     this.rooms.push(room);
-    //   });
+    console.log('REST: room added');
+    this.roomService.addRoom(this.defaultRoom)
+      .subscribe(room => {
+        this.rooms.push(room);
+      });
 
 
     this.childCharacter.generateHostView();
