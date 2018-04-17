@@ -17,7 +17,6 @@ import { OpponentBoardComponent } from './in-game-screen/opponent-board/opponent
 import { PlayerBoardComponent } from './in-game-screen/player-board/player-board.component';
 import { SettingsBoardComponent } from './in-game-screen/settings-board/settings-board.component';
 import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.component';
-import { MapComponent } from './in-game-screen/map/map.component';
 import { CardBoardComponent } from './in-game-screen/card-board/card-board.component';
 import { CardSlotComponent } from './in-game-screen/card-slot/card-slot.component';
 import { ButtonBoardComponent } from './in-game-screen/button-board/button-board.component';
@@ -34,6 +33,9 @@ import { HostComponent } from './host/host.component';
 import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
 import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.component';
 import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-menu-buttons.component';
+import { BoardComponent } from './in-game-screen/map/board/board.component';
+import { HexSpaceComponent } from './in-game-screen/map/hex-space/hex-space.component';
+import {BoardService} from './board.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,6 @@ import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-men
     PlayerBoardComponent,
     SettingsBoardComponent,
     MarketplaceComponent,
-    MapComponent,
     CardBoardComponent,
     CardSlotComponent,
     ButtonBoardComponent,
@@ -63,6 +64,8 @@ import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-men
     MainMenuButtonBoardComponent,
     HostButtonsComponent,
     MainMenuButtonsComponent,
+    BoardComponent,
+    HexSpaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,7 @@ import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-men
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthenticationService, AuthGuardService, UserService, RoomService],
+  providers: [AuthenticationService, AuthGuardService, UserService, RoomService, BoardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
