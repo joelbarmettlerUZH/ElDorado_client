@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Character } from '../../character';
 import { CHARACTERS } from '../../character-database';
+import { PlayerService } from '../../player.service';
 
 @Component({
   selector: 'app-opponent-board',
@@ -9,9 +10,19 @@ import { CHARACTERS } from '../../character-database';
 })
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
-  constructor() { }
+  players: any[];
+
+  constructor(private playerService: PlayerService) {}
 
   ngOnInit() {
+    this.getPlayers();
+    console.log(this.players)
+  }
+
+  getPlayers(): void {
+    this.playerService.getPlayers()
+      .subscribe(players => this.players = players);
+
   }
 
 }

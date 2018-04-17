@@ -1,4 +1,4 @@
-import {Character} from './Character';
+import { Character } from './Character';
 
 export const CHARACTERS: Character[] = [
   {id: 'character1', name: 'Jasmin', image: '../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png', assigned: false, ready: false},
