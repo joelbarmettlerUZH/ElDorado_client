@@ -18,15 +18,17 @@
   top: 350px;
 }
 
-/*.button-area2 {*/
-/*background-size: cover;*/
-/*background-color: red;*/
-/*width: 245px;*/
-/*height: 330px;*/
-/*position: absolute;*/
-/*left: 90px;*/
-/*top: 420px;*/
-/*}*/
+.button-area2 {
+  background-size: cover;
+  pointer-events: none;
+  /*background-color: #5bc0de;*/
+  width: 245px;
+  height: 350px;
+  position: absolute;
+  left: 90px;
+  top: 350px;
+}
+
 
 .readyButton {
   background-size: cover;
