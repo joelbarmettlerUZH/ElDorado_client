@@ -1,21 +1,16 @@
-<html>
-<head>
-  <title>Gameboard</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <script src="http://timmywil.github.io/jquery.panzoom/test/libs/jquery.js"></script>
-  <script src="http://timmywil.github.io/jquery.panzoom/dist/jquery.panzoom.js"></script>
-  <script src="http://timmywil.github.io/jquery.panzoom/test/libs/jquery.mousewheel.js"></script>
-</head>
-<body>
+<p>
+  dkjlajflkjasklfjlksajfkljasjdsskjfc
+</p>
 <div class="board">
   <div class="parent">
     <div class="panzoom">
       <ul id="hexGrid">
         <!--<app-hex-space *ngFor="let color of colors" id=""></app-hex-space>-->
         <li class="hex" *ngFor="let color of hexspace">
+          testos di matrificos hexspaceros
           <div class="hexIn">
             <a class="hexLink" href="#">
-              <img src="./../../../../assets/GUI_HexSpaces/HS_"+color+"_1.jpg"/>
+              <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_1.jpg"/>
             </a>
           </div>
         </li>
@@ -23,5 +18,4 @@
     </div>
   </div>
 </div>
-</body>
-</html>
+
