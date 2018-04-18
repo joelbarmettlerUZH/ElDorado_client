@@ -9,7 +9,7 @@
 
 .hex {
   position: relative;
-  /*visibility:hidden;*/
+  visibility:hidden;
   outline: 2px solid transparent;
   /* 100 / number-of-rows-in-X-direction */
 }
@@ -31,7 +31,7 @@
   transform: rotate3d(0,0,1,-60deg) skewY(30deg);
 }
 
-.hexIn * {
+.hexIn* {
   position: absolute;
   visibility: visible;
 }
@@ -46,7 +46,7 @@
   transform: skewY(-30deg) rotate3d(0,0,1,60deg);
 }
 
-.hex img {
+.hexImg {
   left: -100%;
   right: -100%;
   width: auto;

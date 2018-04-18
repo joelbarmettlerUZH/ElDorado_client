@@ -1,10 +1,10 @@
 <div *ngIf="(index % (xDim * 2) < xDim)" class="hexIn">
   <a class="hexLink">
-    <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_{{strength}}.PNG"/>
+    <img class="hexImg" src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_{{strength}}.PNG"/>
   </a>
 </div>
 <div *ngIf="(index % (xDim * 2) >= xDim)" [ngStyle]="{'margin-left' : '50%'}" class="hexIn">
   <a class="hexLink">
-    <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_{{strength}}.PNG"/>
+    <img class="hexImg" src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_{{strength}}.PNG"/>
   </a>
 </div>

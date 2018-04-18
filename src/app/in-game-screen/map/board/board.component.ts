@@ -35,7 +35,7 @@ export class BoardComponent implements OnInit {
     this.xWidth = (100 / this.xDim);
     this.xWidth = Math.round(((100 - this.xWidth / 2) / this.xDim) * 100) / 100;
     // introduce shifting of every second row ao achieve honeycomb pattern
-    this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
+    // this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
     // this.hexspace = this.generateBoard(this.xDim, this.yDim);
     // init panZoom to make board draggable and zoomable
     this.panZoom();
