@@ -1,24 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AuthenticationService} from './authentication.service';
-import {User} from '../models/user';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserService {
-  private apiUrl: string;
 
-  constructor(private http: HttpClient,
-              private authenticationService: AuthenticationService) {
+  constructor() { }
 
-    this.apiUrl = 'https://sopra-fs18-group17.herokuapp.com/';
-  }
-
-  getUsers(): Observable<User[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Bearer ' + this.authenticationService.token})
-    };
-    // get users from api
-    return this.http.get<User[]>(this.apiUrl + '/users', httpOptions);
-  }
 }

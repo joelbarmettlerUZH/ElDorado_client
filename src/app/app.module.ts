@@ -27,7 +27,7 @@ import { MarketreserveComponent } from './in-game-screen/marketreserve/marketres
 import { AppRoutingModule } from './app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
-import {RoomService} from './room.service';
+import {RoomService} from './shared/services/room.service';
 import {HttpClientModule} from '@angular/common/http';
 import { HostComponent } from './host/host.component';
 import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
@@ -35,7 +35,7 @@ import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.comp
 import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-menu-buttons.component';
 import { BoardComponent } from './in-game-screen/map/board/board.component';
 import { HexSpaceComponent } from './in-game-screen/map/hex-space/hex-space.component';
-import {BoardService} from './board.service';
+import {BoardService} from './shared/services/board.service';
 
 @NgModule({
   declarations: [

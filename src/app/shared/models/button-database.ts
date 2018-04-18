@@ -1,4 +1,4 @@
-import {Button} from './Button';
+import {Button} from './button';
 
 export const MAINMENUBUTTONS: Button[] = [
   { id: 'menubutton-hostgame', name: 'Host Game'},

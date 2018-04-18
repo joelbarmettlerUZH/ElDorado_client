@@ -1,4 +1,4 @@
-import {User} from './User';
+import {User} from './Usernew';
 
 export class Room {
   id: number;

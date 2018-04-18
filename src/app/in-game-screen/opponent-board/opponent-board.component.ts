@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Character } from '../../character';
-import { CHARACTERS } from '../../character-database';
+import { Character } from '../../shared/models/character';
+import { CHARACTERS } from '../../shared/models/character-database';
 
 @Component({
   selector: 'app-opponent-board',

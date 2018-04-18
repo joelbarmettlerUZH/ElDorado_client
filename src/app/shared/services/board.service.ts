@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
-import {Board} from './board';
+import {Board} from '../models/board';
 import {Response} from '@angular/http';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ROUTES} from '../../mock-routes';
-import {MAINMENUBUTTONS} from '../../button-database';
+import {ROUTES} from '../../shared/models/mock-routes';
+import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 
 @Component({
   selector: 'app-host-buttons',

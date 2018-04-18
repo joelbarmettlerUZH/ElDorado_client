@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import { Button } from '../../button';
-import { MAINMENUBUTTONS } from '../../button-database';
+import { Button } from '../../shared/models/button';
+import { MAINMENUBUTTONS } from '../../shared/models/button-database';
 import { Http, Response, URLSearchParams } from '@angular/http';
 import {HttpClient} from '@angular/common/http';
 
