@@ -35,7 +35,8 @@ import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-men
 import { BoardComponent } from './in-game-screen/map/board/board.component';
 import { HexspaceComponent } from './in-game-screen/map/hexspace/hexspace.component';
 import { BoardService} from './shared/services/board.service';
-import { ScripthackComponent } from './in-game-screen/map/board/scripthack/scripthack.component';
+import { HttpModule, JsonpModule} from '@angular/http';
+
 
 
 @NgModule({
@@ -67,14 +68,15 @@ import { ScripthackComponent } from './in-game-screen/map/board/scripthack/scrip
     MainMenuButtonsComponent,
     BoardComponent,
     HexspaceComponent,
-    ScripthackComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     // routing,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule,
+    JsonpModule
   ],
   providers: [AuthenticationService, AuthGuardService, RoomService, BoardService],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 import {Point} from './point';
 
 export class Hexspace {
-  strength: number;
-  minimalCost: number;
-  minimalDepth: number;
-  color: string;
-  point: Point;
-  previous: Hexspace[];
+  public strength: number;
+  public minimalCost: number;
+  public minimalDepth: number;
+  public color: string;
+  public point: Point;
+  public previous: Hexspace[];
 }

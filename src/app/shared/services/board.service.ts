@@ -4,35 +4,35 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
 import {Board} from '../models/board';
-import {Response} from '@angular/http';
+import {Http, Response} from '@angular/http';
+import {Hexspace} from '../models/hexSpace';
 
 @Injectable()
 export class BoardService {
 
   private boardUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/Game/3/Board';  // URL to web api
-  xDim: number;
-  constructor(private http: HttpClient) {
-  }
-  /*
-  getHexagons(): Observable<any[]> {
-    return this.http.get<any[]>(this.boardUrl)
-      .pipe(
-        catchError(this.handleError('getBoard', []))
-      );
-  }*/
 
-  /*
-  getBoard(): number {
-    this.http.get(this.boardUrl, {responseType: 'json'}).subscribe(res => {this.xDim = res['xDim'];
-      }
-    );
-    return this.xDim;
-  }
-  */
-  getBoard(): Observable<any> {
-    return this.http.get<Board>(this.boardUrl);
+  // Important use Http (HttpModule) NOT HttpClient
+  constructor(private http: Http) {
   }
 
+  // get x Dimension of the board Matrix
+  async getxDim(): Promise<number> {
+    const response = await this.http.get(this.boardUrl).toPromise();
+    return response.json().xdim;
+  }
+
+  // get y Dimension of the board Matrix
+  async getyDim(): Promise<number> {
+    const response = await this.http.get(this.boardUrl).toPromise();
+    return response.json().ydim;
+  }
+
+  // get HexSpace Array of the board Matrix
+  async getHexagons(): Promise<Hexspace[]> {
+    const response = await this.http.get(this.boardUrl).toPromise();
+    return response.json().matrixArray;
+  }
 
   /**
    * Handle Http operation that failed.
