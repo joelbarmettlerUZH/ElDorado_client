@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../shared/services/user.service';
-import {User} from '../shared/models/Usernew';
+import {User} from '../shared/models/User';
 
 @Component({
   selector: 'app-game',
