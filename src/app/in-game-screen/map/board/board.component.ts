@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
 import {BoardService} from '../../../shared/services/board.service';
+import {by} from 'protractor';
 
 
 @Component({
@@ -16,10 +17,10 @@ export class BoardComponent implements OnInit {
   public board: Board;
   private num: number;
   public colors: string[];
-  private xDim: number;
-  private yDim: number;
-  private xWidth: number;
-  private xOffset: number;
+  public xDim: number;
+  public yDim: number;
+  public xWidth: number;
+  public xOffset: number;
 
   // xDim: Observable<number>;
 
@@ -29,17 +30,19 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     console.log('pre tutti complexo stuffo');
-    const x = 17;
-    const y = 10;
+    this.xDim = 17;
+    this.yDim = 8;
     this.colors = ['basecamp', 'grass', 'mountain', 'river', 'rubble', 'sand'];
-    this.xWidth = (100 / x);
-    this.xWidth = ((100 - this.xWidth / 2) / x);
-    this.xOffset = (this.xWidth / 2);
+    this.xWidth = (100 / this.xDim);
+    this.xWidth = Math.round(((100 - this.xWidth / 2) / this.xDim) * 100 ) / 100;
+    this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
     console.log(this.colors[2]);
-    this.hexspace = this.generateBoard(x, y);
+    this.hexspace = this.generateBoard(this.xDim, this.yDim);
     console.log('hexspace length: ' + this.hexspace.length)
-    this.createCSSSelector('.xOffset', 'margin-left: ' + this.xOffset.toString() + '%;');
-    this.choseOffsets(x);
+    this.panZoom();
+    // this.createCSSSelector('.xOffset', 'margin-left: ' + this.xOffset.toString() + '%;');
+    // this.choseOffsets(x);
+
     console.log('pre tutti complexo stuffo');
     // let hexagons = this.boardService.getHexagons();
     // this.xDim = this.boardService.getBoard();
@@ -64,24 +67,6 @@ export class BoardComponent implements OnInit {
 // createCSSSelector(".xOffset", "margin-left: "+xOffset.toString()+"%;")
 // choseOffsets(x);
 
-
-  choseOffsets(x: number) {
-    console.log('Chosing offset now: ');
-    let hexSpaces: NodeListOf<Element> = document.getElementsByClassName('hex');
-    for (let i = 0; i < hexSpaces.length; i++) {
-      console.log(this.xWidth.toString() + '%');
-      let current: HTMLElement = hexSpaces[i] as HTMLElement;
-      current.style.width = this.xWidth.toString() + '%';
-      console.log(i);
-      if ((i % ((x * 2))) - x == 0) {
-        console.log('found one ' + i);
-        hexSpaces[i].className += ' xOffset';
-      }
-    }
-  }
-
-
-
   generateBoard(x, y): string[] {
     console.log('Generating board');
     let arr: string[] = new Array();
@@ -97,72 +82,19 @@ export class BoardComponent implements OnInit {
     return arr;
   }
 
-
-  createCSSSelector(selector, style) {
-    console.log('Generate CSS');
-    if (!document.styleSheets) return;
-    if (document.getElementsByTagName('head').length == 0) return;
-
-    let styleSheet, mediaType;
-
-    if (document.styleSheets.length > 0) {
-      for (let i = 0, l = document.styleSheets.length; i < l; i++) {
-        if (document.styleSheets[i].disabled) {
-          continue;
-        }
-        let media: MediaList = document.styleSheets[i].media;
-        mediaType = typeof media;
-
-        if (mediaType === 'string') {
-          if (media.length == 0) { // || (media.('screen') !== -1)) {
-            styleSheet = document.styleSheets[i];
-          }
-        }
-        else if (mediaType == 'object') {
-          if (media.mediaText === '' || (media.mediaText.indexOf('screen') !== -1)) {
-            styleSheet = document.styleSheets[i];
-          }
-        }
-
-        if (typeof styleSheet !== 'undefined')
-          break;
-      }
-    }
-
-    if (typeof styleSheet === 'undefined') {
-      let styleSheetElement = document.createElement('style');
-      styleSheetElement.type = 'text/css';
-      document.getElementsByTagName('head')[0].appendChild(styleSheetElement);
-
-      for (let i = 0; i < document.styleSheets.length; i++) {
-        if (document.styleSheets[i].disabled) {
-          continue;
-        }
-        styleSheet = document.styleSheets[i];
-      }
-
-      mediaType = typeof styleSheet.media;
-    }
-
-    if (mediaType === 'string') {
-      let l = styleSheet.rules.length;
-      for (let i = 0; i < l; i++) {
-        if (styleSheet.rules[i].selectorText && styleSheet.rules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
-          styleSheet.rules[i].style.cssText = style;
-          return;
-        }
-      }
-      styleSheet.addRule(selector, style);
-    } else if (mediaType === 'object') {
-      let styleSheetLength = (styleSheet.cssRules) ? styleSheet.cssRules.length : 0;
-      for (let i = 0; i < styleSheetLength; i++) {
-        if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
-          styleSheet.cssRules[i].style.cssText = style;
-          return;
-        }
-      }
-      styleSheet.insertRule(selector + '{' + style + '}', styleSheetLength);
-    }
+  panZoom(){
+      var $section = $('#board');
+      var $panzoom = $section.find('.panzoom').panzoom();
+      $panzoom.parent().on('mousewheel.focal', function( e ) {
+        e.preventDefault();
+        var delta = e.delta || e.originalEvent.wheelDelta;
+        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+        $panzoom.panzoom('zoom', zoomOut, {
+          increment: 0.1,
+          animate: false,
+          focal: e
+        });
+      });
   }
 
 }

@@ -1,15 +1,16 @@
-<p>
-  dkjlajflkjasklfjlksajfkljasjdsskjfc
-</p>
-<div class="board">
+<section id="board">
   <div class="parent">
     <div class="panzoom">
       <ul id="hexGrid">
         <!--<app-hex-space *ngFor="let color of colors" id=""></app-hex-space>-->
-        <li class="hex" *ngFor="let color of hexspace">
-          testos di matrificos hexspaceros
-          <div class="hexIn">
-            <a class="hexLink" href="#">
+        <li [ngStyle]="{'width' : xWidth + '10%'}" class="hex" *ngFor="let color of hexspace; let i = index;">
+          <div *ngIf="(i % (xDim * 2) < xDim)" class="hexIn">
+            <a class="hexLink">
+              <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_1.jpg"/>
+            </a>
+          </div>
+          <div *ngIf="(i % (xDim * 2) >= xDim)" [ngStyle]="{'margin-left' : '50%'}" class="hexIn">
+            <a class="hexLink">
               <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_1.jpg"/>
             </a>
           </div>
@@ -17,5 +18,5 @@
       </ul>
     </div>
   </div>
-</div>
+</section>
 

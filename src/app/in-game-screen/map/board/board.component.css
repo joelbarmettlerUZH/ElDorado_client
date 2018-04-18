@@ -12,7 +12,6 @@
   visibility:hidden;
   outline: 2px solid transparent;
   /* 100 / number-of-rows-in-X-direction */
-  width: 0%;
 }
 
 .hex::after{
