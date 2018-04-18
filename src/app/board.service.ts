@@ -1,8 +1,10 @@
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
+import {Board} from './board';
+import {Response} from '@angular/http';
 
 @Injectable()
 export class BoardService {
@@ -11,13 +13,13 @@ export class BoardService {
   xDim: number;
   constructor(private http: HttpClient) {
   }
-
+  /*
   getHexagons(): Observable<any[]> {
     return this.http.get<any[]>(this.boardUrl)
       .pipe(
         catchError(this.handleError('getBoard', []))
       );
-  }
+  }*/
 
   /*
   getBoard(): number {
@@ -27,10 +29,10 @@ export class BoardService {
     return this.xDim;
   }
   */
-  getBoard(): Observable<any[]> {
-    return this.http.get<any>(this.boardUrl)
-      .pipe(catchError(this.handleError()));
+  getBoard(): Observable<any> {
+    return this.http.get<Board>(this.boardUrl);
   }
+
 
   /**
    * Handle Http operation that failed.

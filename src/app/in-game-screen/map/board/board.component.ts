@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../../board.service';
 import {Observable} from 'rxjs/Observable';
+import {Board} from '../../../board';
 
 @Component({
   selector: 'app-board',
@@ -9,10 +10,10 @@ import {Observable} from 'rxjs/Observable';
 })
 export class BoardComponent implements OnInit {
   hexagons: any[];
-  public board: any;
+  public board: Board;
+  private num: number;
   // xDim: Observable<number>;
-  dimen: any[] = [];
-  private dimension: any[];
+
 
   constructor(private boardService: BoardService) {
   }
@@ -26,12 +27,12 @@ export class BoardComponent implements OnInit {
     xWidth = ((100 - xWidth / 2) / x);
     const xOffset = (xWidth / 2);
     // this.xDim = this.boardService.getBoard();
-    this.boardService.getBoard()
-      .subscribe(dim => {
-          this.dimen = dim;
-          this.dimension = this.dimen.filter(a => a.key === 'xdim');
-        console.log('dimx: ' + this.dimension[0]);
-        });
+    // this.board = this.boardService.getBoard();
+    // console.log('testetsttes:',  );
+    this.boardService.getBoard().subscribe(xdd => console.log('dkjafhlajkhflakjh:', xdd));
+    this.boardService.getBoard().subscribe(json => console.log(json.xdim));
+    this.boardService.getBoard().subscribe(num => this.num = num.xdim.valueOf());
+    setTimeout( () => { console.log('djkhfskjjhjjjjj:', this.num); }, 2000 );
   }
 
   // this.boardService.getBoard().subscribe(data => this.board = {xdim: data['xDim']});
