@@ -7,7 +7,7 @@ import {RoomDetailComponent} from './room-detail/room-detail.component';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {GameComponent} from './game/game.component';
 import {BoardComponent} from './in-game-screen/map/board/board.component';
-import {HexSpaceComponent} from './in-game-screen/map/hex-space/hex-space.component';
+import {HexspaceComponent} from './in-game-screen/map/hexspace/hexspace.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-menu', pathMatch: 'full'},
