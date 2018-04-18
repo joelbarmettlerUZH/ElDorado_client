@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'main-menu', component: MainMenuComponent},
   {path: 'rooms', component: RoomsComponent},
   { path: 'detail/:name', component: RoomDetailComponent },
-  // {path: 'in-game-screen', component: InGameScreenComponent}
+  {path: 'in-game-screen', component: InGameScreenComponent},
   { path: 'board', component: BoardComponent}
 ];
 

@@ -7,4 +7,11 @@ export class User {
   character: number;
   ready: boolean;
   roomEntity = Room;
+  // from default/template
+  public id: number;
+  public status: string;
+  public games: number;
+  public moves: number;
+  public username: string;
+
 }

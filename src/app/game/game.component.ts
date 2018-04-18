@@ -1,5 +1,5 @@
+
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../shared/services/user.service';
 import {User} from '../shared/models/User';
 
 @Component({
@@ -10,14 +10,9 @@ import {User} from '../shared/models/User';
 export class GameComponent  implements OnInit {
   users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit() {
     // get users from secure api end point
-    this.userService.getUsers()
-      .subscribe(users => {
-        this.users = users;
-      });
   }
-
 }

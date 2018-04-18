@@ -4,7 +4,6 @@ import {AppComponent} from './app.component';
 import {GameComponent} from './game/game.component';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
-import {UserService} from './shared/services/user.service';
 import {AuthGuardService} from './shared/services/auth-guard.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
@@ -75,7 +74,7 @@ import { BoardService} from './shared/services/board.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthenticationService, AuthGuardService, UserService, RoomService, BoardService],
+  providers: [AuthenticationService, AuthGuardService, RoomService, BoardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
