@@ -6,11 +6,18 @@ import {of} from 'rxjs/observable/of';
 import {Board} from '../models/board';
 import {Http, Response} from '@angular/http';
 import {Hexspace} from '../models/hexSpace';
+import {Card} from '../models/Card';
+import {PlayingPiece} from '../models/PlayingPiece';
+import {MoveWrapper} from '../models/MoveWrapper';
 
 @Injectable()
 export class BoardService {
 
-  private boardUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/Game/3/Board';  // URL to web api
+  private baseUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/';
+
+  private boardUrl = '${baseUrl}Game/3/Board';  // URL to web api
+  private WayUrl = '${baseUrl}Player/${playerId}/Path/${playingPieceId}?token=${token}';
+  private CardUrl = '${baseUrl}/Player/${playerId}/HandPile?token=${token}';
 
   // Important use Http (HttpModule) NOT HttpClient
   constructor(private http: Http) {
@@ -25,6 +32,26 @@ export class BoardService {
   public getBoard() {
     return this.http.get(this.boardUrl).map(res => res.json());
   }
+
+  public getWay(moveWrapper: MoveWrapper, gameId: number, playerId: number, token: String) {
+    return this.http.post(this.WayUrl, moveWrapper).map(res => res.json());
+  }
+
+  public getHandpile(playerId: number, token: String) {
+    return this.http.get(this.CardUrl).map(res => res.json());
+  }
+
+  /*
+  private url: String = "heroku.com/api/v0/Game/${gameId}/Whatever/${playerId}?token=${token}"
+
+public postCard(card: Card, gameId: number, playerId: number, token: String) {
+   return this.http.post(this.url, card).map(res => res.json());
+ }
+
+//maybe you need JSON.stringify(card)
+   */
+
+  // public getWay(Card[]) {}
 
   // get y Dimension of the board Matrix
   async getyDim(): Promise<number> {

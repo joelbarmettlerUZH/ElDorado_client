@@ -9,13 +9,13 @@ import {Hexspace} from '../../../shared/models/hexSpace';
 export class HexspaceComponent implements OnInit {
 
   @Input()
-  public xDim: number;
+  public yDim: number;
 
   @Input()
   public HexSpace: Hexspace;
 
   @Input()
-  public xwidth: number;
+  public ywidth: number;
 
   public color: string;
 
@@ -28,7 +28,7 @@ export class HexspaceComponent implements OnInit {
   ngOnInit() {
 
     this.color = this.HexSpace.color;
-    this.index = (this.HexSpace.point.y * this.xDim) + this.HexSpace.point.x;
+    this.index = (this.HexSpace.point.x * this.yDim) + this.HexSpace.point.y;
     this.strength = this.HexSpace.strength;
 
     console.log(this.color);
