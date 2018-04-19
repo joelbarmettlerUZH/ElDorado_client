@@ -20,6 +20,7 @@ export class BoardComponent implements OnInit {
   public yDim: number;
   public xWidth: number;
   public xOffset: number;
+  public board: {};
 
   constructor(private boardService: BoardService) {
   }
@@ -27,18 +28,27 @@ export class BoardComponent implements OnInit {
   async ngOnInit() {
     console.log('pre tutti complexo stuffo');
     // getting resources from api via service
-    this.xDim = await this.boardService.getxDim();
-    this.yDim = await this.boardService.getyDim();
-    this.hexagons = await this.boardService.getHexagons();
 
-    // calculate the width of a single hexspace (derived from total width and number of hexspaces
-    this.xWidth = (100 / this.xDim);
-    this.xWidth = Math.round(((100 - this.xWidth / 2) / this.xDim) * 100) / 100;
-    // introduce shifting of every second row ao achieve honeycomb pattern
-    // this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
-    // this.hexspace = this.generateBoard(this.xDim, this.yDim);
-    // init panZoom to make board draggable and zoomable
-    this.panZoom();
+    this.boardService.getBoard().subscribe(
+    res => {
+      this.board = res;
+      console.log(this.board);
+
+      this.xDim = this.board.xdim;
+      this.yDim = this.board.ydim;
+      this.hexagons = this.board.matrixArray;
+
+      // calculate the width of a single hexspace (derived from total width and number of hexspaces
+      this.xWidth = (100 / this.xDim);
+      this.xWidth = Math.round(((100 - this.xWidth / 2) / this.xDim) * 100) / 100;
+      // introduce shifting of every second row ao achieve honeycomb pattern
+      // this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
+      // this.hexspace = this.generateBoard(this.xDim, this.yDim);
+      // init panZoom to make board draggable and zoomable
+      this.panZoom();
+    }
+    );
+
   }
 
   // outdated funnction used for testing

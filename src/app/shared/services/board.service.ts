@@ -22,6 +22,10 @@ export class BoardService {
     return response.json().xdim;
   }
 
+  public getBoard() {
+    return this.http.get(this.boardUrl).map(res => res.json());
+  }
+
   // get y Dimension of the board Matrix
   async getyDim(): Promise<number> {
     const response = await this.http.get(this.boardUrl).toPromise();

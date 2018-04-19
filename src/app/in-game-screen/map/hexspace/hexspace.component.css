@@ -31,7 +31,7 @@
   transform: rotate3d(0,0,1,-60deg) skewY(30deg);
 }
 
-.hexIn* {
+.hexIn * {
   position: absolute;
   visibility: visible;
 }
@@ -59,4 +59,10 @@
 
 .hex :hover{
   opacity: 0.5;
+}
+
+/* :host /deep/ mySelector { */
+:host ::ng-deep app-hexspace {
+  width: auto;
+  height: auto;
 }

@@ -14,6 +14,9 @@ export class HexspaceComponent implements OnInit {
   @Input()
   public HexSpace: Hexspace;
 
+  @Input()
+  public xwidth: number;
+
   public color: string;
 
   public strength: number;

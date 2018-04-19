@@ -3,8 +3,8 @@
     <div class="panzoom">
       <ul id="hexGrid">
         <!--<app-hex-space *ngFor="let color of colors" id=""></app-hex-space>-->
-        <li [ngStyle]="{'width' : xWidth + '10%'}" class="hex" *ngFor="let hex of hexagons;">
-          <app-hexspace class="hexComonent" [HexSpace]="hex" [xDim]="xDim"></app-hexspace>
+        <li [ngStyle]="{'width' : xWidth + '10%'}" class="hex" *ngFor="let hexs of hexagons;">
+          <app-hexspace [HexSpace]="hexs" [xDim]="xDim" [xwidth]="xWidth"></app-hexspace>
           <!--<div *ngIf="(i % (xDim * 2) < xDim)" class="hexIn">
             <a class="hexLink">
               <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_1.jpg"/>
