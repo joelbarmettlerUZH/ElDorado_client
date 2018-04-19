@@ -9,6 +9,8 @@ import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
+import {PlayerService} from '../../../shared/services/player.service';
+import {CookieHandler} from '../../../shared/cookieHandler';
 
 declare var $: any;
 
@@ -26,7 +28,7 @@ export class BoardComponent implements OnInit {
   public xOffset: number;
   public board: Board;
 
-  constructor(private boardService: BoardService) {
+  constructor(private boardService: BoardService, private playerService: PlayerService) {
   }
 
   async ngOnInit() {
@@ -50,6 +52,12 @@ export class BoardComponent implements OnInit {
         // this.hexspace = this.generateBoard(this.xDim, this.yDim);
         // init panZoom to make board draggable and zoomable
         this.panZoom();
+        let cards: Card[];
+        this.playerService.getHandPile().subscribe(cardres => {cards = cardres;
+        this.getWay(cards, 0);
+        });
+
+
       }
     );
 
@@ -91,7 +99,19 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  // getWay(cards: Card[], player: Player) {
+  getWay(cards: Card[], playingPieceId: number) {
+
+    let moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
+    let reachables: Hexspace[];
+    this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
+      res => {
+        reachables = res;
+      console.log(reachables);
+      }
+    );
+
+
+  }
 
 
 
