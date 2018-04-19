@@ -25,10 +25,6 @@ export class BoardComponent implements OnInit {
   public yWidth: number;
   public xOffset: number;
   public board: Board;
-  public fakeWrapper: MoveWrapper;
-  public fakePlayingPiece: PlayingPiece;
-  public fakeHexspace: Hexspace;
-  public fakePoint: Point;
 
   constructor(private boardService: BoardService) {
   }
@@ -57,11 +53,8 @@ export class BoardComponent implements OnInit {
       }
     );
 
-    this.fakePoint = new Point(4, 4);
-    this.fakeHexspace = new Hexspace(30, 1, 1, 99, 'JUNGLE', this.fakePoint);
-    this.fakePlayingPiece = new PlayingPiece(20, this.fakeHexspace)
-    // this.fakeWrapper = new MoveWrapper()
-    this.boardService.getWay(3,);
+
+
 
   }
 
@@ -98,10 +91,10 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  getWay(cards: Card[], player: Player) {
+  // getWay(cards: Card[], player: Player) {
 
 
-  }
+
 
 }
 
