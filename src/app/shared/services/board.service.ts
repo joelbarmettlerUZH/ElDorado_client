@@ -9,12 +9,11 @@ import {Hexspace} from '../models/hexSpace';
 import {Card} from '../models/Card';
 import {PlayingPiece} from '../models/PlayingPiece';
 import {MoveWrapper} from '../models/MoveWrapper';
+import {restUrl} from './RESTurl';
 
 @Injectable()
 export class BoardService {
-
-  private baseUrl = 'https://sopra-fs18-group17.herokuapp.com/api/v0/';
-
+  private baseUrl = restUrl.getBaseUrl();
   private boardUrl = '${baseUrl}Game/3/Board';  // URL to web api
   private WayUrl = '${baseUrl}Player/${playerId}/Path/${playingPieceId}?token=${token}';
   private CardUrl = '${baseUrl}/Player/${playerId}/HandPile?token=${token}';
