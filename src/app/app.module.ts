@@ -36,6 +36,8 @@ import { BoardComponent } from './in-game-screen/map/board/board.component';
 import { HexspaceComponent } from './in-game-screen/map/hexspace/hexspace.component';
 import { BoardService} from './shared/services/board.service';
 import { HttpModule, JsonpModule} from '@angular/http';
+import {PlayerService} from './shared/services/player.service';
+import {UserService} from './shared/services/user.service';
 
 
 
@@ -78,7 +80,7 @@ import { HttpModule, JsonpModule} from '@angular/http';
     HttpModule,
     JsonpModule
   ],
-  providers: [AuthenticationService, AuthGuardService, RoomService, BoardService],
+  providers: [AuthenticationService, AuthGuardService, RoomService, BoardService, PlayerService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
