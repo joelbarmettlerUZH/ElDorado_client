@@ -38,6 +38,8 @@ import { BoardService} from './shared/services/board.service';
 import { HttpModule, JsonpModule} from '@angular/http';
 import {PlayerService} from './shared/services/player.service';
 import {UserService} from './shared/services/user.service';
+import {CharacterComponent} from './main-menu/character/character.component';
+import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 
 
 
@@ -70,6 +72,8 @@ import {UserService} from './shared/services/user.service';
     MainMenuButtonsComponent,
     BoardComponent,
     HexspaceComponent,
+    CharacterComponent,
+    JoinButtonsComponent,
   ],
   imports: [
     BrowserModule,

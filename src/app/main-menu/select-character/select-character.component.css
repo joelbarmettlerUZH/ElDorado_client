@@ -1,106 +1,137 @@
-#hubba {
+.characterUnit {
   position: absolute;
-  display: block;
-  bottom: 10px;
-
-}
-
-#buttonBackground {
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_selected.png');
-  width: 200px;
-  height: 40px;
-}
-
-.selected {
-  background-color: #CFD8DC !important;
+  width: 398px;
+  height: 420px;
+  bottom: 0;
   color: white;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
 }
-.characters {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-  width: 15em;
+
+#character1 {
+  left: 520px;
+  /*background-color: blue;*/
 }
-.characters li {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
-  height: 1.6em;
+
+#character2 {
+  left: 1040px;
+  /*background-color: #039be5;*/
+}
+
+#character3 {
+  left: 300px;
+  /*background-color: lightskyblue;*/
+}
+
+#character4 {
+  left: 760px;
+  /*background-color: #bce8f1;*/
+}
+
+.readyTick {
+  position: absolute;
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/ready_symbol.png');
+  bottom: 360px;
+  left: 178px;
+  width: 45px;
+  height: 45px;
+}
+
+.readyButton {
+  position: absolute;
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/Ready.png');
+  width: 98px;
+  height: 33px;
+  bottom: 55px;
+  left: 151px;
+  font-family: Arial;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
   border-radius: 4px;
-}
-.characters li.selected:hover {
-  background-color: #BBD8DC !important;
-  color: white;
-}
-.characters li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
-}
-.characters .text {
-  position: relative;
-  top: -3px;
-}
-.characters .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+  text-decoration: none;
 }
 
-#aaa{
+.readyButton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+}
 
+.readyButton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+}
+
+.readyButton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+}
+
+.readyButton:active {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+}
+
+
+.nameBox {
+  position: absolute;
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_selected.png');
+  width: 224px;
+  height: 40px;
+  bottom: 5px;
+  left: 88px;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  opacity: 1; /* Firefox */
+}
+
+.image {
   background-size: cover;
+  position: absolute;
+  height: 350px;
+  bottom: 0;
+}
+
+#imagecharacter1 {
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png');
-  position: absolute;
-  min-height: 350px;
   width: 258px;
-  bottom: 0;
-  right: 471px;
+  right: 70px;
 }
 
-#sss{
-
-  background-size: cover;
+#imagecharacter2 {
   background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_2.png');
-  position: absolute;
-  min-height: 350px;
   width: 244px;
-  bottom: 0;
+  right: 77px;
+}
+
+#imagecharacter3 {
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_3.png');
+  width: 362px;
+  right: 18px;
+}
+
+#imagecharacter4 {
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_4.png');
+  width: 398px;
   right: 0;
 }
 
-#ddd{
-
-  background-size: cover;
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_3.png');
-  position: absolute;
-  min-height: 350px;
-  width: 362px;
-  bottom: 0;
-  right: 660px;
+.isNotSelected {
+  opacity: 0.4; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
 }
 
-#fff{
-
-  background-size: cover;
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_4.png');
-  position: absolute;
-  min-height: 350px;
-  width: 398px;
-  bottom: 0;
-  right: 180px;
+.grayedoutPossible.grayedout {
+  opacity: 0.4; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
 }
-
 

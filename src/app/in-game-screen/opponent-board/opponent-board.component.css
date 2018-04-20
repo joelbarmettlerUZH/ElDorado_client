@@ -5,22 +5,18 @@
   position: absolute;
 }
 
-#aaa{
+#o1{
   top: 0px;
-  background-image: url('../../../assets/GUI_Game/Opponent_1.png');
 }
 
-#sss{
+#o2{
   top: 97px;
-  background-image: url('../../../assets/GUI_Game/Opponent_2.png');
 }
 
-#ddd{
+#o3{
   top: 194px;
-  background-image: url('../../../assets/GUI_Game/Opponent_3.png');
 }
 
-#fff{
+#o4{
   top: 291px;
-  background-image: url('../../../assets/GUI_Game/Opponent_4.png');
 }

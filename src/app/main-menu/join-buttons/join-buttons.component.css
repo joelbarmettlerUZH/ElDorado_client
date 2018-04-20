@@ -1,5 +1,4 @@
-
-.button {
+.joinbutton {
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
@@ -12,17 +11,7 @@
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
-  left: 0px;
-}
-
-.button:hover {
-  background-color: #cfd8dc;
-}
-
-.button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
+  left: 0;
 }
 
 .subbutton {
@@ -57,44 +46,4 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
 }
 
-#menubutton-hostgame {
-  top: 0;
-}
 
-#roomName {
-  top: 60px;
-}
-
-#Route1 {
-  top: 110px;
-}
-
-#Route2 {
-  top: 160px;
-}
-
-#Route3 {
-  top: 210px;
-}
-
-#Route4 {
-  top: 260px;
-}
-
-#Route5 {
-  top: 310px;
-}
-
-input {
-  height: 2em;
-  font-size: 1em;
-  padding-left: .4em;
-  text-decoration-color: red;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: white;
-  font-size: 20px;
-  font-weight: normal;
-  opacity: 1; /* Firefox */
-}

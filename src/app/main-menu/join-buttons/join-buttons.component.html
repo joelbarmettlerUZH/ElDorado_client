@@ -1,0 +1,9 @@
+<div id="joinButtons">
+
+  <button class=joinbutton id="{{joinButton.id}}">{{joinButton.name}}</button>
+
+  <div *ngFor="let room of rooms">
+    <button class=subbutton id="{{room.name}}" (click)="onRoomSelected(room)">{{room.name}}</button>
+  </div>
+
+</div>

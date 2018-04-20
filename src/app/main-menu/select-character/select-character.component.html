@@ -1,18 +1,15 @@
-<div *ngFor="let character of characters"
-     [class.selected]="character === selectedCharacter"
-     (click)="onSelect(character)">
-  <div id="{{character.id}}"></div>
-</div>
+<div *ngFor="let character of characters">
 
-<div *ngIf="selectedCharacter">
-  <!--<h2>{{ selectedCharacter.name | uppercase }} Ready?</h2>-->
-  <div id="{{selectedCharacter.id}}">
-
-    <div style="text-align: center;">
-      <label id="hubba">
-        <input id="buttonBackground" [(ngModel)]="selectedCharacter.name" placeholder="name"
-               style="text-align: center;">
-      </label>
-    </div>
+  <div class="characterUnit" id="{{character.id}}" [class.selected]="character === selectedCharacter">
+    <div class="readyTick" *ngIf="character.ready"></div>
+    <div class="image" id="image{{character.id}}" [class.grayedoutPossible]="areClickable === true"
+         [class.grayedout]="character.assigned === false" (click)="onSelect(character)"></div>
+    <input class="nameBox" placeholder={{character.name}} *ngIf="character === selectedCharacter">
+    <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
+      Ready
+    </button>
   </div>
+
 </div>
+
+
