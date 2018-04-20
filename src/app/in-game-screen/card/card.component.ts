@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
-import {CARDS} from '../../shared/models/Card-database';
+// import {CARDS} from '../../shared/models/Card-database';
 
 @Component({
   selector: 'app-card',
@@ -8,7 +8,7 @@ import {CARDS} from '../../shared/models/Card-database';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  cards = CARDS;
+  // cards = CARDS;
   card: Card;
 
   constructor() {

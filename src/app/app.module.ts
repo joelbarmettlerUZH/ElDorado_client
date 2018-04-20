@@ -4,8 +4,8 @@ import {AppComponent} from './app.component';
 import {GameComponent} from './game/game.component';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
-import {AuthGuardService} from './shared/services/auth-guard.service';
-import {AuthenticationService} from './shared/services/authentication.service';
+// import {AuthGuardService} from './shared/services/auth-guard.service';
+// import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
@@ -80,7 +80,7 @@ import {UserService} from './shared/services/user.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [AuthenticationService, AuthGuardService, RoomService, BoardService, PlayerService, UserService],
+  providers: [RoomService, BoardService, PlayerService, UserService], //AuthenticationService, AuthGuardService
   bootstrap: [AppComponent]
 })
 export class AppModule {

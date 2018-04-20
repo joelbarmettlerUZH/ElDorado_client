@@ -4,7 +4,7 @@ import {MainMenuComponent} from './main-menu/main-menu.component';
 import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomDetailComponent} from './room-detail/room-detail.component';
-import {AuthGuardService} from './shared/services/auth-guard.service';
+// import {AuthGuardService} from './shared/services/auth-guard.service';
 import {GameComponent} from './game/game.component';
 import {BoardComponent} from './in-game-screen/map/board/board.component';
 import {HexspaceComponent} from './in-game-screen/map/hexspace/hexspace.component';
