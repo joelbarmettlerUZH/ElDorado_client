@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {restUrl} from './RESTurl';
+
 
 @Injectable()
 export class GameService {
@@ -17,38 +18,44 @@ export class GameService {
   }
 
   // gets game id
-  public getGame(gameId: number) {
+  public getGame() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId).map(res => res.json());
   }
 
   // Gets current player
-  public getCurrent(gameId: number) {
+  public getCurrent() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Current').map(res => res.json());
   }
 
   // Gets all players
-  public getPlayers(gameId: number) {
+  public getPlayers() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Players').map(res => res.json());
   }
 
   // Gets board
-  public getBoard(gameId: number) {
-    // console.log(this.baseUrl)
+  public getBoard() {// console.log(this.baseUrl)
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Board').map(res => res.json());
   }
 
   // Gets Market
-  public getMarket(gameId: number) {
+  public getMarket() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Market').map(res => res.json());
   }
 
   // Gets blockades
-  public getBlockades(gameId: number) {
+  public getBlockades() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Blockade').map(res => res.json());
   }
 
   // Gets winners
-  public getWinners(gameId: number) {
+  public getWinners() {
+    const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Winner').map(res => res.json());
   }
 }

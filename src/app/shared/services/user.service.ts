@@ -9,7 +9,8 @@ import {CookieHandler} from '../cookieHandler';
 export class UserService {
 
   private baseUrl = restUrl.getBaseUrl();
-  private userUrl = '${baseUrl}/User/${userId}';
+
+  private token = localStorage.getItem('token');
 
   constructor(private http: Http) { }
 
@@ -34,7 +35,7 @@ export class UserService {
   // Modifies an existing user
   public modifyUser(user: User){
     const token = CookieHandler.readToken();
-    const url = this.baseUrl + 'User?token' + token;
+    const url = this.baseUrl + 'User?token' + this.token;
     return this.http.put(url, user).map(res => res.json());
   }
 

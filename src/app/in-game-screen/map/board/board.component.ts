@@ -10,7 +10,7 @@ import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-import {CookieHandler} from '../../../shared/cookieHandler';
+import {saveCookie} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
 
 declare var $: any;
@@ -35,8 +35,10 @@ export class BoardComponent implements OnInit {
   async ngOnInit() {
     console.log('pre tutti complexo stuffo');
     // getting resources from api via service
-
-    this.gameService.getBoard(3).subscribe(
+    saveCookie(1, 'TESTTOKEN', 3);
+    // console.log(CookieHandler.readToken());
+    // console.log(CookieHandler.readId());
+    this.gameService.getBoard().subscribe(
       res => {
         this.board = res;
         console.log(this.board);
