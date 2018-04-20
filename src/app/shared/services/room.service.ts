@@ -9,29 +9,31 @@ import {User} from '../models/User';
 export class RoomService {
 
   private baseUrl = restUrl.getBaseUrl();
-  private roomsUrl = "${baseUrl}/Room";
-  private roomUrl = "${baseUrl}/Room/${roomid}";
   constructor(private http: Http) { }
 
   // returns all rooms
   public getAllRooms() {
-    return this.http.get(this.roomsUrl).map(res => res.json());
+    const url = this.baseUrl + 'Room';
+    return this.http.get(url).map(res => res.json());
   }
 
   // Returns a specific room with id roomId
   public getRoom(roomId: number){
-    return this.http.get(this.roomUrl).map(res => res.json());
+    const url = this.baseUrl + 'Room/' + roomId;
+    return this.http.get(url).map(res => res.json());
   }
 
   // Creates a new room with the createRoom properties, returns the newly created room
   public createRoom(roomName: string, boardNumber: number){
+    const url = this.baseUrl + 'Room';
     let createNewRoom: CreateRoom = new CreateRoom(roomName, boardNumber);
-    return this.http.post(this.roomsUrl, createNewRoom).map(res => res.json());
+    return this.http.post(url, createNewRoom).map(res => res.json());
   }
 
   // adds a user to a room and returns the modified room
-  public addUser(user: User, gameId: number){
-    return this.http.put(this.roomUrl, user).map(res => res.json());
+  public addUser(user: User, roomId: number){
+    const url = this.baseUrl + 'Room/' + roomId;
+    return this.http.put(url, user).map(res => res.json());
   }
 
 }

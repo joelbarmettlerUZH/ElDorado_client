@@ -16,7 +16,6 @@ import {restUrl} from './RESTurl';
 export class BoardService {
   private baseUrl = restUrl.getBaseUrl();
   private boardUrl = '${baseUrl}Game/3/Board';  // URL to web api
-  private CardUrl = '${baseUrl}/Player/${playerId}/HandPile?token=${token}';
 
   // Important use Http (HttpModule) NOT HttpClient
   constructor(private http: Http) {
@@ -30,17 +29,18 @@ export class BoardService {
   }*/
 
   public getBoard(boardId: number) {
-    const url = 'Game/' + boardId + '/Board';
-    return this.http.get(this.baseUrl + url).map(res => res.json());
+    const url = this.baseUrl + 'Game/' + boardId + '/Board';
+    return this.http.get(url).map(res => res.json());
   }
 
   public getWay(moveWrapper: MoveWrapper, playingPieceId: number, playerId: number, token: String) {
     const url = this.baseUrl + 'Player/' + playerId + '/Path/' + playingPieceId + '?token=' + token;
-    return this.http.post(this.baseUrl + url, moveWrapper).map(res => res.json());
+    return this.http.post(url, moveWrapper).map(res => res.json());
   }
 
   public getHandpile(playerId: number, token: String) {
-    return this.http.get(this.CardUrl).map(res => res.json());
+    const url = this.baseUrl + 'Player/' + playerId + '/HandPile?token=$' + token;
+    return this.http.get(url).map(res => res.json());
   }
 
   /*
