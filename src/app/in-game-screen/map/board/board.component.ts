@@ -11,6 +11,7 @@ import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
 import {CookieHandler} from '../../../shared/cookieHandler';
+import {GameService} from '../../../shared/services/game.service';
 
 declare var $: any;
 
@@ -28,14 +29,14 @@ export class BoardComponent implements OnInit {
   public xOffset: number;
   public board: Board;
 
-  constructor(private boardService: BoardService, private playerService: PlayerService) {
+  constructor(private gameService: GameService, private playerService: PlayerService) {
   }
 
   async ngOnInit() {
     console.log('pre tutti complexo stuffo');
     // getting resources from api via service
 
-    this.boardService.getBoard().subscribe(
+    this.gameService.getBoard(3).subscribe(
       res => {
         this.board = res;
         console.log(this.board);
@@ -53,9 +54,9 @@ export class BoardComponent implements OnInit {
         // init panZoom to make board draggable and zoomable
         this.panZoom();
         let cards: Card[];
-        this.playerService.getHandPile().subscribe(cardres => {cards = cardres;
-        this.getWay(cards, 0);
-        });
+        // this.playerService.getHandPile().subscribe(cardres => {cards = cardres;
+        // this.getWay(cards, 0);
+        // });
 
 
       }
