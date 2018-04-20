@@ -1,17 +1,22 @@
 export class CookieHandler {
 
-  static saveCookie(playerId: number, token: string): void{
+  static saveCookie(playerId: number, token: string, gameId: number): void{
     // TODO: SAVE playerId and token to cookie or local storage
+    localStorage.setItem("playerId",playerId.toString());
+    localStorage.setItem("gameId", gameId.toString());
+    localStorage.setItem("token", token);
   }
 
   static readId(): number{
-    // TODO: Read id out of cookie or local storage
-    return 1;
+    return Number(localStorage.getItem("playerId"));
   }
 
   static readToken(): string{
-    // TODO: Read token out of cookie or local storage
-    return "TESTTOKEN";
+    return localStorage.getItem("token");
+  }
+
+  static readGameId(): number{
+    return Number(localStorage.getItem("gameId"));
   }
 
 }
