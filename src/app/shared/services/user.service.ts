@@ -3,7 +3,7 @@ import {restUrl} from './RESTurl';
 import {Http} from '@angular/http';
 import {CreateUser} from '../models/createUser';
 import {User} from '../models/User';
-import {CookieHandler} from '../cookieHandler';
+
 
 @Injectable()
 export class UserService {
@@ -20,21 +20,20 @@ export class UserService {
   }
 
   // Return a specific user
-  public getUser(userId: number){
+  public getUser(userId: number) {
     const url = this.baseUrl + 'User/' + userId;
     return this.http.get(url).map(res => res.json());
   }
 
   // Creates and returns a new user according to values in CreateUser
-  public createUser(createUser: CreateUser){
-    //TODO: Create check whether lcoal storage is already filled, if so delete old user
+  public createUser(createUser: CreateUser) {
+    // TODO: Create check whether lcoal storage is already filled, if so delete old user
     const url = this.baseUrl + 'User';
     return this.http.post(url, createUser).map(res => res.json());
   }
 
   // Modifies an existing user
-  public modifyUser(user: User){
-    const token = CookieHandler.readToken();
+  public modifyUser(user: User) {
     const url = this.baseUrl + 'User?token' + this.token;
     return this.http.put(url, user).map(res => res.json());
   }
