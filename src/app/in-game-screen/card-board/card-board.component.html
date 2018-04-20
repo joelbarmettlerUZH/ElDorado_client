@@ -1,5 +1,5 @@
 <div id="Card-Board">
   <ng-container *ngFor="let card of cards; let i = index">
-    <app-card-slot id="Slot{{i+1}}" [card]="card"></app-card-slot>
+    <app-card-slot (updateHand)="recieveHand($event)" id="Slot{{i+1}}" [card]="card"></app-card-slot>
   </ng-container>
 </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
@@ -25,7 +25,7 @@ declare var $: any;
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, AfterViewInit {
   public hexagons: Hexspace[];
   // public colors: string[];
   public game: Game;
@@ -38,7 +38,7 @@ export class BoardComponent implements OnInit {
   public ownPlayingPieces: PlayingPiece[] = [];
   public opponentPlayingPieces: PlayingPiece[] = [];
 
-  @ViewChild('childHex')
+  @ViewChildren('hexId') components: QueryList<HexspaceComponent>;
   private childHex: HexspaceComponent;
 
   constructor(private gameService: GameService, private playerService: PlayerService) {
@@ -113,12 +113,11 @@ export class BoardComponent implements OnInit {
 
     let moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
     return this.playerService.findPath(moveWrapper, playingPieceId);
-
-
-
   }
 
-
+  ngAfterViewInit(){
+    console.log(this.components);
+  }
 
 
 }

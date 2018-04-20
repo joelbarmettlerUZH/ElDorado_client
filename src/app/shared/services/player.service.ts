@@ -5,9 +5,13 @@ import {Card} from '../models/Card';
 import {MoveWrapper} from '../models/MoveWrapper';
 import {Slot} from '../models/Slot';
 import {ActionCard} from '../models/ActionCard';
+import {RequestOptions, Request, Headers } from '@angular/http';
 
 @Injectable()
 export class PlayerService {
+
+  private requestOptions = new RequestOptions({ headers:null, withCredentials:
+      false });
 
   private baseUrl = restUrl.getBaseUrl();
   // private playersUrl = '${baseUrl}/Player';
@@ -15,10 +19,14 @@ export class PlayerService {
   // private handPileUrl = '${baseUrl}/Player({$playerId}/HandPile?token=${token}';
   // private playerActionUrl = '${baseUrl}/Player({$playerId}/${playerAction}?token=${token}';
   // private moveUrl = '${baseUrl}/Player({$playerId}/${playerAction}/${playingPieceId}?token=${token}';
+
   private playerId = Number(localStorage.getItem('playerId'));
   private token = localStorage.getItem('token');
 
-  constructor(private http: Http) {
+  // private playerId = 1;
+  // private token = 'TESTTOKEN';
+
+    constructor(private http: Http) {
   }
 
   // Returns every player that is currently in any game
@@ -38,6 +46,7 @@ export class PlayerService {
 
   // Returns HandPile
   public getHandPile() {
+    // console.log("Getting Handpile...");
     return this.http.get(this.baseUrl + 'Player/' + this.playerId + '/HandPile?token=' + this.token).map(res => res.json());
   }
 

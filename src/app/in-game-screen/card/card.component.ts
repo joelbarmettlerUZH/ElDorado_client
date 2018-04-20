@@ -14,19 +14,16 @@ export class CardComponent implements OnInit {
   @Input()
   public card: Card;
 
-  constructor(private playerService: PlayerService) {
+  public name: string
+
+  constructor() {
   }
 
   ngOnInit() {
+    this.name = this.card.name;
   }
 
-  sell(){
-    this.playerService.sell(this.card).subscribe(
-      response => {
-        console.log(response);
-      }
-    );
-  }
+
 
   discard(){
 
