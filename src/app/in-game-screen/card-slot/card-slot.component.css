@@ -1,5 +1,6 @@
 button {
   background-size: cover;
+  background-color: transparent;
   width: 32px;
   height: 33px;
   position: absolute;

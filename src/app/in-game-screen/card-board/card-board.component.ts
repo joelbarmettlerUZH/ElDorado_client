@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Card} from '../../shared/models/Card';
+import {PlayerService} from '../../shared/services/player.service';
 
 @Component({
   selector: 'app-card-board',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardBoardComponent implements OnInit {
 
-  constructor() { }
+  public cards: Card[];
+
+  constructor(private playerService: PlayerService) { }
 
   ngOnInit() {
+    this.playerService.getHandPile().subscribe(
+      request => {
+        this.cards = request;
+      }
+    )
+
   }
 
 }

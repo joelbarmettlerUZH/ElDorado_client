@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -9,6 +9,9 @@ import {Card} from '../../shared/models/Card';
 })
 export class CardSlotComponent implements OnInit {
 
+  @Input()
+  public card: Card;
+
   constructor() {
   }
 
@@ -16,6 +19,7 @@ export class CardSlotComponent implements OnInit {
   }
 
   sell() {
+
   }
 
   discard() {

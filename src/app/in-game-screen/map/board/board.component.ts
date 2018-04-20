@@ -12,6 +12,9 @@ import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
 import {saveCookie} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
+import {Player} from '../../../shared/models/Player';
+import {Game} from '../../../shared/models/Game';
+import {forEach} from '@angular/router/src/utils/collection';
 
 declare var $: any;
 
@@ -23,69 +26,68 @@ declare var $: any;
 export class BoardComponent implements OnInit {
   public hexagons: Hexspace[];
   // public colors: string[];
+  public game: Game;
   public xDim: number;
   public yDim: number;
   public yWidth: number;
   public xOffset: number;
   public board: Board;
+  public players: Player[];
+  public ownPlayingPieces: PlayingPiece[] = [];
+  public opponentPlayingPieces: PlayingPiece[] = [];
 
   constructor(private gameService: GameService, private playerService: PlayerService) {
   }
 
   async ngOnInit() {
-    console.log('pre tutti complexo stuffo');
-    // getting resources from api via service
-    saveCookie(1, 'TESTTOKEN', 3);
-    // console.log(CookieHandler.readToken());
-    // console.log(CookieHandler.readId());
-    this.gameService.getBoard().subscribe(
-      res => {
-        this.board = res;
-        console.log(this.board);
 
+    this.gameService.getGame().subscribe(
+      response => {
+        this.game = response;
+        this.board = this.game.pathMatrix;
         this.xDim = this.board.xdim;
         this.yDim = this.board.ydim;
         this.hexagons = this.board.matrixArray;
-
-        // calculate the width of a single hexspace (derived from total width and number of hexspaces
         this.yWidth = (100 / this.yDim);
         this.yWidth = Math.round(((100 - this.yWidth / 2) / this.yDim) * 100) / 100;
-        // introduce shifting of every second row ao achieve honeycomb pattern
-        // this.xOffset = Math.round((this.xWidth / 2) * 100) / 100;
-        // this.hexspace = this.generateBoard(this.xDim, this.yDim);
-        // init panZoom to make board draggable and zoomable
+
+
+        this.players = this.game.players;
+        this.players.forEach(player => {
+          if(player.playerId == Number(localStorage.getItem("playerId"))){
+            player.playingPieces.forEach(
+              playingPiece => this.ownPlayingPieces.push(playingPiece));
+          }else{
+            player.playingPieces.forEach(
+              playingPiece => this.opponentPlayingPieces.push(playingPiece));
+          }
+        });
+
+
+        this.ownPlayingPieces.forEach(
+          playingPiece => {
+            let x = playingPiece.standsOn.point.x;
+            let y = playingPiece.standsOn.point.y;
+            let index = (x * this.yDim) + y;
+            // TODO: Call right method on hexagon to display own PlayingPiece
+            // this.hexagons[index].doSomething()
+          }
+        );
+
         this.panZoom();
-        let cards: Card[];
-        // this.playerService.getHandPile().subscribe(cardres => {cards = cardres;
-        // this.getWay(cards, 0);
-        // });
-
-
       }
+
     );
 
-
-
+    let reachables: Hexspace[];
+    this.getWay([], 0).subscribe(
+      res => {
+        reachables = res;
+        reachables.forEach(reachable => console.log("NEW REACHABLE: " + reachable));
+      });
 
   }
 
-  // outdated funnction used for testing
-  /*
-  generateBoard(x, y): string[] {
-    console.log('Generating board');
-    let arr: string[] = new Array();
-    for (let i = 0; i < x * y; i++) {
-      console.log('Looping ' + i);
-      let color: string;
-      console.log('random number' + Math.floor(Math.random() * this.colors.length));
-      console.log('Looping ' + i);
-      color = this.colors[Math.floor(Math.random() * this.colors.length)];
-      arr.push(color);
-    }
-    console.log('Returning board: ' + arr.length);
-    return arr;
-  }
-  */
 
   panZoom() {
     var $section = $('#board');
@@ -105,13 +107,8 @@ export class BoardComponent implements OnInit {
   getWay(cards: Card[], playingPieceId: number) {
 
     let moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
-    let reachables: Hexspace[];
-    this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
-      res => {
-        reachables = res;
-      console.log(reachables);
-      }
-    );
+    return this.playerService.findPath(moveWrapper, playingPieceId);
+
 
 
   }

@@ -15,15 +15,6 @@
   cursor: auto;
 }
 
-
-#Matrose{
-  background-image: url('../../../assets/Gui_Elemente/Karten/Move_Blue_1.png');
-}
-
-#Forscher{
-  background-image: url('../../../assets/Gui_Elemente/Karten/Move_Green_1.png');
-}
-
-#Reisende{
-  background-image: url('../../../assets/Gui_Elemente/Karten/Move_Yellow_1.png');
+.Card img{
+  /*add styling for img here*/
 }

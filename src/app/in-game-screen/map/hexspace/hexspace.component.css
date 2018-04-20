@@ -14,6 +14,10 @@
   /* 100 / number-of-rows-in-X-direction */
 }
 
+.clickable {
+  opacity: 0.5;
+}
+
 .hex::after{
   content:'';
   display:block;
