@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { RoomService} from './shared/services/room.service';
-import { HttpClientModule} from '@angular/common/http';
+ import { HttpClientModule} from '@angular/common/http';
 import { HostComponent } from './host/host.component';
 import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
 import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.component';
@@ -80,7 +80,6 @@ import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.compon
     FormsModule,
     // routing,
     AppRoutingModule,
-    HttpClientModule,
     HttpModule,
     JsonpModule
   ],

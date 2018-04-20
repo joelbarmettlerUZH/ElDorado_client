@@ -1,9 +1,9 @@
 ///<reference path="select-character/select-character.component.ts"/>
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {Room} from '../Room';
-import {User} from '../User';
-import {RoomService} from '../room.service';
-import {UserService} from '../user.service';
+import {Room} from '../shared/models/Room';
+import {User} from '../shared/models/User';
+import {RoomService} from '../shared/services/room.service';
+import {UserService} from '../shared/services/user.service';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 
@@ -96,7 +96,7 @@ export class MainMenuComponent implements OnInit {
   private joinGame() {
     this.childCharacter.generateJoinView();
     console.log('REST: rooms got');
-    this.roomService.getRooms()
+    this.roomService.getAllRooms()
       .subscribe(rooms => {
         this.rooms = rooms;
         this.hubba = this.rooms.map(a => a.name);

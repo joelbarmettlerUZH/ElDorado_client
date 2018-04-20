@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
 

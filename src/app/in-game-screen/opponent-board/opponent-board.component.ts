@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Character } from '../../shared/models/character';
 import { CHARACTERS } from '../../shared/models/character-database';
-import { PlayerService } from '../../player.service';
+import { PlayerService } from '../../shared/services/player.service';
 
 @Component({
   selector: 'app-opponent-board',
@@ -20,7 +20,7 @@ export class OpponentBoardComponent implements OnInit {
   }
 
   getPlayers(): void {
-    this.playerService.getPlayers()
+    this.playerService.getAllPlayers()
       .subscribe(players => this.players = players);
 
   }

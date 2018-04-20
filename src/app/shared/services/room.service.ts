@@ -24,11 +24,12 @@ export class RoomService {
   }
 
   // Creates a new room with the createRoom properties, returns the newly created room
-  public createRoom(createRoom: CreateRoom){
-    return this.http.post(this.roomsUrl, createRoom).map(res => res.json());
+  public createRoom(roomName: string, boardNumber: number){
+    let createNewRoom: CreateRoom = new CreateRoom(roomName, boardNumber);
+    return this.http.post(this.roomsUrl, createNewRoom).map(res => res.json());
   }
 
-  //adds a user to a room and returns the modified room
+  // adds a user to a room and returns the modified room
   public addUser(user: User, gameId: number){
     return this.http.put(this.roomUrl, user).map(res => res.json());
   }

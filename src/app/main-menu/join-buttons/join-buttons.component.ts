@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MAINMENUBUTTONS} from '../../button-database';
+import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 
 @Component({
   selector: 'app-join-buttons',

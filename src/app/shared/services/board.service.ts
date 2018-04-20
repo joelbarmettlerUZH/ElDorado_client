@@ -1,6 +1,7 @@
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import 'rxjs/add/operator/map';
+// import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
 import {Board} from '../models/board';
@@ -15,7 +16,6 @@ import {restUrl} from './RESTurl';
 export class BoardService {
   private baseUrl = restUrl.getBaseUrl();
   private boardUrl = '${baseUrl}Game/3/Board';  // URL to web api
-  private WayUrl = '${baseUrl}Player/${playerId}/Path/${playingPieceId}?token=${token}';
   private CardUrl = '${baseUrl}/Player/${playerId}/HandPile?token=${token}';
 
   // Important use Http (HttpModule) NOT HttpClient
@@ -23,17 +23,20 @@ export class BoardService {
   }
 
   // get x Dimension of the board Matrix
+  /*
   async getxDim(): Promise<number> {
     const response = await this.http.get(this.boardUrl).toPromise();
     return response.json().xdim;
+  }*/
+
+  public getBoard(boardId: number) {
+    const url = 'Game/' + boardId + '/Board';
+    return this.http.get(this.baseUrl + url).map(res => res.json());
   }
 
-  public getBoard() {
-    return this.http.get(this.boardUrl).map(res => res.json());
-  }
-
-  public getWay(moveWrapper: MoveWrapper, gameId: number, playerId: number, token: String) {
-    return this.http.post(this.WayUrl, moveWrapper).map(res => res.json());
+  public getWay(moveWrapper: MoveWrapper, playingPieceId: number, playerId: number, token: String) {
+    const url = this.baseUrl + 'Player/' + playerId + '/Path/' + playingPieceId + '?token=' + token;
+    return this.http.post(this.baseUrl + url, moveWrapper).map(res => res.json());
   }
 
   public getHandpile(playerId: number, token: String) {
@@ -53,6 +56,7 @@ public postCard(card: Card, gameId: number, playerId: number, token: String) {
   // public getWay(Card[]) {}
 
   // get y Dimension of the board Matrix
+  /*
   async getyDim(): Promise<number> {
     const response = await this.http.get(this.boardUrl).toPromise();
     return response.json().ydim;
@@ -63,7 +67,7 @@ public postCard(card: Card, gameId: number, playerId: number, token: String) {
     const response = await this.http.get(this.boardUrl).toPromise();
     return response.json().matrixArray;
   }
-
+*/
   /**
    * Handle Http operation that failed.
    * Let the app continue.
