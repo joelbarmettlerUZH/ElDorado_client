@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
@@ -12,6 +12,8 @@ import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
 import {saveCookie} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
+import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
+import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -35,6 +37,9 @@ export class BoardComponent implements OnInit {
   public players: Player[];
   public ownPlayingPieces: PlayingPiece[] = [];
   public opponentPlayingPieces: PlayingPiece[] = [];
+
+  @ViewChild('childHex')
+  private childHex: HexspaceComponent;
 
   constructor(private gameService: GameService, private playerService: PlayerService) {
   }

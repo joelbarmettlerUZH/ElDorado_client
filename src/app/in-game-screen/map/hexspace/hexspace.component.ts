@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Hexspace} from '../../../shared/models/hexSpace';
 
 @Component({
   selector: 'app-hexspace',
   templateUrl: './hexspace.component.html',
-  styleUrls: ['./hexspace.component.css']
+  styleUrls: ['./hexspace.component.css'],
 })
 export class HexspaceComponent implements OnInit {
 

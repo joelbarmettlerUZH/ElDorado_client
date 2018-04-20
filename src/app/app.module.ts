@@ -84,7 +84,7 @@ import {GameService} from './shared/services/game.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, BoardService, PlayerService, UserService, GameService], //AuthenticationService, AuthGuardService
+  providers: [RoomService, BoardService, PlayerService, UserService, GameService], // AuthenticationService, AuthGuardService
   bootstrap: [AppComponent]
 })
 export class AppModule {
