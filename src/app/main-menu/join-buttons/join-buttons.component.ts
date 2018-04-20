@@ -9,11 +9,20 @@ import {MAINMENUBUTTONS} from '../../button-database';
 export class JoinButtonsComponent implements OnInit {
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
-
+  rooms: any[];
   constructor() {
+  }
+
+  setRooms(rooms: any[]) {
+    this.rooms = rooms;
   }
 
   ngOnInit() {
   }
+
+  onRoomSelected(room) {
+
+  }
+
 
 }

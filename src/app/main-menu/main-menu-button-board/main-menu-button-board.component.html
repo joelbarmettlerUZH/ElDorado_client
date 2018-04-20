@@ -12,7 +12,7 @@
   </div>
 
   <div class='button-area' *ngIf="myMap.get('menubutton-joingame')">
-    <app-join-buttons></app-join-buttons>
+    <app-join-buttons #childJoinButtons></app-join-buttons>
   </div>
 
   <button class=readyButton id="homeButton" *ngIf="homeButton" (click)="navigateToMenu()">HOME</button>

@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../button-database';
+import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
 
 @Component({
   selector: 'app-main-menu-button-board',
@@ -8,6 +9,9 @@ import {MAINMENUBUTTONS} from '../../button-database';
 })
 export class MainMenuButtonBoardComponent implements OnInit {
   @Output() navigationRequest = new EventEmitter<string>();
+
+  @ViewChild('childJoinButtons')
+  private childJoinButtons: JoinButtonsComponent;
 
   buttons = MAINMENUBUTTONS;
   myMap = new Map([
@@ -19,7 +23,6 @@ export class MainMenuButtonBoardComponent implements OnInit {
 
   menubuttonMenuButtons = true;
   homeButton = false;
-
 
   constructor() {
   }
@@ -61,4 +64,9 @@ export class MainMenuButtonBoardComponent implements OnInit {
     this.navigationRequest.emit('main-menu');
     console.log('Gesendet: navigationRequest | von main-menu-button-board | Target: main-menu | Empfänger: main-menu');
   }
+
+  setRooms(rooms: any[]) {
+    this.childJoinButtons.setRooms(rooms);
+  }
+
 }

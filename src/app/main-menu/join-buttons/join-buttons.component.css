@@ -13,3 +13,37 @@
   border-radius: 4px;
   left: 0;
 }
+
+.subbutton {
+  left: 15px;
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
+  width: 218px;
+  height: 45px;
+  font-family: Arial;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.subbutton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+.subbutton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+.subbutton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+.subbutton:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+

@@ -1,9 +1,11 @@
+///<reference path="select-character/select-character.component.ts"/>
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Room} from '../Room';
 import {User} from '../User';
 import {RoomService} from '../room.service';
 import {UserService} from '../user.service';
 import {SelectCharacterComponent} from './select-character/select-character.component';
+import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 
 @Component({
   selector: 'app-main-menu',
@@ -21,8 +23,13 @@ export class MainMenuComponent implements OnInit {
 
   @ViewChild('childCharacter')
   private childCharacter: SelectCharacterComponent;
+
+  @ViewChild('childButtonArea')
+  private childButtonArea: MainMenuButtonBoardComponent;
+
   roomID: string;
   private roomIDURI: string;
+  private hubba: any[];
 
   constructor(
     private roomService: RoomService,
@@ -51,7 +58,7 @@ export class MainMenuComponent implements OnInit {
       this.myself.ready = false;
 
       this.defaultRoom.id = 10;
-      this.defaultRoom.name = 'BesterRoomNameEver11';
+      this.defaultRoom.name = 'BesterRoomNameEver14';
       this.defaultRoom.users = [this.myself];
       this.defaultRoom.boardnumber = 2;
 
@@ -71,6 +78,7 @@ export class MainMenuComponent implements OnInit {
   private restoreMainMenu() {
     console.log('Restore MainMenu');
     this.childCharacter.generateMainMenuView();
+    // this.childButtons.generateMainMenuView();
   }
 
   private hostGame(defaultRoom) {
@@ -91,8 +99,13 @@ export class MainMenuComponent implements OnInit {
     this.roomService.getRooms()
       .subscribe(rooms => {
         this.rooms = rooms;
-        console.log(this.rooms[0]);
+        this.hubba = this.rooms.map(a => a.name);
+        console.log('Roomname of first room:' + this.hubba[0]);
+        // this.rooms = rooms;
+        // console.log(this.rooms[0].name);
+
       });
+    this.childButtonArea.setRooms(this.rooms);
   }
 
   private consultManual() {

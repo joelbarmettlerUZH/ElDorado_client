@@ -66,6 +66,7 @@ export class SelectCharacterComponent implements OnInit {
       character.assigned = false;
     }
   }
+
 }
 
 // ToDo source the HTML character unit out to the seperate component: character

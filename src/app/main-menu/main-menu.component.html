@@ -6,7 +6,7 @@
   <div id="MainMenuScreen">
     <app-title></app-title>
     <app-select-character #childCharacter></app-select-character>
-    <app-main-menu-button-board (navigationRequest)="navigate($event)"></app-main-menu-button-board>
+    <app-main-menu-button-board #childButtonArea (navigationRequest)="navigate($event)"></app-main-menu-button-board>
   </div>
 
 </div>
