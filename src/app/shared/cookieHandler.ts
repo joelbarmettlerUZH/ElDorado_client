@@ -1,22 +1,18 @@
-export class CookieHandler {
-
-  static saveCookie(playerId: number, token: string, gameId: number): void{
-    // TODO: SAVE playerId and token to cookie or local storage
-    localStorage.setItem("playerId",playerId.toString());
-    localStorage.setItem("gameId", gameId.toString());
-    localStorage.setItem("token", token);
-  }
-
-  static readId(): number{
-    return Number(localStorage.getItem("playerId"));
-  }
-
-  static readToken(): string{
-    return localStorage.getItem("token");
-  }
-
-  static readGameId(): number{
-    return Number(localStorage.getItem("gameId"));
-  }
-
+function saveCookie(playerId: number, token: string, gameId: number): void{
+  localStorage.setItem("playerId",playerId.toString());
+  localStorage.setItem("gameId", gameId.toString());
+  localStorage.setItem("token", token);
 }
+
+function readId(): number{
+  return Number(localStorage.getItem("playerId"));
+}
+
+function readToken(): string{
+  return localStorage.getItem("token");
+}
+
+function readGameId(): number{
+  return Number(localStorage.getItem("gameId"));
+}
+
