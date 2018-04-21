@@ -43,7 +43,7 @@ export class CardBoardComponent implements OnInit {
   */
   recieveHand($event) {
     this.cards = $event;
-    //console.log(this.cards);
+    // console.log(this.cards);
   }
 
 }

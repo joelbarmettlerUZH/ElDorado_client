@@ -6,6 +6,8 @@ import {RoomService} from '../shared/services/room.service';
 import {UserService} from '../shared/services/user.service';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
+import {CreateUser} from '../shared/models/createUser';
+import {saveUser} from '../shared/cookieHandler';
 
 @Component({
   selector: 'app-main-menu',
@@ -17,7 +19,7 @@ export class MainMenuComponent implements OnInit {
   @Output() changeCharacterRequest = new EventEmitter<string>();
   mainMenuScreen: string;
   rooms: any[] = [];
-  myself: User = new User();
+  // myself: User = new User();
   // ToDO get myself from DB
   defaultRoom: Room = new Room();
 
@@ -30,16 +32,24 @@ export class MainMenuComponent implements OnInit {
   roomID: string;
   private roomIDURI: string;
   private hubba: any[];
+  private me: CreateUser;
+  private meAsUser: User;
+  private userId: number;
+  private token: string;
 
-  constructor(
-    private roomService: RoomService,
-    private userService: UserService
-  ) {
+  constructor(private roomService: RoomService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
     this.mainMenuScreen = 'main-menu';
-    this.myself = new User;
+    this.me = new CreateUser('MeMyselfAndI', 4);
+    console.log('me', this.me);
+    this.userService.createUser(this.me).subscribe(res => {this.meAsUser = res;
+      saveUser(this.meAsUser);
+      console.log('meAsUser:', this.meAsUser);
+    });
+    // this.myself = new User;
   }
 
   navigate(target: string) {
@@ -52,14 +62,14 @@ export class MainMenuComponent implements OnInit {
     }
 
     if (this.mainMenuScreen === 'menubutton-hostgame') {
-      this.myself.userID = 1;
-      this.myself.name = 'MyName';
-      this.myself.character = 1;
-      this.myself.ready = false;
+      this.meAsUser.userID = 1;
+      this.meAsUser.name = 'MyName';
+      this.meAsUser.character = 1;
+      this.meAsUser.ready = false;
 
       this.defaultRoom.id = 10;
       this.defaultRoom.name = 'BesterRoomNameEver14';
-      this.defaultRoom.users = [this.myself];
+      this.defaultRoom.users = [this.meAsUser];
       this.defaultRoom.boardnumber = 2;
 
       this.hostGame(this.defaultRoom);
@@ -99,6 +109,7 @@ export class MainMenuComponent implements OnInit {
     this.roomService.getAllRooms()
       .subscribe(rooms => {
         this.rooms = rooms;
+        console.log(rooms);
         this.hubba = this.rooms.map(a => a.name);
         console.log('Roomname of first room:' + this.hubba[0]);
         // this.rooms = rooms;

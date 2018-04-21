@@ -4,7 +4,7 @@
       <ul id="hexGrid">
         <!--<app-hex-space *ngFor="let color of colors" id=""></app-hex-space>-->
         <li [ngStyle]="{'width' : yWidth + '10%'}" class="hex" *ngFor="let hexs of hexagons;">
-          <app-hexspace #hexId [HexSpace]="hexs" [yDim]="yDim" [ywidth]="yWidth"></app-hexspace>
+          <app-hexspace #hexvar [HexSpace]="hexs" [yDim]="yDim" [ywidth]="yWidth"></app-hexspace>
           <!--<div *ngIf="(i % (xDim * 2) < xDim)" class="hexIn">
             <a class="hexLink">
               <img src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_1.jpg"/>

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
@@ -10,7 +10,7 @@ import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-import {saveCookie} from '../../../shared/cookieHandler';
+import {savePlayer} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
 import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
@@ -23,7 +23,7 @@ declare var $: any;
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+  styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit, AfterViewInit {
   public hexagons: Hexspace[];
@@ -38,14 +38,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public ownPlayingPieces: PlayingPiece[] = [];
   public opponentPlayingPieces: PlayingPiece[] = [];
 
-  @ViewChildren('hexId') components: QueryList<HexspaceComponent>;
-  private childHex: HexspaceComponent;
+  @ViewChildren('hexvar') hexSpaceComponents: QueryList<HexspaceComponent>;
+  // private childHex: HexspaceComponent;
 
   constructor(private gameService: GameService, private playerService: PlayerService) {
   }
 
-  async ngOnInit() {
-
+  ngOnInit() {
+    savePlayer(1, 'TESTTOKEN', 3); // HArdcoded for naw
     this.gameService.getGame().subscribe(
       response => {
         this.game = response;
@@ -80,10 +80,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
         );
 
         this.panZoom();
+
+        console.log(this.hexSpaceComponents.toArray().length);
+      });
       }
 
-    );
 
+    /*
     let reachables: Hexspace[];
     this.getWay([], 0).subscribe(
       res => {
@@ -91,7 +94,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
         reachables.forEach(reachable => console.log("NEW REACHABLE: " + reachable));
       });
 
-  }
+  }*/
 
 
   panZoom() {
@@ -115,8 +118,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
     return this.playerService.findPath(moveWrapper, playingPieceId);
   }
 
-  ngAfterViewInit(){
-    console.log(this.components);
+  ngAfterViewInit() {
+    console.log(this.hexSpaceComponents.toArray().length);
+    console.log(this.hexSpaceComponents.toArray()[124].color);
+    console.log(this.hexSpaceComponents);
   }
 
 
