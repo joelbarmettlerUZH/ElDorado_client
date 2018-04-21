@@ -7,7 +7,15 @@ export function savePlayer(playerId: number, token: string, gameId: number): voi
 }
 
 export function saveUser(user: User): void {
-  localStorage.setItem('meUser', user.toString());
+  localStorage.setItem('meUser', JSON.stringify(user));
+}
+
+export function saveUserId(userId: number): void {
+  localStorage.setItem('userId', userId.toString());
+}
+
+export function saveTOKEN(TOKEN: string): void {
+  localStorage.setItem('TOKEN', TOKEN);
 }
 
 export function readId(): number {

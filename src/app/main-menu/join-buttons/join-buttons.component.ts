@@ -4,6 +4,7 @@ import {RoomService} from '../../shared/services/room.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-join-buttons',
@@ -15,8 +16,10 @@ export class JoinButtonsComponent implements OnInit {
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   rooms: Room[];
   public subscription: Subscription;
+  public user: User;
 
-  constructor(private roomService: RoomService) {
+  constructor(private roomService: RoomService,
+              private userService: UserService) {
   }
 
   setRooms(rooms: any[]) {
@@ -28,15 +31,21 @@ export class JoinButtonsComponent implements OnInit {
       res => {
         this.rooms = res;
         console.log('res', res);
-        console.log('log in Join butoons', this.rooms[0]);
+        // console.log('log in Join butoons', this.rooms[0]);
       }
     );
   }
 
   onRoomSelected(room: Room) {
-    const user: User = JSON.parse(localStorage.getItem('meUser'));
-    console.log('got user from local storage:', user)
-    this.roomService.addUser(user, room.id);
+    // console.log(Number(localStorage.getItem('userId')));
+    console.log('User form local storage', JSON.parse(localStorage.getItem('meUser')))
+    this.user = JSON.parse(localStorage.getItem('meUser'));
+    console.log('onselectuser', this.user);
+    console.log('onselectroomsid', room.roomID);
+    this.roomService.addUser(this.user, room.roomID).subscribe(response => {
+        console.log('shfakjh', response);
+    });
+    // const user: User = JSON.parse(localStorage.getItem('meUser'));
   }
 
 
