@@ -41,6 +41,7 @@ import {UserService} from './shared/services/user.service';
 import {CharacterComponent} from './main-menu/character/character.component';
 import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 import {GameService} from './shared/services/game.service';
+import {MoveService} from './shared/services/move.service';
 
 
 
@@ -84,7 +85,7 @@ import {GameService} from './shared/services/game.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, BoardService, PlayerService, UserService, GameService], // AuthenticationService, AuthGuardService
+  providers: [RoomService, BoardService, PlayerService, UserService, GameService, MoveService], // AuthenticationService, AuthGuardService
   bootstrap: [AppComponent]
 })
 export class AppModule {

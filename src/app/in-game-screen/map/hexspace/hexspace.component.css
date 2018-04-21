@@ -14,6 +14,22 @@
   /* 100 / number-of-rows-in-X-direction */
 }
 
+.reachable{
+  -webkit-filter: contrast(1.3);
+  filter: contrast(1.3);
+  background-color: #e0b311;
+  opacity: 0.5;
+}
+
+.notCurrent{
+  -webkit-filter: grayscale(60%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(60%);
+}
+
+.xOffset{
+  margin-left: 50%;
+}
+
 .clickable {
   opacity: 0.5;
 }
