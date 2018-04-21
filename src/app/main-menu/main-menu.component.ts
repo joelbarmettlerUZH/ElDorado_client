@@ -89,15 +89,6 @@ export class MainMenuComponent implements OnInit {
 
       this.hostGame(this.defaultRoom);
     }
-
-    if (this.mainMenuScreen === 'menubutton-joingame') {
-      this.joinGame();
-    }
-
-    if (this.mainMenuScreen === 'menubutton-manual') {
-      this.consultManual();
-    }
-
   }
 
   private restoreMainMenu() {
