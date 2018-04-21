@@ -9,17 +9,28 @@ button {
   color: white;
   font-size: 25px;
   font-weight: normal;
-
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   left: 0px;
   /*cursor: pointer;*/
   cursor: hand;
+  background-color: transparent;
+
+}
+
+.subbutton:hover {
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Menubuttons_pressed.png');
+}
+
+.subbutton:active {
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Menubuttons_pressed.png');
 }
 
 button:hover {
-  background-color: #cfd8dc;
+  /*background-color: #cfd8dc;*/
+  background-color: transparent;
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Menubuttons_pressed.png');
 }
 
 button:disabled {
@@ -39,3 +50,6 @@ button:disabled {
 #menubutton-manual {
   top: 160px;
 }
+
+button:focus {outline:0 !important;}
+

@@ -17,7 +17,9 @@
 }
 
 .button:hover {
-  background-color: #cfd8dc;
+  /*background-color: #cfd8dc;*/
+  background-color: transparent;
+
 }
 
 .button:disabled {
@@ -100,3 +102,7 @@ input {
   font-weight: normal;
   opacity: 1; /* Firefox */
 }
+
+button:focus {outline:0 !important;}
+input:focus {outline:0 !important;}
+

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {restUrl} from './RESTurl';
 import {Http} from '@angular/http';
 import {CreateUser} from '../models/createUser';
@@ -34,8 +34,8 @@ export class UserService {
 
   // Modifies an existing user
   public modifyUser(user: User) {
-    const url = this.baseUrl + 'User?token' + this.token;
-    return this.http.put(url, user).map(res => res.json());
+    const url = this.baseUrl + 'User?token=' + this.token;
+    return this.http.put(url, user);
   }
 
 }

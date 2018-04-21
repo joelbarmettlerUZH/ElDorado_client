@@ -48,7 +48,6 @@ export class MainMenuButtonBoardComponent implements OnInit {
     console.log('this.homeButton: ' + this.homeButton);
     this.navigationRequest.emit(target);
     console.log('Gesendet: navigationRequest | von main-menu-button-board | Target:' + target + ' | Empfänger: main-menu');
-
   }
 
 
@@ -63,6 +62,8 @@ export class MainMenuButtonBoardComponent implements OnInit {
       console.log('Info: this.homeButton: ' + this.homeButton);
     });
     this.myMap.set('menubutton-hostgame', false);
+    this.myMap.set('menubutton-joingame', false);
+    this.myMap.set('menubutton-manual', false);
     this.menubuttonMenuButtons = true;
     this.homeButton = false;
     this.navigationRequest.emit('main-menu');

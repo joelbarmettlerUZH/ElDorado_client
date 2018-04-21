@@ -87,12 +87,12 @@ export class PlayerService {
 
   // FindPath
   public findPath(moveWrapper: MoveWrapper, playingPieceId: number) {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Path?token=' + this.token, moveWrapper).map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Path/' + playingPieceId + '?token=' + this.token, moveWrapper).map(res => res.json());
   }
 
   // Move
   public move(moveWrapper: MoveWrapper, playingPieceId: number) {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Move?token=' + this.token, moveWrapper).map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Move/' + playingPieceId + '?token=' + this.token, moveWrapper).map(res => res.json());
   }
 
 }

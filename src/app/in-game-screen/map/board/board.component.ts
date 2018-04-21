@@ -1,5 +1,4 @@
 import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
 import {BoardService} from '../../../shared/services/board.service';
@@ -17,6 +16,7 @@ import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
 import {forEach} from '@angular/router/src/utils/collection';
+import {MoveService} from '../../../shared/services/move.service';
 
 declare var $: any;
 
@@ -37,65 +37,48 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public players: Player[];
   public ownPlayingPieces: PlayingPiece[] = [];
   public opponentPlayingPieces: PlayingPiece[] = [];
+  public hexComponents: HexspaceComponent[] = [];
+  public selectedPlayingPiece: PlayingPiece;
+  public selectedCards: Card[];
 
-  @ViewChildren('hexvar') hexSpaceComponents: QueryList<HexspaceComponent>;
+  // @ViewChildren('hexvar') hexSpaceComponents: QueryList<HexspaceComponent>;
   // private childHex: HexspaceComponent;
 
-  constructor(private gameService: GameService, private playerService: PlayerService) {
+  @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
+
+  constructor(
+    private gameService: GameService,
+    private playerService: PlayerService,
+    private moveService: MoveService
+  ) {
   }
 
   ngOnInit() {
-    savePlayer(1, 'TESTTOKEN', 3); // HArdcoded for naw
+    savePlayer(1, 'TESTTOKEN', 3);
+    // to delete
+    this.playerService.getHandPile().subscribe(
+      response => {
+        const cards: Card[] = response;
+        this.moveService.setCards(cards.slice(1, 2));
+      }
+    );
+    // to delete
+
     this.gameService.getGame().subscribe(
       response => {
-        this.game = response;
-        this.board = this.game.pathMatrix;
+        this.updateGame(response);
         this.xDim = this.board.xdim;
         this.yDim = this.board.ydim;
-        this.hexagons = this.board.matrixArray;
         this.yWidth = (100 / this.yDim);
         this.yWidth = Math.round(((100 - this.yWidth / 2) / this.yDim) * 100) / 100;
-
-
-        this.players = this.game.players;
-        this.players.forEach(player => {
-          if(player.playerId == Number(localStorage.getItem("playerId"))){
-            player.playingPieces.forEach(
-              playingPiece => this.ownPlayingPieces.push(playingPiece));
-          }else{
-            player.playingPieces.forEach(
-              playingPiece => this.opponentPlayingPieces.push(playingPiece));
-          }
-        });
-
-
-        this.ownPlayingPieces.forEach(
-          playingPiece => {
-            let x = playingPiece.standsOn.point.x;
-            let y = playingPiece.standsOn.point.y;
-            let index = (x * this.yDim) + y;
-            // TODO: Call right method on hexagon to display own PlayingPiece
-            // this.hexagons[index].doSomething()
-          }
-        );
-
         this.panZoom();
 
-        console.log(this.hexSpaceComponents.toArray().length);
       });
-      }
+  }
 
-
-    /*
-    let reachables: Hexspace[];
-    this.getWay([], 0).subscribe(
-      res => {
-        reachables = res;
-        reachables.forEach(reachable => console.log("NEW REACHABLE: " + reachable));
-      });
-
-  }*/
-
+  pointToIndex(point: Point) {
+    return (point.x * this.yDim) + point.y;
+  }
 
   panZoom() {
     var $section = $('#board');
@@ -112,18 +95,145 @@ export class BoardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getWay(cards: Card[], playingPieceId: number) {
+  getWay($event) {
+    console.log('Knowing da wea');
+    this.moveService.getCards().subscribe(
+      cards => {
+        if (cards.length < 1) {
+          return;
+        }
+        console.log('Path cards are: ', cards);
+        this.selectedCards = cards;
+        this.resetReachable();
+        console.log('Path Playing piece is: ', $event);
+        this.selectedPlayingPiece = $event;
+        const playingPieceId = this.selectedPlayingPiece.playingPieceId;
+        const moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
+        console.log('Finding path with movewarpper: ', moveWrapper);
+        this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
+          response => {
+            const hexSpaces: Hexspace[] = response;
+            console.log('Reaching hexspaces: ', hexSpaces);
+            hexSpaces.forEach(
+              hex => {
+                this.findHexComponent(hex).setReachable(true);
+              }
+            );
+          }
+        );
+      }
+    );
+  }
 
-    let moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
-    return this.playerService.findPath(moveWrapper, playingPieceId);
+  move($event) {
+    this.moveService.getCards().subscribe(
+      cards => {
+        if (cards.length < 1) {
+          return;
+        }
+        const hexSpace: Hexspace = $event;
+        const playingPieceId = this.selectedPlayingPiece.playingPieceId;
+        // TODO: add errorhandling here boye
+        this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
+          response => {
+            const self: number = Number(localStorage.getItem('playerId'));
+            this.gameService.getGame().subscribe(
+              res => {
+                this.updatePlayers();
+              }
+            );
+          }
+        );
+      });
+  }
+
+  updateGame(game: Game) {
+    this.game = game;
+    this.board = this.game.pathMatrix;
+    this.players = this.game.players;
+    this.hexagons = this.board.matrixArray;
+    this.players.forEach(player => {
+      if (player.playerId == Number(localStorage.getItem('playerId'))) {
+        player.playingPieces.forEach(
+          playingPiece => this.ownPlayingPieces.push(playingPiece));
+      } else {
+        player.playingPieces.forEach(
+          playingPiece => this.opponentPlayingPieces.push(playingPiece));
+      }
+    });
+  }
+
+  updatePlayers() {
+    this.gameService.getPlayers().subscribe(
+      response => {
+        this.players = response;
+      }
+    );
+    this.hexComponents.forEach(
+      hex => {
+        hex.movesOff();
+        hex.setReachable(false);
+        hex.setCurrent(false);
+      }
+    );
+    this.players.forEach(
+      player => {
+        player.playingPieces.forEach(
+          playingPiece => {
+            const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
+            hex.movesOn(player);
+            if (this.game.current.playerId == player.playerId) {
+              hex.setCurrent(true);
+            }
+          }
+        );
+      }
+    );
+  }
+
+  findHexComponent(hexspace: Hexspace): HexspaceComponent {
+    const x = hexspace.point.x;
+    const y = hexspace.point.y;
+    const index = x * this.yDim + y;
+    return this.hexComponents[index];
+  }
+
+  resetReachable() {
+    this.hexComponents.forEach(
+      hexComponent => {
+        hexComponent.setReachable(false);
+      }
+    );
   }
 
   ngAfterViewInit() {
-    console.log(this.hexSpaceComponents.toArray().length);
-    console.log(this.hexSpaceComponents.toArray()[124].color);
-    console.log(this.hexSpaceComponents);
+    console.log('Waduhek length is ' + this.hexComponent.toArray().length);
+    this.hexComponent.changes.subscribe(
+      hex => {
+        console.log('Change');
+        this.hexComponents = this.hexComponent.toArray();
+        console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
+        if (this.hexComponents.length == this.xDim * this.yDim) {
+          console.log('Setting playing pieces now');
+          this.players.forEach(
+            player => {
+              player.playingPieces.forEach(
+                playingPiece => {
+                  console.log('Waduhekekekeri');
+                  const index = this.pointToIndex(playingPiece.standsOn.point);
+                  console.log('Setting playingpiece to ' + index);
+                  setTimeout(() => {
+                    this.hexComponents[index].movesOn(player);
+                  });
+                }
+              );
+            }
+          );
+        }
+        this.updatePlayers();
+      });
+    console.log('Going away now, fuck off');
   }
-
 
 }
 

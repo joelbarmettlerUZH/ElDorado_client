@@ -4,7 +4,8 @@
     <div class="readyTick" *ngIf="character.ready"></div>
     <div class="image" id="imagecharacter{{character.id}}" [class.grayedoutPossible]="areClickable === true"
          [class.grayedout]="character.assigned === false" (click)="onSelect(character)"></div>
-    <input class="nameBox" [class.ownNameBox]="character === selectedCharacter" (ngModel)="character.name"
+    <input #namebox class="nameBox" [class.ownNameBox]="character === selectedCharacter"
+           (keyup.enter)="updateUser(namebox.value)"
            placeholder={{character.name}} *ngIf="character.assigned">
     <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
       Ready

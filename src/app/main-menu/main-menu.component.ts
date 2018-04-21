@@ -7,7 +7,7 @@ import {UserService} from '../shared/services/user.service';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 import {CreateUser} from '../shared/models/createUser';
-import {saveUser, saveTOKEN, saveUserId} from '../shared/cookieHandler';
+import {saveTOKEN, saveUser, saveUserId} from '../shared/cookieHandler';
 
 @Component({
   selector: 'app-main-menu',
@@ -35,14 +35,15 @@ export class MainMenuComponent implements OnInit {
   private me: CreateUser;
   private meAsUser: User;
   private userId: number;
-  private token: string;
-  private user: User;
+  public token: string;
+  public user: User;
 
   constructor(private roomService: RoomService,
               private userService: UserService) {
   }
 
   ngOnInit() {
+    localStorage.clear();
     this.mainMenuScreen = 'main-menu';
     // localStorage.clear();
     if (localStorage.getItem('userId') == null) {
@@ -56,14 +57,15 @@ export class MainMenuComponent implements OnInit {
         // saveUser(this.meAsUser);
         console.log('meAsUserTOKEN:', this.token);
         console.log('meAsUserID:', this.userId);
-      });
-    }
+        console.log('LS user id:', Number(localStorage.getItem('userId')));
     this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
       this.user = res;
       saveUser(this.user);
       console.log(res);
       console.log('saved user to LocalStorage:', this.user);
     });
+      });
+    }
     // this.myself = new User;
   }
 
@@ -89,15 +91,6 @@ export class MainMenuComponent implements OnInit {
 
       this.hostGame(this.defaultRoom);
     }
-
-    if (this.mainMenuScreen === 'menubutton-joingame') {
-      this.joinGame();
-    }
-
-    if (this.mainMenuScreen === 'menubutton-manual') {
-      this.consultManual();
-    }
-
   }
 
   private restoreMainMenu() {

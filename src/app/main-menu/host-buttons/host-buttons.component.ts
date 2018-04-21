@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ROUTES} from '../../shared/models/mock-routes';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {Route} from '../../shared/models/route';
@@ -17,10 +17,14 @@ import {RoomService} from '../../shared/services/room.service';
 export class HostButtonsComponent implements OnInit {
   routes = ROUTES;
   hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
-  rooms: Room[];
+  public room: Room;
+  public name: string;
   public subscription: Subscription;
   public user: User;
+  public userId: number;
   characters = CHARACTERS;
+
+  @Output() changeCharacterRequest = new EventEmitter<Room>();
 
 
   constructor(private roomService: RoomService,
@@ -28,9 +32,44 @@ export class HostButtonsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.name = "Rumos magnificos";
+    this.userId = Number(localStorage.getItem('userId'));
+    this.userService.getUser(this.userId).subscribe(response => {
+        this.user = response;
+        console.log('REST | GET User (self) ', this.user);
+      }
+    );
+  }
+
+  updateRoom(inputstring) {
+    this.name = inputstring;
+    console.log(this.name);
   }
 
   onRouteSelected(route: Route) {
+    // this.roomService.
+    if (this.name !== "Rumos magnificos" && this.name !== "") {
+      this.roomService.createRoom(this.name, route.id).subscribe(response => {
+        console.log('REST | POST ' + this.name + ' as new Room', response);
+        this.room = response;
+        this.roomService.addUser(this.user, this.room.roomID).subscribe(res => {
+        console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, res);
+      });
+    });
+    }
+    this.changeCharacterRequest.emit(this.room);
+
+    // assign first character
+    this.user.character = this.characters[0].id;
+    this.userService.modifyUser(this.user);
+    console.log('post modify user', this.user);
+
+    // add User to the Room
+    this.roomService.addUser(this.user, this.room.roomID).subscribe(response => {
+      console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, response);
+    });
+
+    this.changeCharacterRequest.emit(this.room);
   }
 }
 

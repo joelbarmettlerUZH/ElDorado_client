@@ -1,5 +1,9 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Hexspace} from '../../../shared/models/hexSpace';
+import {Player} from '../../../shared/models/Player';
+import {MoveWrapper} from '../../../shared/models/MoveWrapper';
+import {PlayingPiece} from '../../../shared/models/PlayingPiece';
+import {Point} from '../../../shared/models/point';
 
 @Component({
   selector: 'app-hexspace',
@@ -17,13 +21,26 @@ export class HexspaceComponent implements OnInit {
   @Input()
   public ywidth: number;
 
+  @Output()
+  public path = new EventEmitter<PlayingPiece>();
+
+  @Output()
+  public move = new EventEmitter<Hexspace>();
+
+  public player: Player;
+
+  public isReachable = false;
+  public isPlayingPiece = false;
+  public isCurrent = false;
+
   public color: string;
 
   public strength: number;
 
   public index: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
@@ -34,4 +51,55 @@ export class HexspaceComponent implements OnInit {
     console.log(this.color);
   }
 
+  setReachable(reachable: boolean) {
+    this.isReachable = reachable;
+  }
+
+  moveTo() {
+    console.log('User requests moving to ' + this.index);
+    this.move.emit(this.HexSpace);
+  }
+
+  setCurrent(current: boolean) {
+    this.isCurrent = current;
+  }
+
+  findPath() {
+    // TODO: What halppens if i click on a playing piece of another player?
+    console.log(this.player);
+    let playingPiece: PlayingPiece;
+    this.player.playingPieces.forEach(
+      pP => {
+        if (this.pointToIndex(pP.standsOn.point) === this.pointToIndex(this.HexSpace.point)) {
+          playingPiece = pP;
+        }
+      });
+    console.log('Playingpiece is ' + playingPiece.playingPieceId);
+    this.path.emit(playingPiece);
+  }
+
+  pointToIndex(point: Point) {
+    return (point.x * this.yDim) + point.y;
+  }
+
+  movesOn(player: Player) {
+    console.log('Player moves on hexspace', player, this.HexSpace);
+    this.player = player;
+    this.isPlayingPiece = true;
+  }
+
+  movesOff() {
+    console.log("Player moves of hexspace", this.player, this.HexSpace);
+    this.player = null;
+    this.isPlayingPiece = false;
+  }
+
+  performAction() {
+    if (this.isPlayingPiece) {
+      this.findPath();
+    }
+    if (this.isReachable) {
+      this.moveTo();
+    }
+  }
 }
