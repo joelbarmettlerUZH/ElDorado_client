@@ -30,6 +30,18 @@ export class SelectCharacterComponent implements OnInit {
   generateJoinView(room) {
     this.restoreCharacterDefault();
     this.areClickable = true;
+    for (const user of room.users) {
+      this.characters.filter(function (obj) {
+        return obj.id == user.character;
+      }).forEach(x => {
+        console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
+        x.assigned = true;
+        console.log('"Assigned" of Character :' + x.name + 'after: ' + x.assigned);
+        console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
+        x.ready = user.ready;
+        console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
+      });
+    }
   }
 
   generateManualView() {
@@ -42,13 +54,13 @@ export class SelectCharacterComponent implements OnInit {
   }
 
   onSelect(character: Character): void {
-    if (this.areClickable) {
+    if (this.areClickable && !character.assigned) {
       if (this.selectedCharacter) {
         this.selectedCharacter.ready = false;
         this.selectedCharacter.assigned = false;
       }
       this.selectedCharacter = character;
-      console.log(this.selectedCharacter.name + 'is selected.');
+      console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
     }
   }
@@ -66,7 +78,6 @@ export class SelectCharacterComponent implements OnInit {
       character.assigned = false;
     }
   }
-
 }
 
 // ToDo source the HTML character unit out to the seperate component: character
