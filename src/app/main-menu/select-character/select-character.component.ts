@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
+import {User} from '../../shared/models/User';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-select-character',
@@ -12,9 +14,10 @@ export class SelectCharacterComponent implements OnInit {
   areClickable: boolean;
   characters = CHARACTERS;
   selectedCharacter: Character;
+  me: User;
 
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   generateMainMenuView() {
@@ -64,6 +67,8 @@ export class SelectCharacterComponent implements OnInit {
       this.selectedCharacter = character;
       console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
+      this.me.character = this.selectedCharacter.id;
+      this.userService.modifyUser(this.me);
     }
   }
 
