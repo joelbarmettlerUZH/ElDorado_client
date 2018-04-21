@@ -16,8 +16,13 @@ export class SelectCharacterComponent implements OnInit {
   selectedCharacter: Character;
   me: User;
 
-
   constructor(private userService: UserService) {
+  }
+
+  updateUser() {
+    console.log('Method Call | updateUser | in select-character');
+    this.userService.modifyUser(this.me);
+    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me);
   }
 
   generateMainMenuView() {
@@ -67,8 +72,10 @@ export class SelectCharacterComponent implements OnInit {
       this.selectedCharacter = character;
       console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
-      this.me.character = this.selectedCharacter.id;
-      this.userService.modifyUser(this.me);
+      if (this.me) {
+        this.me.character = this.selectedCharacter.id;
+        this.userService.modifyUser(this.me);
+      }
     }
   }
 
