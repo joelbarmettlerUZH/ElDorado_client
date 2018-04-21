@@ -39,6 +39,15 @@ export class RoomService {
     return this.http.post(url, createNewRoom).map(res => this.listRooms = res.json());
   }
 
+  public updateUser(user: User, roomId: number) {
+    const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
+    console.log('service user addtoroom:', user);
+    return this.http.put(url, user).map(res => {res.json();
+      console.log('...', res.json());
+    });
+  }
+
+
   // adds a user to a room and returns the modified room
   public addUser(user: User, roomId: number) {
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;

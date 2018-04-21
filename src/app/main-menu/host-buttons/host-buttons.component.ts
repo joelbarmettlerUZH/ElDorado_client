@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ROUTES} from '../../shared/models/mock-routes';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {Route} from '../../shared/models/route';
@@ -17,10 +17,14 @@ import {RoomService} from '../../shared/services/room.service';
 export class HostButtonsComponent implements OnInit {
   routes = ROUTES;
   hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
-  rooms: Room[];
+  public room: Room;
+  public name: string;
+  public inputRoomName: string;
   public subscription: Subscription;
   public user: User;
   characters = CHARACTERS;
+
+  @Output() changeCharacterRequest = new EventEmitter<Room>();
 
 
   constructor(private roomService: RoomService,
@@ -28,10 +32,22 @@ export class HostButtonsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.name = "BesterRoomNameEver";
+    this.inputRoomName = this.name;
+  }
+
+  updateRoom() {
+    this.name = this.inputRoomName;
+    console.log(this.name);
   }
 
   onRouteSelected(route: Route) {
     // this.roomService.
+    this.roomService.createRoom(this.name, route.id).subscribe(response => {
+      console.log('REST | POST ' + this.name + ' as new Room', response);
+      this.room = response;
+    });
+    this.changeCharacterRequest.emit(this.room);
   }
 }
 

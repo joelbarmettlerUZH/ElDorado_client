@@ -43,6 +43,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.clear();
     this.mainMenuScreen = 'main-menu';
     // localStorage.clear();
     if (localStorage.getItem('userId') == null) {
@@ -56,14 +57,15 @@ export class MainMenuComponent implements OnInit {
         // saveUser(this.meAsUser);
         console.log('meAsUserTOKEN:', this.token);
         console.log('meAsUserID:', this.userId);
-      });
-    }
+        console.log('LS user id:', Number(localStorage.getItem('userId')));
     this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
       this.user = res;
       saveUser(this.user);
       console.log(res);
       console.log('saved user to LocalStorage:', this.user);
     });
+      });
+    }
     // this.myself = new User;
   }
 

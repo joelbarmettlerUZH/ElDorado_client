@@ -59,7 +59,9 @@ button {
 }
 
 button:hover {
-  background-color: #cfd8dc;
+  /*background-color: #cfd8dc;*/
+  background-color: transparent;
+
 }
 
 button:disabled {
@@ -67,4 +69,7 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+button:focus {outline:0 !important;}
+
 
