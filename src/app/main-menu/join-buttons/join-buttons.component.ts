@@ -64,7 +64,7 @@ export class JoinButtonsComponent implements OnInit {
     console.log('post modify user', this.user);
     // add User to the Room
     this.roomService.addUser(this.user, room.roomID).subscribe(response => {
-        console.log('REST | POST ' + this.user.name + ' to Room ' + room.name, response);
+      console.log('REST | POST ' + this.user.name + ' to Room ' + room.name, response);
     });
     this.changeCharacterRequest.emit(room);
 

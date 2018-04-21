@@ -19,9 +19,9 @@ export class HostButtonsComponent implements OnInit {
   hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
   public room: Room;
   public name: string;
-  public inputRoomName: string;
   public subscription: Subscription;
   public user: User;
+  public userId: number;
   characters = CHARACTERS;
 
   @Output() changeCharacterRequest = new EventEmitter<Room>();
@@ -32,21 +32,31 @@ export class HostButtonsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = 'BesterRoomNameEver';
-    this.inputRoomName = this.name;
+    this.name = "Rumos magnificos";
+    this.userId = Number(localStorage.getItem('userId'));
+    this.userService.getUser(this.userId).subscribe(response => {
+        this.user = response;
+        console.log('REST | GET User (self) ', this.user);
+      }
+    );
   }
 
-  updateRoom() {
-    this.name = this.inputRoomName;
+  updateRoom(inputstring) {
+    this.name = inputstring;
     console.log(this.name);
   }
 
   onRouteSelected(route: Route) {
     // this.roomService.
-    this.roomService.createRoom(this.name, route.id).subscribe(response => {
-      console.log('REST | POST ' + this.name + ' as new Room', response);
-      this.room = response;
+    if (this.name !== "Rumos magnificos" && this.name !== "") {
+      this.roomService.createRoom(this.name, route.id).subscribe(response => {
+        console.log('REST | POST ' + this.name + ' as new Room', response);
+        this.room = response;
+        this.roomService.addUser(this.user, this.room.roomID).subscribe(res => {
+        console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, res);
+      });
     });
+    }
     this.changeCharacterRequest.emit(this.room);
 
     // assign first character
