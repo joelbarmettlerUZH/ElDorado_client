@@ -34,16 +34,20 @@ export class MainMenuButtonBoardComponent implements OnInit {
   ngOnInit() {
   }
 
+  // on main-menu button clicked (see HTML) | 2. action: a) display Home Button
+  // b) display right buttons (join or host) by setting value for HTML ngIf   c) Navigate Request to main-menu
+  // 3. action: see main-menu component
+
   changeButtons(target: string) {
     console.log('Erhalten: changeButtonsRequest | von Main-Menu-Button-Board | target: ' + target);
     // console.log('target: ' + target);
     this.menubuttonMenuButtons = false;
     this.myMap.forEach(key => this.myMap.set(String(key), false));
     this.myMap.set(target, true);
-    console.log('this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
-    console.log('this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
-    console.log('this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
-    console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
+    // console.log('this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
+    // console.log('this.menubutton-hostgame: ' + this.myMap.get('menubutton-hostgame'));
+    // console.log('this.menubutton-joingame: ' + this.myMap.get('menubutton-joingame'));
+    // console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
     this.homeButton = true;
     console.log('this.homeButton: ' + this.homeButton);
     this.navigationRequest.emit(target);
