@@ -44,7 +44,7 @@ export class RoomService {
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
     console.log('service user addtoroom:', user);
     return this.http.put(url, user).map(res => {res.json();
-    console.log('...', res.json().toString());
+    console.log('...', res.json());
     });
   }
 

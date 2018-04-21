@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
+import {CHARACTERS} from '../../shared/models/character-database';
 
 @Component({
   selector: 'app-join-buttons',
@@ -17,6 +18,8 @@ export class JoinButtonsComponent implements OnInit {
   rooms: Room[];
   public subscription: Subscription;
   public user: User;
+  characters = CHARACTERS;
+
 
   constructor(private roomService: RoomService,
               private userService: UserService) {
@@ -37,6 +40,14 @@ export class JoinButtonsComponent implements OnInit {
   }
 
   onRoomSelected(room: Room) {
+    let filteredArray = this.characters;
+    console.log('pre filteredArray', filteredArray)
+    for (const UserIterator of room.users){
+      console.log('userIterator', UserIterator.character)
+      filteredArray = filteredArray.filter(function (e) {return e.id !== UserIterator.character;
+      });
+    }
+    console.log('filteredArray', filteredArray)
     // console.log(Number(localStorage.getItem('userId')));
     console.log('User form local storage', JSON.parse(localStorage.getItem('meUser')))
     this.user = JSON.parse(localStorage.getItem('meUser'));
