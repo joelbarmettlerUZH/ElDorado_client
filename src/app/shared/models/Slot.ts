@@ -1,8 +1,8 @@
 import {Card} from './Card';
 
 export class Slot {
-  slotId: number;
-  pile: Card[];
+  public slotId: number;
+  public pile: Card[];
 }
 
 

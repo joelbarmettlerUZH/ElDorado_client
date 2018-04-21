@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
-import {Observable} from 'rxjs/Rx';
-import {CardSlotComponent} from '../card-slot/card-slot.component';
+// import {Observable} from 'rxjs/Rx';
+// import {CardSlotComponent} from '../card-slot/card-slot.component';
 
 @Component({
   selector: 'app-card-board',
@@ -19,7 +19,7 @@ export class CardBoardComponent implements OnInit {
   constructor(private playerService: PlayerService) { }
 
   // used for updating the handcards after selling/discarding
-  //@ViewChild(CardSlotComponent) slot;
+  // @ViewChild(CardSlotComponent) slot;
 
   async ngOnInit() {
     // this.pollHandCards();

@@ -1,8 +1,23 @@
-<div id="Marketboard" (click)="fadeInOut()">
-  <app-market-slot id="market-slot1"></app-market-slot>
-  <app-market-slot id="market-slot2"></app-market-slot>
-  <app-market-slot id="market-slot3"></app-market-slot>
-  <app-market-slot id="market-slot4"></app-market-slot>
-  <app-market-slot id="market-slot5"></app-market-slot>
-  <app-market-slot id="market-slot6"></app-market-slot>
+<div class="Marketboard" id="marketboard" (click)="fadeInOut()">
+  <div id="active">
+    <img *ngFor="let slot of activeSlot" id = "position" src="../../../assets/Gui_Elemente/Karten/fake{{slot.pile[0].name}}.png">
+  </div>
+  <div id="passive">
+    <img *ngFor="let slot of passiveSlot" id = "passiveposition" src="../../../assets/Gui_Elemente/Karten/fake{{slot.pile[0].name}}.png">
+  </div>
 </div>
+
+
+<!-- // show multiple cards of same type in market
+<div class="Marketboard" id="marketboard" (click)="fadeInOut()">
+  <div id="active">
+    <div id = "position" *ngFor="let slot of activeSlot">
+      <div id = "multiple" *ngFor="let Card of slot.pile">
+        <img  src="../../../assets/Gui_Elemente/Karten/fake{{Card.name}}.png">
+      </div>
+    </div>
+  </div>
+
+  <div id="passive"></div>
+</div>
+-->

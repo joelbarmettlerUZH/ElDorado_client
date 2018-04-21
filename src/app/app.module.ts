@@ -19,7 +19,7 @@ import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.c
 import { CardBoardComponent } from './in-game-screen/card-board/card-board.component';
 import { CardSlotComponent } from './in-game-screen/card-slot/card-slot.component';
 import { ButtonBoardComponent } from './in-game-screen/button-board/button-board.component';
-import { CardComponent } from './in-game-screen/card/card.component';
+import { CardComponent } from './in-game-screen/marketplace/card/card.component';
 import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.component';
 import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
 import { MarketreserveComponent } from './in-game-screen/marketreserve/marketreserve.component';
@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { RoomService} from './shared/services/room.service';
- import { HttpClientModule} from '@angular/common/http';
+// import { HttpClientModule} from '@angular/common/http';
 import { HostComponent } from './host/host.component';
 import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
 import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.component';

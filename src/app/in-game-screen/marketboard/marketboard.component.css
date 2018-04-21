@@ -1,48 +1,45 @@
 
-#Marketboard{
+.Marketboard{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Right_Markt.png');
   width: 330px;
   height: 768px;
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
 }
 
-#Slot1{
-  position: absolute;
-  bottom: 650px;
-  right: 300px;
+#passive{
+  margin-top: 60px;
 }
 
-#Slot2{
-  position: absolute;
-  bottom: 650px;
-  right: 100px;
-
+#position{
+  margin-left: 45px;
+  margin-top: 10px;
+  width: 109px;
+  height: 170px;
 }
 
-#Slot3{
-  position: absolute;
-  bottom: 450px;
-  right: 300px;
+#passiveposition{
+  margin-left: 45px;
+  margin-top: 10px;
+  width: 109px;
+  height: 170px;
 }
 
-#Slot4{
-  position: absolute;
-  bottom: 450px;
-  right: 100px;
-
+#multiple{
+  margin-left: 10px;
 }
 
-#Slot5{
-  position: absolute;
-  bottom: 250px;
-  right: 300px;
+#multiple0{
+  margin-left: 10px;
 }
 
-#Slot6{
-  position: absolute;
-  bottom: 250px;
-  right: 100px;
+#multiple1{
+  margin-left: 40px;
 }
+
+#multiple2{
+  margin-left: 80px;
+}
+
