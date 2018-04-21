@@ -40,12 +40,14 @@ export class SelectCharacterComponent implements OnInit {
         console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
         x.ready = user.ready;
         console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
+        x.name = user.name;
       });
     }
   }
 
   generateManualView() {
     this.restoreCharacterDefault();
+    console.log('test');
   }
 
   ngOnInit() {

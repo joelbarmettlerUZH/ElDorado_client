@@ -76,7 +76,7 @@
 
 .nameBox {
   position: absolute;
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_selected.png');
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_unselected.png');
   width: 224px;
   height: 40px;
   bottom: 5px;
@@ -85,6 +85,10 @@
   font-size: 20px;
   font-weight: normal;
   text-align: center;
+}
+
+.nameBox.ownNameBox {
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Inputfield_selected.png');
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
