@@ -45,4 +45,8 @@
 #homeButton {
   top: 710px;
   left: 167px;
+  background-color: transparent;
 }
+
+
+button:focus {outline:0 !important;}

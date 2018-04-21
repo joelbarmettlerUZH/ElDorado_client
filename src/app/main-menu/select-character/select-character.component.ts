@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
+import {User} from '../../shared/models/User';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-select-character',
@@ -12,9 +14,15 @@ export class SelectCharacterComponent implements OnInit {
   areClickable: boolean;
   characters = CHARACTERS;
   selectedCharacter: Character;
+  me: User;
 
+  constructor(private userService: UserService) {
+  }
 
-  constructor() {
+  updateUser() {
+    console.log('Method Call | updateUser | in select-character');
+    this.userService.modifyUser(this.me);
+    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me);
   }
 
   generateMainMenuView() {
@@ -27,13 +35,27 @@ export class SelectCharacterComponent implements OnInit {
     this.selectedCharacter = this.characters[0];
   }
 
-  generateJoinView() {
+  generateJoinView(room) {
     this.restoreCharacterDefault();
     this.areClickable = true;
+    for (const user of room.users) {
+      this.characters.filter(function (obj) {
+        return obj.id == user.character;
+      }).forEach(x => {
+        console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
+        x.assigned = true;
+        console.log('"Assigned" of Character :' + x.name + 'after: ' + x.assigned);
+        console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
+        x.ready = user.ready;
+        console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
+        x.name = user.name;
+      });
+    }
   }
 
   generateManualView() {
     this.restoreCharacterDefault();
+    console.log('test');
   }
 
   ngOnInit() {
@@ -42,14 +64,18 @@ export class SelectCharacterComponent implements OnInit {
   }
 
   onSelect(character: Character): void {
-    if (this.areClickable) {
+    if (this.areClickable && !character.assigned) {
       if (this.selectedCharacter) {
         this.selectedCharacter.ready = false;
         this.selectedCharacter.assigned = false;
       }
       this.selectedCharacter = character;
-      console.log(this.selectedCharacter.name + 'is selected.');
+      console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
+      if (this.me) {
+        this.me.character = this.selectedCharacter.id;
+        this.userService.modifyUser(this.me);
+      }
     }
   }
 
@@ -66,7 +92,6 @@ export class SelectCharacterComponent implements OnInit {
       character.assigned = false;
     }
   }
-
 }
 
 // ToDo source the HTML character unit out to the seperate component: character

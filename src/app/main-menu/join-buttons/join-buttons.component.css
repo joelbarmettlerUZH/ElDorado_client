@@ -12,12 +12,15 @@
   padding: 5px 10px;
   border-radius: 4px;
   left: 0;
+  background-color: transparent;
 }
 
 .subbutton {
-  left: 15px;
+  left: 0;
+  top: 60px;
+  margin-top: 6px;
   background-size: cover;
-  position: absolute;
+  position: relative;
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   width: 218px;
   height: 45px;
@@ -28,6 +31,8 @@
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
+  background-color: transparent;
+
 }
 
 .subbutton:visited {
@@ -46,4 +51,5 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
 }
 
+button:focus {outline:0 !important;}
 

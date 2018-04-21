@@ -7,7 +7,7 @@ import {UserService} from '../shared/services/user.service';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 import {CreateUser} from '../shared/models/createUser';
-import {saveUser} from '../shared/cookieHandler';
+import {saveTOKEN, saveUser, saveUserId} from '../shared/cookieHandler';
 
 @Component({
   selector: 'app-main-menu',
@@ -35,20 +35,37 @@ export class MainMenuComponent implements OnInit {
   private me: CreateUser;
   private meAsUser: User;
   private userId: number;
-  private token: string;
+  public token: string;
+  public user: User;
 
   constructor(private roomService: RoomService,
               private userService: UserService) {
   }
 
   ngOnInit() {
+    localStorage.clear();
     this.mainMenuScreen = 'main-menu';
-    this.me = new CreateUser('MeMyselfAndI', 4);
-    console.log('me', this.me);
-    this.userService.createUser(this.me).subscribe(res => {this.meAsUser = res;
-      saveUser(this.meAsUser);
-      console.log('meAsUser:', this.meAsUser);
+    // localStorage.clear();
+    if (localStorage.getItem('userId') == null) {
+      this.me = new CreateUser('MeMyselfAndIAndYou', 3);
+      console.log('me', this.me);
+      this.userService.createUser(this.me).subscribe(res => {
+        this.token = res[0];
+        this.userId = Number(res[1]);
+        saveTOKEN(this.token);
+        saveUserId(this.userId);
+        // saveUser(this.meAsUser);
+        console.log('meAsUserTOKEN:', this.token);
+        console.log('meAsUserID:', this.userId);
+        console.log('LS user id:', Number(localStorage.getItem('userId')));
+    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
+      this.user = res;
+      saveUser(this.user);
+      console.log(res);
+      console.log('saved user to LocalStorage:', this.user);
     });
+      });
+    }
     // this.myself = new User;
   }
 
@@ -67,22 +84,13 @@ export class MainMenuComponent implements OnInit {
       this.meAsUser.character = 1;
       this.meAsUser.ready = false;
 
-      this.defaultRoom.id = 10;
+      this.defaultRoom.roomID = 10;
       this.defaultRoom.name = 'BesterRoomNameEver14';
       this.defaultRoom.users = [this.meAsUser];
       this.defaultRoom.boardnumber = 2;
 
       this.hostGame(this.defaultRoom);
     }
-
-    if (this.mainMenuScreen === 'menubutton-joingame') {
-      this.joinGame();
-    }
-
-    if (this.mainMenuScreen === 'menubutton-manual') {
-      this.consultManual();
-    }
-
   }
 
   private restoreMainMenu() {
@@ -104,7 +112,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   private joinGame() {
-    this.childCharacter.generateJoinView();
+    this.childCharacter.generateJoinView(null);
     console.log('REST: rooms got');
     this.roomService.getAllRooms()
       .subscribe(rooms => {
@@ -119,7 +127,15 @@ export class MainMenuComponent implements OnInit {
     this.childButtonArea.setRooms(this.rooms);
   }
 
+  private updateCharacter() {
+    this.childCharacter.generateJoinView(null);
+  }
+
   private consultManual() {
     this.childCharacter.generateManualView();
+  }
+
+  private changeCharacters(room) {
+    this.childCharacter.generateJoinView(room);
   }
 }

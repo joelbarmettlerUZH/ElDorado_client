@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Card} from '../../shared/models/Card';
-import {Player} from '../../shared/models/Player';
-import {PlayerService} from '../../shared/services/player.service';
+import {Card} from '../../../shared/models/Card';
+// import {Player} from '../../../shared/models/Player';
+// import {PlayerService} from '../../../shared/services/player.service';
 // import {CARDS} from '../../shared/models/Card-database';
 
 @Component({
@@ -14,7 +14,7 @@ export class CardComponent implements OnInit {
   @Input()
   public card: Card;
 
-  public name: string
+  public name: string;
 
   constructor() {
   }
@@ -25,8 +25,6 @@ export class CardComponent implements OnInit {
 
 
 
-  discard(){
-
-  }
+  // discard(){ }
 
 }

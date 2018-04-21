@@ -6,6 +6,7 @@
   position: absolute;
   left: 90px;
   top: 0;
+  background-color: transparent;
 }
 
 #Host-Game{
@@ -15,6 +16,7 @@
   height: 51px;
   position: absolute;
   top: 420px;
+  background-color: transparent;
 }
 
 #Join-Game{
@@ -24,6 +26,7 @@
   height: 51px;
   position: absolute;
   top: 500px;
+  background-color: transparent;
 }
 
 #Manual{
@@ -33,6 +36,7 @@
   height: 51px;
   position: absolute;
   top: 580px;
+  background-color: transparent;
 }
 
 button {
@@ -51,10 +55,13 @@ button {
   border-radius: 4px;
   /*cursor: pointer;*/
   cursor: hand;
+  background-color: transparent;
 }
 
 button:hover {
-  background-color: #cfd8dc;
+  /*background-color: #cfd8dc;*/
+  background-color: transparent;
+
 }
 
 button:disabled {
@@ -62,4 +69,7 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+button:focus {outline:0 !important;}
+
 
