@@ -22,7 +22,6 @@ import { ButtonBoardComponent } from './in-game-screen/button-board/button-board
 import { CardComponent } from './in-game-screen/marketplace/card/card.component';
 import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.component';
 import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
-import { MarketreserveComponent } from './in-game-screen/marketreserve/marketreserve.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
@@ -64,7 +63,6 @@ import {GameService} from './shared/services/game.service';
     CardComponent,
     MarketSlotComponent,
     MarketboardComponent,
-    MarketreserveComponent,
     RoomsComponent,
     RoomDetailComponent,
     HostComponent,

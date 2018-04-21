@@ -22,17 +22,17 @@ export class PlayerBoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  recieveGame($event) {
+  receiveGame($event) {
     // assing playerid to a temporary variable
     const id = this.ownPlayerId;
     // update game after EndRound
     this.game = $event;
     console.log(this.game.players.find(function(element) {
-      return element.playerId == id;
+      return element.playerId === id;
     }).handPile);
     // update handcards after EndRound
     this.handpile = this.game.players.find(function(element) {
-      return element.playerId == id;
+      return element.playerId === id;
     }).handPile;
   }
 

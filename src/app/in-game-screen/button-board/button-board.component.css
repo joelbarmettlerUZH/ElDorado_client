@@ -26,6 +26,7 @@ button {
 
 button:hover {
   background-color: #cfd8dc;
+  border: 5px solid #777;
 }
 
 button:disabled {

@@ -1,6 +1,6 @@
 .Card{
   background-size: cover;
-  position: absolute;
+  position: relative;
   width: 109px;
   height: 170px;
 }

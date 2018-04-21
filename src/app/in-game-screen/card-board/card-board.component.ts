@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
+import {Character} from '../../shared/models/character';
 // import {Observable} from 'rxjs/Rx';
 // import {CardSlotComponent} from '../card-slot/card-slot.component';
 
@@ -33,17 +34,22 @@ export class CardBoardComponent implements OnInit {
       }
     );
   }
-  // not used anymore
-  /*
-  pollHandCards(): void {
-    this.handPileSubscription = Observable.interval(1000).subscribe(x => {
-      this.getHandPile();
-    });
-  }
-  */
-  recieveHand($event) {
+  // onSelect(card: Card) {
+  //  card.selected = true;
+
+  // }
+  receiveHand($event) {
     this.cards = $event;
     // console.log(this.cards);
   }
 
 }
+
+// not used anymore
+/*
+pollHandCards(): void {
+  this.handPileSubscription = Observable.interval(1000).subscribe(x => {
+    this.getHandPile();
+  });
+}
+*/
