@@ -32,7 +32,7 @@ export class HostButtonsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = "BesterRoomNameEver";
+    this.name = 'BesterRoomNameEver';
     this.inputRoomName = this.name;
   }
 
@@ -47,6 +47,18 @@ export class HostButtonsComponent implements OnInit {
       console.log('REST | POST ' + this.name + ' as new Room', response);
       this.room = response;
     });
+    this.changeCharacterRequest.emit(this.room);
+
+    // assign first character
+    this.user.character = this.characters[0].id;
+    this.userService.modifyUser(this.user);
+    console.log('post modify user', this.user);
+
+    // add User to the Room
+    this.roomService.addUser(this.user, this.room.roomID).subscribe(response => {
+      console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, response);
+    });
+
     this.changeCharacterRequest.emit(this.room);
   }
 }

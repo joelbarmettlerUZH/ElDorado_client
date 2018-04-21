@@ -2,7 +2,8 @@
 
   <button class=button id="{{hostButton.id}}">{{hostButton.name}}</button>
 
-  <input class=subbutton id="roomName" (keyup.enter)="updateRoom()" (ngModel)="inputRoomName" placeholder="BesterRoomNameEver">
+  <input class=subbutton id="roomName" (keyup.enter)="updateRoom()" (ngModel)="inputRoomName"
+         placeholder="BesterRoomNameEver">
 
   <div *ngFor="let route of routes">
     <button class=subbutton id="{{route.name}}" (click)="onRouteSelected(route)">{{route.name}}</button>

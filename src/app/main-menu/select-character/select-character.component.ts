@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
@@ -10,19 +10,20 @@ import {UserService} from '../../shared/services/user.service';
   styleUrls: ['./select-character.component.css']
 })
 export class SelectCharacterComponent implements OnInit {
-
+  @Input()
+  public me: User;
   areClickable: boolean;
   characters = CHARACTERS;
   selectedCharacter: Character;
-  me: User;
 
   constructor(private userService: UserService) {
   }
 
-  updateUser() {
+  updateUser(updatedName) {
     console.log('Method Call | updateUser | in select-character');
+    this.me.name = updatedName;
     this.userService.modifyUser(this.me);
-    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me);
+    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me.name);
   }
 
   generateMainMenuView() {
