@@ -24,13 +24,13 @@ button:disabled {
   margin-left: 45px;
   float: left;
   cursor: hand;
-  margin-top: 50px;
-  transition: 0.6s;
+  margin-top: 3px;
+  transition: 0.3s;
 }
 
 .selected{
-  margin-top: 0;
-  transition: 0.6s;
+  margin-top: -50px;
+  transition: 0.3s;
 }
 
 #Sell {
