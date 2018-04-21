@@ -48,12 +48,20 @@ export class JoinButtonsComponent implements OnInit {
     );
   }
 
+  // A | on join button clicked (see HTML join-buttons component)
+  // 1. action:
+  // a) assign default character & update user
+  // b) add user to room
+  // c) changeCharacterRequest to main-menu-button-board component
+  // 2. action: see main-menu-button-board component (via HTML)
+
   onRoomSelected(room: Room) {
     // get Array of all characters and remove the ones already in use
     let filteredArray = this.characters;
     console.log('pre filteredArray', filteredArray);
-    for (const UserIterator of room.users){
-      filteredArray = filteredArray.filter(function (e) {return e.id !== UserIterator.character;
+    for (const UserIterator of room.users) {
+      filteredArray = filteredArray.filter(function (e) {
+        return e.id !== UserIterator.character;
       });
     }
     console.log('filteredArray', filteredArray);

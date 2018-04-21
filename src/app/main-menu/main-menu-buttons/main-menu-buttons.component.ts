@@ -14,8 +14,10 @@ export class MainMenuButtonsComponent implements OnInit {
   constructor() {
   }
 
-  // on main-menu button clicked (see HTML) | 1. action: changeButtonsRequest to main-menu-button-board
-  // 2. action: see main-menu-button-board component
+  // B | on main-menu button clicked (see HTML main-menu-buttons)
+  // 1. action:
+  // a) changeButtonsRequest to main-menu-button-board
+  // 2. action: see main-menu-button-board component (via HTML)
 
   navigateTo(target: string) {
     this.changeButtonsRequest.emit(target);

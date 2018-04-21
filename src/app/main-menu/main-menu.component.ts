@@ -69,7 +69,9 @@ export class MainMenuComponent implements OnInit {
     // this.myself = new User;
   }
 
-  // on main-menu button clicked (see HTML) | 4. action: a)
+  // B | on main-menu button clicked (see HTML main-menu-buttons)
+  // 4. action:
+  // a) call corresponding method
   // 5. action: see further below
 
   navigate(target: string) {
@@ -87,10 +89,10 @@ export class MainMenuComponent implements OnInit {
       this.meAsUser.character = 1;
       this.meAsUser.ready = false;
 
-      this.defaultRoom.roomID = 10;
-      this.defaultRoom.name = 'BesterRoomNameEver14';
-      this.defaultRoom.users = [this.meAsUser];
-      this.defaultRoom.boardnumber = 2;
+      // this.defaultRoom.roomID = 10;
+      // this.defaultRoom.name = 'BesterRoomNameEver14';
+      // this.defaultRoom.users = [this.meAsUser];
+      // this.defaultRoom.boardnumber = 2;
 
       this.hostGame(this.defaultRoom);
     }
@@ -102,7 +104,9 @@ export class MainMenuComponent implements OnInit {
     // this.childButtons.generateMainMenuView();
   }
 
-  // on main-menu button clicked (see HTML) | 5. action: call corresponding view on child component
+  // B | on main-menu button clicked (see HTML main-menu-buttons)
+  // 5. action:
+  // a) call corresponding view on child component
   // 6. action: see select-character component
 
   private hostGame(defaultRoom) {
@@ -140,6 +144,11 @@ export class MainMenuComponent implements OnInit {
   private consultManual() {
     this.childCharacter.generateManualView();
   }
+
+  // A | on join button clicked (see HTML join-buttons component)
+  // 3. action:
+  // a) on got request: call join view on child
+  // 4. action: see selected-character component
 
   private changeCharacters(room) {
     this.childCharacter.generateJoinView(room);

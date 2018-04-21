@@ -43,23 +43,28 @@ export class SelectCharacterComponent implements OnInit {
     this.selectedCharacter = this.characters[0];
   }
 
+  // A | on join button clicked (see HTML join-buttons component)
+  // 4. action:
+  // a) on got request: call join view
+  // 5. action: break
+
   generateJoinView(room) {
     this.restoreCharacterDefault();
     this.areClickable = true;
-    let roomId = room.roomID;
+    const roomId = room.roomID;
     /*
     +  pollHandCards(): void {
 +    this.roomSubscription = Observable.interval(1000).subscribe(x => {
 +      this.getHandPile();
 +    });
      */
-    this.roomSubscription = Observable.interval(1000).subscribe(x => {
+    this.roomSubscription = Observable.interval(1000).subscribe(y => {
       this.roomService.getRoom(roomId).subscribe(
         request => {
           this.pollRoom = request;
           for (const user of this.pollRoom.users) {
             this.characters.filter(function (obj) {
-              return obj.id == user.character;
+              return obj.id === user.character;
             }).forEach(x => {
                 console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
                 x.assigned = true;

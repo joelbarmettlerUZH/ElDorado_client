@@ -34,9 +34,12 @@ export class MainMenuButtonBoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  // on main-menu button clicked (see HTML) | 2. action: a) display Home Button
-  // b) display right buttons (join or host) by setting value for HTML ngIf   c) Navigate Request to main-menu
-  // 3. action: see main-menu component
+  // B | on main-menu button clicked (see HTML main-menu-buttons)
+  // 2. action:
+  // a) display Home Button
+  // b) display right buttons (join or host) by setting value for HTML ngIf
+  // c) Navigate Request to main-menu
+  // 3. action: see main-menu component (via HMTL)
 
   changeButtons(target: string) {
     console.log('Erhalten: changeButtonsRequest | von Main-Menu-Button-Board | target: ' + target);
@@ -77,6 +80,11 @@ export class MainMenuButtonBoardComponent implements OnInit {
   setRooms(rooms: any[]) {
     this.childJoinButtons.setRooms(rooms);
   }
+
+  // A | on join button clicked (see HTML join-buttons component)
+  // 2. action:
+  // a) on got request: HigherCharacterRequest to main-menu component
+  // 3. action: see main-menu component (via HTML)
 
   changeCharacters(room) {
     this.HigherCharacterRequest.emit(room);
