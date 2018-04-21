@@ -45,25 +45,25 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
     this.mainMenuScreen = 'main-menu';
     // localStorage.clear();
-    if (localStorage.getItem('userId') == null){
-    this.me = new CreateUser('MeMyselfAndIAndYou', 3);
-    console.log('me', this.me);
-    this.userService.createUser(this.me).subscribe(res => {
-      this.token = res[0];
-      this.userId = Number(res[1]);
-      saveTOKEN(this.token);
-      saveUserId(this.userId);
-      // saveUser(this.meAsUser);
-      console.log('meAsUserTOKEN:', this.token);
-      console.log('meAsUserID:', this.userId);
-    });
+    if (localStorage.getItem('userId') == null) {
+      this.me = new CreateUser('MeMyselfAndIAndYou', 3);
+      console.log('me', this.me);
+      this.userService.createUser(this.me).subscribe(res => {
+        this.token = res[0];
+        this.userId = Number(res[1]);
+        saveTOKEN(this.token);
+        saveUserId(this.userId);
+        // saveUser(this.meAsUser);
+        console.log('meAsUserTOKEN:', this.token);
+        console.log('meAsUserID:', this.userId);
+      });
     }
     this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
-        this.user = res;
-        saveUser(this.user);
-        console.log(res);
-        console.log('saved user to LocalStorage:', this.user);
-      });
+      this.user = res;
+      saveUser(this.user);
+      console.log(res);
+      console.log('saved user to LocalStorage:', this.user);
+    });
     // this.myself = new User;
   }
 
@@ -119,7 +119,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   private joinGame() {
-    this.childCharacter.generateJoinView();
+    this.childCharacter.generateJoinView(null);
     console.log('REST: rooms got');
     this.roomService.getAllRooms()
       .subscribe(rooms => {
@@ -134,7 +134,15 @@ export class MainMenuComponent implements OnInit {
     this.childButtonArea.setRooms(this.rooms);
   }
 
+  private updateCharacter() {
+    this.childCharacter.generateJoinView(null);
+  }
+
   private consultManual() {
     this.childCharacter.generateManualView();
+  }
+
+  private changeCharacters(room) {
+    this.childCharacter.generateJoinView(room);
   }
 }

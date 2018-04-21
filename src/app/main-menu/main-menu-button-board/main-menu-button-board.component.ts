@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
+import {Room} from '../../shared/models/Room';
 
 @Component({
   selector: 'app-main-menu-button-board',
@@ -9,6 +10,9 @@ import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
 })
 export class MainMenuButtonBoardComponent implements OnInit {
   @Output() navigationRequest = new EventEmitter<string>();
+
+  @Output() HigherCharacterRequest = new EventEmitter<Room>();
+
 
   @ViewChild('childJoinButtons')
   private childJoinButtons: JoinButtonsComponent;
@@ -69,4 +73,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
     this.childJoinButtons.setRooms(rooms);
   }
 
+  changeCharacters(room) {
+    this.HigherCharacterRequest.emit(room);
+  }
 }

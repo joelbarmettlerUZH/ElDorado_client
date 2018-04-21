@@ -27,7 +27,7 @@ export class SelectCharacterComponent implements OnInit {
     this.selectedCharacter = this.characters[0];
   }
 
-  generateJoinView() {
+  generateJoinView(room) {
     this.restoreCharacterDefault();
     this.areClickable = true;
   }
