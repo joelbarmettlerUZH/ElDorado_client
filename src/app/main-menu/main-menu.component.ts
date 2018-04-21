@@ -58,16 +58,19 @@ export class MainMenuComponent implements OnInit {
         console.log('meAsUserTOKEN:', this.token);
         console.log('meAsUserID:', this.userId);
         console.log('LS user id:', Number(localStorage.getItem('userId')));
-    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
-      this.user = res;
-      saveUser(this.user);
-      console.log(res);
-      console.log('saved user to LocalStorage:', this.user);
-    });
+        this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(result => {
+          this.user = result;
+          saveUser(this.user);
+          console.log(result);
+          console.log('saved user to LocalStorage:', this.user);
+        });
       });
     }
     // this.myself = new User;
   }
+
+  // on main-menu button clicked (see HTML) | 4. action: a)
+  // 5. action: see further below
 
   navigate(target: string) {
     console.log('Erhalten: navigationRequest | von MainMenuComponent| Target:' + target);
@@ -98,6 +101,9 @@ export class MainMenuComponent implements OnInit {
     this.childCharacter.generateMainMenuView();
     // this.childButtons.generateMainMenuView();
   }
+
+  // on main-menu button clicked (see HTML) | 5. action: call corresponding view on child component
+  // 6. action: see select-character component
 
   private hostGame(defaultRoom) {
     console.log('REST: room created');

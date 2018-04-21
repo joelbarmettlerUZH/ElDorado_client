@@ -14,10 +14,13 @@ export class MainMenuButtonsComponent implements OnInit {
   constructor() {
   }
 
+  // on main-menu button clicked (see HTML) | 1. action: changeButtonsRequest to main-menu-button-board
+  // 2. action: see main-menu-button-board component
+
   navigateTo(target: string) {
     this.changeButtonsRequest.emit(target);
     console.log(target + ' Button wurde geklickt');
-    console.log('Gesendet: changeButtonsRequest | von main-menu-buttons | Target:' + target + ' | Empfänger:main-menu-button-board');
+    console.log('Gesendet: changeButtonsRequest | von main-menu-buttons | Target:' + target + ' | Empfänger: main-menu-button-board');
   }
 
   ngOnInit() {
