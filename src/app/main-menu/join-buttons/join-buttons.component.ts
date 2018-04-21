@@ -41,15 +41,15 @@ export class JoinButtonsComponent implements OnInit {
 
   onRoomSelected(room: Room) {
     let filteredArray = this.characters;
-    console.log('pre filteredArray', filteredArray)
+    console.log('pre filteredArray', filteredArray);
     for (const UserIterator of room.users){
-      console.log('userIterator', UserIterator.character)
+      console.log('userIterator', UserIterator.character);
       filteredArray = filteredArray.filter(function (e) {return e.id !== UserIterator.character;
       });
     }
-    console.log('filteredArray', filteredArray)
+    console.log('filteredArray', filteredArray);
     // console.log(Number(localStorage.getItem('userId')));
-    console.log('User form local storage', JSON.parse(localStorage.getItem('meUser')))
+    console.log('User form local storage', JSON.parse(localStorage.getItem('meUser')));
     this.user = JSON.parse(localStorage.getItem('meUser'));
     console.log('onselectuser', this.user);
     console.log('onselectroomsid', room.roomID);
@@ -57,6 +57,7 @@ export class JoinButtonsComponent implements OnInit {
         console.log('shfakjh', response);
     });
     // const user: User = JSON.parse(localStorage.getItem('meUser'));
+
   }
 
 

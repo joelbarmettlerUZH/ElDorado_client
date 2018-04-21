@@ -15,9 +15,11 @@
 }
 
 .subbutton {
-  left: 15px;
+  left: 0;
+  top: 60px;
+  margin-top: 6px;
   background-size: cover;
-  position: absolute;
+  position: relative;
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   width: 218px;
   height: 45px;
