@@ -11,6 +11,7 @@ import { PlayerService } from '../../shared/services/player.service';
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
   players: any[];
+  public ownPlayerId = Number(localStorage.getItem('playerId'));
 
   constructor(private playerService: PlayerService) {}
 
