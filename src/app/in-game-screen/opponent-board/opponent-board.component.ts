@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Character } from '../../shared/models/character';
 import { CHARACTERS } from '../../shared/models/character-database';
 import { PlayerService } from '../../shared/services/player.service';
+import {Player} from '../../shared/models/Player';
+import {Observable, Subscribable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
+import {GameService} from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-opponent-board',
@@ -10,19 +14,35 @@ import { PlayerService } from '../../shared/services/player.service';
 })
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
-  players: any[];
+  players: Player[];
+  public current: number;
 
-  constructor(private playerService: PlayerService) {}
+  private playerSubscription: Subscription;
+
+  constructor(private playerService: PlayerService, private gameService: GameService) {}
 
   ngOnInit() {
     this.getPlayers();
+    this.playerSubscription = Observable.interval(1000).subscribe(
+      res => {
+        this.getCurrent();
+      }
+    );
     console.log(this.players);
+  }
+
+  getCurrent() {
+    this.gameService.getCurrent().subscribe(
+      res => {
+        const c: Player = res;
+        this.current = c.characterNumber;
+      }
+    );
   }
 
   getPlayers(): void {
     this.playerService.getAllPlayers()
       .subscribe(players => this.players = players);
-
   }
 
 }
