@@ -23,7 +23,7 @@ export class MarketboardComponent implements OnInit {
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    savePlayer(1, 'TESTTOKEN', 3); // Creates a local storage value
+    // savePlayer(1, 'TESTTOKEN', 3); // Creates a local storage value
     this.isFadedIn = false;
     this.gameId = Number(localStorage.getItem('token'));
     this.getMarket();
