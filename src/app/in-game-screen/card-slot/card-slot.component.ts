@@ -3,6 +3,7 @@ import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {CardBoardComponent} from '../card-board/card-board.component';
 import {Player} from '../../shared/models/Player';
+import {MoveService} from '../../shared/services/move.service';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -26,7 +27,7 @@ export class CardSlotComponent implements OnInit {
   public margin = 50;
 
 
-  constructor(private playerService: PlayerService) {
+  constructor(private playerService: PlayerService, private moveService: MoveService) {
   }
 
   ngOnInit() {
@@ -45,23 +46,15 @@ export class CardSlotComponent implements OnInit {
     );
   }
 
-  async onSelect() {
-    /*
-    let vector = 1;
-    if (!this.isActive) {
-      vector = -1;
-    }
-    for (let i = 0; i < 50; i++) {
-      this.margin += vector;
-      await this.delay(50);
-    }
-    */
+  onSelect() {
     this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.moveService.addCard(this.card);
+    }else {
+      this.moveService.removeCard(this.card);
+    }
   }
 
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
   discard() {
     this.playerService.discard(this.card).subscribe(
