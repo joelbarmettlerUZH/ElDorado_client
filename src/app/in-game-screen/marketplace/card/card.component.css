@@ -6,7 +6,8 @@
 }
 
 .Card:hover {
-  background-color: #cfd8dc;
+  background-color: transparent;
+  cursor: hand;
 }
 
 .Card:disabled {

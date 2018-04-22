@@ -3,7 +3,7 @@ import { CHARACTERS } from '../../shared/models/character-database';
 import {Character} from '../../shared/models/character';
 import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
-import {Player} from '../../shared/models/Player';
+// import {Player} from '../../shared/models/Player';
 
 @Component({
   selector: 'app-player-board',
@@ -25,6 +25,8 @@ export class PlayerBoardComponent implements OnInit {
   receiveGame($event) {
     // assing playerid to a temporary variable
     const id = this.ownPlayerId;
+    console.log(this.ownCharacter.id);
+    console.log(this.ownPlayerId);
     // update game after EndRound
     this.game = $event;
     console.log(this.game.players.find(function(element) {

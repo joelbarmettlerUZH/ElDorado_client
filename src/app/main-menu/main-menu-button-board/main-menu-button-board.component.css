@@ -22,9 +22,10 @@
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/BackToMenu.png');
+  background-color: transparent;
   width: 98px;
   height: 33px;
-  font-family: Arial;
+  /* font-family: Arial; */
   color: white;
   font-size: 20px;
   font-weight: normal;

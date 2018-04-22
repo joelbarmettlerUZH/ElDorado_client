@@ -3,11 +3,11 @@ button {
   background-color: transparent;
   width: 32px;
   height: 33px;
-  font-family: Arial;
+  /* font-family: Arial; */
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
-  cursor: pointer;
+  /* cursor: pointer; */
   cursor: hand;
   margin-top: 5px;
 }
@@ -26,11 +26,17 @@ button:disabled {
   cursor: hand;
   margin-top: 3px;
   transition: 0.3s;
+  background-color: transparent;
+}
+
+.Slot:hover{
+  background-color: transparent;
 }
 
 .selected{
   margin-top: -50px;
   transition: 0.3s;
+  background-color: transparent;
 }
 
 #Sell {
@@ -62,10 +68,17 @@ button:disabled {
   background-image: url('../../../assets/GUI_Game/Karte_buttons_magnify_pressed.png');
 }
 
+/* edit HandCard CSS in ../marketplace/card/card.component.css */
 .Card{
   position: absolute;
   background-color: transparent;
   background-size: cover;
   bottom: 230px;
   left: 40px;
+  cursor: hand;
+}
+
+.Card:hover{
+  background-color: transparent;
+  cursor: hand;
 }

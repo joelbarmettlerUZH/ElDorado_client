@@ -4,29 +4,34 @@
   width: 325px;
   height: 235px;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
 }
 
 button {
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Button_Endround.png');
+  background-color: transparent;
   width: 180px;
   height: 44px;
   position: absolute;
   bottom: 20px;
   left: 42px;
-  font-family: Arial;
-  border: none;
+  /* font-family: Verdana; */
+  font-size: 16px;
+  font-weight: bold;
+  color: #fcf6e4;
   padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+  text-shadow: 2px 1px black;
   cursor: hand;
+  letter-spacing: 0.5px;
+  /*border-radius: 4px;*/
+  /* cursor: pointer; */
 }
 
 button:hover {
-  background-color: #cfd8dc;
-  border: 5px solid #777;
+  background-color: transparent;
+  border: 1px solid black;
 }
 
 button:disabled {
