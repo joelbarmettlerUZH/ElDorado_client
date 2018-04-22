@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
 import {Room} from '../../shared/models/Room';
+import {User} from '../../shared/models/User';
 
 @Component({
   selector: 'app-main-menu-button-board',
@@ -11,7 +12,7 @@ import {Room} from '../../shared/models/Room';
 export class MainMenuButtonBoardComponent implements OnInit {
   @Output() HigherCharacterRequest = new EventEmitter<Room>();
   @Output() BackToHomeRequest = new EventEmitter<boolean>();
-
+  @Output() passHigherUserRequest = new EventEmitter<User>();
 
   @ViewChild('childJoinButtons')
   private childJoinButtons: JoinButtonsComponent;
@@ -26,11 +27,24 @@ export class MainMenuButtonBoardComponent implements OnInit {
 
   menubuttonMenuButtons = true;
   homeButton = false;
+  me: User;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  // A.1 & A2 | on join/host button clicked (see HTML join/host-buttons component)
+  // 2. action:
+  // a) set user
+  // a) Send passHigherUserRequest to main-board component: pass user
+  // 3 action: see main-menu component (via HTML)
+  setUser(user) {
+    // a) set user
+    this.me = user;
+    // a) pass user
+    this.passHigherUserRequest.emit(this.me);
   }
 
   // B | on main-menu button clicked (see HTML main-menu-buttons)
@@ -57,7 +71,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
   // 1. action:
   // a) let sub menu disappear by setting corresponding class to false (see TS & HTML)
   // b) let main menu reappear by setting corresponding class to true (see TS & HTML)
-  // c) ToDO update user in backend
+  // c) ToDO update me in backend
   // d) ToDO update room in backend
   // e) restore main menu view: characters not clickable
 

@@ -1,14 +1,9 @@
-import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 // import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
-import {Board} from '../models/board';
-import {Http, Response} from '@angular/http';
-import {Hexspace} from '../models/hexSpace';
-import {Card} from '../models/Card';
-import {PlayingPiece} from '../models/PlayingPiece';
+import {Http} from '@angular/http';
 import {MoveWrapper} from '../models/MoveWrapper';
 import {restUrl} from './RESTurl';
 
@@ -80,7 +75,7 @@ public postCard(card: Card, gameId: number, playerId: number, token: String) {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
+      // TODO: better job of transforming error for me consumption
       // this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.

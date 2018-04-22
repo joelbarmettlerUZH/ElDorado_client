@@ -1,7 +1,3 @@
-import {Injectable} from '@angular/core';
-import {User} from '../models/User';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 /*
@@ -18,8 +14,8 @@ export class AuthenticationService {
     this.apiUrl = 'https://sopra-fs18-group17.herokuapp.com/';
   }
 
-  login(user: User): Observable<User> {
-    const bodyString = JSON.stringify({name: user.name, username: user.username});
+  login(me: User): Observable<User> {
+    const bodyString = JSON.stringify({name: me.name, username: me.username});
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -28,15 +24,15 @@ export class AuthenticationService {
     };
 
     return this.http.post<User>(this.apiUrl + '/users', bodyString, httpOptions).map((fetchedUser: User) => {
-      if (user) {
+      if (me) {
         // set token property
         this.token = fetchedUser.token;
 
-        // store username and jwt token in local storage to keep user logged in between page refreshes
+        // store username and jwt token in local storage to keep me logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify({username: fetchedUser.username, token: this.token}));
 
         // return true to indicate successful login
-        return user;
+        return me;
       } else {
         // return false to indicate failed login
         return null;
@@ -47,7 +43,7 @@ export class AuthenticationService {
 
 
   logout(): void {
-    // clear token remove user from local storage to log user out
+    // clear token remove me from local storage to log me out
     this.token = null;
     localStorage.removeItem('currentUser');
   }

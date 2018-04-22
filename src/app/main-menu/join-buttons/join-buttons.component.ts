@@ -6,6 +6,7 @@ import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {CHARACTERS} from '../../shared/models/character-database';
+import {CreateUser} from '../../shared/models/createUser';
 
 @Component({
   selector: 'app-join-buttons',
@@ -15,13 +16,18 @@ import {CHARACTERS} from '../../shared/models/character-database';
 export class JoinButtonsComponent implements OnInit {
 
   @Output() changeCharacterRequest = new EventEmitter<Room>();
+  @Output() passUserRequest = new EventEmitter<User>();
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
+  characters = CHARACTERS;
   rooms: Room[];
   public subscription: Subscription;
-  public user: User;
-  characters = CHARACTERS;
+  public token: string;
+  public me: User;
+  private preMe: CreateUser;
   public userId: number;
+  private freeCharacterId: number;
+  private freeCharacterName: string;
 
 
   constructor(private roomService: RoomService,
@@ -37,22 +43,20 @@ export class JoinButtonsComponent implements OnInit {
         // console.log('log in Join butoons', this.rooms[0]);
       }
     );
-    this.userService.getUser(this.userId).subscribe(response => {
-        this.user = response;
-        console.log('REST | GET User (self) ', this.user);
-      }
-    );
   }
 
   // A.1 | on join button clicked (see HTML join-buttons component)
   // 1. action:
-  // a) assign default character & update user
-  // b) add user to room
+  // a) assign default character and its default name & update me
+  // b) add me to room
   // c) changeCharacterRequest to main-menu-button-board component
-  // 2. action: see main-menu-button-board component (via HTML)
+  // d) changeCharacterRequest to main-menu to pass User, me, to select-character component
+  // 2.a) action: see main-menu-button-board component (via HTML)
+  // 2.b) action: see main-menu component (via HTML)
 
   onRoomSelected(room: Room) {
-    // get Array of all characters and remove the ones already in use
+
+    // a)1 get Array of all characters and remove the ones already in use
     let filteredArray = this.characters;
     console.log('pre filteredArray', filteredArray);
     for (const UserIterator of room.users) {
@@ -60,24 +64,40 @@ export class JoinButtonsComponent implements OnInit {
         return e.id !== UserIterator.character;
       });
     }
-    console.log('filteredArray', filteredArray);
-    console.log('pre modify user', this.user);
 
-    // a) assign first free character
-    this.user.character = filteredArray[0].id;
-    this.userService.modifyUser(this.user);
-    console.log('post modify user', this.user);
+    // a)2 get id and name of first free character
+    this.freeCharacterId = filteredArray[0].id;
+    this.freeCharacterName = filteredArray[0].name;
 
-    // b) add User to the Room
-    this.roomService.addUser(this.user, room.roomID).subscribe(response => {
-      console.log('REST | POST ' + this.user.name + ' to Room ' + room.name, response);
+    // a)3 create preUser with this id and name
+    this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
+    this.userService.createUser(this.preMe).subscribe(res => {
+
+      // 3.1 save assigned token and ID of preMe
+      this.token = res[0];
+      this.userId = Number(res[1]);
+      console.log('Self Token: ' + this.token);
+      console.log('Self User Id: ' + this.userId);
+
+      // 3.2 create User out of preMe
+      this.userService.getUser(this.userId).subscribe(result => {
+        this.me = result;
+        console.log('My name after creation: ' + this.me.name);
+
+        // b) add User to the Room
+        this.roomService.addUser(this.me, room.roomID).subscribe(response => {
+          console.log('REST | POST ' + this.me.name + ' to Room ' + room.name, response);
+        });
+
+        // c) changeCharacterRequest to main-menu-button-board component
+        console.log('SENT: changeCharacterRequest | from join-buttons');
+        console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
+        this.changeCharacterRequest.emit(room);
+
+        // d)
+        this.passUserRequest.emit(this.me);
+      });
+
     });
-
-    // c)
-    console.log('SENT: changeCharacterRequest | from join-buttons');
-    console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
-    this.changeCharacterRequest.emit(room);
   }
-
-
 }

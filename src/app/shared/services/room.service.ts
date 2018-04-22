@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {restUrl} from './RESTurl';
 import {Http} from '@angular/http';
 import {CreateRoom} from '../models/createRoom';
@@ -41,17 +40,17 @@ export class RoomService {
 
   public updateUser(user: User, roomId: number) {
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
-    console.log('service user addtoroom:', user);
+    console.log('service me addtoroom:', user);
     return this.http.put(url, user).map(res => {res.json();
       console.log('...', res.json());
     });
   }
 
 
-  // adds a user to a room and returns the modified room
+  // adds a me to a room and returns the modified room
   public addUser(user: User, roomId: number) {
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
-    console.log('service user addtoroom:', user);
+    console.log('service me addtoroom:', user);
     return this.http.put(url, user).map(res => {res.json();
     console.log('...', res.json());
     });

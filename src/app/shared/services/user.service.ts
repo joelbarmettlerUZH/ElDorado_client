@@ -19,20 +19,20 @@ export class UserService {
     return this.http.get(url).map(res => res.json());
   }
 
-  // Return a specific user
+  // Return a specific me
   public getUser(userId: number) {
     const url = this.baseUrl + 'User/' + userId;
     return this.http.get(url).map(res => res.json());
   }
 
-  // Creates and returns a new user according to values in CreateUser
+  // Creates and returns a new me according to values in CreateUser
   public createUser(createUser: CreateUser) {
-    // TODO: Create check whether lcoal storage is already filled, if so delete old user
+    // TODO: Create check whether lcoal storage is already filled, if so delete old me
     const url = this.baseUrl + 'User';
     return this.http.post(url, createUser).map(res => res.json());
   }
 
-  // Modifies an existing user
+  // Modifies an existing me
   public modifyUser(user: User) {
     const url = this.baseUrl + 'User?token=' + this.token;
     return this.http.put(url, user);

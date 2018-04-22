@@ -8,6 +8,7 @@ import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {RoomService} from '../../shared/services/room.service';
+import {CreateUser} from '../../shared/models/createUser';
 
 @Component({
   selector: 'app-host-buttons',
@@ -20,11 +21,16 @@ export class HostButtonsComponent implements OnInit {
   public room: Room;
   public name: string;
   public subscription: Subscription;
-  public user: User;
-  public userId: number;
   characters = CHARACTERS;
+  public token: string;
+  public me: User;
+  @Output() passUserRequest = new EventEmitter<User>();
+  public userId: number;
+  private preMe: CreateUser;
+  private freeCharacterId: number;
 
   @Output() changeCharacterRequest = new EventEmitter<Room>();
+  private freeCharacterName: string;
 
 
   constructor(private roomService: RoomService,
@@ -33,12 +39,6 @@ export class HostButtonsComponent implements OnInit {
 
   ngOnInit() {
     this.name = 'Rumos magnificos';
-    this.userId = Number(localStorage.getItem('userId'));
-    this.userService.getUser(this.userId).subscribe(response => {
-        this.user = response;
-        console.log('REST | GET User (self) ', this.user);
-      }
-    );
   }
 
   updateRoom(inputstring) {
@@ -48,38 +48,54 @@ export class HostButtonsComponent implements OnInit {
 
   // A.2 | on host button clicked (see HTML join-buttons component)
   // 1. action:
-  // a) assign default character & update user
-  // b) add user to room
-  // c) changeCharacterRequest to main-menu-button-board component
+  // a) create room
+  // b) assign default character & update me
+  // c) add me to room
+  // d) changeCharacterRequest to main-menu-button-board component
+  // e) changeCharacterRequest to main-menu to pass User, me, to select-character component
   // 2. action: see main-menu-button-board component (via HTML)
 
   onRouteSelected(route: Route) {
-    // this.roomService.
+    // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
-      this.roomService.createRoom(this.name, route.id).subscribe(response => {
-        console.log('REST | POST ' + this.name + ' as new Room', response);
-        this.room = response;
-        this.roomService.addUser(this.user, this.room.roomID).subscribe(res => {
-          console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, res);
+      this.roomService.createRoom(this.name, route.id).subscribe(res => {
+        console.log('REST | POST ' + this.name + ' as new Room', res);
+        this.room = res;
+
+        // b)1 assign first character
+        this.freeCharacterId = this.characters[0].id;
+        this.freeCharacterName = this.characters[0].name;
+
+        // b)2 create preUser with this id and name
+        this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
+        this.userService.createUser(this.preMe).subscribe(resul => {
+
+          // 2.1 save assigned token and ID of preMe
+          this.token = resul[0];
+          this.userId = Number(resul[1]);
+          console.log('Self Token: ' + this.token);
+          console.log('Self User Id: ' + this.userId);
+
+          // 2.2 create User out of preMe
+          this.userService.getUser(this.userId).subscribe(result => {
+            this.me = result;
+
+            // c) add me to room
+            this.roomService.addUser(this.me, this.room.roomID).subscribe(response => {
+              console.log('REST | POST ' + this.me.name + ' to Room ' + this.room.name, response);
+
+              // d) changeCharacterRequest to main-menu-button-board component
+              console.log('SENT: changeCharacterRequest | from host-buttons');
+              console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID + ' room users: ' + this.room.users);
+              this.changeCharacterRequest.emit(this.room);
+
+              // e) changeCharacterRequest to main-menu to pass User, me, to select-character component
+              this.passUserRequest.emit(this.me);
+            });
+          });
         });
       });
     }
-    this.changeCharacterRequest.emit(this.room);
-
-    // a) assign first character
-    this.user.character = this.characters[0].id;
-    this.userService.modifyUser(this.user);
-    console.log('post modify user', this.user);
-
-    // b) add User to the Room
-    this.roomService.addUser(this.user, this.room.roomID).subscribe(response => {
-      console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, response);
-    });
-
-    // c)
-    console.log('SENT: changeCharacterRequest | from host-buttons');
-    console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID + ' room users: ' + this.room.users);
-    this.changeCharacterRequest.emit(this.room);
   }
 }
 

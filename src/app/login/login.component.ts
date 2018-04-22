@@ -1,7 +1,7 @@
 // import {Component, OnInit} from '@angular/core';
 // import {AuthenticationService} from '../shared/services/authentication.service';
 // import {Router} from '@angular/router';
-// import {User} from '../shared/models/user';
+// import {User} from '../shared/models/me';
 //
 // @Component({
 //   selector: 'app-login',
@@ -12,7 +12,7 @@
 //   model: any = {};
 //   loading = false;
 //   error = '';
-//   user: User;
+//   me: User;
 //
 //   constructor(private router: Router, private _service: AuthenticationService, private _router: Router) {
 //
@@ -21,12 +21,12 @@
 //   ngOnInit() {
 //     // reset login status
 //     this._service.logout();
-//     this.user = new User();
+//     this.me = new User();
 //
 //   }
 //
 //   login() {
-//     this._service.login(this.user)
+//     this._service.login(this.me)
 //       .subscribe(result => {
 //         if (result) {
 //           this.router.navigate(['/']);
@@ -38,8 +38,8 @@
 //   }
 //
 //   clearfields() {
-//     this.user.name = '';
-//     this.user.username = '';
+//     this.me.name = '';
+//     this.me.username = '';
 //   }
 //
 //
