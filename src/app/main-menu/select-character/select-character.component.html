@@ -6,7 +6,7 @@
          [class.grayedout]="character.assigned === false" (click)="onSelect(character)"></div>
     <input #namebox class="nameBox" [class.ownNameBox]="character === selectedCharacter"
            (keyup.enter)="updateUser(namebox.value)"
-           placeholder={{character.name}} *ngIf="character.assigned">
+           placeholder={{character.name}} [readonly]="character !== selectedCharacter" *ngIf="character.assigned">
     <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
       Ready
     </button>
