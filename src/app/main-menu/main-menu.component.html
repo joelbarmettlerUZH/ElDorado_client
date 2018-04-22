@@ -6,7 +6,8 @@
   <div id="MainMenuScreen">
     <app-title></app-title>
     <app-select-character (myToken)="token" [me]="user" #childCharacter></app-select-character>
-    <app-main-menu-button-board (HigherCharacterRequest)="changeCharacters($event)" #childButtonArea (navigationRequest)="navigate($event)"></app-main-menu-button-board>
+    <app-main-menu-button-board (HigherCharacterRequest)="changeCharacters($event)"
+                                #childButtonArea></app-main-menu-button-board>
   </div>
 
 </div>

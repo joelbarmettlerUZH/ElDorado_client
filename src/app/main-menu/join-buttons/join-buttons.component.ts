@@ -28,10 +28,6 @@ export class JoinButtonsComponent implements OnInit {
               private userService: UserService) {
   }
 
-  setRooms(rooms: any[]) {
-    this.rooms = rooms;
-  }
-
   ngOnInit() {
     this.userId = Number(localStorage.getItem('userId'));
     this.subscription = this.roomService.getAllRooms().subscribe(
@@ -48,7 +44,7 @@ export class JoinButtonsComponent implements OnInit {
     );
   }
 
-  // A | on join button clicked (see HTML join-buttons component)
+  // A.1 | on join button clicked (see HTML join-buttons component)
   // 1. action:
   // a) assign default character & update user
   // b) add user to room
@@ -66,16 +62,21 @@ export class JoinButtonsComponent implements OnInit {
     }
     console.log('filteredArray', filteredArray);
     console.log('pre modify user', this.user);
-    // assign first free character
+
+    // a) assign first free character
     this.user.character = filteredArray[0].id;
     this.userService.modifyUser(this.user);
     console.log('post modify user', this.user);
-    // add User to the Room
+
+    // b) add User to the Room
     this.roomService.addUser(this.user, room.roomID).subscribe(response => {
       console.log('REST | POST ' + this.user.name + ' to Room ' + room.name, response);
     });
-    this.changeCharacterRequest.emit(room);
 
+    // c)
+    console.log('SENT: changeCharacterRequest | from join-buttons');
+    console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
+    this.changeCharacterRequest.emit(room);
   }
 
 

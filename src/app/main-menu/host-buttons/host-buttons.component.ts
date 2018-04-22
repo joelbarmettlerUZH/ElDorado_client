@@ -32,7 +32,7 @@ export class HostButtonsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = "Rumos magnificos";
+    this.name = 'Rumos magnificos';
     this.userId = Number(localStorage.getItem('userId'));
     this.userService.getUser(this.userId).subscribe(response => {
         this.user = response;
@@ -46,29 +46,39 @@ export class HostButtonsComponent implements OnInit {
     console.log(this.name);
   }
 
+  // A.2 | on host button clicked (see HTML join-buttons component)
+  // 1. action:
+  // a) assign default character & update user
+  // b) add user to room
+  // c) changeCharacterRequest to main-menu-button-board component
+  // 2. action: see main-menu-button-board component (via HTML)
+
   onRouteSelected(route: Route) {
     // this.roomService.
-    if (this.name !== "Rumos magnificos" && this.name !== "") {
+    if (this.name !== 'Rumos magnificos' && this.name !== '') {
       this.roomService.createRoom(this.name, route.id).subscribe(response => {
         console.log('REST | POST ' + this.name + ' as new Room', response);
         this.room = response;
         this.roomService.addUser(this.user, this.room.roomID).subscribe(res => {
-        console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, res);
+          console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, res);
+        });
       });
-    });
     }
     this.changeCharacterRequest.emit(this.room);
 
-    // assign first character
+    // a) assign first character
     this.user.character = this.characters[0].id;
     this.userService.modifyUser(this.user);
     console.log('post modify user', this.user);
 
-    // add User to the Room
+    // b) add User to the Room
     this.roomService.addUser(this.user, this.room.roomID).subscribe(response => {
       console.log('REST | POST ' + this.user.name + ' to Room ' + this.room.name, response);
     });
 
+    // c)
+    console.log('SENT: changeCharacterRequest | from host-buttons');
+    console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID + ' room users: ' + this.room.users);
     this.changeCharacterRequest.emit(this.room);
   }
 }

@@ -22,31 +22,42 @@ export class SelectCharacterComponent implements OnInit {
   pollRoom: Room;
   private roomSubscription: any;
 
+  // E | on ready button clicked (see HTML selected-character component)
+  // 1. action:
+  // a) set ready field of character to true
+  // 2. action: on true: tick appears(see HTML selected-character component)
+  static onReady(character: Character) {
+    character.ready = true;
+  }
+
+
   constructor(private userService: UserService,
               private roomService: RoomService) {
   }
 
-  updateUser(updatedName) {
-    console.log('Method Call | updateUser | in select-character');
-    this.me.name = updatedName;
-    this.userService.modifyUser(this.me);
-    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me.name);
+  ngOnInit() {
+    this.areClickable = false;
+    this.selectedCharacter = null;
   }
 
   generateMainMenuView() {
     this.restoreCharacterDefault();
   }
 
-  generateHostView() {
-    this.restoreCharacterDefault();
-    this.areClickable = true;
-    this.selectedCharacter = this.characters[0];
-  }
+  // TO DELETE ? Keep in reserve for the case that emitting the same request as join does not work
+  // generateHostView() {
+  //   this.restoreCharacterDefault();
+  //   this.areClickable = true;
+  //   this.selectedCharacter = this.characters[0];
+  // }
 
-  // A | on join button clicked (see HTML join-buttons component)
-  // 4. action:
-  // a) on got request: call join view
+  // A.1 & A.2 | on join/host button clicked (see HTML join/host-buttons component)
+  // 4. action: on got request
+  // a) make opponents colored, not clickable
+  // b) show details of opponents: name, tick
+  // c) update opponents
   // 5. action: break
+  // ToDO rename function since the same for host and join
 
   generateJoinView(room) {
     this.restoreCharacterDefault();
@@ -58,6 +69,7 @@ export class SelectCharacterComponent implements OnInit {
 +      this.getHandPile();
 +    });
      */
+    // c) update opponents
     this.roomSubscription = Observable.interval(1000).subscribe(y => {
       this.roomService.getRoom(roomId).subscribe(
         request => {
@@ -66,12 +78,16 @@ export class SelectCharacterComponent implements OnInit {
             this.characters.filter(function (obj) {
               return obj.id === user.character;
             }).forEach(x => {
-                console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
+
+              // a) make opponents colored, not clickable
+              // console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
                 x.assigned = true;
-                console.log('"Assigned" of Character :' + x.name + 'after: ' + x.assigned);
-                console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
+              // console.log('"Assigned" of Character :' + x.name + 'after: ' + x.assigned);
+
+              // b) show details of opponents
+              // console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
                 x.ready = user.ready;
-                console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
+              // console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
                 x.name = user.name;
               }
             );
@@ -86,41 +102,64 @@ export class SelectCharacterComponent implements OnInit {
     console.log('test');
   }
 
-  ngOnInit() {
-  this.areClickable = false;
-  this.selectedCharacter = null;
-  }
-
   onSelect(character: Character): void {
+
+    // a) check if already assignerd to opponent
     if (this.areClickable && !character.assigned) {
+
+      // b) deselect priorly selected character
       if (this.selectedCharacter) {
         this.selectedCharacter.ready = false;
-      this.selectedCharacter.assigned = false;
+        this.selectedCharacter.assigned = false;
       }
+
+      // c) assign character to self
       this.selectedCharacter = character;
       console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
       if (this.me) {
         this.me.character = this.selectedCharacter.id;
+
+        // d) update self in backend
         this.userService.modifyUser(this.me);
       }
     }
   }
 
-  onReady(character: Character) {
-    character.ready = true;
+  // D | on character clicked (see HTML selected-character component)
+  // 1. action:
+  // a) check if already assigned to opponent
+  // b) deselect priorly selected character
+  // c) assign character to self
+  // d) update self in backend
+
+  // b) update name in backend
+  updateUser(updatedName) {
+
+    // a) update name locally
+    console.log('Method Call | updateUser | in select-character');
+    this.me.name = updatedName;
+
+    // b) update name in backend
+    this.userService.modifyUser(this.me);
+    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me.name);
   }
 
+
+  // F | on self name changed (see HTML selected-character component)
+  // 1. action:
+  // a) update name locally
+
+  // extracted helping function
   private restoreCharacterDefault() {
     this.areClickable = false;
     this.selectedCharacter = null;
     for (const character of this.characters) {
       character.ready = false;
       character.assigned = false;
-      }
     }
   }
+}
 
-// ToDo source the HTML character unit out to the seperate component: character
 
 

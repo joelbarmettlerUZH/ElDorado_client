@@ -38,8 +38,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
   // 2. action:
   // a) display Home Button
   // b) display right buttons (join or host) by setting value for HTML ngIf
-  // c) Navigate Request to main-menu
-  // 3. action: see main-menu component (via HMTL)
+  // 3. action: break
 
   changeButtons(target: string) {
     console.log('Erhalten: changeButtonsRequest | von Main-Menu-Button-Board | target: ' + target);
@@ -53,13 +52,17 @@ export class MainMenuButtonBoardComponent implements OnInit {
     // console.log('this.menubutton-manual: ' + this.myMap.get('menubutton-manual'));
     this.homeButton = true;
     console.log('this.homeButton: ' + this.homeButton);
-    this.navigationRequest.emit(target);
-    console.log('Gesendet: navigationRequest | von main-menu-button-board | Target:' + target + ' | Empfänger: main-menu');
   }
 
+  // C | on home button clicked (see HTML main-menu-buttons)
+  // 1. action:
+  // a) let sub menu disappear by setting corresponding class to false (see TS & HTML)
+  // b) let main menu reappear by setting corresponding class to true (see TS & HTML)
 
   navigateToMenu() {
     console.log('navigateToMenu clicked');
+
+    // a) let sub menu disappear
     this.myMap.forEach(key => {
       this.myMap.set(String(key), false);
       console.log('Info: this.menubuttonMenuButtons: ' + this.menubuttonMenuButtons);
@@ -71,22 +74,20 @@ export class MainMenuButtonBoardComponent implements OnInit {
     this.myMap.set('menubutton-hostgame', false);
     this.myMap.set('menubutton-joingame', false);
     this.myMap.set('menubutton-manual', false);
+
+    // b) let main menu reappear
     this.menubuttonMenuButtons = true;
     this.homeButton = false;
-    this.navigationRequest.emit('main-menu');
-    console.log('Gesendet: navigationRequest | von main-menu-button-board | Target: main-menu | Empfänger: main-menu');
   }
 
-  setRooms(rooms: any[]) {
-    this.childJoinButtons.setRooms(rooms);
-  }
-
-  // A | on join button clicked (see HTML join-buttons component)
+  // A.1 & A.2 | on join/host button clicked (see HTML join/host-buttons component)
   // 2. action:
   // a) on got request: HigherCharacterRequest to main-menu component
   // 3. action: see main-menu component (via HTML)
 
   changeCharacters(room) {
+    console.log('Received: changeCharacterRequest');
+    console.log('Room id: ' + room.id + ' Room name: ' + room.name + ' Users: ' + room.users);
     this.HigherCharacterRequest.emit(room);
   }
 }
