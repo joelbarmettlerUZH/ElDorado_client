@@ -17,6 +17,7 @@ import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
 import {forEach} from '@angular/router/src/utils/collection';
 import {MoveService} from '../../../shared/services/move.service';
+import {Subscription} from 'rxjs/Subscription';
 
 declare var $: any;
 
@@ -34,15 +35,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public yWidth: number;
   public xOffset: number;
   public board: Board;
-  public players: Player[];
+  public players: Player[] = [];
   public ownPlayingPieces: PlayingPiece[] = [];
   public opponentPlayingPieces: PlayingPiece[] = [];
   public hexComponents: HexspaceComponent[] = [];
   public selectedPlayingPiece: PlayingPiece;
-  public selectedCards: Card[];
+  public selectedCards: Card[] = [];
+  private reachableHex: HexspaceComponent[] = [];
 
-  // @ViewChildren('hexvar') hexSpaceComponents: QueryList<HexspaceComponent>;
-  // private childHex: HexspaceComponent;
+  private playerSubscription: Subscription;
 
   @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
 
@@ -53,16 +54,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+
   ngOnInit() {
     savePlayer(1, 'TESTTOKEN', 3);
-    // to delete
-    this.playerService.getHandPile().subscribe(
-      response => {
-        const cards: Card[] = response;
-        this.moveService.setCards(cards.slice(1, 2));
-      }
-    );
-    // to delete
 
     this.gameService.getGame().subscribe(
       response => {
@@ -72,7 +66,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
         this.yWidth = (100 / this.yDim);
         this.yWidth = Math.round(((100 - this.yWidth / 2) / this.yDim) * 100) / 100;
         this.panZoom();
-
       });
   }
 
@@ -116,7 +109,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
             console.log('Reaching hexspaces: ', hexSpaces);
             hexSpaces.forEach(
               hex => {
-                this.findHexComponent(hex).setReachable(true);
+                const hexComponent = this.findHexComponent(hex);
+                hexComponent.setReachable(true);
+                this.reachableHex.push(hexComponent);
               }
             );
           }
@@ -133,60 +128,59 @@ export class BoardComponent implements OnInit, AfterViewInit {
         }
         const hexSpace: Hexspace = $event;
         const playingPieceId = this.selectedPlayingPiece.playingPieceId;
-        // TODO: add errorhandling here boye
         this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
           response => {
-            const self: number = Number(localStorage.getItem('playerId'));
-            this.gameService.getGame().subscribe(
-              res => {
-                this.updatePlayers();
-              }
-            );
           }
         );
+        this.resetReachable();
       });
   }
 
   updateGame(game: Game) {
     this.game = game;
     this.board = this.game.pathMatrix;
-    this.players = this.game.players;
     this.hexagons = this.board.matrixArray;
-    this.players.forEach(player => {
-      if (player.playerId == Number(localStorage.getItem('playerId'))) {
-        player.playingPieces.forEach(
-          playingPiece => this.ownPlayingPieces.push(playingPiece));
-      } else {
-        player.playingPieces.forEach(
-          playingPiece => this.opponentPlayingPieces.push(playingPiece));
-      }
-    });
   }
 
-  updatePlayers() {
+  updatePlayers(initial: boolean = false) {
     this.gameService.getPlayers().subscribe(
       response => {
-        this.players = response;
-      }
-    );
-    this.hexComponents.forEach(
-      hex => {
-        hex.movesOff();
-        hex.setReachable(false);
-        hex.setCurrent(false);
-      }
-    );
-    this.players.forEach(
-      player => {
-        player.playingPieces.forEach(
-          playingPiece => {
-            const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
-            hex.movesOn(player);
-            if (this.game.current.playerId == player.playerId) {
-              hex.setCurrent(true);
-            }
+        const updatedPlayers: Player[] = response;
+        console.log('Getting new data');
+        if (!initial && JSON.stringify(updatedPlayers) === JSON.stringify(this.players)) {
+          console.log('Players did not change their state');
+          return;
+        }
+        console.log('Players changed their state, updating them now');
+        this.resetReachable();
+
+        this.players.forEach(
+          player => {
+            player.playingPieces.forEach(
+              playingPiece => {
+                const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
+                hex.movesOff();
+                hex.setCurrent(false);
+              }
+            );
           }
         );
+        updatedPlayers.forEach(
+          player => {
+            player.playingPieces.forEach(
+              playingPiece => {
+                const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
+                hex.movesOn(player);
+                if (this.game.current.playerId === player.playerId) {
+                  hex.setCurrent(true);
+                }else {
+                  hex.setCurrent(false);
+                }
+              }
+            );
+          }
+        );
+        this.players = updatedPlayers;
       }
     );
   }
@@ -199,11 +193,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   resetReachable() {
-    this.hexComponents.forEach(
+    this.reachableHex.forEach(
       hexComponent => {
         hexComponent.setReachable(false);
       }
     );
+    this.reachableHex = [];
   }
 
   ngAfterViewInit() {
@@ -215,22 +210,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
         console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
         if (this.hexComponents.length == this.xDim * this.yDim) {
           console.log('Setting playing pieces now');
-          this.players.forEach(
-            player => {
-              player.playingPieces.forEach(
-                playingPiece => {
-                  console.log('Waduhekekekeri');
-                  const index = this.pointToIndex(playingPiece.standsOn.point);
-                  console.log('Setting playingpiece to ' + index);
-                  setTimeout(() => {
-                    this.hexComponents[index].movesOn(player);
-                  });
-                }
-              );
-            }
-          );
+          this.updatePlayers(true);
+          this.playerSubscription = Observable.interval(1000).subscribe(y => {
+            this.updatePlayers();
+          });
         }
-        this.updatePlayers();
       });
     console.log('Going away now, fuck off');
   }

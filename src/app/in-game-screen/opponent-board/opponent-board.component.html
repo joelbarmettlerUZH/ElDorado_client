@@ -1,5 +1,5 @@
   <div *ngFor="let player of players" id="opponent-board">
-    <div class="Board" id="o{{player.playerId}}">
-      <img src="../../../assets/GUI_Game/Opponent_{{player.playerId}}.png">
+    <div class="Board" id="o{{player.characterNumber}}">
+      <img [class.notCurrent] = "current == player.characterNumber" src="../../../assets/GUI_Game/Opponent_{{player.characterNumber}}.png">
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {PlayerService} from "../shared/services/player.service";
+import {PlayerService} from '../shared/services/player.service';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -9,6 +9,7 @@ import {PlayerService} from "../shared/services/player.service";
   styleUrls: ['./in-game-screen.component.css']
 })
 export class InGameScreenComponent implements OnInit {
+  public ownPlayerId = Number(localStorage.getItem('playerId'));
 
   constructor(  private route: ActivatedRoute,
                 private location: Location) { }
