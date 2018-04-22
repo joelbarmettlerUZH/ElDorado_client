@@ -14,7 +14,8 @@ import {GameService} from '../../shared/services/game.service';
 })
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
-  players: Player[];
+  players: any[];
+  public ownPlayerId = Number(localStorage.getItem('playerId'));
   public current: number;
 
   private playerSubscription: Subscription;
