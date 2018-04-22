@@ -7,6 +7,7 @@ import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {CreateUser} from '../../shared/models/createUser';
+import {saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 
 @Component({
   selector: 'app-join-buttons',
@@ -77,7 +78,9 @@ export class JoinButtonsComponent implements OnInit {
       this.token = res[0];
       this.userId = Number(res[1]);
       console.log('Self Token: ' + this.token);
+      saveTOKEN(this.token);
       console.log('Self User Id: ' + this.userId);
+      saveUserId(this.userId);
 
       // 3.2 create User out of preMe
       this.userService.getUser(this.userId).subscribe(result => {
@@ -87,12 +90,12 @@ export class JoinButtonsComponent implements OnInit {
         // b) add User to the Room
         this.roomService.addUser(this.me, room.roomID).subscribe(response => {
           console.log('REST | POST ' + this.me.name + ' to Room ' + room.name, response);
+          // c) changeCharacterRequest to main-menu-button-board component
+          console.log('SENT: changeCharacterRequest | from join-buttons');
+          console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
+          this.changeCharacterRequest.emit(room);
         });
 
-        // c) changeCharacterRequest to main-menu-button-board component
-        console.log('SENT: changeCharacterRequest | from join-buttons');
-        console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
-        this.changeCharacterRequest.emit(room);
 
         // d)
         this.passUserRequest.emit(this.me);

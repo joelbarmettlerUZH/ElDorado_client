@@ -6,3 +6,4 @@ export class User {
   character: number;
   ready: boolean;
 }
+

@@ -3,6 +3,8 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {User} from '../shared/models/User';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
+import {UserService} from '../shared/services/user.service';
+import {saveTOKEN, saveUserId} from '../shared/cookieHandler';
 
 
 @Component({
@@ -25,12 +27,15 @@ export class MainMenuComponent implements OnInit {
   me: User;
 
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
+    // delete local storage and respective user when refreshing
+    this.restoreStorage();
     this.mainMenuScreen = 'main-menu';
   }
+
 
 
   // G | on home button clicked (see TS main-menu-button-board component, Function C: navigateToMenu)
@@ -38,6 +43,7 @@ export class MainMenuComponent implements OnInit {
   // 2. action: see select-character component
   // ToDo exchange paramter
   private restoreMainMenu() {
+    this.restoreStorage();
     console.log('Restore MainMenu');
     this.childCharacter.generateMainMenuView();
   }
@@ -82,5 +88,14 @@ export class MainMenuComponent implements OnInit {
   // 4. action: break
   setUser(user) {
     this.me = user;
+  }
+
+  restoreStorage() {
+    if (localStorage.getItem('TOKEN') || localStorage.getItem('userId')) {
+      console.log('delete token', localStorage.getItem('TOKEN'));
+      console.log('delete userId', localStorage.getItem('userId'));
+      this.userService.deleteUser(Number(localStorage.getItem('userId')));
+      localStorage.clear();
+    }
   }
 }

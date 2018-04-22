@@ -10,7 +10,7 @@ import {RequestOptions, Request, Headers } from '@angular/http';
 @Injectable()
 export class PlayerService {
 
-  private requestOptions = new RequestOptions({ headers:null, withCredentials:
+  private requestOptions = new RequestOptions({ headers: null, withCredentials:
       false });
 
   private baseUrl = restUrl.getBaseUrl();
@@ -21,7 +21,7 @@ export class PlayerService {
   // private moveUrl = '${baseUrl}/Player({$playerId}/${playerAction}/${playingPieceId}?token=${token}';
 
   private playerId = Number(localStorage.getItem('playerId'));
-  private token = localStorage.getItem('token');
+  private token = localStorage.getItem('TOKEN');
 
   // private playerId = 1;
   // private token = 'TESTTOKEN';
@@ -36,7 +36,8 @@ export class PlayerService {
 
   // Returns every player that is currently in any game
   public getPlayer(playerId: number) {
-    return this.http.get(this.baseUrl + 'Player/' + this.playerId).map(res => res.json());
+      console.log(playerId);
+    return this.http.get(this.baseUrl + 'Player/' + playerId).map(res => res.json());
   }
 
   // Returns playingPiece of current player

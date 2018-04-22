@@ -9,6 +9,7 @@ import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {RoomService} from '../../shared/services/room.service';
 import {CreateUser} from '../../shared/models/createUser';
+import {saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 
 @Component({
   selector: 'app-host-buttons',
@@ -74,14 +75,16 @@ export class HostButtonsComponent implements OnInit {
           this.token = resul[0];
           this.userId = Number(resul[1]);
           console.log('Self Token: ' + this.token);
+          saveTOKEN(this.token);
           console.log('Self User Id: ' + this.userId);
+          saveUserId(this.userId);
 
           // 2.2 create User out of preMe
           this.userService.getUser(this.userId).subscribe(result => {
             this.me = result;
 
             // c) add me to room
-            this.roomService.addUser(this.me, this.room.roomID).subscribe(response => {
+            this.roomService.addUserWithToken(this.me, this.room.roomID, this.token).subscribe(response => {
               console.log('REST | POST ' + this.me.name + ' to Room ' + this.room.name, response);
 
               // d) changeCharacterRequest to main-menu-button-board component
