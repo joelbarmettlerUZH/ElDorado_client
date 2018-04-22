@@ -68,10 +68,14 @@ export class MainMenuComponent implements OnInit {
     // this.myself = new User;
   }
 
+
+  // G | on home button clicked (see TS main-menu-button-board component, Function C: navigateToMenu)
+  // 1. action: on event received: invoke method on select-character component
+  // 2. action: see select-character component
+  // ToDo exchange paramter
   private restoreMainMenu() {
     console.log('Restore MainMenu');
     this.childCharacter.generateMainMenuView();
-    // this.childButtons.generateMainMenuView();
   }
 
   // TO DELETE ?

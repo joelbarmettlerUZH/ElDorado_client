@@ -9,9 +9,8 @@ import {Room} from '../../shared/models/Room';
   styleUrls: ['./main-menu-button-board.component.css']
 })
 export class MainMenuButtonBoardComponent implements OnInit {
-  @Output() navigationRequest = new EventEmitter<string>();
-
   @Output() HigherCharacterRequest = new EventEmitter<Room>();
+  @Output() BackToHomeRequest = new EventEmitter<boolean>();
 
 
   @ViewChild('childJoinButtons')
@@ -58,6 +57,9 @@ export class MainMenuButtonBoardComponent implements OnInit {
   // 1. action:
   // a) let sub menu disappear by setting corresponding class to false (see TS & HTML)
   // b) let main menu reappear by setting corresponding class to true (see TS & HTML)
+  // c) ToDO update user in backend
+  // d) ToDO update room in backend
+  // e) restore main menu view: characters not clickable
 
   navigateToMenu() {
     console.log('navigateToMenu clicked');
@@ -78,6 +80,10 @@ export class MainMenuButtonBoardComponent implements OnInit {
     // b) let main menu reappear
     this.menubuttonMenuButtons = true;
     this.homeButton = false;
+
+    // e) restore main menu view: characters not clickable
+    // ToDO exchange paramter to something reasonable
+    this.BackToHomeRequest.emit(true);
   }
 
   // A.1 & A.2 | on join/host button clicked (see HTML join/host-buttons component)

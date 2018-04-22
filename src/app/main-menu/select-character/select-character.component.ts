@@ -22,14 +22,6 @@ export class SelectCharacterComponent implements OnInit {
   pollRoom: Room;
   private roomSubscription: any;
 
-  // E | on ready button clicked (see HTML selected-character component)
-  // 1. action:
-  // a) set ready field of character to true
-  // 2. action: on true: tick appears(see HTML selected-character component)
-  static onReady(character: Character) {
-    character.ready = true;
-  }
-
 
   constructor(private userService: UserService,
               private roomService: RoomService) {
@@ -97,6 +89,9 @@ export class SelectCharacterComponent implements OnInit {
     });
   }
 
+  // G | on home button clicked (see TS main-menu-button-board component, Function C: navigateToMenu)
+  // 2. action: on view child: restore character default
+  // 3. action: break
   generateManualView() {
     this.restoreCharacterDefault();
     console.log('test');
@@ -125,6 +120,16 @@ export class SelectCharacterComponent implements OnInit {
       }
     }
   }
+
+
+  // E | on ready button clicked (see HTML selected-character component)
+  // 1. action:
+  // a) set ready field of character to true
+  // 2. action: on true: tick appears(see HTML selected-character component)
+  onReady(character: Character) {
+    character.ready = true;
+  }
+
 
   // D | on character clicked (see HTML selected-character component)
   // 1. action:
