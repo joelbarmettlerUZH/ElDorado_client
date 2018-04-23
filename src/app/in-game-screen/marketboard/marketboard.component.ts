@@ -5,6 +5,7 @@ import {Slot} from '../../shared/models/Slot';
 import {savePlayer} from '../../shared/cookieHandler';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
+import {CoinsService} from '../../shared/services/coins.service';
 // import {Card} from '../../shared/models/Card';
 // import {MoveWrapper} from '../../shared/models/MoveWrapper';
 
@@ -17,6 +18,8 @@ export class MarketboardComponent implements OnInit {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
+  // coin Number is displayed (see HTML)
+  public coinNumber: number;
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
@@ -26,8 +29,16 @@ export class MarketboardComponent implements OnInit {
 
   constructor(private gameService: GameService) {
   }
+  constructor(private gameService: GameService,
+              private coinsService: CoinsService) {
+    this.coinsService.getLocalCoinNumber().subscribe(response => {
+      this.coinNumber = response;
+    });
+    console.log('Marketboard | CoinNumber: ' + this.coinNumber);
+  }
 
   ngOnInit() {
+    savePlayer(2, 'TESTTOKEN', 4); // Creates a local storage value
     this.isFadedIn = false;
     this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(
@@ -35,6 +46,7 @@ export class MarketboardComponent implements OnInit {
         this.getMarket();
       }
     );
+
   }
 
   // Get active market cards

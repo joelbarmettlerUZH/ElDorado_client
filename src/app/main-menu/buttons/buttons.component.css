@@ -1,6 +1,6 @@
 #Main-Menu-Button-Board{
   background-size: cover;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/button_area.png');
+  background-image: url('../../../assets/GUI_MainMenu/button_area.png');
   width: 245px;
   height: 768px;
   position: absolute;
@@ -11,7 +11,7 @@
 
 #Host-Game{
   background-size: cover;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  background-image: url('../../../assets/GUI_MainMenu/menubuttons.png');
   width: 245px;
   height: 51px;
   position: absolute;
@@ -21,7 +21,7 @@
 
 #Join-Game{
   background-size: cover;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  background-image: url('../../../assets/GUI_MainMenu/menubuttons.png');
   width: 245px;
   height: 51px;
   position: absolute;
@@ -31,7 +31,7 @@
 
 #Manual{
   background-size: cover;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  background-image: url('../../../assets/GUI_MainMenu/menubuttons.png');
   width: 245px;
   height: 51px;
   position: absolute;
@@ -47,7 +47,7 @@ button {
   position: absolute;
   bottom: 20px;
   left: 0;
-  font-family: Arial;
+  /* font-family: Arial; */
   color: white;
   font-weight: bold;
   border: none;

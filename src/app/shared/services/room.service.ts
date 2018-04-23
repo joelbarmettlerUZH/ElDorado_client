@@ -5,6 +5,7 @@ import {CreateRoom} from '../models/createRoom';
 import {User} from '../models/User';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Room} from '../models/Room';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class RoomService {
@@ -14,7 +15,7 @@ export class RoomService {
   private listRooms: Room[] = [];
   private listOfRooms = new BehaviorSubject([]);
   listRooms$ = this.listOfRooms.asObservable();
-  private token = localStorage.getItem('TOKEN');
+  private token = localStorage.getItem('token');
 
 
   // returns all rooms
@@ -35,6 +36,7 @@ export class RoomService {
   public createRoom(roomName: string, boardNumber: number) {
     const url = this.baseUrl + 'Room';
     let createNewRoom: CreateRoom = new CreateRoom(roomName, boardNumber);
+    console.log(createNewRoom);
     return this.http.post(url, createNewRoom).map(res => this.listRooms = res.json());
   }
 

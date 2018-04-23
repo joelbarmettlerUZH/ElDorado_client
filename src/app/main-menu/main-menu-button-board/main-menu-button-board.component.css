@@ -1,6 +1,6 @@
 #mainMenuButtonBoardStrip {
   background-size: cover;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/button_area.png');
+  background-image: url('../../../assets/GUI_MainMenu/button_area.png');
   width: 245px;
   height: 768px;
   position: absolute;

@@ -7,40 +7,39 @@ import {GameComponent} from './game/game.component';
 // import {AuthGuardService} from './shared/services/auth-guard.service';
 // import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
-import { MainMenuComponent } from './main-menu/main-menu.component';
-import { SelectCharacterComponent } from './main-menu/select-character/select-character.component';
-import { TitleComponent } from './main-menu/title/title.component';
-import { ButtonsComponent } from './main-menu/buttons/buttons.component';
-import { InGameScreenComponent } from './in-game-screen/in-game-screen.component';
-import { OpponentBoardComponent } from './in-game-screen/opponent-board/opponent-board.component';
-import { PlayerBoardComponent } from './in-game-screen/player-board/player-board.component';
-import { SettingsBoardComponent } from './in-game-screen/settings-board/settings-board.component';
-import { MarketplaceComponent } from './in-game-screen/marketplace/marketplace.component';
-import { CardBoardComponent } from './in-game-screen/card-board/card-board.component';
-import { CardSlotComponent } from './in-game-screen/card-slot/card-slot.component';
-import { ButtonBoardComponent } from './in-game-screen/button-board/button-board.component';
-import { CardComponent } from './in-game-screen/marketplace/card/card.component';
-import { MarketSlotComponent } from './in-game-screen/market-slot/market-slot.component';
-import { MarketboardComponent } from './in-game-screen/marketboard/marketboard.component';
-import { AppRoutingModule } from './app-routing.module';
-import { RoomsComponent } from './rooms/rooms.component';
-import { RoomDetailComponent } from './room-detail/room-detail.component';
-import { RoomService} from './shared/services/room.service';
+import {MainMenuComponent} from './main-menu/main-menu.component';
+import {SelectCharacterComponent} from './main-menu/select-character/select-character.component';
+import {TitleComponent} from './main-menu/title/title.component';
+import {ButtonsComponent} from './main-menu/buttons/buttons.component';
+import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
+import {OpponentBoardComponent} from './in-game-screen/opponent-board/opponent-board.component';
+import {PlayerBoardComponent} from './in-game-screen/player-board/player-board.component';
+import {SettingsBoardComponent} from './in-game-screen/settings-board/settings-board.component';
+import {MarketplaceComponent} from './in-game-screen/marketplace/marketplace.component';
+import {CardBoardComponent} from './in-game-screen/card-board/card-board.component';
+import {CardSlotComponent} from './in-game-screen/card-slot/card-slot.component';
+import {ButtonBoardComponent} from './in-game-screen/button-board/button-board.component';
+import {CardComponent} from './in-game-screen/marketplace/card/card.component';
+import {MarketSlotComponent} from './in-game-screen/market-slot/market-slot.component';
+import {MarketboardComponent} from './in-game-screen/marketboard/marketboard.component';
+import {AppRoutingModule} from './app-routing.module';
+import {RoomsComponent} from './rooms/rooms.component';
+import {RoomDetailComponent} from './room-detail/room-detail.component';
+import {RoomService} from './shared/services/room.service';
 // import { HttpClientModule} from '@angular/common/http';
-import { HostComponent } from './host/host.component';
-import { MainMenuButtonBoardComponent } from './main-menu/main-menu-button-board/main-menu-button-board.component';
-import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.component';
-import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-menu-buttons.component';
-import { BoardComponent } from './in-game-screen/map/board/board.component';
-import { HexspaceComponent } from './in-game-screen/map/hexspace/hexspace.component';
-import { BoardService} from './shared/services/board.service';
-import { HttpModule, JsonpModule} from '@angular/http';
+import {HostComponent} from './host/host.component';
+import {MainMenuButtonBoardComponent} from './main-menu/main-menu-button-board/main-menu-button-board.component';
+import {HostButtonsComponent} from './main-menu/host-buttons/host-buttons.component';
+import {MainMenuButtonsComponent} from './main-menu/main-menu-buttons/main-menu-buttons.component';
+import {BoardComponent} from './in-game-screen/map/board/board.component';
+import {HexspaceComponent} from './in-game-screen/map/hexspace/hexspace.component';
+import {HttpModule, JsonpModule} from '@angular/http';
 import {PlayerService} from './shared/services/player.service';
 import {UserService} from './shared/services/user.service';
 import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 import {GameService} from './shared/services/game.service';
 import {MoveService} from './shared/services/move.service';
-
+import {CoinsService} from './shared/services/coins.service';
 
 
 @NgModule({
@@ -81,7 +80,7 @@ import {MoveService} from './shared/services/move.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, BoardService, PlayerService, UserService, GameService, MoveService], // AuthenticationService, AuthGuardService
+  providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

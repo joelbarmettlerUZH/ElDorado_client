@@ -1,21 +1,21 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+// import {AfterContentInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
-import {BoardService} from '../../../shared/services/board.service';
-import {by} from 'protractor';
+// import {by} from 'protractor';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
+// import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
-import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
+// import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
-import {forEach} from '@angular/router/src/utils/collection';
+// import {forEach} from '@angular/router/src/utils/collection';
 import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
@@ -35,11 +35,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public xDim: number;
   public yDim: number;
   public yWidth: number;
-  public xOffset: number;
+  // public xOffset: number;
   public board: Board;
   public players: Player[] = [];
-  public ownPlayingPieces: PlayingPiece[] = [];
-  public opponentPlayingPieces: PlayingPiece[] = [];
+  // public ownPlayingPieces: PlayingPiece[] = [];
+  // public opponentPlayingPieces: PlayingPiece[] = [];
   public hexComponents: HexspaceComponent[] = [];
   public selectedPlayingPiece: PlayingPiece = null;
   public selectedCards: Card[] = [];
@@ -62,8 +62,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(2, 'TESTTOKEN', 4);
-    saveTOKEN('TESTTOKEN');
+    // savePlayer(10, 'TESTTOKEN', 9);
+    // saveTOKEN('TESTTOKEN');
 
     this.gameService.getGame().subscribe(
       response => {
@@ -322,7 +322,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
           );
         }
       });
-    console.log('Going away now, fuck off');
   }
 
 }

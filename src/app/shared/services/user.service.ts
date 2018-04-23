@@ -9,7 +9,7 @@ import {User} from '../models/User';
 export class UserService {
 
   private baseUrl = restUrl.getBaseUrl();
-  private token = localStorage.getItem('TOKEN');
+  private token = localStorage.getItem('token');
 
   constructor(private http: Http) {
   }
