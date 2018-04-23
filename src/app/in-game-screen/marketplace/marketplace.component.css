@@ -1,12 +1,20 @@
 
-#Marketboard{
+.Marketboard{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Right_Markt.png');
   width: 330px;
   height: 768px;
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
+}
+
+.Wrapper{
+  height: 100%;
+  width: 100px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
 }
 
 #Marketreserve{
@@ -15,7 +23,7 @@
   width: 330px;
   height: 768px;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   right: 330px;
 }
 

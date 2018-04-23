@@ -1,17 +1,18 @@
-<div class="Marketboard" [class.selected]="isActive" (click)="onSelect()">
-  <div id="active">
+<div class="Wrapper2" [class.selected]="isActive" (click)="onSelect()">
+<div class="Marketboard" >
+  <div id="active" class="Slot">
     <div id="coinNumberDisplay">{{coinNumber}}</div>
-    <img (click)="$event.stopPropagation()" *ngFor="let slot of activeSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="position"
+    <img (click)="$event.stopPropagation()" *ngFor="let slot of activeSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" class="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png"
          (click)="onSlotSelected(slot)">
   </div>
-  <div id="passive">
-    <img (click)="$event.stopPropagation()" *ngFor="let slot of passiveSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="passiveposition"
+  <div id="passive" class="Slot">
+    <img (click)="$event.stopPropagation()" *ngFor="let slot of passiveSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" class="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png"
          (click)="onSlotSelected(slot)">
   </div>
 </div>
-
+</div>
 
 <!-- // show multiple cards of same type in market
 <div class="Marketboard" id="marketboard" (click)="fadeInOut()">

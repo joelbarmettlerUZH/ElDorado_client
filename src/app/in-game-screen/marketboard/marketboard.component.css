@@ -1,17 +1,36 @@
 
 .Marketboard{
-  background-size: cover;
-  background-image: url('../../../assets/GUI_Game/Right_Markt.png');
+  background-image: url('../../../assets/GUI_Game/Right_Markt.png'), url('../../../assets/GUI_Game/Right_Markt_repeat.png');
+  background-repeat: no-repeat, repeat-y;
+  width: 100%;
+  height: auto; /*768*/
+}
+
+.Wrapper{
+  height: 100%;
+  width: 100px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.Wrapper2{
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 330px;
   height: 768px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  overflow-y: scroll;
+  box-sizing: content-box;
   transition: 0.6s;
 }
 
+::-webkit-scrollbar{
+  background: transparent;
+}
+
 .selected{
-  right: -291px;
+  right: -293px;
   transition: 2.9s;
   background-color: transparent;
 }
@@ -20,30 +39,32 @@
   position: absolute;
   top: 38px;
   right: 279px;
+  padding-left: 35px;
+  padding-top: 1px;
   /*background-color: #c7254e;*/
   width: 50px;
   height: 50px;
-  color: #efdda9;
-  font-size: 28px;
-  font-weight: normal;
+  opacity: 0.85;
+  font-style: italic;
+  font-size: 26px;
+  font-weight: bold;
+  color: #fcf6e4;
+  text-shadow: 2px 1px black;
   cursor: hand;
-  /*text-shadow: 2px 0 0 #101010, -2px 0 0 #151414, 0 2px 0 #0e0e0e, 0 -2px 0 #0a0a0a, 1px 1px #fff, -1px -1px 0 #101010, 1px -1px 0 #0c0c0c, -1px 1px 0 #0e0e0e;*/
-  text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949
+  letter-spacing: 0.5px;
+  border: 0;
 }
 
+.Slot{
+  width: 82%;
+  margin-left: 18%;
+}
 #passive{
   margin-top: 60px;
 }
 
-#position{
-  margin-left: 45px;
-  margin-top: 10px;
-  width: 109px;
-  height: 170px;
-}
-
-#passiveposition{
-  margin-left: 45px;
+.position{
+  margin-right: 17px;
   margin-top: 10px;
   width: 109px;
   height: 170px;

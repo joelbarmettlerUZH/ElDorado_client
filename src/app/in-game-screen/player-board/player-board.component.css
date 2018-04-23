@@ -8,14 +8,22 @@
 #playerNameBox {
   position: absolute;
   left: 30px;
-  bottom: 115px;
+  bottom: 120px;
   width: 200px;
   height: 33px;
-  color: #efdda9;
-  font-size: 25px;
-  font-weight: normal;
-  /*text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949*/
+  font-size: 24px;
+  opacity: 0.85;
+  font-style: italic;
+  font-weight: bold;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
 }
+
+
 
 .notCurrent {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
