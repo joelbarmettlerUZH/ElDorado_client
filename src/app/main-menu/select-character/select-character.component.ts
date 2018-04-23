@@ -38,6 +38,7 @@ export class SelectCharacterComponent implements OnInit {
   ngOnInit() {
     this.areClickable = false;
     this.selectedCharacter = null;
+
   }
 
   generateMainMenuView() {
@@ -60,23 +61,25 @@ export class SelectCharacterComponent implements OnInit {
   // ToDO rename function since the same for host and join
 
   generateJoinView(room) {
-    console.log('generate Join View');
     this.restoreCharacterDefault();
     this.areClickable = true;
     const roomId = room.roomID;
-    this.selectedCharacter = CHARACTERS[this.me.character];
+    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(result => {
+      this.me = result;
+      this.selectedCharacter = CHARACTERS[this.me.character];
+    });
     // c) update opponents
-    this.roomSubscription = Observable.interval(1000).subscribe(y => {
+    this.roomSubscription = Observable.interval(200).subscribe(y => {
       this.roomService.getRoom(roomId).subscribe(
         request => {
           this.pollRoom = request;
           console.log('polling room', this.pollRoom);
-            // this.room = this.pollRoom;
+          // this.room = this.pollRoom;
           for (const character of this.characters) {
             character.assigned = false;
           }
-            for (const character of this.characters){
-            for (const user of this.pollRoom.users){
+          for (const character of this.characters) {
+            for (const user of this.pollRoom.users) {
               if (character.id === user.character) {
                 // a) make opponents colored, not clickable
                 character.assigned = true;
@@ -87,25 +90,25 @@ export class SelectCharacterComponent implements OnInit {
 
             }
           }
-            /*
-            for (const user of this.pollRoom.users) {
-              // if there is a character assign to the users Id then select this character
-              // used for beeing able to be edited
-              if (user.userID == Number(localStorage.getItem('userId'))) {
-                this.selectedCharacter = CHARACTERS[user.character];
+          /*
+          for (const user of this.pollRoom.users) {
+            // if there is a character assign to the users Id then select this character
+            // used for beeing able to be edited
+            if (user.userID == Number(localStorage.getItem('userId'))) {
+              this.selectedCharacter = CHARACTERS[user.character];
+            }
+            this.characters.filter(function (obj) {
+              return obj.id === user.character;
+            }).forEach(x => {
+                console.log('forEach loop',x.name);
+                // a) make opponents colored, not clickable
+                x.assigned = true;
+                // b) show details of opponents
+                x.ready = user.ready;
+                x.name = user.name;
               }
-              this.characters.filter(function (obj) {
-                return obj.id === user.character;
-              }).forEach(x => {
-                  console.log('forEach loop',x.name);
-                  // a) make opponents colored, not clickable
-                  x.assigned = true;
-                  // b) show details of opponents
-                  x.ready = user.ready;
-                  x.name = user.name;
-                }
-              );
-            }*/
+            );
+          }*/
 
 
         }
@@ -135,11 +138,15 @@ export class SelectCharacterComponent implements OnInit {
 
   onSelect(character: Character): void {
 
-    // a) check if already assignerd to opponent
+    // a) check if already assignerd to opponent or self
     if (this.areClickable && !character.assigned) {
       // b) deselect priorly selected character
       if (this.selectedCharacter) {
-        this.selectedCharacter.ready = false;
+        if (this.selectedCharacter.ready) {
+          this.me.ready = false;
+          this.userService.modifyUser(this.me);
+          this.selectedCharacter.ready = false;
+        }
         this.selectedCharacter.assigned = false;
       }
       // c) assign character to self
@@ -194,9 +201,9 @@ export class SelectCharacterComponent implements OnInit {
 
   // extracted helping function
   private restoreCharacterDefault() {
-    if (this.roomSubscription) {
-      this.roomSubscription.unsubscribe();
-    }
+    // if (this.roomSubscription) {
+    //   this.roomSubscription.unsubscribe();
+    // }
     this.areClickable = false;
     this.selectedCharacter = null;
     for (const character of this.characters) {

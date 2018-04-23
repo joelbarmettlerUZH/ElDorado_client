@@ -8,8 +8,7 @@
   </div>
 
   <div class='button-area' *ngIf="myMap.get('menubutton-hostgame')">
-    <app-host-buttons (passUserRequest)="setUser($event)"
-                      (changeCharacterRequest)="changeCharacters($event)" #childHostButtons></app-host-buttons>
+    <app-host-buttons (changeCharacterRequest)="changeCharacters($event)" #childHostButtons></app-host-buttons>
   </div>
 
   <div class='button-area' *ngIf="myMap.get('menubutton-joingame')">

@@ -17,7 +17,6 @@ import {saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 export class JoinButtonsComponent implements OnInit {
 
   @Output() changeCharacterRequest = new EventEmitter<Room>();
-  @Output() passUserRequest = new EventEmitter<User>();
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   characters = CHARACTERS;
@@ -85,7 +84,7 @@ export class JoinButtonsComponent implements OnInit {
       // 3.2 create User out of preMe
       this.userService.getUser(this.userId).subscribe(result => {
         this.me = result;
-        console.log('My name after creation: ' + this.me.name);
+        console.log('1. Me (name) after creation: ' + this.me.name);
 
         // b) add User to the Room
         this.roomService.addUserWithToken(this.me, room.roomID, this.token).subscribe(response => {
@@ -94,7 +93,6 @@ export class JoinButtonsComponent implements OnInit {
           console.log('SENT: changeCharacterRequest | from join-buttons');
           console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
           this.changeCharacterRequest.emit(room);
-        this.passUserRequest.emit(this.me);
         });
 
 

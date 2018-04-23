@@ -35,17 +35,6 @@ export class MainMenuButtonBoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  // A.1 & A2 | on join/host button clicked (see HTML join/host-buttons component)
-  // 2. action:
-  // a) set user
-  // a) Send passHigherUserRequest to main-board component: pass user
-  // 3 action: see main-menu component (via HTML)
-  setUser(user) {
-    // a) set user
-    this.me = user;
-    // a) pass user
-    this.passHigherUserRequest.emit(this.me);
-  }
 
   // B | on main-menu button clicked (see HTML main-menu-buttons)
   // 2. action:
