@@ -9,7 +9,7 @@ import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
+// import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
 // import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
@@ -56,8 +56,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(10, 'TESTTOKEN', 9);
-    saveTOKEN('TESTTOKEN');
+    // savePlayer(10, 'TESTTOKEN', 9);
+    // saveTOKEN('TESTTOKEN');
 
     this.gameService.getGame().subscribe(
       response => {

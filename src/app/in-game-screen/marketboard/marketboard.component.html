@@ -1,6 +1,6 @@
 <div class="Marketboard" id="marketboard" (click)="fadeInOut()">
   <div id="active">
-    <div id="coinNumberDisplay">{{coinNumber}}</div>
+    <div id="coinNumberDisplay">coinNumber</div>
     <img *ngFor="let slot of activeSlot" id="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
