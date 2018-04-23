@@ -72,9 +72,14 @@ export class PlayerService {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Discard?token=' + this.token, card).map(res => res.json());
   }
 
-  // Removes a card from the handPile and returns the modified player
+  // Steals a card from the handPile and returns the modified player
   public steal(slot: Slot) {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Steal?token=' + this.token, slot).map(res => res.json());
+  }
+
+  // Draws a new card from the drawpile
+  public draw() {
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Draw?token=' + this.token, '').map(res => res.json());
   }
 
   // Ends current round
