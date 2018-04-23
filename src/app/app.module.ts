@@ -80,7 +80,7 @@ import {CoinsService} from './shared/services/coins.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, BoardService, PlayerService, UserService, GameService, MoveService, CoinsService],
+  providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

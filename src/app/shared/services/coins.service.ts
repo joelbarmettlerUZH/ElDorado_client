@@ -14,8 +14,6 @@ export class CoinsService {
   constructor(private playerService: PlayerService) {
     // set local ownPlayer once to retrieve its number of coins
     this.getOwnPlayer();
-    // set local current number of coins of own player to the initial number of coins defined in the backend
-    this.ownCoinNumber = this.getLocalCoinNumber();
   }
 
   // REST: GET | set local ownPlayer once to retrieve its number of coins
@@ -23,13 +21,16 @@ export class CoinsService {
     this.playerService.getPlayer(this.ownPlayerId)
       .subscribe(response => {
         this.ownPlayer = response;
+        // set local current number of coins of own player to the initial number of coins defined in the backend
+        this.ownCoinNumber = this.ownPlayer.coins;
       });
   }
 
   // retrieve local current number of coins of own player
   getLocalCoinNumber(): number {
-    return this.ownPlayer.coins;
+    return this.ownCoinNumber;
   }
+
 
   // update local current number of coins of own player
   // so that it is conform with the backend
