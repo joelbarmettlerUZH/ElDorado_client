@@ -38,7 +38,6 @@ export class SelectCharacterComponent implements OnInit {
   ngOnInit() {
     this.areClickable = false;
     this.selectedCharacter = null;
-    this.selectedCharacter = CHARACTERS[this.me.character];
   }
 
   generateMainMenuView() {
@@ -65,6 +64,7 @@ export class SelectCharacterComponent implements OnInit {
     this.restoreCharacterDefault();
     this.areClickable = true;
     const roomId = room.roomID;
+    this.selectedCharacter = CHARACTERS[this.me.character];
     // c) update opponents
     this.roomSubscription = Observable.interval(1000).subscribe(y => {
       this.roomService.getRoom(roomId).subscribe(
