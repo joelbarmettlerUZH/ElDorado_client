@@ -23,6 +23,7 @@ export class MarketboardComponent implements OnInit {
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
+  public purchasableSlotIds: number[] = [];
   public gameId: number;
 
   private marketSubscription: Subscription;
@@ -32,7 +33,7 @@ export class MarketboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    savePlayer(10, 'TESTTOKEN', 9); // Creates a local storage value
+    savePlayer(2, 'TESTTOKEN', 4); // Creates a local storage value
     this.isFadedIn = false;
     this.marketSubscription = Observable.interval(1000).subscribe(
       sub => {
@@ -48,11 +49,13 @@ export class MarketboardComponent implements OnInit {
       .subscribe(resp => {
         // console.log('Updating market'); WURDE JEDE SEKUNDE GESPAMT
         this.market = resp;
+        this.purchasableSlot = this.market.purchasable;
+        this.purchasableSlotIds = [];
+        for (let slot of this.purchasableSlot){
+          this.purchasableSlotIds.push(slot.slotId);
+        }
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
-        this.purchasableSlot = this.market.purchasable;
-        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
-        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 

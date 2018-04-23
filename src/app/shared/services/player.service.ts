@@ -21,7 +21,7 @@ export class PlayerService {
   // private moveUrl = '${baseUrl}/Player({$playerId}/${playerAction}/${playingPieceId}?token=${token}';
 
   private playerId = Number(localStorage.getItem('playerId'));
-  private token = localStorage.getItem('TOKEN');
+  private token = localStorage.getItem('token');
 
   // private playerId = 1;
   // private token = 'TESTTOKEN';

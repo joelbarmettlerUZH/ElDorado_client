@@ -1,7 +1,6 @@
 import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
-import {BoardService} from '../../../shared/services/board.service';
 import {by} from 'protractor';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {MoveWrapper} from '../../../shared/models/MoveWrapper';
@@ -56,7 +55,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(10, 'TESTTOKEN', 9);
+    savePlayer(2, 'TESTTOKEN', 4);
     saveTOKEN('TESTTOKEN')
 
     this.gameService.getGame().subscribe(
