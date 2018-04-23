@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {savePlayer} from '../../shared/cookieHandler';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
+import {CoinsService} from '../../shared/services/coins.service';
 // import {Card} from '../../shared/models/Card';
 // import {MoveWrapper} from '../../shared/models/MoveWrapper';
 
@@ -17,6 +18,8 @@ export class MarketboardComponent implements OnInit {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
+  // coin Number is displayed (see HTML)
+  public coinNumber: number;
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
@@ -24,7 +27,9 @@ export class MarketboardComponent implements OnInit {
 
   private marketSubscription: Subscription;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService,
+              private coinsService: CoinsService) {
+  }
 
   ngOnInit() {
     savePlayer(10, 'TESTTOKEN', 9); // Creates a local storage value
@@ -34,7 +39,9 @@ export class MarketboardComponent implements OnInit {
         this.getMarket();
       }
     );
+    this.coinNumber = this.coinsService.getLocalCoinNumber();
   }
+
   // Get active market cards
   getMarket(): void {
     this.gameService.getMarket()

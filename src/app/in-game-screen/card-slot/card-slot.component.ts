@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
-import {CardBoardComponent} from '../card-board/card-board.component';
 import {Player} from '../../shared/models/Player';
 import {MoveService} from '../../shared/services/move.service';
+import {CoinsService} from '../../shared/services/coins.service';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -27,7 +27,9 @@ export class CardSlotComponent implements OnInit {
   public margin = 50;
 
 
-  constructor(private playerService: PlayerService, private moveService: MoveService) {
+  constructor(private playerService: PlayerService,
+              private moveService: MoveService,
+              private coinsService: CoinsService) {
   }
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class CardSlotComponent implements OnInit {
         this.hand = this.player.handPile;
         console.log(this.hand);
         this.updateHand.emit(this.hand);
+        this.coinsService.updateLocalCoinNumber(this.player.coins);
       }
     );
   }
