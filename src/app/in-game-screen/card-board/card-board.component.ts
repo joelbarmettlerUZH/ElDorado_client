@@ -14,7 +14,7 @@ export class CardBoardComponent implements OnInit {
 
   @Input()
   public cards: Card[];
-
+  public isActive = false;
   private handPileSubscription: any;
 
   constructor(private playerService: PlayerService) { }
@@ -35,10 +35,11 @@ export class CardBoardComponent implements OnInit {
       }
     );
   }
-  // onSelect(card: Card) {
-  //  card.selected = true;
-
-  // }
+  onSelect() {
+    console.log('Is hidden: ' + this.isActive);
+    this.isActive = !this.isActive;
+    console.log('Is hidden: ' + this.isActive);
+  }
   receiveHand($event) {
     this.cards = $event;
     // console.log(this.cards);

@@ -25,6 +25,7 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlot: Slot[];
   public purchasableSlotIds: number[] = [];
   public gameId: number;
+  public isActive = false;
 
   private marketSubscription: Subscription;
 
@@ -37,6 +38,7 @@ export class MarketboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    savePlayer(2, 'TESTTOKEN', 3); // Creates a local storage value
     this.isFadedIn = false;
     this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(
@@ -44,9 +46,12 @@ export class MarketboardComponent implements OnInit {
         this.getMarket();
       }
     );
-
   }
 
+  // Fade out Market Board
+  onSelect() {
+    this.isActive = !this.isActive;
+  }
   // Get active market cards
   getMarket(initial: boolean = false) {
     this.gameService.getMarket()

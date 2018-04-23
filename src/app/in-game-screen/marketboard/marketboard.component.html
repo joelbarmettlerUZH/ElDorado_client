@@ -1,10 +1,10 @@
-<div class="Marketboard" id="marketboard" (click)="fadeInOut()">
-  <div id="active">
+<div class="Marketboard" [class.selected]="isActive" (click)="onSelect()">
+  <div (click)="$event.stopPropagation()" id="active">
     <div id="coinNumberDisplay">{{coinNumber}}</div>
     <img *ngFor="let slot of activeSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
-  <div id="passive">
+  <div (click)="$event.stopPropagation()" id="passive">
     <img *ngFor="let slot of passiveSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="passiveposition"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
@@ -16,7 +16,7 @@
   <div id="active">
     <div id = "position" *ngFor="let slot of activeSlot">
       <div id = "multiple" *ngFor="let Card of slot.pile">
-        <img  src="../../../assets/Gui_Elemente/Karten/fake{{Card.name}}.png">
+        <img  src="../../../assets/Karten/fake{{Card.name}}.png">
       </div>
     </div>
   </div>
