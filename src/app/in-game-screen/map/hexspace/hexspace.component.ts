@@ -113,15 +113,14 @@ export class HexspaceComponent implements OnInit {
   }
 
   performAction() {
-    if (this.isPlayingPiece && this.isValid()) {
-      this.findPath();
-    }
     if (this.isReachable && this.isValid()) {
       this.moveTo();
-    }
-    if (this.isBlockade && this.isRemovable && this.isValid()) {
+    } else if (this.isPlayingPiece && this.isValid()) {
+      this.findPath();
+    } else if (this.isBlockade && this.isRemovable && this.isValid()) {
       this.removeBlockade();
+    } else {
+      console.log('User clicked on random hexpsace ' + this.index);
     }
   }
-
 }

@@ -37,7 +37,6 @@ export class MarketboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    savePlayer(2, 'TESTTOKEN', 4); // Creates a local storage value
     this.isFadedIn = false;
     this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(

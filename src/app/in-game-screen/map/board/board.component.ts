@@ -1,25 +1,20 @@
 import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-// import {AfterContentInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
-// import {by} from 'protractor';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-// import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
-// import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
-// import {forEach} from '@angular/router/src/utils/collection';
 import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
-import {ObjectUnsubscribedError} from 'rxjs/util/ObjectUnsubscribedError';
+import {savePlayer} from '../../../shared/cookieHandler';
 
 declare var $: any;
 
@@ -30,22 +25,18 @@ declare var $: any;
 })
 export class BoardComponent implements OnInit, AfterViewInit {
   public hexagons: Hexspace[];
-  // public colors: string[];
   public game: Game;
   public xDim: number;
   public yDim: number;
   public yWidth: number;
-  // public xOffset: number;
   public board: Board;
   public players: Player[] = [];
-  // public ownPlayingPieces: PlayingPiece[] = [];
-  // public opponentPlayingPieces: PlayingPiece[] = [];
   public hexComponents: HexspaceComponent[] = [];
   public selectedPlayingPiece: PlayingPiece = null;
   public selectedCards: Card[] = [];
   private reachableHex: HexspaceComponent[] = [];
-  private blockades: Blockade[] = [];
 
+  private blockades: Blockade[] = [];
   private removable: Blockade[] = [];
 
   private playerSubscription: Subscription;
@@ -62,9 +53,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    // savePlayer(10, 'TESTTOKEN', 9);
-    // saveTOKEN('TESTTOKEN');
-
+    savePlayer(17, 'TESTTOKEN', 18);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
@@ -76,10 +65,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
       });
   }
 
+  // Takes a Point object and returns an index
   pointToIndex(point: Point) {
     return (point.x * this.yDim) + point.y;
   }
 
+  // Module responsible for dragging and zooming the main board
   panZoom() {
     var $section = $('#board');
     var $panzoom = $section.find('.panzoom').panzoom();
@@ -95,6 +86,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Takes an array of cards and finds all hexspaces on which you can move
   getWay($event) {
     console.log('Knowing da wea');
     this.removable = [];
@@ -142,16 +134,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
         this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
           response => {
             const removableBlockade: Blockade[] = response;
+            console.log('Moved. Now able to remove the following blockades: ', removableBlockade);
+            this.setRemovable(false);
             this.removable = removableBlockade;
-            this.removable.forEach(
-              blockade => {
-                blockade.spaces.forEach(
-                  hex => {
-                    this.findHexComponent(hex).isRemovable = true;
-                  }
-                );
-              }
-            );
+            this.setRemovable(true);
           }
         );
         this.resetReachable();
@@ -166,12 +152,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
         blockade.spaces.forEach(
           space => {
             if (this.pointToIndex(space.point) === this.pointToIndex(hex.HexSpace.point)) {
+              console.log('Found blockade to remove');
               block = blockade;
             }
           }
         );
       }
     );
+    console.log('Request to remove blockade received with blockade ', block);
     this.playerService.removeBlockade(block).subscribe(
       res => {
       }
@@ -264,6 +252,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
         this.setBlockades(false);
         this.blockades = newBlockades;
         this.setBlockades(true);
+      }
+    );
+  }
+
+  setRemovable(remove: boolean) {
+    this.removable.forEach(
+      blockade => {
+        blockade.spaces.forEach(
+          hex => {
+            this.findHexComponent(hex).isRemovable = remove;
+          }
+        );
       }
     );
   }
