@@ -138,7 +138,7 @@ export class SelectCharacterComponent implements OnInit {
 
   onSelect(character: Character): void {
 
-    // a) check if already assignerd to opponent or self
+    // a) check if already assigned to opponent or self
     if (this.areClickable && !character.assigned) {
       // b) deselect priorly selected character
       if (this.selectedCharacter) {
@@ -167,11 +167,10 @@ export class SelectCharacterComponent implements OnInit {
   // a) set ready field of character to true
   // 2. action: on true: tick appears(see HTML selected-character component)
   onReady(character: Character) {
-    character.ready = true;
-    this.me.ready = true;
+    character.ready = !character.ready;
+    this.me.ready = character.ready;
     this.userService.modifyUser(this.me);
   }
-
 
   // D | on character clicked (see HTML selected-character component)
   // 1. action:
@@ -221,6 +220,3 @@ export class SelectCharacterComponent implements OnInit {
     }
   }
 }
-
-
-
