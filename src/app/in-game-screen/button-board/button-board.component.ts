@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PlayerService} from '../../shared/services/player.service';
-import {CardBoardComponent} from '../card-board/card-board.component';
-import {Card} from '../../shared/models/Card';
+// import {CardBoardComponent} from '../card-board/card-board.component';
+// import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
 
 @Component({
@@ -24,7 +24,7 @@ export class ButtonBoardComponent implements OnInit {
   endRound() {
     this.playerService.endRound().subscribe(
       response => {
-        //console.log(response);
+        // console.log(response);
         this.game = response;
         console.log(this.game);
         this.updateGame.emit(this.game);
