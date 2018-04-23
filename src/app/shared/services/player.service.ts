@@ -6,6 +6,7 @@ import {MoveWrapper} from '../models/MoveWrapper';
 import {Slot} from '../models/Slot';
 import {ActionCard} from '../models/ActionCard';
 import {RequestOptions, Request, Headers } from '@angular/http';
+import {Blockade} from '../models/Blockade';
 
 @Injectable()
 export class PlayerService {
@@ -94,6 +95,11 @@ export class PlayerService {
   // Move
   public move(moveWrapper: MoveWrapper, playingPieceId: number) {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Move/' + playingPieceId + '?token=' + this.token, moveWrapper).map(res => res.json());
+  }
+
+  // Remove blockadeEvent
+  public removeBlockade(blockade: Blockade) {
+      return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Blockade/?token=' + this.token, blockade).map(res => res.json());
   }
 
 }

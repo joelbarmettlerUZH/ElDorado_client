@@ -3,7 +3,7 @@
     <div class="panzoom">
       <ul id="hexGrid">
         <li [ngStyle]="{'width' : yWidth + '10%'}" class="hex" *ngFor="let hexs of hexagons;">
-          <app-hexspace (move)="move($event)" (path)="getWay($event)" #hexspaceComponent [HexSpace]="hexs" [yDim]="yDim" [ywidth]="yWidth"></app-hexspace>
+          <app-hexspace (move)="move($event)" (blockadeEvent)="removeBlockade($event)" (path)="getWay($event)" #hexspaceComponent [HexSpace]="hexs" [yDim]="yDim" [ywidth]="yWidth"></app-hexspace>
         </li>
       </ul>
     </div>

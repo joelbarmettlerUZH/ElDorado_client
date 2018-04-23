@@ -1,6 +1,6 @@
 import {BlockadeSpace} from './BlockadeSpace';
 
-export class Blockades {
+export class Blockade {
   spaces: BlockadeSpace[];
   cost: number;
   blockade_ID: number;

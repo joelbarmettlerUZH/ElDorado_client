@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
@@ -24,28 +24,32 @@ export class MarketboardComponent implements OnInit {
 
   private marketSubscription: Subscription;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService) {
+  }
 
   ngOnInit() {
-    savePlayer(10, 'TESTTOKEN', 9); // Creates a local storage value
     this.isFadedIn = false;
+    this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(
       sub => {
         this.getMarket();
       }
     );
   }
+
   // Get active market cards
-  getMarket(): void {
+  getMarket(initial: boolean = false) {
     this.gameService.getMarket()
       .subscribe(resp => {
-        // console.log('Updating market'); WURDE JEDE SEKUNDE GESPAMT
+        // console.log('Updating market');
+        if ((JSON.stringify(this.market) === JSON.stringify(resp)) && !initial) {
+          return;
+        }
+        console.log('-Market update: DID change, performing update');
         this.market = resp;
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
         this.purchasableSlot = this.market.purchasable;
-        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
-        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 

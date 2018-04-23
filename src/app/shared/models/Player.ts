@@ -1,6 +1,6 @@
 import {Card} from './Card';
 import {assertNumber} from '@angular/core/src/render3/assert';
-import {Blockades} from './Blockades';
+import {Blockade} from './Blockade';
 import {PlayingPiece} from './PlayingPiece';
 import {Action} from './Action';
 import {CardAction} from './CardAction';
