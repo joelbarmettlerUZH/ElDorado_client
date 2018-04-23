@@ -28,20 +28,27 @@ export class CardBoardComponent implements OnInit {
   // used for updating the handcards after selling/discarding
   // @ViewChild(CardSlotComponent) slot;
 
-  async ngOnInit() {
-    console.log('OnInit of cardBoard');
-    this.getHandPile();
-    this.handPileSubscription = Observable.interval(1000).subscribe(
-      res => {
-        this.pollHandPile();
-      }
-    );
+  ngOnInit() {
+    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
+      .subscribe(response => {
+        console.log('get cards of,', Number(localStorage.getItem('playerId')))
+
+        this.player = response;
+        console.log(this.player.handPile);
+        this.handcardService.setCards(this.player.handPile);
+
+        this.handPileSubscription = Observable.interval(1000).subscribe(
+          res => {
+            this.pollHandPile();
+          }
+        );
+      });
   }
+
 
   pollHandPile() {
     this.handcardService.getCards().subscribe(res => {
       this.cards = res;
-      console.log('UPDATED HANDCARD', this.cards);
     });
   }
 
@@ -60,19 +67,6 @@ export class CardBoardComponent implements OnInit {
     this.isActive = !this.isActive;
     console.log('Is hidden: ' + this.isActive);
   }
-  /*
-  receiveHand($event) {
-    this.cards = $event;
-    // console.log(this.cards);
-  }*/
+
 
 }
-
-// not used anymore
-/*
-pollHandCards(): void {
-  this.handPileSubscription = Observable.interval(1000).subscribe(x => {
-    this.getHandPile();
-  });
-}
-*/

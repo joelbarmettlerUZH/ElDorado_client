@@ -73,8 +73,6 @@ export class MarketboardComponent implements OnInit {
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
         this.purchasableSlot = this.market.purchasable;
-        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
-        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 
@@ -82,19 +80,4 @@ export class MarketboardComponent implements OnInit {
     this.playerService.buy(slot);
   }
 
-  fadeInOut() {
-    // if (this.isFadedIn){
-    //   this.fadeOut();
-    // } else{
-    //   this.fadeIn();
-    // }
-  }
-
-  // private fadeOut() {
-  //
-  // }
-  //
-  // private fadeIn() {
-  //
-  // }
 }

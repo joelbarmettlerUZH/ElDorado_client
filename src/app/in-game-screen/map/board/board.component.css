@@ -7,23 +7,6 @@
   padding-bottom: 7.4%
 }
 
-
-
-
-/*
-.xOffset{
-  margin-left: 0%;
-}
-*/
-
-/* (2x-1)n + (x+1) */
-/*
-.hex:nth-child(19n+11){
-  margin-left: 5%;
-}
-*/
-
-
 #board {
   width: 100%;
   height: 100%;

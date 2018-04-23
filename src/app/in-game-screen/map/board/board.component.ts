@@ -14,7 +14,7 @@ import {Game} from '../../../shared/models/Game';
 import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
-import {savePlayer} from '../../../shared/cookieHandler';
+import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
 
 declare var $: any;
 
@@ -53,7 +53,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(11, 'TESTTOKEN', 10); // Creates a local storage value
+    savePlayer(1, 'TESTTOKEN', 4); // Creates a local storage value
+    saveUserId(1);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
@@ -301,26 +302,33 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.reachableHex = [];
   }
 
+  initBoard() {
+    if (this.hexComponent.toArray().length > 0) {
+      console.log('Change');
+      this.hexComponents = this.hexComponent.toArray();
+      console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
+      if (this.hexComponents.length === this.xDim * this.yDim) {
+        console.log('Setting playing pieces now');
+        this.updatePlayers(true);
+        this.playerSubscription = Observable.interval(1000).subscribe(
+          res => {
+            this.updatePlayers();
+          });
+        this.cardSucbscription = Observable.interval(1000).subscribe(
+          res => {
+            this.updateCards();
+          }
+        );
+      }
+    }
+  }
+
   ngAfterViewInit() {
     console.log('Waduhek length is ' + this.hexComponent.toArray().length);
+    this.initBoard();
     this.hexComponent.changes.subscribe(
       hex => {
-        console.log('Change');
-        this.hexComponents = this.hexComponent.toArray();
-        console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
-        if (this.hexComponents.length === this.xDim * this.yDim) {
-          console.log('Setting playing pieces now');
-          this.updatePlayers(true);
-          this.playerSubscription = Observable.interval(1000).subscribe(
-            res => {
-              this.updatePlayers();
-            });
-          this.cardSucbscription = Observable.interval(1000).subscribe(
-            res => {
-              this.updateCards();
-            }
-          );
-        }
+        this.initBoard();
       });
   }
 
