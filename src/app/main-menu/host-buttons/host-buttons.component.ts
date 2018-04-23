@@ -92,9 +92,6 @@ export class HostButtonsComponent implements OnInit {
               console.log('SENT: changeCharacterRequest | from host-buttons');
               console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID + ' room users: ' + this.room.users);
               this.changeCharacterRequest.emit(this.room);
-
-              // e) changeCharacterRequest to main-menu to pass User, me, to select-character component
-              this.passUserRequest.emit(this.me);
             });
           });
         });

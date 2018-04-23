@@ -1,10 +1,9 @@
 ///<reference path="select-character/select-character.component.ts"/>
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {User} from '../shared/models/User';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 import {UserService} from '../shared/services/user.service';
-import {saveTOKEN, saveUserId} from '../shared/cookieHandler';
 
 
 @Component({
@@ -81,15 +80,6 @@ export class MainMenuComponent implements OnInit {
     this.childCharacter.generateJoinView(room);
   }
 
-
-  // A.1 & A2 | on join/host button clicked (see HTML join/host-buttons component)
-  // 3. action:
-  // a) set user
-  // b) pass user to child variable (see HTML of selecter-character component)
-  // 4. action: break
-  setUser(user) {
-    this.me = user;
-  }
 
   restoreStorage() {
     if (localStorage.getItem('token') || localStorage.getItem('userId')) {
