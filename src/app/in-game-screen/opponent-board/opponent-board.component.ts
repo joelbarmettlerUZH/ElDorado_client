@@ -15,7 +15,7 @@ import {GameService} from '../../shared/services/game.service';
 
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
-  players: any[];
+  players: Player[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public current: number;
 
@@ -24,12 +24,12 @@ export class OpponentBoardComponent implements OnInit {
   constructor(private playerService: PlayerService, private gameService: GameService) {}
 
   ngOnInit() {
-    this.getPlayers();
     this.playerSubscription = Observable.interval(1000).subscribe(
       res => {
         this.getCurrent();
       }
     );
+    this.getPlayers();
     console.log(this.players);
   }
 
@@ -43,8 +43,14 @@ export class OpponentBoardComponent implements OnInit {
   }
 
   getPlayers(): void {
-    this.playerService.getAllPlayers()
-      .subscribe(players => this.players = players);
+    this.gameService.getPlayers()
+      .subscribe(players => {
+        console.log(this.ownPlayerId);
+        const allPlayers: Player[] = players;
+        this.players = allPlayers.filter(
+          player => player.playerId !== this.ownPlayerId
+        );
+      });
   }
 
 }

@@ -7,12 +7,12 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  transition: 0.3s;
+  transition: 0.6s;
 }
 
 .selected{
-  right: -150px;
-  transition: 2.3s;
+  right: -291px;
+  transition: 2.9s;
   background-color: transparent;
 }
 
@@ -26,6 +26,7 @@
   color: #efdda9;
   font-size: 28px;
   font-weight: normal;
+  cursor: hand;
   /*text-shadow: 2px 0 0 #101010, -2px 0 0 #151414, 0 2px 0 #0e0e0e, 0 -2px 0 #0a0a0a, 1px 1px #fff, -1px -1px 0 #101010, 1px -1px 0 #0c0c0c, -1px 1px 0 #0e0e0e;*/
   text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949
 }
