@@ -5,8 +5,8 @@
   position: absolute;
 }
 
-#o1{
-  top: 0px;
+#o0{
+  top: 0;
 }
 
 .notCurrent{
@@ -14,14 +14,14 @@
   filter: grayscale(100%);
 }
 
-#o2{
+#o1{
   top: 97px;
 }
 
-#o3{
+#o2{
   top: 194px;
 }
 
-#o4{
+#o3{
   top: 291px;
 }

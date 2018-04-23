@@ -27,7 +27,7 @@ export class MarketboardComponent implements OnInit {
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    // savePlayer(1, 'TESTTOKEN', 3); // Creates a local storage value
+    savePlayer(10, 'TESTTOKEN', 9); // Creates a local storage value
     this.isFadedIn = false;
     this.marketSubscription = Observable.interval(1000).subscribe(
       sub => {
@@ -38,13 +38,14 @@ export class MarketboardComponent implements OnInit {
   // Get active market cards
   getMarket(): void {
     this.gameService.getMarket()
-      .subscribe(response => {
-        console.log("Updating market");
-        this.market = response;
+      .subscribe(resp => {
+        // console.log('Updating market'); WURDE JEDE SEKUNDE GESPAMT
+        this.market = resp;
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
         this.purchasableSlot = this.market.purchasable;
-        console.log(this.activeSlot[0].pile[0].name);
+        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
+        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 

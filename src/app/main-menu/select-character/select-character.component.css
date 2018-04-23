@@ -106,25 +106,25 @@
 }
 
 #imagecharacter0 {
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png');
+  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_0.png');
   width: 258px;
   right: 70px;
 }
 
 #imagecharacter1 {
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_2.png');
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_1.png');
   width: 244px;
   right: 77px;
 }
 
 #imagecharacter2 {
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_3.png');
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_2.png');
   width: 362px;
   right: 18px;
 }
 
 #imagecharacter3 {
-  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_4.png');
+  background-image: url('./../../../assets/Gui_Elemente/GUI_MainMenu/Avatar_3.png');
   width: 398px;
   right: 0;
 }

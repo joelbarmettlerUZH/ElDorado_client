@@ -25,6 +25,7 @@ button {
   text-shadow: 2px 1px black;
   cursor: hand;
   letter-spacing: 0.5px;
+  border: 0;
   /*border-radius: 4px;*/
   /* cursor: pointer; */
 }

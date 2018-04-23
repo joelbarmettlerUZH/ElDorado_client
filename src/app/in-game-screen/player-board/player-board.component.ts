@@ -3,6 +3,9 @@ import { CHARACTERS } from '../../shared/models/character-database';
 import {Character} from '../../shared/models/character';
 import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
+import {PlayerService} from '../../shared/services/player.service';
+import {Player} from '../../shared/models/Player';
+
 // import {Player} from '../../shared/models/Player';
 
 @Component({
@@ -11,22 +14,32 @@ import {Game} from '../../shared/models/Game';
   styleUrls: ['./player-board.component.css']
 })
 export class PlayerBoardComponent implements OnInit {
-  ownCharacter: Character = CHARACTERS[0];
+  // ownCharacter: Character = CHARACTERS[0]; // FALSCH, IST CHARACTER DATABASE MOCK ;
 
   public game: Game;
   public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
+  protected ownCharacterId: number;
+  private ownPlayer: Player;
 
-  constructor() { }
+  constructor(private playerService: PlayerService) { }
 
   ngOnInit() {
+      this.getOwnCharacterId();
   }
-
+  getOwnCharacterId(): void {
+      this.playerService.getPlayer(this.ownPlayerId)
+        .subscribe(response => {
+          this.ownPlayer = response;
+          this.ownCharacterId = this.ownPlayer.characterNumber;
+          console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
+        });
+}
   receiveGame($event) {
-    // assing playerid to a temporary variable
+    // assing playerId to a temporary variable
     const id = this.ownPlayerId;
-    console.log(this.ownCharacter.id);
-    console.log(this.ownPlayerId);
+    console.log('My character id:' + this.ownCharacterId);
+    console.log('My player id:' + this.ownPlayerId);
     // update game after EndRound
     this.game = $event;
     console.log(this.game.players.find(function(element) {
