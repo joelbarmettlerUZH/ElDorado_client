@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
@@ -68,6 +68,8 @@ export class SelectCharacterComponent implements OnInit {
       this.roomService.getRoom(roomId).subscribe(
         request => {
           this.pollRoom = request;
+          // loop through all users of this room to update local storage of characters
+          // in order to display them right
           for (const user of this.pollRoom.users) {
             // if there is a character assign to the users Id then select this character
             // used for beeing able to be edited
@@ -102,7 +104,7 @@ export class SelectCharacterComponent implements OnInit {
       this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
         this.player = player;
         if (this.player.playerId == Number(localStorage.getItem('userId'))) {
-          this.router.navigate(['/games', ':gameId']);
+          this.router.navigate(['/games', room.roomID]);
         }
       });
     });

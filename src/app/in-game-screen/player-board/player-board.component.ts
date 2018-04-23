@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { CHARACTERS } from '../../shared/models/character-database';
-import {Character} from '../../shared/models/character';
+import {Component, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
 import {PlayerService} from '../../shared/services/player.service';
@@ -20,7 +18,7 @@ export class PlayerBoardComponent implements OnInit {
   public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   protected ownCharacterId: number;
-  private ownPlayer: Player;
+  public ownPlayer: Player;
 
   constructor(private playerService: PlayerService) { }
 
