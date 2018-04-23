@@ -45,7 +45,7 @@ export class MarketboardComponent implements OnInit {
         this.getMarket();
       }
     );
-    this.coinNumber = this.coinsService.getLocalCoinNumber();
+
   }
 
   // Get active market cards
