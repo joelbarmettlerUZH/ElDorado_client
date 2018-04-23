@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
@@ -188,6 +188,15 @@ export class SelectCharacterComponent implements OnInit {
     for (const character of this.characters) {
       character.ready = false;
       character.assigned = false;
+    }
+  }
+
+  restoreStorage() {
+    if (localStorage.getItem('TOKEN') || localStorage.getItem('userId')) {
+      console.log('delete token', localStorage.getItem('TOKEN'));
+      console.log('delete userId', localStorage.getItem('userId'));
+      this.userService.deleteUser(Number(localStorage.getItem('userId')));
+      localStorage.clear();
     }
   }
 }

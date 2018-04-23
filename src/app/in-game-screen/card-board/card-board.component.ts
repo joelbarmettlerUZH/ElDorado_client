@@ -31,6 +31,7 @@ export class CardBoardComponent implements OnInit {
     this.playerService.getHandPile().subscribe(
       request => {
         this.cards = request;
+        console.log('handpile', this.cards);
       }
     );
   }

@@ -1,5 +1,5 @@
 ///<reference path="select-character/select-character.component.ts"/>
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {User} from '../shared/models/User';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
