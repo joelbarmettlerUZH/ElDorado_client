@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Character} from '../../shared/models/character';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
@@ -26,6 +26,7 @@ export class SelectCharacterComponent implements OnInit {
   private roomSubscription: any;
   private gameStartSubscription: any;
   player: Player;
+  room: Room;
 
 
   constructor(private userService: UserService,
@@ -68,29 +69,47 @@ export class SelectCharacterComponent implements OnInit {
       this.roomService.getRoom(roomId).subscribe(
         request => {
           this.pollRoom = request;
-          for (const user of this.pollRoom.users) {
-            // if there is a character assign to the users Id then select this character
-            // used for beeing able to be edited
-            if (user.userID == Number(localStorage.getItem('userId'))) {
-              this.selectedCharacter = CHARACTERS[user.character];
-            }
-            this.characters.filter(function (obj) {
-              return obj.id === user.character;
-            }).forEach(x => {
-
-              // a) make opponents colored, not clickable
-              // console.log('"Assigned" of Character :' + x.name + 'before: ' + x.assigned);
-                x.assigned = true;
-              // console.log('"Assigned" of Character :' + x.name + 'after: ' + x.assigned);
-
-              // b) show details of opponents
-              // console.log('"Ready" of Character :' + x.name + 'before: ' + x.ready);
-                x.ready = user.ready;
-              // console.log('"Ready" of Character :' + x.name + 'after: ' + x.ready);
-                x.name = user.name;
-              }
-            );
+          console.log('polling room', this.pollRoom);
+            // this.room = this.pollRoom;
+          for (const character of this.characters) {
+            character.assigned = false;
           }
+            for (const character of this.characters){
+            for (const user of this.pollRoom.users){
+              if (user.userID == Number(localStorage.getItem('userId'))) {
+                this.selectedCharacter = CHARACTERS[user.character];
+              }
+              if (character.id === user.character) {
+                // a) make opponents colored, not clickable
+                character.assigned = true;
+                // b) show details of opponents
+                character.ready = user.ready;
+                character.name = user.name;
+              }
+
+            }
+          }
+            /*
+            for (const user of this.pollRoom.users) {
+              // if there is a character assign to the users Id then select this character
+              // used for beeing able to be edited
+              if (user.userID == Number(localStorage.getItem('userId'))) {
+                this.selectedCharacter = CHARACTERS[user.character];
+              }
+              this.characters.filter(function (obj) {
+                return obj.id === user.character;
+              }).forEach(x => {
+                  console.log('forEach loop',x.name);
+                  // a) make opponents colored, not clickable
+                  x.assigned = true;
+                  // b) show details of opponents
+                  x.ready = user.ready;
+                  x.name = user.name;
+                }
+              );
+            }*/
+
+
         }
       );
     });
@@ -102,7 +121,7 @@ export class SelectCharacterComponent implements OnInit {
       this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
         this.player = player;
         if (this.player.playerId == Number(localStorage.getItem('userId'))) {
-          this.router.navigate(['/games', ':gameId']);
+          this.router.navigate(['/games', room.roomID]);
         }
       });
     });
@@ -120,20 +139,17 @@ export class SelectCharacterComponent implements OnInit {
 
     // a) check if already assignerd to opponent
     if (this.areClickable && !character.assigned) {
-
       // b) deselect priorly selected character
       if (this.selectedCharacter) {
         this.selectedCharacter.ready = false;
         this.selectedCharacter.assigned = false;
       }
-
       // c) assign character to self
       this.selectedCharacter = character;
       console.log('Selected Character | Name: ' + this.selectedCharacter.name);
       character.assigned = true;
       if (this.me) {
         this.me.character = this.selectedCharacter.id;
-
         // d) update self in backend
         this.userService.modifyUser(this.me);
       }

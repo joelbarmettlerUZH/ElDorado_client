@@ -1,12 +1,11 @@
 import {Card} from './Card';
-import {assertNumber} from '@angular/core/src/render3/assert';
-import {Blockade} from './Blockade';
 import {PlayingPiece} from './PlayingPiece';
 import {Action} from './Action';
 import {CardAction} from './CardAction';
 
 export class Player {
   playerId: number;
+  name: string;
   characterNumber: number;
   token: string;
   removeBlockades: number[];

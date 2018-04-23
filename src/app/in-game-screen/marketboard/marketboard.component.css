@@ -18,15 +18,16 @@
 
 #coinNumberDisplay {
   position: absolute;
-  top: 35px;
-  right: 280px;
+  top: 38px;
+  right: 279px;
   /*background-color: #c7254e;*/
   width: 50px;
   height: 50px;
-  color: ghostwhite;
+  color: #efdda9;
   font-size: 28px;
   font-weight: normal;
-  text-shadow: 2px 0 0 #101010, -2px 0 0 #151414, 0 2px 0 #0e0e0e, 0 -2px 0 #0a0a0a, 1px 1px #fff, -1px -1px 0 #101010, 1px -1px 0 #0c0c0c, -1px 1px 0 #0e0e0e;
+  /*text-shadow: 2px 0 0 #101010, -2px 0 0 #151414, 0 2px 0 #0e0e0e, 0 -2px 0 #0a0a0a, 1px 1px #fff, -1px -1px 0 #101010, 1px -1px 0 #0c0c0c, -1px 1px 0 #0e0e0e;*/
+  text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949
 }
 
 #passive{
