@@ -37,6 +37,7 @@ export class MarketboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    savePlayer(2, 'TESTTOKEN', 3);
     this.isFadedIn = false;
     this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(

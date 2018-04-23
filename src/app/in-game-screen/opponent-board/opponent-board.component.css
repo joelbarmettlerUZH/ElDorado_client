@@ -25,3 +25,15 @@
 #o3{
   top: 291px;
 }
+
+#opponentNameBox {
+  position: absolute;
+  left: 34px;
+  bottom: 41px;
+  width: 200px;
+  height: 33px;
+  color: #efdda9;
+  font-size: 18px;
+  font-weight: normal;
+  /*text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949*/
+}

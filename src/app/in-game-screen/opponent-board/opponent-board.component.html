@@ -1,5 +1,6 @@
   <div *ngFor="let player of players" id="opponent-board">
     <div class="Board" id="o{{player.characterNumber}}">
+      <div id="opponentNameBox">{{player.name}}</div>
       <img [class.notCurrent] = "current != player.characterNumber" src="../../../assets/GUI_Game/Opponent_{{player.characterNumber}}.png">
     </div>
   </div>

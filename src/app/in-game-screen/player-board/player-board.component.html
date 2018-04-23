@@ -1,7 +1,7 @@
 <div id="Player-Board">
   <app-card-board [cards]="handpile"></app-card-board>
   <app-button-board (updateGame)="receiveGame($event)"></app-button-board>
+  <div id="playerNameBox">{{ownPlayer.name}}</div>
   <img class="Character" src="../../../assets/GUI_MainMenu/Avatar_{{ownCharacterId}}.png">
-
 </div>
 
