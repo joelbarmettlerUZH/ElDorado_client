@@ -58,7 +58,6 @@ export class CardSlotComponent implements OnInit {
     }
   }
 
-
   discard() {
     this.playerService.discard(this.card).subscribe(
       response => {

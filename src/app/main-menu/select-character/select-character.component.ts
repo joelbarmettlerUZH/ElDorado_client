@@ -38,6 +38,7 @@ export class SelectCharacterComponent implements OnInit {
   ngOnInit() {
     this.areClickable = false;
     this.selectedCharacter = null;
+    this.selectedCharacter = CHARACTERS[this.me.character];
   }
 
   generateMainMenuView() {
@@ -76,9 +77,6 @@ export class SelectCharacterComponent implements OnInit {
           }
             for (const character of this.characters){
             for (const user of this.pollRoom.users){
-              if (user.userID == Number(localStorage.getItem('userId'))) {
-                this.selectedCharacter = CHARACTERS[user.character];
-              }
               if (character.id === user.character) {
                 // a) make opponents colored, not clickable
                 character.assigned = true;

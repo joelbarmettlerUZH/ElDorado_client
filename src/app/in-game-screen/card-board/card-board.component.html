@@ -1,5 +1,5 @@
-<div id="Card-Board">
-    <app-card-slot  *ngFor="let card of cards; let i = index" (updateHand)="receiveHand($event)" [card]="card"></app-card-slot>
+<div class="Card-Board" [class.selected]="isActive" (click)="onSelect()">
+    <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index" (updateHand)="receiveHand($event)" [card]="card"></app-card-slot>
 </div>
 <!-- Fixe Slots: id=Slot{{i+1}} class="Slot"
 <div class="selected" *ngIf="cards.selected"></div>

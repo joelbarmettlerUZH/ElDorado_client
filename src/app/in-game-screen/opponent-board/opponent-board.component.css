@@ -5,6 +5,17 @@
   position: absolute;
 }
 
+#opponentSpace
+{
+  width: 200px;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+#opponentPos{
+  margin-top: 0;
+}
 #o0{
   top: 0;
 }
