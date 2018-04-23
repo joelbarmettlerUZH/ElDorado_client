@@ -29,6 +29,10 @@ export class MarketboardComponent implements OnInit {
 
   constructor(private gameService: GameService,
               private coinsService: CoinsService) {
+    this.coinsService.getLocalCoinNumber().subscribe(response => {
+      this.coinNumber = response;
+    });
+    console.log('Marketboard | CoinNumber: ' + this.coinNumber);
   }
 
   ngOnInit() {
@@ -39,7 +43,7 @@ export class MarketboardComponent implements OnInit {
         this.getMarket();
       }
     );
-    this.coinNumber = this.coinsService.getLocalCoinNumber();
+
   }
 
   // Get active market cards
