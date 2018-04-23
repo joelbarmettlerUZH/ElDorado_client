@@ -8,7 +8,7 @@
   <div (click)="$event.stopPropagation()" id="passive">
     <img *ngFor="let slot of passiveSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="passiveposition"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png"
-         (click)="onSelect(slot)">
+         (click)="onSlotSelected(slot)">
   </div>
 </div>
 

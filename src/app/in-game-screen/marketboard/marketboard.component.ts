@@ -27,10 +27,9 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlot: Slot[];
   public purchasableSlotIds: number[] = [];
   public gameId: number;
-  public ownPlayer: Player;
   public isActive = false;
-
   private marketSubscription: Subscription;
+  public ownPlayer: Player;
 
   constructor(private gameService: GameService,
               private coinsService: CoinsService,
@@ -80,8 +79,8 @@ export class MarketboardComponent implements OnInit {
       });
   }
 
-  onSelect(slot) {
-    this.ownPlayer = this.playerService.buy(slot);
+  onSlotSelected(slot) {
+    this.playerService.buy(slot);
   }
 
   fadeInOut() {
