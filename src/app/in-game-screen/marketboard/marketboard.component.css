@@ -7,8 +7,14 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  transition: 0.3s;
 }
 
+.selected{
+  right: -150px;
+  transition: 2.3s;
+  background-color: transparent;
+}
 
 #coinNumberDisplay {
   position: absolute;
