@@ -7,6 +7,8 @@ import {RoomService} from '../../shared/services/room.service';
 import {Observable} from 'rxjs/Observable';
 import {Room} from '../../shared/models/Room';
 import 'rxjs/add/observable/interval';
+import {Player} from '../../shared/models/Player';
+import {PlayerService} from '../../shared/services/player.service';
 
 @Component({
   selector: 'app-select-character',
@@ -21,10 +23,13 @@ export class SelectCharacterComponent implements OnInit {
   selectedCharacter: Character;
   pollRoom: Room;
   private roomSubscription: any;
+  private gameStartSubscription: any;
+  player: Player;
 
 
   constructor(private userService: UserService,
-              private roomService: RoomService) {
+              private roomService: RoomService,
+              private playerService: PlayerService) {
   }
 
   ngOnInit() {
@@ -52,21 +57,21 @@ export class SelectCharacterComponent implements OnInit {
   // ToDO rename function since the same for host and join
 
   generateJoinView(room) {
+    console.log('generate Join View');
     this.restoreCharacterDefault();
     this.areClickable = true;
     const roomId = room.roomID;
-    /*
-    +  pollHandCards(): void {
-+    this.roomSubscription = Observable.interval(1000).subscribe(x => {
-+      this.getHandPile();
-+    });
-     */
     // c) update opponents
     this.roomSubscription = Observable.interval(1000).subscribe(y => {
       this.roomService.getRoom(roomId).subscribe(
         request => {
           this.pollRoom = request;
           for (const user of this.pollRoom.users) {
+            // if there is a character assign to the users Id then select this character
+            // used for beeing able to be edited
+            if (user.userID == Number(localStorage.getItem('userId'))) {
+              this.selectedCharacter = CHARACTERS[user.character];
+            }
             this.characters.filter(function (obj) {
               return obj.id === user.character;
             }).forEach(x => {
@@ -86,6 +91,15 @@ export class SelectCharacterComponent implements OnInit {
           }
         }
       );
+    });
+    this.gameStartSubscription = Observable.interval(1000).subscribe(y => {
+      console.log(Number(localStorage.getItem('userId')));
+      this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
+        this.player = player;
+        if (this.player.playerId == Number(localStorage.getItem('userId'))) {
+          // TODO rerouting!!!!
+        }
+      });
     });
   }
 
@@ -128,6 +142,8 @@ export class SelectCharacterComponent implements OnInit {
   // 2. action: on true: tick appears(see HTML selected-character component)
   onReady(character: Character) {
     character.ready = true;
+    this.me.ready = true;
+    this.userService.modifyUser(this.me);
   }
 
 
@@ -140,14 +156,16 @@ export class SelectCharacterComponent implements OnInit {
 
   // b) update name in backend
   updateUser(updatedName) {
+    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe( res => {
+      this.me = res;
+      // a) update name locally
+      console.log('Method Call | updateUser | in select-character');
+      this.me.name = updatedName;
 
-    // a) update name locally
-    console.log('Method Call | updateUser | in select-character');
-    this.me.name = updatedName;
-
-    // b) update name in backend
-    this.userService.modifyUser(this.me);
-    console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me.name);
+      // b) update name in backend
+      this.userService.modifyUser(this.me);
+      console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.me.name);
+    });
   }
 
 
@@ -157,6 +175,9 @@ export class SelectCharacterComponent implements OnInit {
 
   // extracted helping function
   private restoreCharacterDefault() {
+    if (this.roomSubscription) {
+      this.roomSubscription.unsubscribe();
+    }
     this.areClickable = false;
     this.selectedCharacter = null;
     for (const character of this.characters) {
