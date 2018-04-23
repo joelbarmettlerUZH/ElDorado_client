@@ -9,6 +9,7 @@ import {Room} from '../../shared/models/Room';
 import 'rxjs/add/observable/interval';
 import {Player} from '../../shared/models/Player';
 import {PlayerService} from '../../shared/services/player.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-select-character',
@@ -29,7 +30,8 @@ export class SelectCharacterComponent implements OnInit {
 
   constructor(private userService: UserService,
               private roomService: RoomService,
-              private playerService: PlayerService) {
+              private playerService: PlayerService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -92,12 +94,15 @@ export class SelectCharacterComponent implements OnInit {
         }
       );
     });
+    // 1. Backend checks if at least two players are ready
+    // 2. If so, "this.playerService.getPlayer" returns a player
+    // 3. Routing to in-game-screen
     this.gameStartSubscription = Observable.interval(1000).subscribe(y => {
       console.log(Number(localStorage.getItem('userId')));
       this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
         this.player = player;
         if (this.player.playerId == Number(localStorage.getItem('userId'))) {
-          // TODO rerouting!!!!
+          this.router.navigate(['/games', ':gameId']);
         }
       });
     });
@@ -156,7 +161,7 @@ export class SelectCharacterComponent implements OnInit {
 
   // b) update name in backend
   updateUser(updatedName) {
-    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe( res => {
+    this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
       this.me = res;
       // a) update name locally
       console.log('Method Call | updateUser | in select-character');
