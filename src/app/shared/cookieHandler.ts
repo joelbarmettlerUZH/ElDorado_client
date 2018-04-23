@@ -15,7 +15,7 @@ export function saveUserId(userId: number): void {
 }
 
 export function saveTOKEN(TOKEN: string): void {
-  localStorage.setItem('TOKEN', TOKEN);
+  localStorage.setItem('token', TOKEN);
 }
 
 export function readId(): number {

@@ -192,7 +192,7 @@ export class SelectCharacterComponent implements OnInit {
   }
 
   restoreStorage() {
-    if (localStorage.getItem('TOKEN') || localStorage.getItem('userId')) {
+    if (localStorage.getItem('token') || localStorage.getItem('userId')) {
       console.log('delete token', localStorage.getItem('TOKEN'));
       console.log('delete userId', localStorage.getItem('userId'));
       this.userService.deleteUser(Number(localStorage.getItem('userId')));

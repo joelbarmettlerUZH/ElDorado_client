@@ -33,7 +33,6 @@ import { HostButtonsComponent } from './main-menu/host-buttons/host-buttons.comp
 import { MainMenuButtonsComponent } from './main-menu/main-menu-buttons/main-menu-buttons.component';
 import { BoardComponent } from './in-game-screen/map/board/board.component';
 import { HexspaceComponent } from './in-game-screen/map/hexspace/hexspace.component';
-import { BoardService} from './shared/services/board.service';
 import { HttpModule, JsonpModule} from '@angular/http';
 import {PlayerService} from './shared/services/player.service';
 import {UserService} from './shared/services/user.service';
@@ -81,7 +80,7 @@ import {MoveService} from './shared/services/move.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, BoardService, PlayerService, UserService, GameService, MoveService], // AuthenticationService, AuthGuardService
+  providers: [RoomService, PlayerService, UserService, GameService, MoveService], // AuthenticationService, AuthGuardService
   bootstrap: [AppComponent]
 })
 export class AppModule {
