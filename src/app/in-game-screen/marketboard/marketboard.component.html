@@ -2,11 +2,13 @@
   <div id="active">
     <div id="coinNumberDisplay">{{coinNumber}}</div>
     <img *ngFor="let slot of activeSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="position"
-         src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+         src="../../../assets/Karten/{{slot.pile[0].name}}.png"
+         (click)="onSelect(slot)">
   </div>
   <div id="passive">
     <img *ngFor="let slot of passiveSlot" [class.isNotPuchasable]="purchasableSlotIds.indexOf(slot.slotId) == -1" id="passiveposition"
-         src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+         src="../../../assets/Karten/{{slot.pile[0].name}}.png"
+         (click)="onSelect(slot)">
   </div>
 </div>
 

@@ -8,7 +8,8 @@ import {Card} from '../../shared/models/Card';
 })
 export class MarketSlotComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   @Input()
   pile: Card[];
@@ -17,5 +18,4 @@ export class MarketSlotComponent implements OnInit {
   ngOnInit() {
     this.card = this.pile[0];
   }
-
 }

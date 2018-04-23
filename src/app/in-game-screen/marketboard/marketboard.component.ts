@@ -6,6 +6,8 @@ import {savePlayer} from '../../shared/cookieHandler';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {CoinsService} from '../../shared/services/coins.service';
+import {PlayerService} from '../../shared/services/player.service';
+import {Player} from '../../shared/models/Player';
 // import {Card} from '../../shared/models/Card';
 // import {MoveWrapper} from '../../shared/models/MoveWrapper';
 
@@ -25,11 +27,13 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlot: Slot[];
   public purchasableSlotIds: number[] = [];
   public gameId: number;
-
+  public ownPlayer: Player;
   private marketSubscription: Subscription;
 
   constructor(private gameService: GameService,
-              private coinsService: CoinsService) {
+              private coinsService: CoinsService,
+              private playerService: PlayerService
+  ) {
     this.coinsService.getLocalCoinNumber().subscribe(response => {
       this.coinNumber = response;
     });
@@ -60,7 +64,7 @@ export class MarketboardComponent implements OnInit {
         this.market = resp;
         this.purchasableSlot = this.market.purchasable;
         this.purchasableSlotIds = [];
-        for (let slot of this.purchasableSlot){
+        for (let slot of this.purchasableSlot) {
           this.purchasableSlotIds.push(slot.slotId);
         }
         this.passiveSlot = this.market.passive;
@@ -71,6 +75,9 @@ export class MarketboardComponent implements OnInit {
       });
   }
 
+  onSelect(slot) {
+    this.ownPlayer = this.playerService.buy(slot);
+  }
 
   fadeInOut() {
     // if (this.isFadedIn){
