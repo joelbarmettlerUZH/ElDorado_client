@@ -1,6 +1,5 @@
-import {Card} from './Card';
+// import {Card} from './Card';
 import {Hexspace} from './hexSpace';
-import {BoardService} from '../services/board.service';
 
 export class PlayingPiece {
   playingPieceId: number;

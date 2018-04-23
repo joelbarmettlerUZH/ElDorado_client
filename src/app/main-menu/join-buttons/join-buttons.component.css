@@ -1,10 +1,10 @@
 .joinbutton {
   background-size: cover;
   position: absolute;
-  background-image: url('../../../assets/Gui_Elemente/GUI_MainMenu/menubuttons.png');
+  background-image: url('../../../assets/GUI_MainMenu/menubuttons.png');
   width: 245px;
   height: 51px;
-  font-family: Arial;
+  /*font-family: Arial; */
   color: white;
   font-size: 25px;
   font-weight: normal;
@@ -24,7 +24,7 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   width: 218px;
   height: 45px;
-  font-family: Arial;
+  /* font-family: Arial; */
   color: white;
   font-size: 20px;
   font-weight: normal;

@@ -1,9 +1,9 @@
 <div class="Marketboard" id="marketboard" (click)="fadeInOut()">
   <div id="active">
-    <img *ngFor="let slot of activeSlot" id = "position" src="../../../assets/Gui_Elemente/Karten/{{slot.pile[0].name}}.png">
+    <img *ngFor="let slot of activeSlot" id = "position" src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
   <div id="passive">
-    <img *ngFor="let slot of passiveSlot" id = "passiveposition" src="../../../assets/Gui_Elemente/Karten/{{slot.pile[0].name}}.png">
+    <img *ngFor="let slot of passiveSlot" id = "passiveposition" src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
 </div>
 
