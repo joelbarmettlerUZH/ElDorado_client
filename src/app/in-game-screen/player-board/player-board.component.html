@@ -2,6 +2,6 @@
   <app-card-board [cards]="handpile"></app-card-board>
   <app-button-board (updateGame)="receiveGame($event)"></app-button-board>
   <div id="playerNameBox">{{ownPlayer.name}}</div>
-  <img class="Character" src="../../../assets/GUI_MainMenu/Avatar_{{ownCharacterId}}.png">
+  <img class="Character" [class.notCurrent]="ownPlayer.playerId != current.playerId" src="../../../assets/GUI_MainMenu/Avatar_{{ownCharacterId}}.png">
 </div>
 
