@@ -74,6 +74,7 @@ export class MainMenuComponent implements OnInit {
   // 3. action:
   // a) on got request: call join view on child
   // 4. action: see selected-character component
+
   private changeCharacters(room) {
     console.log('ERHALTEN: HigherCharacterRequest');
     console.log('Room id: ' + room.id + ' Room name: ' + room.name + ' Users: ' + room.users);

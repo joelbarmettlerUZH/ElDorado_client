@@ -88,7 +88,7 @@ export class JoinButtonsComponent implements OnInit {
         console.log('My name after creation: ' + this.me.name);
 
         // b) add User to the Room
-        this.roomService.addUser(this.me, room.roomID).subscribe(response => {
+        this.roomService.addUserWithToken(this.me, room.roomID, this.token).subscribe(response => {
           console.log('REST | POST ' + this.me.name + ' to Room ' + room.name, response);
           // c) changeCharacterRequest to main-menu-button-board component
           console.log('SENT: changeCharacterRequest | from join-buttons');

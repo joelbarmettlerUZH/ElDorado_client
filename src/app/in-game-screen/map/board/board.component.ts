@@ -53,7 +53,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(17, 'TESTTOKEN', 18);
+    savePlayer(1, 'TESTTOKEN', 3);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
