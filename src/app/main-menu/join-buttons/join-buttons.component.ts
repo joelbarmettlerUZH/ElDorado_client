@@ -94,11 +94,11 @@ export class JoinButtonsComponent implements OnInit {
           console.log('SENT: changeCharacterRequest | from join-buttons');
           console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
           this.changeCharacterRequest.emit(room);
+        this.passUserRequest.emit(this.me);
         });
 
 
         // d)
-        this.passUserRequest.emit(this.me);
       });
 
     });

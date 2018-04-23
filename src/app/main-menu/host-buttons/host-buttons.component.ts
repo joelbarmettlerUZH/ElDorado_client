@@ -69,6 +69,7 @@ export class HostButtonsComponent implements OnInit {
 
         // b)2 create preUser with this id and name
         this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
+        console.log(this.preMe);
         this.userService.createUser(this.preMe).subscribe(resul => {
 
           // 2.1 save assigned token and ID of preMe
