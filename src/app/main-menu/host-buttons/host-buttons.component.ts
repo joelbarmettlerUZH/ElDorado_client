@@ -9,7 +9,7 @@ import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {RoomService} from '../../shared/services/room.service';
 import {CreateUser} from '../../shared/models/createUser';
-import {saveTOKEN, saveUserId} from '../../shared/cookieHandler';
+import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 
 @Component({
   selector: 'app-host-buttons',
@@ -75,10 +75,16 @@ export class HostButtonsComponent implements OnInit {
           // 2.1 save assigned token and ID of preMe
           this.token = resul[0];
           this.userId = Number(resul[1]);
-          console.log('Self Token: ' + this.token);
+          console.log('Save Token: ' + this.token + 'in localStorage');
           saveTOKEN(this.token);
-          console.log('Self User Id: ' + this.userId);
+          console.log('Save User Id: ' + this.userId);
           saveUserId(this.userId);
+          console.log('Save Player Id: ' + this.userId);
+          savePlayerId(this.userId);
+          console.log('Save Room Id: ' + this.room.roomID);
+          saveRoomId(this.room.roomID);
+          console.log('Save Game Id: ' + this.room.roomID);
+          saveGameId(this.room.roomID);
 
           // 2.2 create User out of preMe
           this.userService.getUser(this.userId).subscribe(result => {

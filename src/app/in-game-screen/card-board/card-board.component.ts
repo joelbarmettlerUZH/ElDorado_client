@@ -2,6 +2,10 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Character} from '../../shared/models/character';
+import {HandcardService} from '../../shared/services/handcards.service';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {Player} from '../../shared/models/Player';
 // import {Observable} from 'rxjs/Rx';
 // import {CardSlotComponent} from '../card-slot/card-slot.component';
 
@@ -12,38 +16,55 @@ import {Character} from '../../shared/models/character';
 })
 export class CardBoardComponent implements OnInit {
 
-  @Input()
   public cards: Card[];
   public isActive = false;
-  private handPileSubscription: any;
+  public player: Player;
 
-  constructor(private playerService: PlayerService) { }
+  private handPileSubscription: Subscription;
+
+  constructor(private playerService: PlayerService,
+              private handcardService: HandcardService) { }
 
   // used for updating the handcards after selling/discarding
   // @ViewChild(CardSlotComponent) slot;
 
   async ngOnInit() {
-    // this.pollHandCards();
+    console.log('OnInit of cardBoard');
     this.getHandPile();
+    this.handPileSubscription = Observable.interval(1000).subscribe(
+      res => {
+        this.pollHandPile();
+      }
+    );
+  }
+
+  pollHandPile() {
+    this.handcardService.getCards().subscribe(res => {
+      this.cards = res;
+      console.log('UPDATED HANDCARD', this.cards);
+    });
   }
 
   getHandPile() {
-    this.playerService.getHandPile().subscribe(
-      request => {
-        this.cards = request;
-        console.log('handpile', this.cards);
-      }
-    );
+    this.playerService.getPlayer(Number(localStorage.getItem('userId')))
+      .subscribe(response => {
+        console.log('get cards of,', Number(localStorage.getItem('userId')))
+
+        this.player = response;
+        console.log(this.player.handPile);
+        this.handcardService.setCards(this.player.handPile);
+      });
   }
   onSelect() {
     console.log('Is hidden: ' + this.isActive);
     this.isActive = !this.isActive;
     console.log('Is hidden: ' + this.isActive);
   }
+  /*
   receiveHand($event) {
     this.cards = $event;
     // console.log(this.cards);
-  }
+  }*/
 
 }
 

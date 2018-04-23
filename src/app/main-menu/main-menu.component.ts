@@ -82,9 +82,18 @@ export class MainMenuComponent implements OnInit {
 
 
   restoreStorage() {
-    if (localStorage.getItem('token') || localStorage.getItem('userId')) {
+    if (
+      localStorage.getItem('token') ||
+      localStorage.getItem('userId') ||
+      localStorage.getItem('playerId') ||
+      localStorage.getItem('roomId') ||
+      localStorage.getItem('gameId')
+    ) {
       console.log('delete token', localStorage.getItem('token'));
       console.log('delete userId', localStorage.getItem('userId'));
+      console.log('delete playerId', localStorage.getItem('playerId'));
+      console.log('delete roomId', localStorage.getItem('roomId'));
+      console.log('delete gameId', localStorage.getItem('gameId'));
       this.userService.deleteUser(Number(localStorage.getItem('userId')));
       localStorage.clear();
     }

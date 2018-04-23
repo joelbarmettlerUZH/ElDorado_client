@@ -7,7 +7,7 @@ import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {CreateUser} from '../../shared/models/createUser';
-import {saveTOKEN, saveUserId} from '../../shared/cookieHandler';
+import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 
 @Component({
   selector: 'app-join-buttons',
@@ -26,6 +26,7 @@ export class JoinButtonsComponent implements OnInit {
   public me: User;
   private preMe: CreateUser;
   public userId: number;
+  public roomId: number;
   private freeCharacterId: number;
   private freeCharacterName: string;
 
@@ -76,10 +77,16 @@ export class JoinButtonsComponent implements OnInit {
       // 3.1 save assigned token and ID of preMe
       this.token = res[0];
       this.userId = Number(res[1]);
-      console.log('Self Token: ' + this.token);
+      console.log('Save Token: ' + this.token + 'in localStorage');
       saveTOKEN(this.token);
-      console.log('Self User Id: ' + this.userId);
+      console.log('Save User Id: ' + this.userId);
       saveUserId(this.userId);
+      console.log('Save Player Id: ' + this.userId);
+      savePlayerId(this.userId);
+      console.log('Save Room Id: ' + room.roomID);
+      saveRoomId(room.roomID);
+      console.log('Save Game Id: ' + room.roomID);
+      saveGameId(room.roomID);
 
       // 3.2 create User out of preMe
       this.userService.getUser(this.userId).subscribe(result => {

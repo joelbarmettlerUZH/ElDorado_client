@@ -6,6 +6,7 @@ import {Player} from '../../shared/models/Player';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
 import {Observable} from 'rxjs/Observable';
+import {HandcardService} from '../../shared/services/handcards.service';
 
 // import {Player} from '../../shared/models/Player';
 
@@ -16,12 +17,12 @@ import {Observable} from 'rxjs/Observable';
 })
 export class PlayerBoardComponent implements OnInit {
   public game: Game;
-  public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   protected ownCharacterId: number;
   public ownPlayer: Player;
   public current: Player;
   private currentSubscription: Subscription;
+  public hand: Card[];
 
   constructor(private playerService: PlayerService, private gameService: GameService) {
   }
@@ -36,12 +37,12 @@ export class PlayerBoardComponent implements OnInit {
   }
 
   getOwnCharacterId(): void {
-    this.playerService.getPlayer(this.ownPlayerId)
-      .subscribe(response => {
-        this.ownPlayer = response;
-        this.ownCharacterId = this.ownPlayer.characterNumber;
-        console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
-      });
+      this.playerService.getPlayer(this.ownPlayerId)
+        .subscribe(response => {
+          this.ownPlayer = response;
+          this.ownCharacterId = this.ownPlayer.characterNumber;
+          console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
+        });
   }
 
   getCurrent() {
@@ -51,21 +52,4 @@ export class PlayerBoardComponent implements OnInit {
       }
     );
   }
-
-  receiveGame($event) {
-    // assing playerId to a temporary variable
-    const id = this.ownPlayerId;
-    console.log('My character id:' + this.ownCharacterId);
-    console.log('My player id:' + this.ownPlayerId);
-    // update game after EndRound
-    this.game = $event;
-    console.log(this.game.players.find(function (element) {
-      return element.playerId === id;
-    }).handPile);
-    // update handcards after EndRound
-    this.handpile = this.game.players.find(function (element) {
-      return element.playerId === id;
-    }).handPile;
-  }
-
 }

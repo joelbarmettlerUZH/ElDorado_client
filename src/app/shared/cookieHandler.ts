@@ -14,6 +14,19 @@ export function saveUserId(userId: number): void {
   localStorage.setItem('userId', userId.toString());
 }
 
+export function savePlayerId(playerId: number): void {
+  localStorage.setItem('playerId', playerId.toString());
+}
+
+export function saveRoomId(roomId: number): void {
+  localStorage.setItem('roomId', roomId.toString());
+}
+
+export function saveGameId(gameId: number): void {
+  localStorage.setItem('gameId', gameId.toString());
+}
+
+
 export function saveTOKEN(TOKEN: string): void {
   localStorage.setItem('token', TOKEN);
 }

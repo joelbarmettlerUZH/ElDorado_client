@@ -40,6 +40,7 @@ import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.compon
 import {GameService} from './shared/services/game.service';
 import {MoveService} from './shared/services/move.service';
 import {CoinsService} from './shared/services/coins.service';
+import {HandcardService} from './shared/services/handcards.service';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import {CoinsService} from './shared/services/coins.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService],
+  providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService, HandcardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

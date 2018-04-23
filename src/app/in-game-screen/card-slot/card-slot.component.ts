@@ -4,6 +4,7 @@ import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {MoveService} from '../../shared/services/move.service';
 import {CoinsService} from '../../shared/services/coins.service';
+import {HandcardService} from '../../shared/services/handcards.service';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -17,7 +18,7 @@ export class CardSlotComponent implements OnInit {
   @Input()
   public card: Card;
 
-  @Output() updateHand = new EventEmitter<Card[]>();
+  // @Output() updateHand = new EventEmitter<Card[]>();
 
   // store new Handpile after selling/ discarding
   public hand: Card[];
@@ -29,7 +30,8 @@ export class CardSlotComponent implements OnInit {
 
   constructor(private playerService: PlayerService,
               private moveService: MoveService,
-              private coinsService: CoinsService) {
+              private coinsService: CoinsService,
+              private handcardService: HandcardService) {
   }
 
   ngOnInit() {
@@ -37,13 +39,17 @@ export class CardSlotComponent implements OnInit {
   }
 
   sell() {
+    console.log('why you not sell????')
     this.playerService.sell(this.card).subscribe(
       response => {
         // console.log(response);
         this.player = response;
+        console.log('seeeeelll response', response);
         this.hand = this.player.handPile;
-        console.log(this.hand);
-        this.updateHand.emit(this.hand);
+        console.log('after Sell', this.hand);
+        this.handcardService.setCards(this.hand);
+        // console.log(this.hand);
+        // this.updateHand.emit(this.hand);
         this.coinsService.updateLocalCoinNumber(this.player.coins);
       }
     );
@@ -64,8 +70,9 @@ export class CardSlotComponent implements OnInit {
         // console.log(response);
         this.player = response;
         this.hand = this.player.handPile;
-        console.log(this.hand);
-        this.updateHand.emit(this.hand);
+        this.handcardService.setCards(this.hand);
+        // console.log(this.hand);
+        // this.updateHand.emit(this.hand);
       }
     );
   }
