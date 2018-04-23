@@ -78,7 +78,7 @@ export class HexspaceComponent implements OnInit {
   }
 
   findPath() {
-    // TODO: What halppens if i click on a playing piece of another player?
+    console.log('User requests pathfinder');
     console.log(this.player);
     let playingPiece: PlayingPiece;
     this.player.playingPieces.forEach(
@@ -108,18 +108,19 @@ export class HexspaceComponent implements OnInit {
   }
 
   isValid() {
-    return this.isCurrent && this.player.playerId
-      === Number(localStorage.getItem('playerId'));
+    const valid = this.isCurrent && this.player.playerId === Number(localStorage.getItem('playerId'));
+    console.log('User validating: ' + valid);
+    return valid;
   }
 
   performAction() {
-    if (this.isReachable && this.isValid()) {
+    if (this.isReachable) {
       this.moveTo();
     }
     if (this.isPlayingPiece && this.isValid()) {
       this.findPath();
     }
-    if (this.isBlockade && this.isRemovable && this.isValid()) {
+    if (this.isBlockade && this.isRemovable) {
       this.removeBlockade();
     }
   }
