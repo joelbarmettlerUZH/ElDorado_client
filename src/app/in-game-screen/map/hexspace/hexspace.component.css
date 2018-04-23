@@ -33,6 +33,28 @@
   opacity: 0.5;
 }
 
+.blockade{
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url('./../../../../assets/GUI_HexSpaces/overlay.png'); /* or any other overlay image/color */
+  background-size: 300px 300px;
+}
+
+.removedBlockade{
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.66;
+  filter: alpha(opacity=66); /* For IE8 and earlier */
+  background: url('./../../../../assets/GUI_Game/Texture_Background.jpg'); /* or any other overlay image/color */
+  background-size: 400px 400px;
+}
+
 .hex::after{
   content:'';
   display:block;

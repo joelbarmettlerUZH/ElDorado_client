@@ -30,23 +30,33 @@ export class MarketboardComponent implements OnInit {
 
   constructor(private gameService: GameService,
               private coinsService: CoinsService) {
+    this.coinsService.getLocalCoinNumber().subscribe(response => {
+      this.coinNumber = response;
+    });
+    console.log('Marketboard | CoinNumber: ' + this.coinNumber);
   }
 
   ngOnInit() {
     savePlayer(2, 'TESTTOKEN', 4); // Creates a local storage value
     this.isFadedIn = false;
+    this.getMarket(true);
     this.marketSubscription = Observable.interval(1000).subscribe(
       sub => {
         this.getMarket();
       }
     );
+    this.coinNumber = this.coinsService.getLocalCoinNumber();
   }
 
   // Get active market cards
-  getMarket(): void {
+  getMarket(initial: boolean = false) {
     this.gameService.getMarket()
       .subscribe(resp => {
-        // console.log('Updating market'); WURDE JEDE SEKUNDE GESPAMT
+        // console.log('Updating market');
+        if ((JSON.stringify(this.market) === JSON.stringify(resp)) && !initial) {
+          return;
+        }
+        console.log('-Market update: DID change, performing update');
         this.market = resp;
         this.purchasableSlot = this.market.purchasable;
         this.purchasableSlotIds = [];
@@ -55,6 +65,9 @@ export class MarketboardComponent implements OnInit {
         }
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
+        this.purchasableSlot = this.market.purchasable;
+        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
+        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 

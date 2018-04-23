@@ -2,5 +2,6 @@
   <div class="hexLink" (click)="performAction()">
     <img *ngIf="isPlayingPiece" [class.notCurrent]="!isCurrent" class="hexImg" src="./../../../../assets/GUI_HexSpaces/PlayingPieces/PlayingPiece_{{player.characterNumber}}.png"/>
     <img *ngIf="!isPlayingPiece" class="hexImg" [class.reachable]="isReachable" src="./../../../../assets/GUI_HexSpaces/HS_Images/HS_{{color}}_{{strength}}.PNG"/>
+    <div *ngIf="isBlockade" [class.blockade]="isActive" [class.removedBlockade]="!isActive" [class.reachable]="isRemovable"></div>
   </div>
 </div>

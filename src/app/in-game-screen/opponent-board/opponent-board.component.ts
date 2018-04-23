@@ -12,6 +12,7 @@ import {GameService} from '../../shared/services/game.service';
   templateUrl: './opponent-board.component.html',
   styleUrls: ['./opponent-board.component.css']
 })
+
 export class OpponentBoardComponent implements OnInit {
   characters = CHARACTERS;
   players: any[];

@@ -4,6 +4,11 @@ import {Player} from '../../../shared/models/Player';
 import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
+import {SubscriptionLoggable} from 'rxjs/testing/SubscriptionLoggable';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {PlayerService} from '../../../shared/services/player.service';
+import {Blockade} from '../../../shared/models/Blockade';
 
 @Component({
   selector: 'app-hexspace',
@@ -27,16 +32,20 @@ export class HexspaceComponent implements OnInit {
   @Output()
   public move = new EventEmitter<Hexspace>();
 
+  @Output()
+  public blockadeEvent = new EventEmitter<Hexspace>();
+
   public player: Player;
 
   public isReachable = false;
   public isPlayingPiece = false;
   public isCurrent = false;
+  public isBlockade = false;
+  public isActive = true;
+  public isRemovable = false;
 
   public color: string;
-
   public strength: number;
-
   public index: number;
 
   constructor() {
@@ -47,7 +56,6 @@ export class HexspaceComponent implements OnInit {
     this.color = this.HexSpace.color;
     this.index = (this.HexSpace.point.x * this.yDim) + this.HexSpace.point.y;
     this.strength = this.HexSpace.strength;
-
     console.log(this.color);
   }
 
@@ -58,6 +66,11 @@ export class HexspaceComponent implements OnInit {
   moveTo() {
     console.log('User requests moving to ' + this.index);
     this.move.emit(this.HexSpace);
+  }
+
+  removeBlockade() {
+    console.log('User requests to remove blockadeEvent ' + this.index);
+    this.blockadeEvent.emit(this.HexSpace);
   }
 
   setCurrent(current: boolean) {
@@ -89,17 +102,26 @@ export class HexspaceComponent implements OnInit {
   }
 
   movesOff() {
-    console.log("Player moves of hexspace", this.player, this.HexSpace);
+    console.log('Player moves of hexspace', this.player, this.HexSpace);
     this.player = null;
     this.isPlayingPiece = false;
   }
 
+  isValid() {
+    return this.isCurrent && this.player.playerId
+      === Number(localStorage.getItem('playerId'));
+  }
+
   performAction() {
-    if (this.isPlayingPiece) {
+    if (this.isPlayingPiece && this.isValid()) {
       this.findPath();
     }
-    if (this.isReachable) {
+    if (this.isReachable && this.isValid()) {
       this.moveTo();
     }
+    if (this.isBlockade && this.isRemovable && this.isValid()) {
+      this.removeBlockade();
+    }
   }
+
 }

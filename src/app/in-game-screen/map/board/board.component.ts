@@ -1,22 +1,25 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+// import {AfterContentInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
-import {by} from 'protractor';
+// import {by} from 'protractor';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {Card} from '../../../shared/models/Card';
 import {PlayerService} from '../../../shared/services/player.service';
-import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
+// import {savePlayer, saveTOKEN} from '../../../shared/cookieHandler';
 import {GameService} from '../../../shared/services/game.service';
-import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
+// import {SelectCharacterComponent} from '../../../main-menu/select-character/select-character.component';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
-import {forEach} from '@angular/router/src/utils/collection';
+// import {forEach} from '@angular/router/src/utils/collection';
 import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Blockade} from '../../../shared/models/Blockade';
+import {ObjectUnsubscribedError} from 'rxjs/util/ObjectUnsubscribedError';
 
 declare var $: any;
 
@@ -32,17 +35,21 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public xDim: number;
   public yDim: number;
   public yWidth: number;
-  public xOffset: number;
+  // public xOffset: number;
   public board: Board;
   public players: Player[] = [];
-  public ownPlayingPieces: PlayingPiece[] = [];
-  public opponentPlayingPieces: PlayingPiece[] = [];
+  // public ownPlayingPieces: PlayingPiece[] = [];
+  // public opponentPlayingPieces: PlayingPiece[] = [];
   public hexComponents: HexspaceComponent[] = [];
-  public selectedPlayingPiece: PlayingPiece;
+  public selectedPlayingPiece: PlayingPiece = null;
   public selectedCards: Card[] = [];
   private reachableHex: HexspaceComponent[] = [];
+  private blockades: Blockade[] = [];
+
+  private removable: Blockade[] = [];
 
   private playerSubscription: Subscription;
+  private cardSucbscription: Subscription;
 
   @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
 
@@ -55,8 +62,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(2, 'TESTTOKEN', 4);
-    saveTOKEN('TESTTOKEN')
+    // savePlayer(10, 'TESTTOKEN', 9);
+    // saveTOKEN('TESTTOKEN');
 
     this.gameService.getGame().subscribe(
       response => {
@@ -90,9 +97,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   getWay($event) {
     console.log('Knowing da wea');
+    this.removable = [];
     this.moveService.getCards().subscribe(
       cards => {
         if (cards.length < 1) {
+          console.log('Can not get da wae since no cards are selected');
           return;
         }
         console.log('Path cards are: ', cards);
@@ -121,19 +130,52 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   move($event) {
+    this.removable = [];
     this.moveService.getCards().subscribe(
       cards => {
         if (cards.length < 1) {
+          console.log('Can not move since no cards are selected');
           return;
         }
         const hexSpace: Hexspace = $event;
         const playingPieceId = this.selectedPlayingPiece.playingPieceId;
         this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
           response => {
+            const removableBlockade: Blockade[] = response;
+            this.removable = removableBlockade;
+            this.removable.forEach(
+              blockade => {
+                blockade.spaces.forEach(
+                  hex => {
+                    this.findHexComponent(hex).isRemovable = true;
+                  }
+                );
+              }
+            );
           }
         );
         this.resetReachable();
       });
+  }
+
+  removeBlockade($event) {
+    const hex: HexspaceComponent = $event;
+    let block: Blockade;
+    this.blockades.forEach(
+      blockade => {
+        blockade.spaces.forEach(
+          space => {
+            if (this.pointToIndex(space.point) === this.pointToIndex(hex.HexSpace.point)) {
+              block = blockade;
+            }
+          }
+        );
+      }
+    );
+    this.playerService.removeBlockade(block).subscribe(
+      res => {
+      }
+    );
   }
 
   updateGame(game: Game) {
@@ -142,18 +184,36 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.hexagons = this.board.matrixArray;
   }
 
+  updateCards() {
+    this.moveService.getCards().subscribe(
+      response => {
+        const newCards: Card[] = response;
+        if (JSON.stringify(newCards) !== JSON.stringify(this.selectedCards)) {
+          console.log('-Card update: Change detected: ', this.selectedCards, newCards);
+          this.selectedCards = newCards;
+          if (this.selectedCards.length === 0) {
+            this.resetReachable();
+            return;
+          } else {
+            console.log('-Card update: New cards selected, getting da wae');
+            if (this.selectedPlayingPiece !== null) {
+              console.log('-Card update: Getting wae again with old playing piece');
+              this.getWay(this.selectedPlayingPiece);
+            }
+          }
+        }
+      }
+    );
+  }
+
   updatePlayers(initial: boolean = false) {
     this.gameService.getPlayers().subscribe(
       response => {
         const updatedPlayers: Player[] = response;
-        console.log('Getting new data');
         if (!initial && JSON.stringify(updatedPlayers) === JSON.stringify(this.players)) {
-          console.log('Players did not change their state');
           return;
         }
-        console.log('Players changed their state, updating them now');
-        this.resetReachable();
-
+        console.log('-Player update: changed their state, updating them now');
         this.players.forEach(
           player => {
             player.playingPieces.forEach(
@@ -171,16 +231,56 @@ export class BoardComponent implements OnInit, AfterViewInit {
               playingPiece => {
                 const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
                 hex.movesOn(player);
-                if (this.game.current.playerId === player.playerId) {
-                  hex.setCurrent(true);
-                }else {
-                  hex.setCurrent(false);
-                }
+                this.gameService.getCurrent().subscribe(
+                  res => {
+                    const current: Player = res;
+                    if (current.playerId === player.playerId) {
+                      hex.setCurrent(true);
+                    } else {
+                      hex.setCurrent(false);
+                    }
+                  }
+                );
+
               }
             );
           }
         );
         this.players = updatedPlayers;
+        this.updateBlockades();
+      }
+    );
+  }
+
+  updateBlockades(initial: boolean = false) {
+    this.gameService.getBlockades().subscribe(
+      response => {
+        const newBlockades: Blockade[] = response;
+        if ((JSON.stringify(newBlockades) === JSON.stringify(this.blockades)) && !initial) {
+          console.log('-Blockades update: did not change, going on as before.');
+          return;
+        }
+        console.log('-Blockades update: DID change, updating them');
+        this.setBlockades(false);
+        this.blockades = newBlockades;
+        this.setBlockades(true);
+      }
+    );
+  }
+
+  setBlockades(active: boolean) {
+    console.log('Setting blockades to ' + active);
+    this.blockades.forEach(
+      blockade => {
+        blockade.spaces.forEach(
+          space => {
+            const hex: HexspaceComponent = this.findHexComponent(space);
+            hex.isBlockade = true;
+            hex.isRemovable = false;
+            hex.isActive = active;
+            hex.isRemovable = (this.removable.indexOf(blockade) !== -1);
+          }
+        );
       }
     );
   }
@@ -208,15 +308,20 @@ export class BoardComponent implements OnInit, AfterViewInit {
         console.log('Change');
         this.hexComponents = this.hexComponent.toArray();
         console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
-        if (this.hexComponents.length == this.xDim * this.yDim) {
+        if (this.hexComponents.length === this.xDim * this.yDim) {
           console.log('Setting playing pieces now');
           this.updatePlayers(true);
-          this.playerSubscription = Observable.interval(1000).subscribe(y => {
-            this.updatePlayers();
-          });
+          this.playerSubscription = Observable.interval(1000).subscribe(
+            res => {
+              this.updatePlayers();
+            });
+          this.cardSucbscription = Observable.interval(1000).subscribe(
+            res => {
+              this.updateCards();
+            }
+          );
         }
       });
-    console.log('Going away now, fuck off');
   }
 
 }
