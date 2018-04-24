@@ -11,24 +11,34 @@ export function saveUser(user: User): void {
 }
 
 export function saveUserId(userId: number): void {
-  localStorage.setItem('userId', userId.toString());
+  while (Number(localStorage.getItem('userId')) !== userId) {
+    localStorage.setItem('userId', userId.toString());
+  }
 }
 
 export function savePlayerId(playerId: number): void {
-  localStorage.setItem('playerId', playerId.toString());
+  while (Number(localStorage.getItem('playerId')) !== playerId) {
+    localStorage.setItem('playerId', playerId.toString());
+  }
 }
 
 export function saveRoomId(roomId: number): void {
-  localStorage.setItem('roomId', roomId.toString());
+  while (Number(localStorage.getItem('roomId')) !== roomId) {
+    localStorage.setItem('roomId', roomId.toString());
+  }
 }
 
 export function saveGameId(gameId: number): void {
-  localStorage.setItem('gameId', gameId.toString());
+  while (Number(localStorage.getItem('gameId')) !== gameId) {
+    localStorage.setItem('gameId', gameId.toString());
+  }
 }
 
 
 export function saveTOKEN(TOKEN: string): void {
-  localStorage.setItem('token', TOKEN);
+  while (localStorage.getItem('token') !== TOKEN) {
+    localStorage.setItem('token', TOKEN);
+  }
 }
 
 export function readId(): number {
