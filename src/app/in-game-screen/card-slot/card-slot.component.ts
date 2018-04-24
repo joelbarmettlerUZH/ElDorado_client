@@ -37,6 +37,7 @@ export class CardSlotComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.specialAction = new  SpecialAction();
     console.log(this.card.name);
     this.playerSubscription = Observable.interval(300).subscribe(
       res => {
@@ -50,6 +51,7 @@ export class CardSlotComponent implements OnInit {
       response => {
         const player: Player = response;
         this.specialAction = player.specialAction;
+        console.log(this.specialAction);
       }
     );
   }

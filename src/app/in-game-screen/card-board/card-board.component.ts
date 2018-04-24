@@ -45,7 +45,9 @@ export class CardBoardComponent implements OnInit {
       .subscribe(response => {
         this.player = response;
         console.log('HandCards', this.player.handPile);
-        this.cards = this.player.handPile;
+        if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
+          this.cards = this.player.handPile;
+        }
       });
   }
 
