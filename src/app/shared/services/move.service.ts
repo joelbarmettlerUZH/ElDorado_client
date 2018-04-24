@@ -5,26 +5,26 @@ import {Card} from '../models/Card';
 @Injectable()
 export class MoveService {
 
-  private selectedCards = new BehaviorSubject<Card[]>([]);
+  private selectedCards: Card[] = [];
 
   constructor() {
   }
 
-  public getCards() {
-    return this.selectedCards.asObservable();
+  public getCards(): Card[] {
+    return this.selectedCards;
   }
 
   public addCard(card: Card) {
-    this.selectedCards.getValue().push(card);
+    this.selectedCards.push(card);
   }
 
   public removeCard(card: Card) {
-    const cards = this.selectedCards.getValue().filter(c => c !== card);
+    const cards = this.selectedCards.filter(c => c !== card);
     this.setCards(cards);
   }
 
   public setCards(cards: Card[]) {
-    this.selectedCards.next(cards);
+    this.selectedCards = cards;
   }
 
 }
