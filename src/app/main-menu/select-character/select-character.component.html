@@ -1,17 +1,3 @@
 <div *ngFor="let character of characters">
-
-  <!-- div character{{character.id}} has size in it -->
-  <div class="characterUnit" id="character{{character.id}}" [class.selected]="character === selectedCharacter">
-    <div class="readyTick" *ngIf="character.ready"></div>
-    <!-- character pictures are in imagecharacter id -->
-    <div class="image" id="imagecharacter{{character.id}}" [class.grayedoutPossible]="areClickable === true"
-         [class.grayedout]="character.assigned === false" (click)="onSelect(character)"></div>
-    <input #namebox class="nameBox" [class.ownNameBox]="character === selectedCharacter"
-           (keyup.enter)="updateUser(namebox.value)"
-           placeholder={{character.name}} [readonly]="character !== selectedCharacter" *ngIf="character.assigned">
-    <button class=readyButton id="homeButton" *ngIf="character === selectedCharacter" (click)="onReady(character)">
-      Ready
-    </button>
-  </div>
-
+  <app-character></app-character>
 </div>

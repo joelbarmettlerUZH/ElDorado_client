@@ -1,15 +1,12 @@
 
 <div id="Black">
 <div id="Screen" align="center">
-
-
   <div id="MainMenuScreen">
     <app-title></app-title>
-    <app-select-character #childCharacter></app-select-character>
+    <app-character-selection #selectCharacter></app-character-selection>
     <app-main-menu-button-board (HigherCharacterRequest)="changeCharacters($event)"
                                 (BackToHomeRequest)="restoreMainMenu($event)"
                                 #childButtonArea></app-main-menu-button-board>
   </div>
-
 </div>
 </div>

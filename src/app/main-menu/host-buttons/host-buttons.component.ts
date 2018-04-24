@@ -10,6 +10,7 @@ import {UserService} from '../../shared/services/user.service';
 import {RoomService} from '../../shared/services/room.service';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
+import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
 
 @Component({
   selector: 'app-host-buttons',
@@ -22,7 +23,7 @@ export class HostButtonsComponent implements OnInit {
   public room: Room;
   public name: string;
   public subscription: Subscription;
-  characters = CHARACTERS;
+  characters = POLLCHARACTER;
   public token: string;
   public me: User;
   @Output() passUserRequest = new EventEmitter<User>();
@@ -92,11 +93,11 @@ export class HostButtonsComponent implements OnInit {
 
             // c) add me to room
             this.roomService.addUserWithToken(this.me, this.room.roomID, this.token).subscribe(response => {
-              console.log('REST | POST ' + this.me.name + ' to Room ' + this.room.name, response);
+              console.log('REST | POST ' + this.me.name + ' to Room ' + this.room.name);
 
               // d) changeCharacterRequest to main-menu-button-board component
               console.log('SENT: changeCharacterRequest | from host-buttons');
-              console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID + ' room users: ' + this.room.users);
+              console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID);
               this.changeCharacterRequest.emit(this.room);
             });
           });

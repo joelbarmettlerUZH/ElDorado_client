@@ -1,0 +1,11 @@
+<div class="characterUnit" id="character{{usedCharacter.id}}" [class.selected]="usedCharacter.user !== null">
+  <div class="readyTick" *ngIf="usedCharacter.ready"></div>
+  <div class="image" id="imagecharacter{{usedCharacter.id}}" [class.grayedoutPossible]="usedCharacter.user === null"
+       [class.grayedout]="usedCharacter.user === null" (click)="onSelect()"></div>
+  <input #namebox class="nameBox" [class.ownNameBox]="usedCharacter.user !== null && usedCharacter.user.userID === ownUserId"
+         (keyup.enter)="updateUser(namebox.value)"
+         placeholder={{usedCharacter.name}} [readonly]="usedCharacter.user !== null && usedCharacter.user.userID !== ownUserId" *ngIf="usedCharacter.user !== null">
+  <button class=readyButton id="homeButton" *ngIf="usedCharacter.user !== null && usedCharacter.user.userID === ownUserId" (click)="onReady()">
+    Ready
+  </button>
+</div>

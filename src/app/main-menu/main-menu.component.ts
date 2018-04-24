@@ -4,6 +4,8 @@ import {User} from '../shared/models/User';
 import {SelectCharacterComponent} from './select-character/select-character.component';
 import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-button-board.component';
 import {UserService} from '../shared/services/user.service';
+import {CharacterSelectionComponent} from './character-selection/character-selection.component';
+import {Room} from '../shared/models/Room';
 
 
 @Component({
@@ -16,8 +18,11 @@ export class MainMenuComponent implements OnInit {
 
   @Output() changeCharacterRequest = new EventEmitter<string>();
 
-  @ViewChild('childCharacter')
-  private childCharacter: SelectCharacterComponent;
+  // @ViewChild('childCharacter')
+  // private childCharacter: SelectCharacterComponent;
+
+  @ ViewChild('selectCharacter')
+  private selectCharacter: CharacterSelectionComponent;
 
   @ViewChild('childButtonArea')
   private childButtonArea: MainMenuButtonBoardComponent;
@@ -44,7 +49,7 @@ export class MainMenuComponent implements OnInit {
   private restoreMainMenu() {
     this.restoreStorage();
     console.log('Restore MainMenu');
-    this.childCharacter.generateMainMenuView();
+    this.selectCharacter.generateMainMenuView();
   }
 
   // TO DELETE ?
@@ -66,7 +71,7 @@ export class MainMenuComponent implements OnInit {
   // }
 
   private consultManual() {
-    this.childCharacter.generateManualView();
+    this.selectCharacter.generateManualView();
   }
 
   // A.1 & A.2 | on join/host button clicked (see HTML join/host-buttons component)
@@ -74,10 +79,10 @@ export class MainMenuComponent implements OnInit {
   // a) on got request: call join view on child
   // 4. action: see selected-character component
 
-  private changeCharacters(room) {
+  private changeCharacters(room: Room) {
     console.log('ERHALTEN: HigherCharacterRequest');
-    console.log('Room id: ' + room.id + ' Room name: ' + room.name + ' Users: ' + room.users);
-    this.childCharacter.generateJoinView(room);
+    console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
+    this.selectCharacter.generateJoinView(room);
   }
 
 

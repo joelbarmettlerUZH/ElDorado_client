@@ -41,6 +41,9 @@ import {GameService} from './shared/services/game.service';
 import {MoveService} from './shared/services/move.service';
 import {CoinsService} from './shared/services/coins.service';
 import {HandcardService} from './shared/services/handcards.service';
+import { CharacterComponent } from './main-menu/character/character.component';
+import { CharacterSelectionComponent } from './main-menu/character-selection/character-selection.component';
+import { DefaultCharacterComponent } from './main-menu/default-character/default-character.component';
 
 
 @NgModule({
@@ -72,6 +75,9 @@ import {HandcardService} from './shared/services/handcards.service';
     BoardComponent,
     HexspaceComponent,
     JoinButtonsComponent,
+    CharacterComponent,
+    CharacterSelectionComponent,
+    DefaultCharacterComponent,
   ],
   imports: [
     BrowserModule,

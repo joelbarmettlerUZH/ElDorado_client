@@ -1,0 +1,152 @@
+.characterUnit {
+  position: absolute;
+  width: 398px;
+  height: 420px;
+  bottom: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+}
+
+#character0 {
+  left: 520px;
+  /*background-color: blue;*/
+}
+
+#character1 {
+  left: 1040px;
+  /*background-color: #039be5;*/
+}
+
+#character2 {
+  left: 300px;
+  /*background-color: lightskyblue;*/
+}
+
+#character3 {
+  left: 760px;
+  /*background-color: #bce8f1;*/
+}
+
+.readyTick {
+  position: absolute;
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/ready_symbol.png');
+  bottom: 360px;
+  left: 178px;
+  width: 45px;
+  height: 45px;
+}
+
+.readyButton {
+  position: absolute;
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/Ready.png');
+  width: 98px;
+  height: 33px;
+  bottom: 55px;
+  left: 151px;
+  /* font-family: Arial; */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.readyButton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+  border: none;
+}
+
+.readyButton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+  border: none;
+}
+
+.readyButton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+  border: none;
+}
+
+.readyButton:active {
+  background-image: url('../../../assets/GUI_MainMenu/Ready_pressed.png');
+  border: none;
+}
+
+.readyButton:focus {outline:0 !important;}
+
+.nameBox {
+  position: absolute;
+  background-image: url('./../../../assets/GUI_MainMenu/Inputfield_unselected.png');
+  width: 224px;
+  height: 40px;
+  bottom: 5px;
+  left: 88px;
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+}
+
+.nameBox.ownNameBox {
+  background-image: url('./../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.nameBox:focus {outline:0 !important;}
+
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  opacity: 1; /* Firefox */
+}
+
+.image {
+  background-size: cover;
+  position: absolute;
+  height: 350px;
+  bottom: 0;
+}
+
+#imagecharacter0 {
+  background-image: url('../../../assets/GUI_MainMenu/Avatar_0.png');
+  width: 258px;
+  right: 70px;
+}
+
+#imagecharacter1 {
+  background-image: url('./../../../assets/GUI_MainMenu/Avatar_1.png');
+  width: 244px;
+  right: 77px;
+}
+
+#imagecharacter2 {
+  background-image: url('./../../../assets/GUI_MainMenu/Avatar_2.png');
+  width: 362px;
+  right: 18px;
+}
+
+#imagecharacter3 {
+  background-image: url('./../../../assets/GUI_MainMenu/Avatar_3.png');
+  width: 398px;
+  right: 0;
+}
+
+.isNotSelected {
+  opacity: 0.4; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
+}
+
+.grayedoutPossible.grayedout {
+  opacity: 0.4; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
+}
