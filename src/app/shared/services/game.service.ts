@@ -23,7 +23,7 @@ export class GameService {
     return this.http.get(this.baseUrl + 'Game/' + gameId).map(res => res.json());
   }
 
-  // Gets current player
+  // Gets isCurrent player
   public getCurrent() {
     const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Current').map(res => res.json());

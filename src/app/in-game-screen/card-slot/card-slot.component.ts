@@ -8,6 +8,9 @@ import {Subscription} from 'rxjs/Subscription';
 import {CardAction} from '../../shared/models/CardAction';
 import {SpecialAction} from '../../shared/models/SpecialAction';
 import {Observable} from 'rxjs/Observable';
+import {GameService} from '../../shared/services/game.service';
+import {Game} from '../../shared/models/Game';
+import {Board} from '../../shared/models/board';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -28,30 +31,39 @@ export class CardSlotComponent implements OnInit {
   public isActive = false;
   public specialAction: SpecialAction;
   public margin = 50;
-  public playerSubscription: Subscription;
+  public gameSubscription: Subscription;
+  public isCurrent = false;
 
 
-  constructor(private playerService: PlayerService,
+  constructor(private gameService: GameService,
               private cardsService: CardsService,
-              private coinsService: CoinsService) {
+              private coinsService: CoinsService,
+              private playerService: PlayerService) {
   }
 
   ngOnInit() {
     this.specialAction = new  SpecialAction();
     console.log(this.card.name);
-    this.playerSubscription = Observable.interval(300).subscribe(
+    this.gameSubscription = Observable.interval(300).subscribe(
       res => {
-        this.getBudget();
+        this.getGame();
       }
     );
   }
 
-  getBudget() {
-    this.playerService.getPlayer(Number(localStorage.getItem('playerId'))).subscribe(
+  getGame() {
+    this.gameService.getGame().subscribe(
       response => {
-        const player: Player = response;
-        this.specialAction = player.specialAction;
-        console.log(this.specialAction);
+        const game: Game = response;
+        const ownId = Number(localStorage.getItem('playerId'));
+        game.players.forEach(
+          player => {
+            if (player.playerId === ownId) {
+              this.specialAction = player.specialAction;
+            }
+          }
+        );
+        this.isCurrent = (game.current.playerId === ownId);
       }
     );
   }
@@ -77,6 +89,9 @@ export class CardSlotComponent implements OnInit {
   }
 
   onSelect() {
+    if (!this.isCurrent) {
+      return;
+    }
     this.isActive = !this.isActive;
     if (this.specialAction.remove > 0) {
       this.remove();
