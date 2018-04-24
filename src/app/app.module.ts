@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-import {GameComponent} from './game/game.component';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
 // import {AuthGuardService} from './shared/services/auth-guard.service';
@@ -23,10 +22,8 @@ import {MarketSlotComponent} from './in-game-screen/market-slot/market-slot.comp
 import {MarketboardComponent} from './in-game-screen/marketboard/marketboard.component';
 import {AppRoutingModule} from './app-routing.module';
 import {RoomsComponent} from './rooms/rooms.component';
-import {RoomDetailComponent} from './room-detail/room-detail.component';
 import {RoomService} from './shared/services/room.service';
 // import { HttpClientModule} from '@angular/common/http';
-import {HostComponent} from './host/host.component';
 import {MainMenuButtonBoardComponent} from './main-menu/main-menu-button-board/main-menu-button-board.component';
 import {HostButtonsComponent} from './main-menu/host-buttons/host-buttons.component';
 import {MainMenuButtonsComponent} from './main-menu/main-menu-buttons/main-menu-buttons.component';
@@ -49,7 +46,6 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
   declarations: [
     AppComponent,
     // LoginComponent,
-    GameComponent,
     MainMenuComponent,
     TitleComponent,
     ButtonsComponent,
@@ -65,8 +61,6 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
     MarketSlotComponent,
     MarketboardComponent,
     RoomsComponent,
-    RoomDetailComponent,
-    HostComponent,
     MainMenuButtonBoardComponent,
     HostButtonsComponent,
     MainMenuButtonsComponent,

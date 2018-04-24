@@ -28,12 +28,12 @@ export class UserService {
   // Creates and returns a new me according to values in CreateUser
   public createUser(createUser: CreateUser) {
     // TODO: Create check whether lcoal storage is already filled, if so delete old me
-    if (localStorage.getItem('token') || localStorage.getItem('userId')) {
-      console.log('delete token', localStorage.getItem('token'));
-      console.log('delete userId', localStorage.getItem('userId'));
-      this.deleteUser(Number(localStorage.getItem('userId')));
-      localStorage.clear();
-    }
+    // if (localStorage.getItem('token') || localStorage.getItem('userId')) {
+    //  console.log('delete token', localStorage.getItem('token'));
+    //  console.log('delete userId', localStorage.getItem('userId'));
+    //  this.deleteUser(Number(localStorage.getItem('userId')));
+    //  localStorage.clear();
+    // }
     const url = this.baseUrl + 'User';
     return this.http.post(url, createUser).map(res => res.json());
   }
