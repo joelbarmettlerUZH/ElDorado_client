@@ -76,8 +76,9 @@ export class MarketboardComponent implements OnInit {
       });
   }
 
-  onSlotSelected(slot) {
-    this.playerService.buy(slot);
+  buy(slot) {
+    console.log('buy click was triggered:', slot.pile[0].id);
+    this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
   }
 
 }

@@ -53,8 +53,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(1, 'TESTTOKEN', 4); // Creates a local storage value
-    saveUserId(1);
+    savePlayer(5, 'TESTTOKEN', 41); // Creates a local storage value
+    saveUserId(5);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
@@ -80,8 +80,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
       var delta = e.delta || e.originalEvent.wheelDelta;
       var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
       $panzoom.panzoom('zoom', zoomOut, {
-        increment: 0.1,
-        animate: false,
+        minScale: 0.4,
+        maxScale: 0.5,
+        increment: 0.13,
+        animate: true,
+        // Animation duration (ms)
+        duration: 200,
+        // CSS easing used for scale transition
+        easing: 'ease-in-out',
         focal: e
       });
     });
