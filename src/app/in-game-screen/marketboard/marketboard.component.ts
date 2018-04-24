@@ -63,6 +63,7 @@ export class MarketboardComponent implements OnInit {
   onSelect() {
     this.isActive = !this.isActive;
   }
+
   // Get active market cards
   getMarket(initial: boolean = false) {
     this.gameService.getMarket()
@@ -90,4 +91,15 @@ export class MarketboardComponent implements OnInit {
     this.coinsService.updateLocalCoinNumber(this.player.coins);
   }
 
+  steal(slot) {
+    this.playerService.steal(slot).subscribe(x => console.log('Stolen card:', slot.pile[0].name));
+  }
+
+  takeCard(slot) {
+    if (this.player.specialAction.steal === 0) {
+      this.buy(slot);
+    } else {
+      this.steal(slot);
+    }
+  }
 }
