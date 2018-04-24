@@ -34,15 +34,11 @@ export class ButtonBoardComponent implements OnInit {
   endRound() {
     this.playerService.endRound().subscribe(
       response => {
-        // console.log(response);
         this.game = response;
         this.hand = this.game.players.find(function (element) {
           return element.playerId === Number(localStorage.getItem('userId'));
-        }).handPile;
-        this.cardsService.setHandCards(this.hand);
+        }).handPile; // not used for now.
         this.cardsService.setSelectedCards([]);
-        // console.log(this.game);
-        // this.updateGame.emit(this.game);
       });
   }
 

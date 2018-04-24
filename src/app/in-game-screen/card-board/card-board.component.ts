@@ -29,19 +29,9 @@ export class CardBoardComponent implements OnInit {
   // @ViewChild(CardSlotComponent) slot;
 
   ngOnInit() {
-    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
-      .subscribe(response => {
-        console.log('get cards of,', Number(localStorage.getItem('playerId')));
-
-        this.player = response;
-        console.log(this.player.handPile);
-        this.cardsService.setHandCards(this.player.handPile);
-
-        this.handPileSubscription = Observable.interval(1000).subscribe(
+    this.handPileSubscription = Observable.interval(300).subscribe(
           res => {
-            this.pollHandPile();
-          }
-        );
+            this.getHandPile();
       });
   }
 
@@ -53,13 +43,12 @@ export class CardBoardComponent implements OnInit {
   getHandPile() {
     this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
       .subscribe(response => {
-        console.log('get cards of,', Number(localStorage.getItem('playerId')));
-
         this.player = response;
-        console.log(this.player.handPile);
-        this.cardsService.setHandCards(this.player.handPile);
+        console.log('HandCards', this.player.handPile);
+        this.cards = this.player.handPile;
       });
   }
+
   onSelect() {
     console.log('Is hidden: ' + this.isActive);
     this.isActive = !this.isActive;

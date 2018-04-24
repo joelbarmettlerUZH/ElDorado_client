@@ -37,18 +37,11 @@ export class CardSlotComponent implements OnInit {
   }
 
   sell() {
-    console.log('why you not sell????');
     this.playerService.sell(this.card).subscribe(
       response => {
-        // console.log(response);
         this.player = response;
-        console.log('seeeeelll response', response);
-        this.hand = this.player.handPile;
-        console.log('after Sell', this.hand);
-        this.cardsService.setHandCards(this.hand);
+        this.hand = this.player.handPile; // not used for now.
         this.cardsService.removeSelectedCard(this.card);
-        // console.log(this.hand);
-        // this.updateHand.emit(this.hand);
         this.coinsService.updateLocalCoinNumber(this.player.coins);
       }
     );
@@ -66,13 +59,9 @@ export class CardSlotComponent implements OnInit {
   discard() {
     this.playerService.discard(this.card).subscribe(
       response => {
-        // console.log(response);
         this.player = response;
-        this.hand = this.player.handPile;
-        this.cardsService.setHandCards(this.hand);
+        this.hand = this.player.handPile; // not used for now.
         this.cardsService.removeSelectedCard(this.card);
-        // console.log(this.hand);
-        // this.updateHand.emit(this.hand);
       }
     );
   }
