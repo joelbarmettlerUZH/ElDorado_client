@@ -53,9 +53,9 @@ export class CardBoardComponent implements OnInit {
   }
 
   getHandPile() {
-    this.playerService.getPlayer(Number(localStorage.getItem('userId')))
+    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
       .subscribe(response => {
-        console.log('get cards of,', Number(localStorage.getItem('userId')));
+        console.log('get cards of,', Number(localStorage.getItem('playerId')));
 
         this.player = response;
         console.log(this.player.handPile);

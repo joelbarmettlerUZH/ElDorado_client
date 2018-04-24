@@ -44,9 +44,7 @@ export class CardSlotComponent implements OnInit {
       response => {
         // console.log(response);
         this.player = response;
-        console.log('seeeeelll response', response);
         this.hand = this.player.handPile;
-        console.log('after Sell', this.hand);
         this.handcardService.setCards(this.hand);
         // console.log(this.hand);
         // this.updateHand.emit(this.hand);

@@ -81,5 +81,6 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
   providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService, HandcardService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
