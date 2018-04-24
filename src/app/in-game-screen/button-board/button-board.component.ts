@@ -19,12 +19,11 @@ export class ButtonBoardComponent implements OnInit {
   }
   @Input() current: Player;
   @Input() ownPlayer: Player;
-  public confirmationNeeded: boolean;
+  public confirmationNeeded = false;
 
   // used to store gamestate after EndRound
   public game: Game;
   public hand: Card[];
-  public confirmationNeeded = false;
 
   @Output() updateGame = new EventEmitter<Game>();
 
