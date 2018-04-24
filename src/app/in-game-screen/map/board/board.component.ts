@@ -15,6 +15,7 @@ import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
 import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
+import {HandcardService} from '../../../shared/services/handcards.service';
 
 declare var $: any;
 
@@ -47,7 +48,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
   constructor(
     private gameService: GameService,
     private playerService: PlayerService,
-    private moveService: MoveService
+    private moveService: MoveService,
+    private handcardService: HandcardService
   ) {
   }
 
@@ -148,6 +150,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
           }
         );
         this.resetReachable();
+        cards.forEach(
+          card => {
+            this.handcardService.removeCard(card);
+          }
+        );
       });
   }
 
