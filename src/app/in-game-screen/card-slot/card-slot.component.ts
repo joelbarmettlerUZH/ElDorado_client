@@ -5,7 +5,6 @@ import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
 import {CoinsService} from '../../shared/services/coins.service';
 import {Subscription} from 'rxjs/Subscription';
-import {CardAction} from '../../shared/models/CardAction';
 import {SpecialAction} from '../../shared/models/SpecialAction';
 import {Observable} from 'rxjs/Observable';
 
@@ -29,6 +28,8 @@ export class CardSlotComponent implements OnInit {
   public specialAction: SpecialAction;
   public margin = 50;
   public playerSubscription: Subscription;
+  public actionPossible: boolean;
+  private selectedCards: Card[];
 
 
   constructor(private playerService: PlayerService,
@@ -37,7 +38,8 @@ export class CardSlotComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.specialAction = new  SpecialAction();
+    this.actionPossible = false;
+    this.specialAction = new SpecialAction();
     console.log(this.card.name);
     this.playerSubscription = Observable.interval(300).subscribe(
       res => {
@@ -83,6 +85,12 @@ export class CardSlotComponent implements OnInit {
       this.cardsService.removeHandCard(this.card);
     } else if (this.isActive) {
       this.cardsService.addSelectedCard(this.card);
+      this.selectedCards = this.cardsService.getSelectedCards();
+      this.actionPossible = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
+      console.log('Action possible? ' + this.actionPossible);
+      if (this.actionPossible) {
+        const element = document.getElementById('ActionCard');
+      }
     } else {
       this.cardsService.removeSelectedCard(this.card);
     }
@@ -99,8 +107,13 @@ export class CardSlotComponent implements OnInit {
   }
 
   performAction() {
-    // this.playerService.getPlayer(Number(localStorage.getItem('playerId')));
+    this.actionPossible = false;
+    this.playerService.performAction(this.card).subscribe(
+      res => console.log('Action card was played!')
+    );
   }
+
+
 
   magnify() {
   }
