@@ -41,7 +41,7 @@ export class PlayerService {
     return this.http.get(this.baseUrl + 'Player/' + playerId).map(res => res.json());
   }
 
-  // Returns playingPiece of current player
+  // Returns playingPiece of isCurrent player
   public getPlayingPiece() {
     return this.http.get(this.baseUrl + 'Player/' + this.playerId + '/PlayingPiece?token=' + this.token).map(res => res.json());
   }
@@ -82,7 +82,7 @@ export class PlayerService {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Draw?token=' + this.token, '').map(res => res.json());
   }
 
-  // Ends current round
+  // Ends isCurrent round
   public endRound() {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/End?token=' + this.token, '').map(res => res.json());
   }

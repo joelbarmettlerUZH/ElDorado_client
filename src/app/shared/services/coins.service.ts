@@ -3,7 +3,7 @@ import {Player} from '../models/Player';
 import {PlayerService} from './player.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-// Service as alternative to pull all the time the current number of coins
+// Service as alternative to pull all the time the isCurrent number of coins
 
 @Injectable()
 export class CoinsService {
@@ -23,7 +23,7 @@ export class CoinsService {
     this.playerService.getPlayer(this.ownPlayerId)
       .subscribe(response => {
         this.ownPlayer = response;
-        // set local current number of coins of own player to the initial number of coins defined in the backend
+        // set local isCurrent number of coins of own player to the initial number of coins defined in the backend
         this.tempOwnCoinNumber = this.ownPlayer.coins;
         console.log('CoinsService | temp coin number: ' + this.ownCoinNumber);
         this.updateLocalCoinNumber(this.tempOwnCoinNumber);
@@ -31,13 +31,13 @@ export class CoinsService {
   }
 
 
-  // retrieve local current number of coins of own player
+  // retrieve local isCurrent number of coins of own player
   getLocalCoinNumber() {
     return this.ownCoinNumber.asObservable();
   }
 
 
-  // update local current number of coins of own player
+  // update local isCurrent number of coins of own player
   // so that it is conform with the backend
   updateLocalCoinNumber(coinNumber): void {
     this.ownCoinNumber.next(coinNumber);
