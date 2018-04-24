@@ -87,6 +87,7 @@ export class MarketboardComponent implements OnInit {
   buy(slot) {
     console.log('buy click was triggered:', slot.pile[0].id);
     this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
+    this.coinsService.updateLocalCoinNumber(this.player.coins);
   }
 
 }

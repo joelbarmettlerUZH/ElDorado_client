@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PlayerService} from '../../shared/services/player.service';
 // import {CardBoardComponent} from '../card-board/card-board.component';
 // import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
 import {HandcardService} from '../../shared/services/handcards.service';
 import {Card} from '../../shared/models/Card';
+import {Player} from '../../shared/models/Player';
 
 @Component({
   selector: 'app-button-board',
@@ -13,6 +14,8 @@ import {Card} from '../../shared/models/Card';
 })
 export class ButtonBoardComponent implements OnInit {
 
+  @Input() current: Player;
+  @Input() ownPlayer: Player;
   public confirmationNeeded: boolean;
 
   // used to store gamestate after EndRound
@@ -35,6 +38,7 @@ export class ButtonBoardComponent implements OnInit {
   }
 
   endRound() {
+    this.confirmationNeeded = false;
     this.playerService.endRound().subscribe(
       response => {
         // console.log(response);
@@ -49,6 +53,6 @@ export class ButtonBoardComponent implements OnInit {
   }
 
   breakEndRound() {
-
+    this.confirmationNeeded = false;
   }
 }
