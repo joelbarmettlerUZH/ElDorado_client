@@ -2,9 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
-import {MoveService} from '../../shared/services/move.service';
+import {CardsService} from '../../shared/services/cards.service';
 import {CoinsService} from '../../shared/services/coins.service';
-import {HandcardService} from '../../shared/services/handcards.service';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -29,9 +28,8 @@ export class CardSlotComponent implements OnInit {
 
 
   constructor(private playerService: PlayerService,
-              private moveService: MoveService,
-              private coinsService: CoinsService,
-              private handcardService: HandcardService) {
+              private cardsService: CardsService,
+              private coinsService: CoinsService) {
   }
 
   ngOnInit() {
@@ -47,7 +45,8 @@ export class CardSlotComponent implements OnInit {
         console.log('seeeeelll response', response);
         this.hand = this.player.handPile;
         console.log('after Sell', this.hand);
-        this.handcardService.setCards(this.hand);
+        this.cardsService.setHandCards(this.hand);
+        this.cardsService.removeSelectedCard(this.card);
         // console.log(this.hand);
         // this.updateHand.emit(this.hand);
         this.coinsService.updateLocalCoinNumber(this.player.coins);
@@ -58,9 +57,9 @@ export class CardSlotComponent implements OnInit {
   onSelect() {
     this.isActive = !this.isActive;
     if (this.isActive) {
-      this.moveService.addCard(this.card);
+      this.cardsService.addSelectedCard(this.card);
     }else {
-      this.moveService.removeCard(this.card);
+      this.cardsService.removeSelectedCard(this.card);
     }
   }
 
@@ -70,7 +69,8 @@ export class CardSlotComponent implements OnInit {
         // console.log(response);
         this.player = response;
         this.hand = this.player.handPile;
-        this.handcardService.setCards(this.hand);
+        this.cardsService.setHandCards(this.hand);
+        this.cardsService.removeSelectedCard(this.card);
         // console.log(this.hand);
         // this.updateHand.emit(this.hand);
       }

@@ -3,8 +3,8 @@ import {PlayerService} from '../../shared/services/player.service';
 // import {CardBoardComponent} from '../card-board/card-board.component';
 // import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
-import {HandcardService} from '../../shared/services/handcards.service';
 import {Card} from '../../shared/models/Card';
+import {CardsService} from '../../shared/services/cards.service';
 
 @Component({
   selector: 'app-button-board',
@@ -14,7 +14,7 @@ import {Card} from '../../shared/models/Card';
 export class ButtonBoardComponent implements OnInit {
 
   constructor(private playerService: PlayerService,
-              private handcardService: HandcardService) {
+              private cardsService: CardsService) {
   }
   // used to store gamestate after EndRound
   public game: Game;
@@ -33,7 +33,8 @@ export class ButtonBoardComponent implements OnInit {
         this.hand = this.game.players.find(function(element) {
           return element.playerId === Number(localStorage.getItem('userId'));
         }).handPile;
-        this.handcardService.setCards(this.hand);
+        this.cardsService.setHandCards(this.hand);
+        this.cardsService.setSelectedCards([]);
         // console.log(this.game);
         // this.updateGame.emit(this.game);
       });
