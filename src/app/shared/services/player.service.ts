@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {restUrl} from './RESTurl';
-import {Http} from '@angular/http';
+import {Http, RequestOptions} from '@angular/http';
 import {Card} from '../models/Card';
 import {MoveWrapper} from '../models/MoveWrapper';
 import {Slot} from '../models/Slot';
-import {ActionCard} from '../models/ActionCard';
-import {RequestOptions, Request, Headers } from '@angular/http';
 import {Blockade} from '../models/Blockade';
 
 @Injectable()
 export class PlayerService {
 
-  private requestOptions = new RequestOptions({ headers: null, withCredentials:
-      false });
+  private requestOptions = new RequestOptions({
+    headers: null, withCredentials:
+      false
+  });
 
   private baseUrl = restUrl.getBaseUrl();
   // private playersUrl = '${baseUrl}/Player';
@@ -27,7 +27,7 @@ export class PlayerService {
   // private playerId = 1;
   // private token = 'TESTTOKEN';
 
-    constructor(private http: Http) {
+  constructor(private http: Http) {
   }
 
   // Returns every player that is currently in any game
@@ -37,7 +37,7 @@ export class PlayerService {
 
   // Returns every player that is currently in any game
   public getPlayer(playerId: number) {
-      // console.log(playerId);
+    // console.log(playerId);
     return this.http.get(this.baseUrl + 'Player/' + playerId).map(res => res.json());
   }
 
@@ -87,9 +87,9 @@ export class PlayerService {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/End?token=' + this.token, '').map(res => res.json());
   }
 
-  // Ends isCurrent round
-  public performAction(actionCard: ActionCard) {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Action?token=' + this.token, actionCard).map(res => res.json());
+  // Ends current round
+  public performAction(card: Card) {
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Action?token=' + this.token, card).map(res => res.json());
   }
 
   // FindPath
@@ -104,7 +104,7 @@ export class PlayerService {
 
   // Remove blockadeEvent
   public removeBlockade(blockade: Blockade) {
-      return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Blockade/?token=' + this.token, blockade).map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Blockade/?token=' + this.token, blockade).map(res => res.json());
   }
 
 }
