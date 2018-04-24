@@ -28,7 +28,7 @@ import {PlayerService} from './shared/services/player.service';
 import {UserService} from './shared/services/user.service';
 import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 import {GameService} from './shared/services/game.service';
-import {MoveService} from './shared/services/move.service';
+import {CardsService} from './shared/services/cards.service';
 import {CoinsService} from './shared/services/coins.service';
 import {HandcardService} from './shared/services/handcards.service';
 import { CharacterComponent } from './main-menu/character/character.component';
@@ -76,8 +76,9 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, MoveService, CoinsService, HandcardService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService, CoinsService, HandcardService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

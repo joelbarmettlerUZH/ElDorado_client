@@ -2,10 +2,10 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Character} from '../../shared/models/character';
-import {HandcardService} from '../../shared/services/handcards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {Player} from '../../shared/models/Player';
+import {CardsService} from '../../shared/services/cards.service';
 // import {Observable} from 'rxjs/Rx';
 // import {CardSlotComponent} from '../card-slot/card-slot.component';
 
@@ -23,7 +23,7 @@ export class CardBoardComponent implements OnInit {
   private handPileSubscription: Subscription;
 
   constructor(private playerService: PlayerService,
-              private handcardService: HandcardService) { }
+              private cardsService: CardsService) { }
 
   // used for updating the handcards after selling/discarding
   // @ViewChild(CardSlotComponent) slot;
@@ -35,7 +35,7 @@ export class CardBoardComponent implements OnInit {
 
         this.player = response;
         console.log(this.player.handPile);
-        this.handcardService.setCards(this.player.handPile);
+        this.cardsService.setHandCards(this.player.handPile);
 
         this.handPileSubscription = Observable.interval(1000).subscribe(
           res => {
@@ -47,19 +47,17 @@ export class CardBoardComponent implements OnInit {
 
 
   pollHandPile() {
-    this.handcardService.getCards().subscribe(res => {
-      this.cards = res;
-    });
+    this.cards = this.cardsService.getHandCards();
   }
 
   getHandPile() {
-    this.playerService.getPlayer(Number(localStorage.getItem('userId')))
+    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
       .subscribe(response => {
-        console.log('get cards of,', Number(localStorage.getItem('userId')));
+        console.log('get cards of,', Number(localStorage.getItem('playerId')));
 
         this.player = response;
         console.log(this.player.handPile);
-        this.handcardService.setCards(this.player.handPile);
+        this.cardsService.setHandCards(this.player.handPile);
       });
   }
   onSelect() {

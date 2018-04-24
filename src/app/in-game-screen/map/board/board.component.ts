@@ -11,11 +11,10 @@ import {GameService} from '../../../shared/services/game.service';
 import {HexspaceComponent} from '../hexspace/hexspace.component';
 import {Player} from '../../../shared/models/Player';
 import {Game} from '../../../shared/models/Game';
-import {MoveService} from '../../../shared/services/move.service';
+import {CardsService} from '../../../shared/services/cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
 import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
-import {HandcardService} from '../../../shared/services/handcards.service';
 
 declare var $: any;
 
@@ -24,6 +23,7 @@ declare var $: any;
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
+
 export class BoardComponent implements OnInit, AfterViewInit {
   public hexagons: Hexspace[];
   public game: Game;
@@ -48,8 +48,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   constructor(
     private gameService: GameService,
     private playerService: PlayerService,
-    private moveService: MoveService,
-    private handcardService: HandcardService
+    private cardsService: CardsService,
   ) {
   }
 
@@ -100,7 +99,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     console.log('Knowing da wea');
     this.selectedPlayingPiece = $event;
     this.removable = [];
-    const cards: Card[] = this.moveService.getCards();
+    const cards: Card[] = this.cardsService.getSelectedCards();
     if (cards.length < 1) {
       console.log('Can not get da wae since no cards are selected');
       return;
@@ -129,7 +128,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   move($event) {
     this.removable = [];
-    const cards = this.moveService.getCards();
+    const cards = this.cardsService.getSelectedCards();
     if (cards.length < 1) {
       console.log('Can not move since no cards are selected');
       return;
@@ -149,7 +148,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.resetReachable();
     cards.forEach(
       card => {
-        this.handcardService.removeCard(card);
+        this.cardsService.removeHandCard(card);
       }
     );
   }
@@ -183,7 +182,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   updateCards() {
-    const newCards: Card[] = this.moveService.getCards();
+    const newCards: Card[] = this.cardsService.getSelectedCards();
     if (newCards.length !== this.selectedCards.length) {
       console.log('-Card update: Change detected: ', this.selectedCards, newCards);
       this.selectedCards = newCards;

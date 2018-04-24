@@ -3,9 +3,9 @@ import {PlayerService} from '../../shared/services/player.service';
 // import {CardBoardComponent} from '../card-board/card-board.component';
 // import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
-import {HandcardService} from '../../shared/services/handcards.service';
 import {Card} from '../../shared/models/Card';
 import {Player} from '../../shared/models/Player';
+import {CardsService} from '../../shared/services/cards.service';
 
 @Component({
   selector: 'app-button-board',
@@ -14,6 +14,9 @@ import {Player} from '../../shared/models/Player';
 })
 export class ButtonBoardComponent implements OnInit {
 
+  constructor(private playerService: PlayerService,
+              private cardsService: CardsService) {
+  }
   @Input() current: Player;
   @Input() ownPlayer: Player;
   public confirmationNeeded: boolean;
@@ -21,13 +24,9 @@ export class ButtonBoardComponent implements OnInit {
   // used to store gamestate after EndRound
   public game: Game;
   public hand: Card[];
+  public confirmationNeeded = false;
 
   @Output() updateGame = new EventEmitter<Game>();
-
-  constructor(private playerService: PlayerService,
-              private handcardService: HandcardService) {
-    this.confirmationNeeded = false;
-  }
 
   async ngOnInit() {
     this.confirmationNeeded = false;
@@ -46,7 +45,8 @@ export class ButtonBoardComponent implements OnInit {
         this.hand = this.game.players.find(function (element) {
           return element.playerId === Number(localStorage.getItem('userId'));
         }).handPile;
-        this.handcardService.setCards(this.hand);
+        this.cardsService.setHandCards(this.hand);
+        this.cardsService.setSelectedCards([]);
         // console.log(this.game);
         // this.updateGame.emit(this.game);
       });
