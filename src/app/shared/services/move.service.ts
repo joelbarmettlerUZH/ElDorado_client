@@ -10,8 +10,8 @@ export class MoveService {
   constructor() {
   }
 
-  public getCards() {
-    return this.selectedCards.asObservable();
+  public getCards(): Card[] {
+    return this.selectedCards.getValue();
   }
 
   public addCard(card: Card) {
