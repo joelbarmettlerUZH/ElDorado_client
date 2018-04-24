@@ -55,8 +55,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(127, 'TESTTOKEN', 126); // Creates a local storage value
-    saveUserId(127);
+    // savePlayer(127, 'TESTTOKEN', 126); // Creates a local storage value
+    // saveUserId(127);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
