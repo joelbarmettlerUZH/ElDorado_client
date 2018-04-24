@@ -1,5 +1,7 @@
 <div id="Button-Board">
-  <button id="endRound" (click)="confirmEndRound()">END ROUND</button>
+  <button id="endRound" [class.notCurrent]="ownPlayer.playerId != current.playerId" *ngIf="!confirmationNeeded"
+          (click)="confirmEndRound()">END ROUND
+  </button>
   <button class="confirmEndRound" id="endRoundYes" *ngIf="confirmationNeeded" (click)="endRound()">Yes</button>
   <button class="confirmEndRound" id="endRoundNo" *ngIf="confirmationNeeded" (click)="breakEndRound()">No</button>
 </div>

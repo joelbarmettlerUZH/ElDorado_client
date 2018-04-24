@@ -87,7 +87,9 @@
 }
 
 .isNotPuchasable{
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%) !important;
+  /*-webkit-filter: grayscale(100%); !* Safari 6.0 - 9.0 *!*/
+  /*filter: grayscale(100%) !important;*/
+  opacity: 0.6; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
 }
 
