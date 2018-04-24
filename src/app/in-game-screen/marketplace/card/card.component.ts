@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../../../shared/models/Card';
+import {CardsService} from '../../../shared/services/cards.service';
 // import {Player} from '../../../shared/models/Player';
 // import {PlayerService} from '../../../shared/services/player.service';
 // import {CARDS} from '../../shared/models/Card-database';
@@ -16,13 +17,12 @@ export class CardComponent implements OnInit {
 
   public name: string;
 
-  constructor() {
+  constructor(private cardService: CardsService) {
   }
 
   ngOnInit() {
     this.name = this.card.name;
   }
-
 
 
   // discard(){ }
