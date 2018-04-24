@@ -37,7 +37,7 @@ export class PlayerService {
 
   // Returns every player that is currently in any game
   public getPlayer(playerId: number) {
-      console.log(playerId);
+      // console.log(playerId);
     return this.http.get(this.baseUrl + 'Player/' + playerId).map(res => res.json());
   }
 

@@ -12,6 +12,11 @@ button {
   margin-top: 5px;
 }
 
+.removable{
+  background-color: red;
+  opacity: 0.5;
+}
+
 button:disabled {
   background-color: #eee;
   color: #ccc;
