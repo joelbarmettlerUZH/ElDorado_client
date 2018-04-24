@@ -13,16 +13,25 @@ import {Card} from '../../shared/models/Card';
 })
 export class ButtonBoardComponent implements OnInit {
 
-  constructor(private playerService: PlayerService,
-              private handcardService: HandcardService) {
-  }
+  public confirmationNeeded: boolean;
+
   // used to store gamestate after EndRound
   public game: Game;
   public hand: Card[];
 
   @Output() updateGame = new EventEmitter<Game>();
 
+  constructor(private playerService: PlayerService,
+              private handcardService: HandcardService) {
+    this.confirmationNeeded = false;
+  }
+
   async ngOnInit() {
+    this.confirmationNeeded = false;
+  }
+
+  confirmEndRound() {
+    this.confirmationNeeded = true;
   }
 
   endRound() {
@@ -30,12 +39,16 @@ export class ButtonBoardComponent implements OnInit {
       response => {
         // console.log(response);
         this.game = response;
-        this.hand = this.game.players.find(function(element) {
+        this.hand = this.game.players.find(function (element) {
           return element.playerId === Number(localStorage.getItem('userId'));
         }).handPile;
         this.handcardService.setCards(this.hand);
         // console.log(this.game);
         // this.updateGame.emit(this.game);
       });
+  }
+
+  breakEndRound() {
+
   }
 }
