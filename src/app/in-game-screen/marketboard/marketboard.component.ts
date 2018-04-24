@@ -73,28 +73,12 @@ export class MarketboardComponent implements OnInit {
         this.passiveSlot = this.market.passive;
         this.activeSlot = this.market.active;
         this.purchasableSlot = this.market.purchasable;
-        // console.log(this.activeSlot[0].pile[0].name);  WURDE JEDE SEKUNDE GESPAMT
-        // console.log(this.activeSlot[1].pile[0].name);
       });
   }
 
-  onSlotSelected(slot) {
-    this.playerService.buy(slot);
+  buy(slot) {
+    console.log('buy click was triggered:', slot.pile[0].id);
+    this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
   }
 
-  fadeInOut() {
-    // if (this.isFadedIn){
-    //   this.fadeOut();
-    // } else{
-    //   this.fadeIn();
-    // }
-  }
-
-  // private fadeOut() {
-  //
-  // }
-  //
-  // private fadeIn() {
-  //
-  // }
 }

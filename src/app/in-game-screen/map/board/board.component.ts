@@ -14,7 +14,8 @@ import {Game} from '../../../shared/models/Game';
 import {MoveService} from '../../../shared/services/move.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
-import {savePlayer} from '../../../shared/cookieHandler';
+import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
+import {HandcardService} from '../../../shared/services/handcards.service';
 
 declare var $: any;
 
@@ -47,13 +48,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
   constructor(
     private gameService: GameService,
     private playerService: PlayerService,
-    private moveService: MoveService
+    private moveService: MoveService,
+    private handcardService: HandcardService
   ) {
   }
 
 
   ngOnInit() {
-    savePlayer(11, 'TESTTOKEN', 10); // Creates a local storage value
+    savePlayer(5, 'TESTTOKEN', 41); // Creates a local storage value
+    saveUserId(5);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
@@ -79,8 +82,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
       var delta = e.delta || e.originalEvent.wheelDelta;
       var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
       $panzoom.panzoom('zoom', zoomOut, {
-        increment: 0.1,
-        animate: false,
+        minScale: 0.4,
+        maxScale: 0.5,
+        increment: 0.13,
+        animate: true,
+        // Animation duration (ms)
+        duration: 200,
+        // CSS easing used for scale transition
+        easing: 'ease-in-out',
         focal: e
       });
     });
@@ -141,6 +150,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
           }
         );
         this.resetReachable();
+        cards.forEach(
+          card => {
+            this.handcardService.removeCard(card);
+          }
+        );
       });
   }
 
@@ -301,26 +315,33 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.reachableHex = [];
   }
 
+  initBoard() {
+    if (this.hexComponent.toArray().length > 0) {
+      console.log('Change');
+      this.hexComponents = this.hexComponent.toArray();
+      console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
+      if (this.hexComponents.length === this.xDim * this.yDim) {
+        console.log('Setting playing pieces now');
+        this.updatePlayers(true);
+        this.playerSubscription = Observable.interval(1000).subscribe(
+          res => {
+            this.updatePlayers();
+          });
+        this.cardSucbscription = Observable.interval(1000).subscribe(
+          res => {
+            this.updateCards();
+          }
+        );
+      }
+    }
+  }
+
   ngAfterViewInit() {
     console.log('Waduhek length is ' + this.hexComponent.toArray().length);
+    this.initBoard();
     this.hexComponent.changes.subscribe(
       hex => {
-        console.log('Change');
-        this.hexComponents = this.hexComponent.toArray();
-        console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
-        if (this.hexComponents.length === this.xDim * this.yDim) {
-          console.log('Setting playing pieces now');
-          this.updatePlayers(true);
-          this.playerSubscription = Observable.interval(1000).subscribe(
-            res => {
-              this.updatePlayers();
-            });
-          this.cardSucbscription = Observable.interval(1000).subscribe(
-            res => {
-              this.updateCards();
-            }
-          );
-        }
+        this.initBoard();
       });
   }
 

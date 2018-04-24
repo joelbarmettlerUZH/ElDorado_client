@@ -17,6 +17,7 @@ import {HandcardService} from '../../shared/services/handcards.service';
 })
 export class PlayerBoardComponent implements OnInit {
   public game: Game;
+  public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   protected ownCharacterId: number;
   public ownPlayer: Player;
