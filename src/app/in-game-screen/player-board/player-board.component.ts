@@ -6,7 +6,6 @@ import {Player} from '../../shared/models/Player';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
 import {Observable} from 'rxjs/Observable';
-
 // import {Player} from '../../shared/models/Player';
 
 @Component({

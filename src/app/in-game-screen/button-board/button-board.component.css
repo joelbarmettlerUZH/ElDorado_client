@@ -66,3 +66,8 @@ button:disabled {
   left: 131px;
   bottom: 20px;
 }
+
+.notCurrent {
+  opacity: 0.6; /* Real browsers */
+  filter: alpha(opacity=60); /* MSIE */
+}
