@@ -19,10 +19,16 @@ export class ButtonBoardComponent implements OnInit {
   // used to store gamestate after EndRound
   public game: Game;
   public hand: Card[];
+  public confirmationNeeded = false;
 
   @Output() updateGame = new EventEmitter<Game>();
 
   async ngOnInit() {
+    this.confirmationNeeded = false;
+  }
+
+  confirmEndRound() {
+    this.confirmationNeeded = true;
   }
 
   endRound() {
@@ -30,7 +36,7 @@ export class ButtonBoardComponent implements OnInit {
       response => {
         // console.log(response);
         this.game = response;
-        this.hand = this.game.players.find(function(element) {
+        this.hand = this.game.players.find(function (element) {
           return element.playerId === Number(localStorage.getItem('userId'));
         }).handPile;
         this.cardsService.setHandCards(this.hand);
@@ -38,5 +44,9 @@ export class ButtonBoardComponent implements OnInit {
         // console.log(this.game);
         // this.updateGame.emit(this.game);
       });
+  }
+
+  breakEndRound() {
+
   }
 }

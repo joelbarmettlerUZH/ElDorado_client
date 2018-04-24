@@ -42,3 +42,27 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+.confirmEndRound {
+  position: absolute;
+  background-size: cover;
+  width: 90px;
+  height: 44px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+#endRoundYes {
+  background-image: url('../../../assets/GUI_Game/Button_Endround_YES.png');
+  left: 42px;
+  bottom: 20px;
+}
+
+#endRoundNo {
+  background-image: url('../../../assets/GUI_Game/Button_Endround_NO.png');
+  left: 131px;
+  bottom: 20px;
+}

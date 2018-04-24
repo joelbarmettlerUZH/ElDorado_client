@@ -82,3 +82,17 @@ button:disabled {
   background-color: transparent;
   cursor: hand;
 }
+
+.Action {
+  position: relative;
+  background-image: url('../../../assets/GUI_Game/Button_Endround_NO.png');
+  background-size: cover;
+  width: 90px;
+  height: 44px;
+  border: none;
+  left: 0;
+  background-color: transparent;
+  color: white;
+  font-size: 25px;
+  font-weight: normal;
+}

@@ -67,6 +67,8 @@ export class CharacterSelectionComponent implements OnInit {
         this.player = player;
         if (this.player.playerId === Number(localStorage.getItem('userId'))) {
           this.router.navigate(['/games', room.roomID]);
+          this.roomSubscription.unsubscribe();
+          this.gameSubscription.unsubscribe();
         }
       });
     });

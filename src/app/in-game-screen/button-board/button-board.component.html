@@ -1,3 +1,5 @@
 <div id="Button-Board">
-  <button (click)="endRound()">END ROUND</button>
+  <button id="endRound" (click)="confirmEndRound()">END ROUND</button>
+  <button class="confirmEndRound" id="endRoundYes" *ngIf="confirmationNeeded" (click)="endRound()">Yes</button>
+  <button class="confirmEndRound" id="endRoundNo" *ngIf="confirmationNeeded" (click)="breakEndRound()">No</button>
 </div>

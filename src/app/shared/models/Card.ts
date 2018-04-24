@@ -1,4 +1,5 @@
 export class Card {
+  type: string;
   name: string;
   coinValue: number;
   coinCost: number;
