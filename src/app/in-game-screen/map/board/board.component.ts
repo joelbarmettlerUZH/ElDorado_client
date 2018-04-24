@@ -55,8 +55,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    savePlayer(6, 'TESTTOKEN', 41); // Creates a local storage value
-    saveUserId(6);
+    savePlayer(127, 'TESTTOKEN', 126); // Creates a local storage value
+    saveUserId(127);
     this.gameService.getGame().subscribe(
       response => {
         this.updateGame(response);
@@ -98,32 +98,29 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // Takes an array of cards and finds all hexspaces on which you can move
   getWay($event) {
     console.log('Knowing da wea');
+    this.selectedPlayingPiece = $event;
     this.removable = [];
-    this.moveService.getCards().subscribe(
-      cards => {
-        if (cards.length < 1) {
-          console.log('Can not get da wae since no cards are selected');
-          return;
-        }
-        console.log('Path cards are: ', cards);
-        this.selectedCards = cards;
-        this.resetReachable();
-        console.log('Path Playing piece is: ', $event);
-        this.selectedPlayingPiece = $event;
-        const playingPieceId = this.selectedPlayingPiece.playingPieceId;
-        const moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
-        console.log('Finding path with movewarpper: ', moveWrapper);
-        this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
-          response => {
-            const hexSpaces: Hexspace[] = response;
-            console.log('Reaching hexspaces: ', hexSpaces);
-            hexSpaces.forEach(
-              hex => {
-                const hexComponent = this.findHexComponent(hex);
-                hexComponent.setReachable(true);
-                this.reachableHex.push(hexComponent);
-              }
-            );
+    const cards: Card[] = this.moveService.getCards();
+    if (cards.length < 1) {
+      console.log('Can not get da wae since no cards are selected');
+      return;
+    }
+    console.log('Path cards are: ', cards);
+    this.selectedCards = cards;
+    this.resetReachable();
+    console.log('Path Playing piece is: ', $event);
+    const playingPieceId = this.selectedPlayingPiece.playingPieceId;
+    const moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
+    console.log('Finding path with movewarpper: ', moveWrapper);
+    this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
+      response => {
+        const hexSpaces: Hexspace[] = response;
+        console.log('Reaching hexspaces: ', hexSpaces);
+        hexSpaces.forEach(
+          hex => {
+            const hexComponent = this.findHexComponent(hex);
+            hexComponent.setReachable(true);
+            this.reachableHex.push(hexComponent);
           }
         );
       }
@@ -132,30 +129,29 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   move($event) {
     this.removable = [];
-    this.moveService.getCards().subscribe(
-      cards => {
-        if (cards.length < 1) {
-          console.log('Can not move since no cards are selected');
-          return;
-        }
-        const hexSpace: Hexspace = $event;
-        const playingPieceId = this.selectedPlayingPiece.playingPieceId;
-        this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
-          response => {
-            const removableBlockade: Blockade[] = response;
-            console.log('Moved. Now able to remove the following blockades: ', removableBlockade);
-            this.setRemovable(false);
-            this.removable = removableBlockade;
-            this.setRemovable(true);
-          }
-        );
-        this.resetReachable();
-        cards.forEach(
-          card => {
-            this.handcardService.removeCard(card);
-          }
-        );
-      });
+    const cards = this.moveService.getCards();
+    if (cards.length < 1) {
+      console.log('Can not move since no cards are selected');
+      return;
+    }
+    const hexSpace: Hexspace = $event;
+    const playingPieceId = this.selectedPlayingPiece.playingPieceId;
+    console.log(cards);
+    this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
+      response => {
+        const removableBlockade: Blockade[] = response;
+        console.log('Moved. Now able to remove the following blockades: ', removableBlockade);
+        this.setRemovable(false);
+        this.removable = removableBlockade;
+        this.setRemovable(true);
+      }
+    );
+    this.resetReachable();
+    cards.forEach(
+      card => {
+        this.handcardService.removeCard(card);
+      }
+    );
   }
 
   removeBlockade($event) {
@@ -187,25 +183,20 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   updateCards() {
-    this.moveService.getCards().subscribe(
-      response => {
-        const newCards: Card[] = response;
-        if (JSON.stringify(newCards) !== JSON.stringify(this.selectedCards)) {
-          console.log('-Card update: Change detected: ', this.selectedCards, newCards);
-          this.selectedCards = newCards;
-          if (this.selectedCards.length === 0) {
-            this.resetReachable();
-            return;
-          } else {
-            console.log('-Card update: New cards selected, getting da wae');
-            if (this.selectedPlayingPiece !== null) {
-              console.log('-Card update: Getting wae again with old playing piece');
-              this.getWay(this.selectedPlayingPiece);
-            }
-          }
+    const newCards: Card[] = this.moveService.getCards();
+    if (newCards.length !== this.selectedCards.length) {
+      console.log('-Card update: Change detected: ', this.selectedCards, newCards);
+      this.selectedCards = newCards;
+      if (newCards.length === 0) {
+        this.resetReachable();
+      } else {
+        console.log('-Card update: New cards selected, getting da wae');
+        if (this.selectedPlayingPiece !== null) {
+          console.log('-Card update: Getting wae again with old playing piece');
+          this.getWay(this.selectedPlayingPiece);
         }
       }
-    );
+    }
   }
 
   updatePlayers(initial: boolean = false) {
