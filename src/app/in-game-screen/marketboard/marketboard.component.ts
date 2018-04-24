@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
-import {savePlayer} from '../../shared/cookieHandler';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {CoinsService} from '../../shared/services/coins.service';
@@ -30,6 +29,8 @@ export class MarketboardComponent implements OnInit {
   public isActive = false;
   private marketSubscription: Subscription;
   public ownPlayer: Player;
+  public player: Player;
+  private playerSubscription: Subscription;
 
   constructor(private gameService: GameService,
               private coinsService: CoinsService,
@@ -47,6 +48,13 @@ export class MarketboardComponent implements OnInit {
     this.marketSubscription = Observable.interval(1000).subscribe(
       sub => {
         this.getMarket();
+      }
+    );
+    this.playerSubscription = Observable.interval(1000).subscribe(
+      sub => {
+        this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
+          this.player = player;
+        });
       }
     );
   }

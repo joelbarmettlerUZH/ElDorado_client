@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
@@ -57,7 +57,7 @@ export class CardSlotComponent implements OnInit {
     this.isActive = !this.isActive;
     if (this.isActive) {
       this.moveService.addCard(this.card);
-    }else {
+    } else {
       this.moveService.removeCard(this.card);
     }
   }
@@ -73,6 +73,10 @@ export class CardSlotComponent implements OnInit {
         // this.updateHand.emit(this.hand);
       }
     );
+  }
+
+  performAction() {
+    // this.playerService.getPlayer(Number(localStorage.getItem('playerId')));
   }
 
   magnify() {

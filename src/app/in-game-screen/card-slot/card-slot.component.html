@@ -3,6 +3,8 @@
   <button id="Sell" (click)="sell()"></button>
   <button id="Discard" (click)="discard()"></button>
   <button id="Magnify" (click)="magnify()"></button>
+  <button id="ActionCard" class=Action *ngIf="this.card.type === 'ActionCard' && this.isActive"
+          (click)="performAction()"></button>
 </div>
 
 <!--
