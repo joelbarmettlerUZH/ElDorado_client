@@ -8,7 +8,6 @@ import {GameComponent} from './game/game.component';
 // import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
 import {MainMenuComponent} from './main-menu/main-menu.component';
-import {SelectCharacterComponent} from './main-menu/select-character/select-character.component';
 import {TitleComponent} from './main-menu/title/title.component';
 import {ButtonsComponent} from './main-menu/buttons/buttons.component';
 import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
@@ -52,7 +51,6 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
     // LoginComponent,
     GameComponent,
     MainMenuComponent,
-    SelectCharacterComponent,
     TitleComponent,
     ButtonsComponent,
     InGameScreenComponent,

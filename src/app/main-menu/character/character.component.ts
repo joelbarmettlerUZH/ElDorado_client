@@ -30,6 +30,7 @@ export class CharacterComponent implements OnInit {
     // this.usedCharacter.name = this.defaultCharacters[this.usedCharacter.id].name;
     this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
       this.user = res;
+      this.user.ready = false;
       this.user.character = this.usedCharacter.id;
       this.userService.modifyUser(this.user);
     });

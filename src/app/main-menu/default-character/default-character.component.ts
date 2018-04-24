@@ -14,7 +14,7 @@ export class DefaultCharacterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('character', this.character.name);
+    console.log('character ', this.character.name, 'displayed');
   }
 
 }

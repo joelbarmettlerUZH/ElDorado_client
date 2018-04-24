@@ -76,8 +76,7 @@ export class HostButtonsComponent implements OnInit {
           // 2.1 save assigned token and ID of preMe
           this.token = resul[0];
           this.userId = Number(resul[1]);
-          console.log('Save Token: ' + this.token + 'in localStorage');
-          saveTOKEN(this.token);
+
           console.log('Save User Id: ' + this.userId);
           saveUserId(this.userId);
           console.log('Save Player Id: ' + this.userId);
@@ -86,6 +85,10 @@ export class HostButtonsComponent implements OnInit {
           saveRoomId(this.room.roomID);
           console.log('Save Game Id: ' + this.room.roomID);
           saveGameId(this.room.roomID);
+          console.log('Save Token: ' + this.token + ' in localStorage');
+          saveTOKEN(resul[0]);
+          console.log('Save Token: ' + this.token + ' in localStorage');
+          saveTOKEN(this.token);
 
           // 2.2 create User out of preMe
           this.userService.getUser(this.userId).subscribe(result => {

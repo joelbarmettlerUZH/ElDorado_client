@@ -9,6 +9,8 @@ import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {Router} from '@angular/router';
+import 'rxjs/add/observable/interval';
+
 
 @Component({
   selector: 'app-character-selection',
@@ -37,10 +39,10 @@ export class CharacterSelectionComponent implements OnInit {
   }
 
   pollingRoom(room: Room) {
-    this.roomSubscription = Observable.interval(1000).subscribe(y => {
+    this.roomSubscription = Observable.interval(300).subscribe(y => {
       this.roomService.getRoom(room.roomID).subscribe(
         request => {
-          // if (this.pollRoom && JSON.stringify(this.pollRoom) !== JSON.stringify(request)) {
+          if (typeof this.pollRoom === 'undefined' || (JSON.stringify(this.pollRoom) !== JSON.stringify(request))) {
             console.log('change detected');
             this.pollRoom = request;
               for (const character of this.defaultCharacters) {
@@ -51,12 +53,12 @@ export class CharacterSelectionComponent implements OnInit {
                     character.name = users[0].name;
                   } else {
                     character.user = null;
+                    character.ready = false;
                     // reset name of unselected character
                     character.name = this.defaultCharacters.filter(char => char.id === character.id)[0].name;
-                    console.log('new char name', character.name);
                   }
             }
-          //}
+          }
         });
     });
     this.gameSubscription = Observable.interval(1000).subscribe(y => {
@@ -79,6 +81,9 @@ export class CharacterSelectionComponent implements OnInit {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+    if (this.gameSubscription) {
+      this.gameSubscription.unsubscribe();
+    }
     this.mainMenu = true;
     this.characters = this.defaultCharacters;
     // this.characters.forEach(char => char.)
@@ -88,6 +93,9 @@ export class CharacterSelectionComponent implements OnInit {
   generateMainMenuView() {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
+    }
+    if (this.gameSubscription) {
+      this.gameSubscription.unsubscribe();
     }
     this.mainMenu = true;
 
