@@ -1,10 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-// import {LoginComponent} from './login/login.component';
-// import {routing} from './app.routing';
-// import {AuthGuardService} from './shared/services/auth-guard.service';
-// import {AuthenticationService} from './shared/services/authentication.service';
 import {FormsModule} from '@angular/forms';
 import {MainMenuComponent} from './main-menu/main-menu.component';
 import {TitleComponent} from './main-menu/title/title.component';
@@ -23,7 +19,6 @@ import {MarketboardComponent} from './in-game-screen/marketboard/marketboard.com
 import {AppRoutingModule} from './app-routing.module';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomService} from './shared/services/room.service';
-// import { HttpClientModule} from '@angular/common/http';
 import {MainMenuButtonBoardComponent} from './main-menu/main-menu-button-board/main-menu-button-board.component';
 import {HostButtonsComponent} from './main-menu/host-buttons/host-buttons.component';
 import {MainMenuButtonsComponent} from './main-menu/main-menu-buttons/main-menu-buttons.component';
@@ -40,7 +35,11 @@ import {HandcardService} from './shared/services/handcards.service';
 import { CharacterComponent } from './main-menu/character/character.component';
 import { CharacterSelectionComponent } from './main-menu/character-selection/character-selection.component';
 import { DefaultCharacterComponent } from './main-menu/default-character/default-character.component';
-
+// import { HttpClientModule} from '@angular/common/http';
+// import {LoginComponent} from './login/login.component';
+// import {routing} from './app.routing';
+// import {AuthGuardService} from './shared/services/auth-guard.service';
+// import {AuthenticationService} from './shared/services/authentication.service';
 
 @NgModule({
   declarations: [

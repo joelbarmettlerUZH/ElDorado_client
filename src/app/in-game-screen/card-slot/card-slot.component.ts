@@ -39,7 +39,7 @@ export class CardSlotComponent implements OnInit {
   }
 
   sell() {
-    console.log('why you not sell????')
+    console.log('why you not sell????');
     this.playerService.sell(this.card).subscribe(
       response => {
         // console.log(response);
