@@ -33,6 +33,7 @@ import {CoinsService} from './shared/services/coins.service';
 import { CharacterComponent } from './main-menu/character/character.component';
 import { CharacterSelectionComponent } from './main-menu/character-selection/character-selection.component';
 import { DefaultCharacterComponent } from './main-menu/default-character/default-character.component';
+import { LoadingScreenComponent } from './in-game-screen/loading-screen/loading-screen.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -66,6 +67,7 @@ import { DefaultCharacterComponent } from './main-menu/default-character/default
     CharacterComponent,
     CharacterSelectionComponent,
     DefaultCharacterComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     BrowserModule,

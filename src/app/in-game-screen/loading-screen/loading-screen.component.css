@@ -1,0 +1,42 @@
+.pop{
+  height:100%;
+  width:100%;
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:1 !important;
+  background-color:black;
+}
+
+.gameRegion{
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+  background-color: black;
+  margin-top: 0;
+}
+
+.centerImg{
+  margin: auto;
+  margin-top: 50px;
+  display: block;
+}
+
+.loadingGif{
+  width: 120px;
+  height: auto;
+}
+
+.mask{
+  width: 150px;
+  height: auto;
+}
+
+.text{
+  width: 700px;
+}
+
+h1{
+  text-align: center;
+}
