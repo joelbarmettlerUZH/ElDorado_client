@@ -8,6 +8,7 @@ import {UserService} from '../../shared/services/user.service';
 import {CHARACTERS} from '../../shared/models/character-database';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
+import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
 
 @Component({
   selector: 'app-join-buttons',
@@ -19,7 +20,7 @@ export class JoinButtonsComponent implements OnInit {
   @Output() changeCharacterRequest = new EventEmitter<Room>();
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
-  characters = CHARACTERS;
+  characters = POLLCHARACTER;
   rooms: Room[];
   public subscription: Subscription;
   public token: string;
