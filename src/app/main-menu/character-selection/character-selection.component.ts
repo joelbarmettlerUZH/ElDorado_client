@@ -10,6 +10,8 @@ import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {Router} from '@angular/router';
 import 'rxjs/add/observable/interval';
+import {GameService} from '../../shared/services/game.service';
+import {Game} from '../../shared/models/Game';
 
 
 @Component({
@@ -25,11 +27,11 @@ export class CharacterSelectionComponent implements OnInit {
   public pollRoom: Room;
   characters: PollCharacter[];
   mainMenu: boolean;
-  public player: Player;
+  public game: Game;
 
 
   constructor(private roomService: RoomService,
-              private playerService: PlayerService,
+              private gameService: GameService,
               private router: Router) { }
 
   ngOnInit() {
@@ -63,9 +65,9 @@ export class CharacterSelectionComponent implements OnInit {
     });
     this.gameSubscription = Observable.interval(1000).subscribe(y => {
       console.log(Number(localStorage.getItem('userId')));
-      this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
-        this.player = player;
-        if (this.player.playerId === Number(localStorage.getItem('userId'))) {
+      this.gameService.getGame().subscribe(game => {
+        this.game = game;
+        if (this.game.gameId === Number(localStorage.getItem('gameId'))) {
           this.router.navigate(['/games', room.roomID]);
           this.roomSubscription.unsubscribe();
           this.gameSubscription.unsubscribe();
