@@ -5,12 +5,10 @@ import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
 import {CoinsService} from '../../shared/services/coins.service';
 import {Subscription} from 'rxjs/Subscription';
-import {CardAction} from '../../shared/models/CardAction';
 import {SpecialAction} from '../../shared/models/SpecialAction';
 import {Observable} from 'rxjs/Observable';
 import {GameService} from '../../shared/services/game.service';
 import {Game} from '../../shared/models/Game';
-import {Board} from '../../shared/models/board';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -97,6 +95,7 @@ export class CardSlotComponent implements OnInit {
       return;
     }
     this.isActive = !this.isActive;
+    this.actionPossible = false;
     if (this.specialAction.remove > 0) {
       this.remove();
       this.cardsService.removeHandCard(this.card);
@@ -104,7 +103,6 @@ export class CardSlotComponent implements OnInit {
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
       this.actionPossible = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
-      console.log('Action possible? ' + this.actionPossible);
       if (this.actionPossible) {
         const element = document.getElementById('ActionCard');
       }
