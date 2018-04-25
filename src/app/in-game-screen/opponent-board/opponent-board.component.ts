@@ -24,33 +24,26 @@ export class OpponentBoardComponent implements OnInit {
   constructor(private playerService: PlayerService, private gameService: GameService) {}
 
   ngOnInit() {
-    this.playerSubscription = Observable.interval(1000).subscribe(
-      res => {
-        this.getCurrent();
+    this.playerService.rawGetter().subscribe(
+      response => {
+        this.players = response;
+        this.playerSubscription = Observable.interval(1000).subscribe(
+          res => {
+            this.current = this.gameService.getCurrent().characterNumber;
+          }
+        );
+        this.getPlayers();
+        console.log(this.players);
       }
     );
-    this.getPlayers();
-    console.log(this.players);
   }
 
-  getCurrent() {
-    this.gameService.getCurrent().subscribe(
-      res => {
-        const c: Player = res;
-        this.current = c.characterNumber;
-      }
-    );
-  }
 
   getPlayers(): void {
-    this.gameService.getPlayers()
-      .subscribe(players => {
-        console.log(this.ownPlayerId);
-        const allPlayers: Player[] = players;
-        this.players = allPlayers.filter(
-          player => player.playerId !== this.ownPlayerId
-        );
-      });
+    const allPlayers: Player[] = this.gameService.getPlayers();
+    this.players = allPlayers.filter(
+      player => player.playerId !== this.ownPlayerId
+    );
   }
 
 }

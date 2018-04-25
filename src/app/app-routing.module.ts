@@ -12,7 +12,7 @@ const routes: Routes = [
   // // otherwise redirect to home
   // { path: '**', redirectTo: '' },
   {path: 'main-menu', component: MainMenuComponent},
-  {path: 'games/:gameId', component: InGameScreenComponent},
+  {path: 'game', component: InGameScreenComponent},
   { path: 'board', component: BoardComponent}
 ];
 

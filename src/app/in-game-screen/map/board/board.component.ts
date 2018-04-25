@@ -54,17 +54,19 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-     // savePlayer(6, 'TESTTOKEN', 4); // Creates a local storage value
-     // saveUserId(6);
-    this.gameService.getGame().subscribe(
-      response => {
-        this.updateGame(response);
+    this.gameService.rawGetter().subscribe(
+      res => {
+        const game: Game = res;
+        this.game = game;
+        this.board = game.pathMatrix;
+        this.hexagons = this.board.matrixArray;
         this.xDim = this.board.xdim;
         this.yDim = this.board.ydim;
         this.yWidth = (100 / this.yDim);
         this.yWidth = Math.round(((100 - this.yWidth / 2) / this.yDim) * 100) / 100;
         this.panZoom();
-      });
+      }
+    );
   }
 
   // Takes a Point object and returns an index
@@ -175,12 +177,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  updateGame(game: Game) {
-    this.game = game;
-    this.board = this.game.pathMatrix;
-    this.hexagons = this.board.matrixArray;
-  }
-
   updateCards() {
     const newCards: Card[] = this.cardsService.getSelectedCards();
     if (newCards.length !== this.selectedCards.length) {
@@ -199,65 +195,52 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   updatePlayers(initial: boolean = false) {
-    this.gameService.getPlayers().subscribe(
-      response => {
-        const updatedPlayers: Player[] = response;
-        if (!initial && JSON.stringify(updatedPlayers) === JSON.stringify(this.players)) {
-          return;
-        }
-        console.log('-Player update: changed their state, updating them now');
-        this.players.forEach(
-          player => {
-            player.playingPieces.forEach(
-              playingPiece => {
-                const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
-                hex.movesOff();
-                hex.setCurrent(false);
-              }
-            );
+    const updatedPlayers: Player[] = this.gameService.getPlayers();
+    if (!initial && JSON.stringify(updatedPlayers) === JSON.stringify(this.players)) {
+      return;
+    }
+    console.log('-Player update: changed their state, updating them now');
+    this.players.forEach(
+      player => {
+        player.playingPieces.forEach(
+          playingPiece => {
+            const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
+            hex.movesOff();
+            hex.setCurrent(false);
           }
         );
-        updatedPlayers.forEach(
-          player => {
-            player.playingPieces.forEach(
-              playingPiece => {
-                const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
-                hex.movesOn(player);
-                this.gameService.getCurrent().subscribe(
-                  res => {
-                    const current: Player = res;
-                    if (current.playerId === player.playerId) {
-                      hex.setCurrent(true);
-                    } else {
-                      hex.setCurrent(false);
-                    }
-                  }
-                );
-
-              }
-            );
-          }
-        );
-        this.players = updatedPlayers;
-        this.updateBlockades();
       }
     );
+    updatedPlayers.forEach(
+      player => {
+        player.playingPieces.forEach(
+          playingPiece => {
+            const hex: HexspaceComponent = this.hexComponents[this.pointToIndex(playingPiece.standsOn.point)];
+            hex.movesOn(player);
+            const current: Player = this.gameService.getCurrent();
+            if (current.playerId === player.playerId) {
+              hex.setCurrent(true);
+            } else {
+              hex.setCurrent(false);
+            }
+          }
+        );
+      }
+    );
+    this.players = updatedPlayers;
+    this.updateBlockades();
   }
 
   updateBlockades(initial: boolean = false) {
-    this.gameService.getBlockades().subscribe(
-      response => {
-        const newBlockades: Blockade[] = response;
-        if ((JSON.stringify(newBlockades) === JSON.stringify(this.blockades)) && !initial) {
-          console.log('-Blockades update: did not change, going on as before.');
-          return;
-        }
-        console.log('-Blockades update: DID change, updating them');
-        this.setBlockades(false);
-        this.blockades = newBlockades;
-        this.setBlockades(true);
-      }
-    );
+    const newBlockades: Blockade[] = this.gameService.getBlockades();
+    if ((JSON.stringify(newBlockades) === JSON.stringify(this.blockades)) && !initial) {
+      console.log('-Blockades update: did not change, going on as before.');
+      return;
+    }
+    console.log('-Blockades update: DID change, updating them');
+    this.setBlockades(false);
+    this.blockades = newBlockades;
+    this.setBlockades(true);
   }
 
   setRemovable(remove: boolean) {

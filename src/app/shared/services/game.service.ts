@@ -13,12 +13,12 @@ import {Blockade} from '../models/Blockade';
 @Injectable()
 export class GameService {
 
-  private FREQUENCY = 300;
+  private FREQUENCY = 1000;
 
   private baseUrl = restUrl.getBaseUrl();
   private game: Game;
   private gameSubscription: Subscription;
-  public gameId: number = Number(localStorage.getItem('gameid'));
+  public gameId = -1;
 
   // Important use Http (HttpModule) NOT HttpClient
   constructor(private http: Http) {
@@ -26,11 +26,38 @@ export class GameService {
       res => this.updateGame());
   }
 
+  /*
+  unsubscribeService() {
+    this.gameSubscription.unsubscribe();
+  }
+
+  subscribeService() {
+    this.gameSubscription = Observable.interval(this.FREQUENCY).subscribe(
+      res => this.updateGame());
+  }
+*/
+
+  rawGetter() {
+    const gameId = Number(localStorage.getItem('gameId'));
+    return this.http.get(this.baseUrl + 'Game/' + gameId).map(res => res.json());
+  }
+
   updateGame() {
-    this.http.get(this.baseUrl + 'Game/' + this.gameId).map(
-      res => res.json()).subscribe(
-      res => this.game = res
-    );
+    console.log('Getting game ' + this.gameId);
+    try {
+      this.gameId = Number(localStorage.getItem('gameId'));
+      this.http.get(this.baseUrl + 'Game/' + this.gameId).map(
+        res => res.json()).subscribe(
+        res => {
+          this.game = res;
+        },
+        err => {
+          console.log('Error in getting Game ', this.gameId);
+        }
+      );
+    } catch (e) {
+      console.log('Trying to request non-existing game');
+    }
   }
 
   // gets game id

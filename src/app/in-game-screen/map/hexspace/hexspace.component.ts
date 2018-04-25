@@ -1,14 +1,8 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {Player} from '../../../shared/models/Player';
-import {MoveWrapper} from '../../../shared/models/MoveWrapper';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
-import {SubscriptionLoggable} from 'rxjs/testing/SubscriptionLoggable';
-import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
-import {PlayerService} from '../../../shared/services/player.service';
-import {Blockade} from '../../../shared/models/Blockade';
 
 @Component({
   selector: 'app-hexspace',

@@ -41,14 +41,11 @@ export class CardBoardComponent implements OnInit {
   }
 
   getHandPile() {
-    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
-      .subscribe(response => {
-        this.player = response;
-        console.log('HandCards', this.player.handPile);
-        if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
-          this.cards = this.player.handPile;
-        }
-      });
+    this.player = this.playerService.getPlayer();
+    console.log('HandCards', this.player.handPile);
+    if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
+      this.cards = this.player.handPile;
+    }
   }
 
   onSelect() {

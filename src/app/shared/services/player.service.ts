@@ -10,29 +10,51 @@ import {Observable} from 'rxjs/Observable';
 import {Player} from '../models/Player';
 import {GameService} from './game.service';
 import {PlayingPiece} from '../models/PlayingPiece';
+import {Game} from '../models/Game';
 
 @Injectable()
 export class PlayerService {
 
-  private FREQUENCY = 300;
+  private FREQUENCY = 1000;
 
   private baseUrl = restUrl.getBaseUrl();
   private playerSubscription: Subscription;
   private players: Player[];
   private ownPlayer: Player;
 
-  public playerId = Number(localStorage.getItem('palyerId'));
-  public gameId = Number(localStorage.getItem('gameId'));
+  public playerId = -1;
+  public gameId = -1;
   public token = localStorage.getItem('token');
 
-  constructor(private http: Http, gameService: GameService) {
-    this.playerSubscription = Observable.interval(this.FREQUENCY).subscribe(
-      res => this.players = gameService.getPlayers()
+  constructor(private http: Http, private gameService: GameService) {
+    this.gameService.rawGetter().subscribe(
+      res => {
+        const game: Game = res;
+        this.players = game.players;
+        this.playerSubscription = Observable.interval(this.FREQUENCY).subscribe( res => this.updatePlayers());
+      }
     );
+  }
+
+  updatePlayers() {
+    console.log('Getting Players ' + this.gameId);
+    try {
+      this.gameId = Number(localStorage.getItem('gameId'));
+      this.playerId = Number(localStorage.getItem('playerId'));
+      this.players = this.gameService.getPlayers();
+    } catch (e) {
+      console.log('Players in game are not ready yet');
+    }
+  }
+
+  rawGetter() {
+    const playerId = Number(localStorage.getItem('playerId'));
+    return this.http.get(this.baseUrl + 'Player/' + playerId).map(res => res.json());
   }
 
   // Returns every player that is currently in any game
   public getPlayer(playerId: number = this.playerId): Player {
+    console.log('Requesting players of game');
     this.players.forEach(
       player => {
         if (player.playerId === playerId) {
@@ -80,7 +102,8 @@ export class PlayerService {
 
   // Draws a new card from the drawpile
   public draw() {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Draw?token=' + this.token, '').map(res => res.json());
+    const playerId = Number(localStorage.getItem('playerId'));
+    return this.http.put(this.baseUrl + 'Player/' + playerId + '/Draw?token=' + this.token, '').map(res => res.json());
   }
 
   // Ends isCurrent round

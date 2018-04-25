@@ -27,28 +27,23 @@ export class PlayerBoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getOwnCharacterId();
-    this.currentSubscription = Observable.interval(1000).subscribe(
-      res => {
-        this.getCurrent();
+    this.playerService.rawGetter().subscribe(
+      response => {
+        const players: Player[] = response;
+        this.ownPlayer = players.filter(player => player.playerId === Number(localStorage.getItem('playerId')))[0];
+        this.ownCharacterId = this.ownPlayer.characterNumber;
+        this.currentSubscription = Observable.interval(1000).subscribe(
+          res => {
+            this.current = this.gameService.getCurrent();
+          }
+        );
       }
     );
   }
 
   getOwnCharacterId(): void {
-      this.playerService.getPlayer(this.ownPlayerId)
-        .subscribe(response => {
-          this.ownPlayer = response;
-          this.ownCharacterId = this.ownPlayer.characterNumber;
-          console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
-        });
-  }
-
-  getCurrent() {
-    this.gameService.getCurrent().subscribe(
-      current => {
-        this.current = current;
-      }
-    );
+    this.ownPlayer = this.playerService.getPlayer();
+    this.ownCharacterId = this.ownPlayer.characterNumber;
+    console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
   }
 }
