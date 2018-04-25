@@ -11,40 +11,50 @@ import {Player} from '../models/Player';
 import {GameService} from './game.service';
 import {PlayingPiece} from '../models/PlayingPiece';
 import {Game} from '../models/Game';
+import {INTERVAL} from './INTERVAL';
 
 @Injectable()
 export class PlayerService {
 
-  private FREQUENCY = 1000;
+  private FREQUENCY = INTERVAL.player();
 
   private baseUrl = restUrl.getBaseUrl();
   private playerSubscription: Subscription;
-  private players: Player[];
-  private ownPlayer: Player;
+  private player: Player;
 
   public playerId = -1;
   public gameId = -1;
   public token = localStorage.getItem('token');
 
   constructor(private http: Http, private gameService: GameService) {
-    this.gameService.rawGetter().subscribe(
-      res => {
-        const game: Game = res;
-        this.players = game.players;
-        this.playerSubscription = Observable.interval(this.FREQUENCY).subscribe( res => this.updatePlayers());
-      }
-    );
+    this.playerSubscription = Observable.interval(this.FREQUENCY).subscribe(res => this.updatePlayer());
   }
 
-  updatePlayers() {
+  updatePlayer() {
     console.log('Getting Players ' + this.gameId);
+    /*
     try {
       this.gameId = Number(localStorage.getItem('gameId'));
       this.playerId = Number(localStorage.getItem('playerId'));
-      this.players = this.gameService.getPlayers();
+      this.rawGetter().subscribe(
+        res => {
+          this.player = res;
+        },
+        err => {
+          console.log('Error in getting Player ', this.gameId);
+        }
+      );
     } catch (e) {
       console.log('Players in game are not ready yet');
     }
+    */
+    try {
+      this.player = this.gameService.getPlayers().filter(player => player.playerId === this.playerId)[0];
+    } catch (e) {
+      console.log('No players in game yet');
+      this.player = null;
+    }
+
   }
 
   rawGetter() {
@@ -53,26 +63,19 @@ export class PlayerService {
   }
 
   // Returns every player that is currently in any game
-  public getPlayer(playerId: number = this.playerId): Player {
+  public getPlayer(): Player {
     console.log('Requesting players of game');
-    this.players.forEach(
-      player => {
-        if (player.playerId === playerId) {
-          return player;
-        }
-      }
-    );
-    return null;
+    return this.player;
   }
 
   // Returns playingPiece of isCurrent player
   public getPlayingPiece(): PlayingPiece[] {
-    return this.getPlayer().playingPieces;
+    return this.player.playingPieces;
   }
 
   // Returns HandPile
   public getHandPile(): Card[] {
-    return this.getPlayer().handPile;
+    return this.player.handPile;
   }
 
   // Sells the provided card and returns modified player
@@ -102,8 +105,7 @@ export class PlayerService {
 
   // Draws a new card from the drawpile
   public draw() {
-    const playerId = Number(localStorage.getItem('playerId'));
-    return this.http.put(this.baseUrl + 'Player/' + playerId + '/Draw?token=' + this.token, '').map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Draw?token=' + this.token, '').map(res => res.json());
   }
 
   // Ends isCurrent round

@@ -8,12 +8,13 @@ import {Player} from '../models/Player';
 import {Board} from '../models/board';
 import {MarketPlace} from '../models/MarketPlace';
 import {Blockade} from '../models/Blockade';
+import {INTERVAL} from './INTERVAL';
 
 
 @Injectable()
 export class GameService {
 
-  private FREQUENCY = 1000;
+  private FREQUENCY = INTERVAL.game();
 
   private baseUrl = restUrl.getBaseUrl();
   private game: Game;
@@ -46,8 +47,7 @@ export class GameService {
     console.log('Getting game ' + this.gameId);
     try {
       this.gameId = Number(localStorage.getItem('gameId'));
-      this.http.get(this.baseUrl + 'Game/' + this.gameId).map(
-        res => res.json()).subscribe(
+      this.rawGetter().subscribe(
         res => {
           this.game = res;
         },

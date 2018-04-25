@@ -15,6 +15,7 @@ import {CardsService} from '../../../shared/services/cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
 import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
+import {INTERVAL} from '../../../shared/services/INTERVAL';
 
 declare var $: any;
 
@@ -296,11 +297,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
       if (this.hexComponents.length === this.xDim * this.yDim) {
         console.log('Setting playing pieces now');
         this.updatePlayers(true);
-        this.playerSubscription = Observable.interval(1000).subscribe(
+        this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
           res => {
             this.updatePlayers();
           });
-        this.cardSucbscription = Observable.interval(1000).subscribe(
+        this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
           res => {
             this.updateCards();
           }

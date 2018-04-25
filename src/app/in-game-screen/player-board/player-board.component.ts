@@ -6,6 +6,7 @@ import {Player} from '../../shared/models/Player';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
 import {Observable} from 'rxjs/Observable';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 // import {Player} from '../../shared/models/Player';
 
 @Component({
@@ -27,12 +28,12 @@ export class PlayerBoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.playerService.rawGetter().subscribe(
+    this.gameService.rawGetter().subscribe(
       response => {
-        const players: Player[] = response;
-        this.ownPlayer = players.filter(player => player.playerId === Number(localStorage.getItem('playerId')))[0];
+        const game: Game = response;
+        this.ownPlayer = game.players.filter(player => player.playerId === Number(localStorage.getItem('playerId')))[0];
         this.ownCharacterId = this.ownPlayer.characterNumber;
-        this.currentSubscription = Observable.interval(1000).subscribe(
+        this.currentSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
           res => {
             this.current = this.gameService.getCurrent();
           }

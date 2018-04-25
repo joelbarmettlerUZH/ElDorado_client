@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import {PlayerService} from '../shared/services/player.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
+import {INTERVAL} from '../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -12,7 +13,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class InGameScreenComponent implements OnInit {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  public loading = 15;
+  public loading = INTERVAL.loading();
   private loadingSubscription: Subscription;
 
   constructor(  private route: ActivatedRoute,

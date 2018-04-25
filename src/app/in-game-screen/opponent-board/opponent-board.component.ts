@@ -6,6 +6,7 @@ import {Player} from '../../shared/models/Player';
 import {Observable, Subscribable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-opponent-board',
@@ -27,7 +28,7 @@ export class OpponentBoardComponent implements OnInit {
     this.playerService.rawGetter().subscribe(
       response => {
         this.players = response;
-        this.playerSubscription = Observable.interval(1000).subscribe(
+        this.playerSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
           res => {
             this.current = this.gameService.getCurrent().characterNumber;
           }

@@ -4,9 +4,9 @@ import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
-import {CoinsService} from '../../shared/services/coins.service';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-marketboard',
@@ -17,7 +17,7 @@ export class MarketboardComponent implements OnInit {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
-  public coinNumber: number;
+  public coinNumber = 0;
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
@@ -29,36 +29,46 @@ export class MarketboardComponent implements OnInit {
   public player: Player;
   private playerSubscription: Subscription;
   private coinSubscription: Subscription;
+  public bought = false;
 
   constructor(private gameService: GameService,
-              private coinsService: CoinsService,
               private playerService: PlayerService
   ) {
-    this.coinNumber = this.coinsService.getCoins();
     console.log('Marketboard | CoinNumber: ' + this.coinNumber);
   }
 
   ngOnInit() {
     this.gameService.rawGetter().subscribe(
       res => {
-        const market: MarketPlace = res;
-        this.isFadedIn = false;
-        this.market = market;
-        this.marketSubscription = Observable.interval(1000).subscribe(
-          sub => {
-            this.getMarket();
-          }
-        );
-        this.playerSubscription = Observable.interval(1000).subscribe(
-          sub => this.player = this.playerService.getPlayer()
-        );
-        this.coinSubscription = Observable.interval(1000).subscribe( y => this.updateCoins());
+        this.playerService.rawGetter().subscribe(
+          response => {
+            const tempPlayer: Player = response;
+            this.player = tempPlayer;
+            const market: MarketPlace = res;
+            this.isFadedIn = false;
+            this.market = market;
+            console.log('Reached market subscription');
+            this.marketSubscription = Observable.interval(INTERVAL.market()).subscribe(
+              sub => {
+                this.getMarket();
+              }
+            );
+            console.log('Reached player subscription');
+            this.playerSubscription = Observable.interval(INTERVAL.market()).subscribe(
+              sub => {
+                this.player = this.playerService.getPlayer();
+                this.bought = this.player.bought;
+              }
+            );
+            console.log('Reached coin subscription');
+            this.coinSubscription = Observable.interval(1000).subscribe(y => this.updateCoins());
+          });
       }
     );
   }
 
   updateCoins() {
-    this.coinNumber = this.coinsService.getCoins();
+    this.coinNumber = this.playerService.getPlayer().coins;
   }
 
   // Fade out Market Board

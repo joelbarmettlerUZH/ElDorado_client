@@ -3,12 +3,12 @@ import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
-import {CoinsService} from '../../shared/services/coins.service';
 import {Subscription} from 'rxjs/Subscription';
 import {SpecialAction} from '../../shared/models/SpecialAction';
 import {Observable} from 'rxjs/Observable';
 import {GameService} from '../../shared/services/game.service';
 import {Game} from '../../shared/models/Game';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -38,7 +38,6 @@ export class CardSlotComponent implements OnInit {
 
   constructor(private gameService: GameService,
               private cardsService: CardsService,
-              private coinsService: CoinsService,
               private playerService: PlayerService) {
   }
 
@@ -56,7 +55,7 @@ export class CardSlotComponent implements OnInit {
             this.specialAction = player.specialAction;
           }
         );
-        this.gameSubscription = Observable.interval(300).subscribe(
+        this.gameSubscription = Observable.interval(INTERVAL.market()).subscribe(
           y => {
             this.getGame();
           }
