@@ -14,7 +14,7 @@ export class Player {
   coins: number;
   playingPieces: PlayingPiece[];
   specialAction: SpecialAction;
-  history: CardAction;
+  // history: CardAction;
   handPile: Card[];
   bought: boolean;
 }

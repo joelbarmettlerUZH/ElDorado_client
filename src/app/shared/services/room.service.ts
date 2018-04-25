@@ -41,6 +41,7 @@ export class RoomService {
   }
 
   public updateUser(user: User, roomId: number) {
+    this.token = localStorage.getItem('token');
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
     console.log('service me addtoroom:', user);
     return this.http.put(url, user).map(res => {res.json();
@@ -51,6 +52,7 @@ export class RoomService {
 
   // adds a me to a room and returns the modified room
   public addUser(user: User, roomId: number) {
+    this.token = localStorage.getItem('token');
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + this.token;
     console.log('service me addtoroom:', user);
     console.log('TOKEN me addtoroom:', this.token);
@@ -61,6 +63,7 @@ export class RoomService {
 
   // adds a me to a room and returns the modified room with token
   public addUserWithToken(user: User, roomId: number, token: string) {
+    this.token = localStorage.getItem('token');
     const url = this.baseUrl + 'Room/' + roomId + '?token=' + token;
     console.log('service me addtoroom:', user);
     console.log('TOKEN me addtoroom:', token);
