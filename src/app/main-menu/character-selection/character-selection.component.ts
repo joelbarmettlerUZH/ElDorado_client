@@ -41,7 +41,34 @@ export class CharacterSelectionComponent implements OnInit {
   }
 
   pollingRoom(room: Room) {
-    this.roomSubscription = Observable.interval(300).subscribe(y => {
+   //  this.gameSubscription = Observable.interval(3000).subscribe(y => {
+
+      // }
+      /*
+      this.gameService.getGame().subscribe(game => {
+        this.game = game;
+        if (this.game.gameId === Number(localStorage.getItem('gameId'))) {
+          this.router.navigate(['/games', room.roomID]);
+          this.roomSubscription.unsubscribe();
+          this.gameSubscription.unsubscribe();
+        }
+      });*/
+    // });
+    this.roomSubscription = Observable.interval(500).subscribe(y => {
+      console.log(Number(localStorage.getItem('userId')));
+      try {
+        console.log('trying to start game');
+        this.game = this.gameService.getGame();
+        console.log('this.game.gameId', this.game.gameId);
+        console.log('localStorage', Number(localStorage.getItem('gameId')));
+        // if (this.game.gameId === Number(localStorage.getItem('gameId'))) {
+        this.roomSubscription.unsubscribe();
+        //this.gameSubscription.unsubscribe();
+        this.router.navigate(['/games', this.game.gameId]);
+        console.log('lost routing');
+      } catch (e) {
+        console.log('game not ready yet');
+      }
       this.roomService.getRoom(room.roomID).subscribe(
         request => {
           if (typeof this.pollRoom === 'undefined' || (JSON.stringify(this.pollRoom) !== JSON.stringify(request))) {
@@ -63,17 +90,7 @@ export class CharacterSelectionComponent implements OnInit {
           }
         });
     });
-    this.gameSubscription = Observable.interval(1000).subscribe(y => {
-      console.log(Number(localStorage.getItem('userId')));
-      this.gameService.getGame().subscribe(game => {
-        this.game = game;
-        if (this.game.gameId === Number(localStorage.getItem('gameId'))) {
-          this.router.navigate(['/games', room.roomID]);
-          this.roomSubscription.unsubscribe();
-          this.gameSubscription.unsubscribe();
-        }
-      });
-    });
+
   }
 
   generateJoinView(room) {

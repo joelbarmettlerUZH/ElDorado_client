@@ -4,6 +4,8 @@ import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-b
 import {UserService} from '../shared/services/user.service';
 import {CharacterSelectionComponent} from './character-selection/character-selection.component';
 import {Room} from '../shared/models/Room';
+import {GameService} from '../shared/services/game.service';
+import {saveGameId} from '../shared/cookieHandler';
 
 
 @Component({
@@ -29,10 +31,13 @@ export class MainMenuComponent implements OnInit {
   me: User;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private gameService: GameService) {
   }
 
   ngOnInit() {
+    this.gameService.setFrequency(2500);
+    saveGameId(-1);
     // delete local storage and respective user when refreshing
     this.restoreStorage();
     this.mainMenuScreen = 'main-menu';

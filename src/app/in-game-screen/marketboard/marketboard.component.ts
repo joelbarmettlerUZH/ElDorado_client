@@ -52,9 +52,12 @@ export class MarketboardComponent implements OnInit {
     );
     this.playerSubscription = Observable.interval(1000).subscribe(
       sub => {
+        this.player = this.playerService.getPlayer();
+        /*
         this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
           this.player = player;
         });
+        */
       }
     );
   }
@@ -66,6 +69,21 @@ export class MarketboardComponent implements OnInit {
 
   // Get active market cards
   getMarket(initial: boolean = false) {
+    const market = this.gameService.getMarket();
+    if ((JSON.stringify(this.market) === JSON.stringify(market)) && !initial) {
+      return;
+    }
+    console.log('-Market update: DID change, performing update');
+    this.market = market;
+    this.purchasableSlot = this.market.purchasable;
+    this.purchasableSlotIds = [];
+    for (const slot of this.purchasableSlot) {
+      this.purchasableSlotIds.push(slot.slotId);
+    }
+    this.passiveSlot = this.market.passive;
+    this.activeSlot = this.market.active;
+    this.purchasableSlot = this.market.purchasable;
+    /*
     this.gameService.getMarket()
       .subscribe(resp => {
         // console.log('Updating market');
@@ -83,6 +101,7 @@ export class MarketboardComponent implements OnInit {
         this.activeSlot = this.market.active;
         this.purchasableSlot = this.market.purchasable;
       });
+      */
   }
 
   buy(slot) {

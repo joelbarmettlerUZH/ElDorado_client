@@ -34,15 +34,24 @@ export class OpponentBoardComponent implements OnInit {
   }
 
   getCurrent() {
+    this.current = this.gameService.getCurrent().characterNumber;
+    /*
     this.gameService.getCurrent().subscribe(
       res => {
         const c: Player = res;
         this.current = c.characterNumber;
       }
     );
+    */
   }
 
   getPlayers(): void {
+    console.log(this.ownPlayerId);
+    const allPlayers: Player[] = this.gameService.getPlayers();
+    this.players = allPlayers.filter(
+      player => player.playerId !== this.ownPlayerId
+    );
+    /*
     this.gameService.getPlayers()
       .subscribe(players => {
         console.log(this.ownPlayerId);
@@ -51,6 +60,7 @@ export class OpponentBoardComponent implements OnInit {
           player => player.playerId !== this.ownPlayerId
         );
       });
+      */
   }
 
 }

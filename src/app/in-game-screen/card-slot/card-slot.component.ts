@@ -48,12 +48,15 @@ export class CardSlotComponent implements OnInit {
     console.log(this.card.name);
     this.gameSubscription = Observable.interval(300).subscribe(
       res => {
-        this.getGame();
+        // this.getGame();
+        this.specialAction = this.gameService.getGame().players.filter(player =>
+          player.playerId === Number(localStorage.getItem('playerId')))[0].specialAction;
       }
     );
   }
-
+/*
   getGame() {
+
     this.gameService.getGame().subscribe(
       response => {
         const game: Game = response;
@@ -68,7 +71,7 @@ export class CardSlotComponent implements OnInit {
         this.isCurrent = (game.current.playerId === ownId);
       }
     );
-  }
+  }*/
 
   remove() {
     if (this.specialAction.remove > 0) {

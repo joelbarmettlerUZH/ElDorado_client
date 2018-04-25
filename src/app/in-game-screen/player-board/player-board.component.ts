@@ -36,19 +36,27 @@ export class PlayerBoardComponent implements OnInit {
   }
 
   getOwnCharacterId(): void {
+    this.ownPlayer = this.playerService.getPlayer(this.ownPlayerId);
+    this.ownCharacterId = this.ownPlayer.characterNumber;
+    console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
+    /*
       this.playerService.getPlayer(this.ownPlayerId)
         .subscribe(response => {
           this.ownPlayer = response;
           this.ownCharacterId = this.ownPlayer.characterNumber;
           console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
         });
+        */
   }
 
   getCurrent() {
+    this.current = this.gameService.getCurrent();
+    /*
     this.gameService.getCurrent().subscribe(
       current => {
         this.current = current;
       }
     );
+    */
   }
 }

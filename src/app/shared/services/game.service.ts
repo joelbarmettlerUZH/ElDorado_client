@@ -8,17 +8,18 @@ import {Player} from '../models/Player';
 import {Board} from '../models/board';
 import {MarketPlace} from '../models/MarketPlace';
 import {Blockade} from '../models/Blockade';
+import {PlayingPiece} from '../models/PlayingPiece';
 
 
 @Injectable()
 export class GameService {
 
-  private FREQUENCY = 300;
+  private FREQUENCY = 3000;
 
   private baseUrl = restUrl.getBaseUrl();
   private game: Game;
   private gameSubscription: Subscription;
-  public gameId: number = Number(localStorage.getItem('gameid'));
+  public gameId: number = Number(localStorage.getItem('gameId'));
 
   // Important use Http (HttpModule) NOT HttpClient
   constructor(private http: Http) {
@@ -27,10 +28,17 @@ export class GameService {
   }
 
   updateGame() {
+    this.gameId = Number(localStorage.getItem('gameId'));
+    console.log('pulling game id', this.gameId);
     this.http.get(this.baseUrl + 'Game/' + this.gameId).map(
       res => res.json()).subscribe(
       res => this.game = res
     );
+  }
+
+  setFrequency(freq: number) {
+    console.log('set freq');
+    this.FREQUENCY = freq;
   }
 
   // gets game id
@@ -70,5 +78,11 @@ export class GameService {
 
   public isRunning(): boolean {
     return this.game.running;
+  }
+
+  public getPlayingPieces(): PlayingPiece[] {
+    let playingPieces: PlayingPiece[] = [];
+    this.game.players.forEach(player => player.playingPieces.forEach(playingPiece => playingPieces.push(playingPiece)));
+    return playingPieces;
   }
 }

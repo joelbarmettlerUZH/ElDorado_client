@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./winner-screen.component.css']
 })
 export class WinnerScreenComponent implements OnInit {
-  public winners: Player[];
+  public winners: Player;
   private gameSubscription: Subscription;
 
   constructor(private gameService: GameService) {
@@ -19,10 +19,13 @@ export class WinnerScreenComponent implements OnInit {
   ngOnInit() {
     this.gameSubscription = Observable.interval(5000).subscribe(
       res => {
+        this.winners = this.gameService.getWinners();
+        /*
         this.gameService.getWinners().subscribe(
           response => {
             this.winners = response;
           });
+          */
       }
     );
   }

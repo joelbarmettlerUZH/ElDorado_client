@@ -31,7 +31,8 @@ export class CardBoardComponent implements OnInit {
   ngOnInit() {
     this.handPileSubscription = Observable.interval(300).subscribe(
           res => {
-            this.getHandPile();
+            // this.getHandPile();
+            this.cards = this.playerService.getHandPile();
       });
   }
 
@@ -39,8 +40,9 @@ export class CardBoardComponent implements OnInit {
   pollHandPile() {
     this.cards = this.cardsService.getHandCards();
   }
-
+  /*
   getHandPile() {
+
     this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
       .subscribe(response => {
         this.player = response;
@@ -49,7 +51,8 @@ export class CardBoardComponent implements OnInit {
           this.cards = this.player.handPile;
         }
       });
-  }
+
+  }*/
 
   onSelect() {
     console.log('Is hidden: ' + this.isActive);
