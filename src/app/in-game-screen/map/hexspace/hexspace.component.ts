@@ -50,7 +50,7 @@ export class HexspaceComponent implements OnInit {
     this.color = this.HexSpace.color;
     this.index = (this.HexSpace.point.x * this.yDim) + this.HexSpace.point.y;
     this.strength = this.HexSpace.strength;
-    console.log(this.color);
+    // console.log(this.color);
   }
 
   setReachable(reachable: boolean) {

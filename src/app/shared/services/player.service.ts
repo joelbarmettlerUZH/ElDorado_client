@@ -31,7 +31,9 @@ export class PlayerService {
   }
 
   updatePlayer() {
-    console.log('Getting Players ' + this.gameId);
+    this.gameId = Number(localStorage.getItem('gameId'));
+    this.playerId = Number(localStorage.getItem('playerId'));
+    // console.log('Getting player ' + this.gameId);
     /*
     try {
       this.gameId = Number(localStorage.getItem('gameId'));
@@ -50,11 +52,11 @@ export class PlayerService {
     */
     try {
       this.player = this.gameService.getPlayers().filter(player => player.playerId === this.playerId)[0];
+      // console.log('PlayerID is: ' + this.player.playerId);
     } catch (e) {
       console.log('No players in game yet');
       this.player = null;
     }
-
   }
 
   rawGetter() {
@@ -64,7 +66,7 @@ export class PlayerService {
 
   // Returns every player that is currently in any game
   public getPlayer(): Player {
-    console.log('Requesting players of game');
+    // console.log('Requesting players of game');
     return this.player;
   }
 

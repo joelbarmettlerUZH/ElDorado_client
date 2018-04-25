@@ -40,8 +40,9 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: url('./../../../../assets/GUI_HexSpaces/overlay.png'); /* or any other overlay image/color */
-  background-size: 300px 300px;
+  background-image: url('./../../../../assets/GUI_HexSpaces/overlay_2.png'); /* or any other overlay image/color */
+  background-repeat: repeat;
+  background-size: 90px 90px;
 }
 
 .removedBlockade{

@@ -33,8 +33,8 @@ export class CardBoardComponent implements OnInit {
   ngOnInit() {
     this.playerService.rawGetter().subscribe(
       res => {
-        const cards: Card[] = res;
-        this.cards = cards;
+        const player: Player = res;
+        this.cards = player.handPile;
         this.handPileSubscription = Observable.interval(INTERVAL.handpile()).subscribe(
           y => {
             this.getHandPile();
@@ -43,14 +43,9 @@ export class CardBoardComponent implements OnInit {
     );
   }
 
-
-  pollHandPile() {
-    this.cards = this.cardsService.getHandCards();
-  }
-
   getHandPile() {
     this.player = this.playerService.getPlayer();
-    console.log('HandCards', this.player.handPile);
+    // console.log('HandCards', this.player.handPile);
     if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
       this.cards = this.player.handPile;
     }

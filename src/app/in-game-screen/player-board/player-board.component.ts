@@ -33,6 +33,7 @@ export class PlayerBoardComponent implements OnInit {
         const game: Game = response;
         this.ownPlayer = game.players.filter(player => player.playerId === Number(localStorage.getItem('playerId')))[0];
         this.ownCharacterId = this.ownPlayer.characterNumber;
+        this.current = game.current;
         this.currentSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
           res => {
             this.current = this.gameService.getCurrent();
@@ -42,9 +43,4 @@ export class PlayerBoardComponent implements OnInit {
     );
   }
 
-  getOwnCharacterId(): void {
-    this.ownPlayer = this.playerService.getPlayer();
-    this.ownCharacterId = this.ownPlayer.characterNumber;
-    console.log('My character id from getOwnCharacterId: ' + this.ownCharacterId);
-  }
 }

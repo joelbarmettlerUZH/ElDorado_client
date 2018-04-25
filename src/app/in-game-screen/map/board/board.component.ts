@@ -138,7 +138,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     }
     const hexSpace: Hexspace = $event;
     const playingPieceId = this.selectedPlayingPiece.playingPieceId;
-    console.log(cards);
+    console.log('Moving with cards', cards);
     this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
       response => {
         const removableBlockade: Blockade[] = response;
@@ -290,24 +290,29 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   initBoard() {
-    if (this.hexComponent.toArray().length > 0) {
-      console.log('Change');
-      this.hexComponents = this.hexComponent.toArray();
-      console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
-      if (this.hexComponents.length === this.xDim * this.yDim) {
-        console.log('Setting playing pieces now');
-        this.updatePlayers(true);
-        this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
-          res => {
-            this.updatePlayers();
-          });
-        this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
-          res => {
-            this.updateCards();
+    this.gameService.rawGetter().subscribe(
+      response => {
+        this.game = response;
+        if (this.hexComponent.toArray().length > 0) {
+          console.log('Change');
+          this.hexComponents = this.hexComponent.toArray();
+          console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
+          if (this.hexComponents.length === this.xDim * this.yDim) {
+            console.log('Setting playing pieces now');
+            this.updatePlayers(true);
+            this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
+              res => {
+                this.updatePlayers();
+              });
+            this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
+              res => {
+                this.updateCards();
+              }
+            );
           }
-        );
+        }
       }
-    }
+    );
   }
 
   ngAfterViewInit() {

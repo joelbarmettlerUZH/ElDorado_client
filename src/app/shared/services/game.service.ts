@@ -44,7 +44,7 @@ export class GameService {
   }
 
   updateGame() {
-    console.log('Getting game ' + this.gameId);
+    // console.log('Getting game ' + this.gameId);
     try {
       this.gameId = Number(localStorage.getItem('gameId'));
       this.rawGetter().subscribe(

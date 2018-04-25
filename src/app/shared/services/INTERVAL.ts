@@ -1,7 +1,7 @@
 export class INTERVAL {
 
   static game(): number {
-    return 500;
+    return 300;
   }
 
   static player(): number {
@@ -9,7 +9,7 @@ export class INTERVAL {
   }
 
   static handpile(): number {
-    return 500;
+    return 300;
   }
 
   static market(): number {
@@ -25,11 +25,11 @@ export class INTERVAL {
   }
 
   static opponent(): number {
-    return 2000;
+    return 1000;
   }
 
   // loading time in seconds
   static loading(): number {
-    return 15;
+    return 8;
   }
 }
