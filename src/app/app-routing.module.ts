@@ -7,8 +7,7 @@ import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-scree
 // import {AuthGuardService} from './shared/services/auth-guard.service';
 
 const routes: Routes = [
-  // {path: '', redirectTo: '/main-menu', pathMatch: 'full'},
-  {path: '', redirectTo: '/winner-screen', pathMatch: 'full'},
+  {path: '', redirectTo: '/main-menu', pathMatch: 'full'},
   {path: 'winner-screen', component: WinnerScreenComponent},
   // // otherwise redirect to home
   // { path: '**', redirectTo: '' },

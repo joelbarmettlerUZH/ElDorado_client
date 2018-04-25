@@ -17,7 +17,7 @@ export class PlayerBoardComponent implements OnInit {
   public game: Game;
   public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  protected ownCharacterId: number;
+  public ownCharacterId: number;
   public ownPlayer: Player;
   public current: Player;
   private currentSubscription: Subscription;
