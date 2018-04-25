@@ -1,61 +1,74 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {restUrl} from './RESTurl';
+import {Game} from '../models/Game';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {Player} from '../models/Player';
+import {Board} from '../models/board';
+import {MarketPlace} from '../models/MarketPlace';
+import {Blockade} from '../models/Blockade';
 
 
 @Injectable()
 export class GameService {
 
-  // Important use Http (HttpModule) NOT HttpClient
-  constructor(private http: Http) {
-  }
+  private FREQUENCY = 300;
 
   private baseUrl = restUrl.getBaseUrl();
+  private game: Game;
+  private gameSubscription: Subscription;
+  public gameId: number = Number(localStorage.getItem('gameid'));
 
-  // gets all games
-  public getGames() {
-    return this.http.get(this.baseUrl + 'Game').map(res => res.json());
+  // Important use Http (HttpModule) NOT HttpClient
+  constructor(private http: Http) {
+    this.gameSubscription = Observable.interval(this.FREQUENCY).subscribe(
+      res => this.updateGame());
+  }
+
+  updateGame() {
+    this.http.get(this.baseUrl + 'Game/' + this.gameId).map(
+      res => res.json()).subscribe(
+      res => this.game = res
+    );
   }
 
   // gets game id
-  public getGame() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId).map(res => res.json());
+  public getGame(): Game {
+    return this.game;
   }
 
   // Gets isCurrent player
-  public getCurrent() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Current').map(res => res.json());
+  public getCurrent(): Player {
+    return this.game.current;
   }
 
   // Gets all players
-  public getPlayers() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Players').map(res => res.json());
+  public getPlayers(): Player[] {
+    return this.game.players;
   }
 
   // Gets board
-  public getBoard() {// console.log(this.baseUrl)
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Board').map(res => res.json());
+  public getBoard(): Board {// console.log(this.baseUrl)
+    return this.game.pathMatrix;
   }
 
   // Gets Market
-  public getMarket() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Market').map(res => res.json());
+  public getMarket(): MarketPlace {
+    return this.game.marketPlace;
   }
 
   // Gets blockades
-  public getBlockades() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Blockade').map(res => res.json());
+  public getBlockades(): Blockade[] {
+    return this.game.blockades;
   }
 
   // Gets winners
-  public getWinners() {
-    const gameId = Number(localStorage.getItem('gameId'));
-    return this.http.get(this.baseUrl + 'Game/' + gameId + '/Winner').map(res => res.json());
+  public getWinners(): Player {
+    return this.game.winners;
+  }
+
+  public isRunning(): boolean {
+    return this.game.running;
   }
 }
