@@ -98,7 +98,7 @@ export class MainMenuComponent implements OnInit {
       console.log('delete roomId', localStorage.getItem('roomId'));
       console.log('delete gameId', localStorage.getItem('gameId'));
       this.userService.deleteUser(Number(localStorage.getItem('userId')));
-      localStorage.clear();
+      // localStorage.clear();
     }
   }
 }

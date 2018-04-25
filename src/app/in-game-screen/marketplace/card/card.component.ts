@@ -15,6 +15,9 @@ export class CardComponent implements OnInit {
   @Input()
   public card: Card;
 
+  @Input()
+  public removable: boolean;
+
   public name: string;
 
   constructor(private cardService: CardsService) {

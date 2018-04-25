@@ -69,24 +69,24 @@
   top: 60px;
 }
 
-#Route1 {
-  top: 110px;
+#Default-Path {
+  top: 140px;
 }
 
 #Route2 {
-  top: 160px;
+  top: 190px;
 }
 
 #Route3 {
-  top: 210px;
+  top: 240px;
 }
 
-#Route4 {
-  top: 260px;
+#Test-Path-99 {
+  top: 290px;
 }
 
 #Route5 {
-  top: 310px;
+  top: 340px;
 }
 
 input {
@@ -106,3 +106,35 @@ input {
 button:focus {outline:0 !important;}
 input:focus {outline:0 !important;}
 
+.namebutton {
+  left: 15px;
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/GUI_MainMenu/Inputfield_unselected.png');
+  width: 218px;
+  height: 45px;
+  /* font-family: Arial; */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.namebutton:visited {
+  background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.namebutton:focus {
+  background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.namebutton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.namebutton:active {
+  background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}

@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class InGameScreenComponent implements OnInit {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  public loading = 8;
+  public loading = 15;
   private loadingSubscription: Subscription;
 
   constructor(  private route: ActivatedRoute,

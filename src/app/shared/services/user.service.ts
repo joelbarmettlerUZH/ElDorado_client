@@ -40,6 +40,7 @@ export class UserService {
 
   // Modifies an existing me
   public modifyUser(user: User) {
+    this.token = localStorage.getItem('token');
     console.log('token ', this.token);
     const url = this.baseUrl + 'User?token=' + this.token;
     return this.http.put(url, user).subscribe(() => console.log('user modified'));
@@ -47,8 +48,7 @@ export class UserService {
 
   // Modifies an existing me
   public deleteUser(userId: number) {
-    console.log('token ', this.token);
-    console.log('delete userId', userId);
+    this.token = localStorage.getItem('token');
     const url = this.baseUrl + 'User/' + userId + '?token=' + this.token;
     console.log(url);
     return this.http.delete(url).subscribe(() => console.log('user deleted'));
