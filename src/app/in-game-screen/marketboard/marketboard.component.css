@@ -39,7 +39,7 @@
   position: absolute;
   top: 38px;
   right: 279px;
-  padding-left: 35px;
+  padding-left: 20px;
   padding-top: 1px;
   /*background-color: #c7254e;*/
   width: 50px;
@@ -53,6 +53,7 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+  text-align: center;
 }
 
 .Slot{
