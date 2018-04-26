@@ -17,7 +17,7 @@ export class MarketboardComponent implements OnInit {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
-  public coinNumber = 0;
+  public coinNumber = '0';
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
@@ -68,7 +68,10 @@ export class MarketboardComponent implements OnInit {
   }
 
   updateCoins() {
-    this.coinNumber = this.playerService.getPlayer().coins;
+    this.coinNumber = this.playerService.getPlayer().coins.toPrecision(1);
+    if (this.playerService.getPlayer().coins % 1 !== 1) {
+      this.coinNumber = this.coinNumber + '\u00BD';
+    }
   }
 
   // Fade out Market Board

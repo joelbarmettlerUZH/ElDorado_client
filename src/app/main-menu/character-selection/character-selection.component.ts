@@ -23,7 +23,7 @@ export class CharacterSelectionComponent implements OnInit {
 
   defaultCharacters = POLLCHARACTER;
   private roomSubscription: Subscription;
-  private gameSubscription: Subscription;
+  // private gameSubscription: Subscription;
   public pollRoom: Room;
   characters: PollCharacter[];
   mainMenu: boolean;
@@ -45,10 +45,12 @@ export class CharacterSelectionComponent implements OnInit {
       console.log(Number(localStorage.getItem('userId')));
       this.game = this.gameService.getGame();
       try {
+        if (this.gameService.getGame().gameId === Number(localStorage.getItem('gameId'))) {
         const validGame = this.gameService.getGame().gameId > -1;
         console.log('Rerouting now');
         this.roomSubscription.unsubscribe();
         this.router.navigate(['/game']);
+        }
       } catch (e) {
         console.log('Game did not start yet');
       }
@@ -84,9 +86,10 @@ export class CharacterSelectionComponent implements OnInit {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+    /*
     if (this.gameSubscription) {
       this.gameSubscription.unsubscribe();
-    }
+    }*/
     this.mainMenu = true;
     this.characters = this.defaultCharacters;
     // this.characters.forEach(char => char.)
@@ -97,9 +100,10 @@ export class CharacterSelectionComponent implements OnInit {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+    /*
     if (this.gameSubscription) {
       this.gameSubscription.unsubscribe();
-    }
+    }*/
     this.mainMenu = true;
 
   }
