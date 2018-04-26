@@ -11,7 +11,7 @@
 }
 
 .budget-board-selected {
-  right: -120px;
+  right: -80px;
   transition: 2.3s;
   background-color: transparent;
 }
@@ -36,5 +36,6 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+  line-height: 1;
 }
 

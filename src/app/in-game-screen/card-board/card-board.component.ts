@@ -22,7 +22,6 @@ export class CardBoardComponent implements OnInit {
   public selectedCards: Card[] = [];
   public singleActionCard: boolean;
   private handPileSubscription: Subscription;
-  public budgetBoardSelected: boolean;
   private cardSucbscription: Subscription;
 
 
@@ -35,7 +34,6 @@ export class CardBoardComponent implements OnInit {
 
   ngOnInit() {
     this.singleActionCard = false;
-    this.budgetBoardSelected = false;
     this.playerService.rawGetter().subscribe(
       res => {
         const player: Player = res;
@@ -79,10 +77,6 @@ export class CardBoardComponent implements OnInit {
     console.log('Is hidden: ' + this.isActive);
     this.isActive = !this.isActive;
     console.log('Is hidden: ' + this.isActive);
-  }
-
-  showEndScreen(show: boolean) {
-    this.budgetBoardSelected = show;
   }
 
   private checkForSingleActionCard() {

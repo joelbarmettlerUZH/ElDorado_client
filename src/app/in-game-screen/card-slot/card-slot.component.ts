@@ -38,6 +38,8 @@ export class CardSlotComponent implements OnInit {
   public isCurrent = false;
   public isMagnified = false;
   public isActionCard: boolean;
+  public budgetBoardSelected: boolean;
+  public isPerforming: boolean;
 
 
   @Output() actionRequest = new EventEmitter<boolean>();
@@ -49,6 +51,8 @@ export class CardSlotComponent implements OnInit {
 
   ngOnInit() {
     this.isActionCard = false;
+    this.budgetBoardSelected = false;
+    this.isPerforming = false;
     this.specialAction = new SpecialAction();
     console.log(this.card.name);
     this.gameService.rawGetter().subscribe(
@@ -128,8 +132,8 @@ export class CardSlotComponent implements OnInit {
   }
 
   performAction() {
-    this.isActionCard = false;
-    console.log('isActionCard | after action performed: ' + this.isActionCard);
+    this.isPerforming = true;
+    console.log('performAction: ' + this.isPerforming);
     this.playerService.performAction(this.card).subscribe(
       res => console.log('Action card was played!')
     );
@@ -144,5 +148,10 @@ export class CardSlotComponent implements OnInit {
   magnify(mag: boolean) {
     console.log('Set magnify to ', mag);
     this.isMagnified = mag;
+  }
+
+  deleteBudgetBoard($event: boolean) {
+    this.isPerforming = false;
+    console.log('deleteBudgetBoard! | performAction: ' + this.isPerforming);
   }
 }

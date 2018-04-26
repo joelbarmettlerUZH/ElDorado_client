@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-budget-board',
@@ -6,28 +6,27 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./budget-board.component.css']
 })
 export class BudgetBoardComponent implements OnInit {
-  @Input()
-  public budgetBoardIsActive: boolean;
-  @Output() actionRequest = new EventEmitter<boolean>();
+  @Output() endActionRequest = new EventEmitter<boolean>();
+  public fadedIn: boolean;
 
 
   constructor() {
   }
 
   ngOnInit() {
-    this.budgetBoardIsActive = false;
-    this.actionRequest.emit(this.budgetBoardIsActive);
+    this.fadedIn = false;
   }
 
   onSelect() {
-    this.budgetBoardIsActive = !this.budgetBoardIsActive;
-    this.actionRequest.emit(this.budgetBoardIsActive);
+    console.log('Is hidden: ' + this.fadedIn);
+    this.fadedIn = !this.fadedIn;
+    console.log('Is hidden: ' + this.fadedIn);
   }
 
   endAction() {
-    this.budgetBoardIsActive = false;
-    this.actionRequest.emit(this.budgetBoardIsActive);
+    this.endActionRequest.emit(false);
   }
+
 
 }
 
