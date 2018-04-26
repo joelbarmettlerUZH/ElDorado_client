@@ -16,15 +16,14 @@
 }
 
 .subbutton {
+  position: relative;
   left: 0;
   top: 60px;
   margin-top: 6px;
   background-size: cover;
-  position: relative;
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   width: 218px;
   height: 45px;
-  /* font-family: Arial; */
   color: white;
   font-size: 20px;
   font-weight: normal;
@@ -53,3 +52,39 @@
 
 button:focus {outline:0 !important;}
 
+.navigation {
+  background-size: cover;
+  position: absolute;
+  width: 32px;
+  height: 33px;
+  background-color: transparent;
+  border: none;
+}
+
+#prevRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button.png');
+  left: 91px;
+  bottom: 0;
+}
+
+#prevRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#prevRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#nextRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button.png');
+  left: 126px;
+  bottom: 0;
+}
+
+#nextRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}
+
+#nextRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}

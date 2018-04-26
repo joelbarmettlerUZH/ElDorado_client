@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {Player} from '../../shared/models/Player';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Game} from '../../shared/models/Game';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-winner-screen',
@@ -14,7 +15,10 @@ export class WinnerScreenComponent implements OnInit {
   public winner: Player;
   private gameSubscription: Subscription;
 
-  constructor(private gameService: GameService) {
+  @Output()
+  public endRequest = new EventEmitter<boolean>();
+
+  constructor(private gameService: GameService, private router: Router) {
   }
 
   ngOnInit() {
@@ -27,6 +31,10 @@ export class WinnerScreenComponent implements OnInit {
         );
       }
     );
+  }
+
+  goToMainScreen() {
+    this.router.navigate(['/main-menu']);
   }
 }
 

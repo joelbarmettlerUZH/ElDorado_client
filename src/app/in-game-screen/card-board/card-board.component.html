@@ -1,3 +1,8 @@
+<app-budget-board [class.selected]="isActive" id="budget-board"
+                  [budgetBoardIsActive]="this.budgetBoardSelected"
+                  (actionRequest)="showEndScreen($event)"></app-budget-board>
 <div class="Card-Board" [class.selected]="isActive" (click)="onSelect()">
-<app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index" [card]="card"></app-card-slot>
+  <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index"
+                 [card]="card"
+                 (actionRequest)="showEndScreen($event)"></app-card-slot>
 </div>

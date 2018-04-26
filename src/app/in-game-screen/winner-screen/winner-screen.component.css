@@ -45,3 +45,35 @@
 .Name {
   font-size: 38px;
 }
+
+.main {
+  background-size: cover;
+  position: absolute;
+  bottom: 53px;
+  left: 636px;
+  margin: 0 auto;
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu.png');
+  background-color: transparent;
+  width: 98px;
+  height: 33px;
+  border: none;
+  border-radius: 4px;
+  opacity: 0.85;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
+}
+
+.main:hover {
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+}
+
+.main:disabled {
+  background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+}

@@ -5,7 +5,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
-import {CHARACTERS} from '../../shared/models/character-database';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
@@ -21,7 +20,9 @@ export class JoinButtonsComponent implements OnInit {
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   characters = POLLCHARACTER;
-  rooms: Room[];
+  allRooms: Room[];
+  displayedRooms: Room[];
+  private numRoomsToShow = 5;
   public subscription: Subscription;
   public token: string;
   public me: User;
@@ -40,9 +41,10 @@ export class JoinButtonsComponent implements OnInit {
     this.userId = Number(localStorage.getItem('userId'));
     this.subscription = this.roomService.getAllRooms().subscribe(
       res => {
-        this.rooms = res;
+        this.allRooms = res;
         console.log('REST | GET All Rooms ', res);
         // console.log('log in Join butoons', this.rooms[0]);
+        this.getNext(0);
       }
     );
   }
@@ -108,5 +110,13 @@ export class JoinButtonsComponent implements OnInit {
       });
 
     });
+  }
+
+  getPrev(start: number) {
+    this.displayedRooms = this.allRooms.slice(start - this.numRoomsToShow, start);
+  }
+
+  getNext(start: number) {
+    this.displayedRooms = this.allRooms.slice(start, this.numRoomsToShow);
   }
 }

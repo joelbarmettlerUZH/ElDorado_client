@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
-import {Character} from '../../shared/models/character';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {Player} from '../../shared/models/Player';
@@ -22,6 +21,7 @@ export class CardBoardComponent implements OnInit {
   public player: Player;
 
   private handPileSubscription: Subscription;
+  public budgetBoardSelected: boolean;
 
   constructor(private playerService: PlayerService,
               private cardsService: CardsService) {
@@ -31,6 +31,7 @@ export class CardBoardComponent implements OnInit {
   // @ViewChild(CardSlotComponent) slot;
 
   ngOnInit() {
+    this.budgetBoardSelected = false;
     this.playerService.rawGetter().subscribe(
       res => {
         const player: Player = res;
@@ -41,6 +42,11 @@ export class CardBoardComponent implements OnInit {
           });
       }
     );
+  }
+
+
+  pollHandPile() {
+    this.cards = this.cardsService.getHandCards();
   }
 
   getHandPile() {
@@ -57,5 +63,7 @@ export class CardBoardComponent implements OnInit {
     console.log('Is hidden: ' + this.isActive);
   }
 
-
+  showEndScreen(show: boolean) {
+    this.budgetBoardSelected = show;
+  }
 }

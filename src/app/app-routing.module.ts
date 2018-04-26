@@ -4,6 +4,7 @@ import {MainMenuComponent} from './main-menu/main-menu.component';
 import {BoardComponent} from './in-game-screen/map/board/board.component';
 import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
+
 // import {AuthGuardService} from './shared/services/auth-guard.service';
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
   {path: 'main-menu', component: MainMenuComponent},
   {path: 'game', component: InGameScreenComponent},
   { path: 'board', component: BoardComponent}
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

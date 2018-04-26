@@ -35,6 +35,7 @@ import {DefaultCharacterComponent} from './main-menu/default-character/default-c
 import {LoadingScreenComponent} from './in-game-screen/loading-screen/loading-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
 import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.component';
+import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -71,6 +72,7 @@ import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.com
     LoadingScreenComponent,
     WinnerScreenComponent,
     MagnifyComponent,
+    BudgetBoardComponent,
   ],
   imports: [
     BrowserModule,
