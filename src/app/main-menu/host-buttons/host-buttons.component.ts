@@ -60,6 +60,7 @@ export class HostButtonsComponent implements OnInit {
   onRouteSelected(route: Route) {
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
+      console.log('ROUTE ID!!!', route.id);
       this.roomService.createRoom(this.name, route.id).subscribe(res => {
         console.log('REST | POST ' + this.name + ' as new Room', res);
         this.room = res;

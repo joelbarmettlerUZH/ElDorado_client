@@ -1,9 +1,9 @@
 export class CreateRoom {
   name: string;
-  boardId: number;
+  boardnumber: number;
 
   constructor(name: string, boardId: number){
     this.name = name;
-    this.boardId = boardId;
+    this.boardnumber = boardId;
   }
 }

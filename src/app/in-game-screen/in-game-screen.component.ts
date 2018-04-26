@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {GameService} from '../shared/services/game.service';
 import {INTERVAL} from '../shared/services/INTERVAL';
+import {Player} from '../shared/models/Player';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -16,7 +17,7 @@ export class InGameScreenComponent implements OnInit {
   public loading = INTERVAL.loading();
   private loadingSubscription: Subscription;
   public lastRoundFinished: boolean;
-  public winner: any;
+  public winner: Player;
   private gameSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -26,17 +27,15 @@ export class InGameScreenComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.gameSubscription = Observable.interval(5000).subscribe(
-    //   res => {
-    //     this.gameService.getWinners().subscribe(
-    //       response => {
-    //         this.winner = response;
-    //         if (this.winner) {
-    //           this.lastRoundFinished = true;
-    //         }
-    //       });
-    //   }
-    // );
+     this.gameSubscription = Observable.interval(5000).subscribe(
+       res => {
+         this.winner = this.gameService.getWinners();
+         console.log('winners???', this.winner);
+         if (typeof this.winner[0].playerId !== 'undefined') {
+           this.lastRoundFinished = true;
+         }
+       }
+     );
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
