@@ -68,8 +68,17 @@ export class MarketboardComponent implements OnInit {
   }
 
   updateCoins() {
-    this.coinNumber = this.playerService.getPlayer().coins.toPrecision(1);
-    if (this.playerService.getPlayer().coins % 1 !== 1) {
+
+    console.log(this.playerService.getPlayer().coins);
+    if (Math.floor(this.playerService.getPlayer().coins) !== 0) {
+      this.coinNumber = Math.floor(this.playerService.getPlayer().coins).toPrecision(1);
+    } else {
+      this.coinNumber = '';
+    }
+    if (this.playerService.getPlayer().coins === 0) {
+      this.coinNumber = '0';
+    }
+    if (this.playerService.getPlayer().coins % 1 !== 0) {
       this.coinNumber = this.coinNumber + '\u00BD';
     }
   }
