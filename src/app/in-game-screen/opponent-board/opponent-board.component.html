@@ -1,4 +1,7 @@
 <div id="opponentSpace">
-    <!-- <div id="opponentNameBox">{{player.name}}</div> -->
-    <img *ngFor="let player of players" id="opponentPos" [class.notCurrent] = "current != player.characterNumber" src="../../../assets/GUI_Game/Opponent_{{player.characterNumber}}.png">
+  <div id="opponent" *ngFor="let player of players">
+    <img id="opponentImg" [class.notCurrent]="current != player.characterNumber"
+         src="../../../assets/GUI_Game/Opponent_{{player.characterNumber}}.png">
+    <div id="opponentName"> {{player.name}}</div>
+  </div>
 </div>

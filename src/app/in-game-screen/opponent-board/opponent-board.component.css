@@ -13,9 +13,10 @@
   position: absolute;
 }
 
-#opponentPos{
+#opponentImg {
   margin-top: 0;
 }
+
 #o0{
   top: 0;
 }
@@ -37,14 +38,19 @@
   top: 291px;
 }
 
-#opponentNameBox {
-  position: absolute;
-  left: 34px;
-  bottom: 41px;
-  width: 200px;
-  height: 33px;
-  color: #efdda9;
+#opponentName {
+  margin-top: 0;
+  position: relative;
+  top: -71px;
+  left: 46px;
+  opacity: 0.85;
+  font-style: italic;
   font-size: 18px;
-  font-weight: normal;
-  /*text-shadow: 2px 0 0 #4a4949, -2px 0 0 #4a4949, 0 2px 0 #4a4949, 0 -2px 0 #4a4949, 1px 1px #4a4949, -1px -1px 0 #4a4949, 1px -1px 0 #4a4949, -1px 1px 0 #4a4949*/
+  font-weight: bold;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
 }
