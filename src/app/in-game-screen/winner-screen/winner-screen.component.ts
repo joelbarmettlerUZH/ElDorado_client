@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Game} from '../../shared/models/Game';
 import {Router} from '@angular/router';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-winner-screen',
@@ -26,7 +27,7 @@ export class WinnerScreenComponent implements OnInit {
       res => {
         const game: Game = res;
         this.winner = game.winners;
-        this.gameSubscription = Observable.interval(5000).subscribe(
+        this.gameSubscription = Observable.interval(INTERVAL.winner()).subscribe(
           y => this.winner = this.gameService.getWinners()
         );
       }

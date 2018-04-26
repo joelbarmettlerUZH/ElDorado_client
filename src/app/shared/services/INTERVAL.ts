@@ -32,4 +32,8 @@ export class INTERVAL {
   static loading(): number {
     return 8;
   }
+
+  static winner(): number {
+    return 5000;
+  }
 }

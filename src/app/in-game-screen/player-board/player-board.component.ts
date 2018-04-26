@@ -31,11 +31,11 @@ export class PlayerBoardComponent implements OnInit {
     this.gameService.rawGetter().subscribe(
       response => {
         const game: Game = response;
-        this.ownPlayer = game.players.filter(player => player.playerId === Number(localStorage.getItem('playerId')))[0];
+        this.ownPlayer = game.players.filter(player => player.playerId === this.ownPlayerId)[0];
         this.ownCharacterId = this.ownPlayer.characterNumber;
         this.current = game.current;
         this.currentSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
-          res => {
+          y => {
             this.current = this.gameService.getCurrent();
           }
         );

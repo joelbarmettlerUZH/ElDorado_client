@@ -16,8 +16,7 @@ export class InGameScreenComponent implements OnInit {
   private loadingSubscription: Subscription;
   public lastRoundFinished: boolean;
 
-  constructor(private route: ActivatedRoute,
-              private location: Location) {
+  constructor(private route: ActivatedRoute, private location: Location) {
   }
 
   ngOnInit() {
