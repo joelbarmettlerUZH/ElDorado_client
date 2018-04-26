@@ -26,17 +26,17 @@ export class InGameScreenComponent implements OnInit {
 
 
   ngOnInit() {
-    this.gameSubscription = Observable.interval(5000).subscribe(
-      res => {
-        this.gameService.getWinners().subscribe(
-          response => {
-            this.winner = response;
-            if (this.winner !== []) {
-              this.lastRoundFinished = true;
-            }
-          });
-      }
-    );
+    // this.gameSubscription = Observable.interval(5000).subscribe(
+    //   res => {
+    //     this.gameService.getWinners().subscribe(
+    //       response => {
+    //         this.winner = response;
+    //         if (this.winner) {
+    //           this.lastRoundFinished = true;
+    //         }
+    //       });
+    //   }
+    // );
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
@@ -48,3 +48,4 @@ export class InGameScreenComponent implements OnInit {
     );
   }
 }
+
