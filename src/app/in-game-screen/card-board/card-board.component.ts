@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 // import {Observable} from 'rxjs/Rx';
 // import {CardSlotComponent} from '../card-slot/card-slot.component';
 
@@ -23,17 +24,24 @@ export class CardBoardComponent implements OnInit {
   public budgetBoardSelected: boolean;
 
   constructor(private playerService: PlayerService,
-              private cardsService: CardsService) { }
+              private cardsService: CardsService) {
+  }
 
   // used for updating the handcards after selling/discarding
   // @ViewChild(CardSlotComponent) slot;
 
   ngOnInit() {
     this.budgetBoardSelected = false;
-    this.handPileSubscription = Observable.interval(300).subscribe(
-          res => {
+    this.playerService.rawGetter().subscribe(
+      res => {
+        const player: Player = res;
+        this.cards = player.handPile;
+        this.handPileSubscription = Observable.interval(INTERVAL.handpile()).subscribe(
+          y => {
             this.getHandPile();
-      });
+          });
+      }
+    );
   }
 
 
@@ -42,14 +50,11 @@ export class CardBoardComponent implements OnInit {
   }
 
   getHandPile() {
-    this.playerService.getPlayer(Number(localStorage.getItem('playerId')))
-      .subscribe(response => {
-        this.player = response;
-        console.log('HandCards', this.player.handPile);
-        if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
-          this.cards = this.player.handPile;
-        }
-      });
+    this.player = this.playerService.getPlayer();
+    // console.log('HandCards', this.player.handPile);
+    if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
+      this.cards = this.player.handPile;
+    }
   }
 
   onSelect() {
@@ -57,7 +62,6 @@ export class CardBoardComponent implements OnInit {
     this.isActive = !this.isActive;
     console.log('Is hidden: ' + this.isActive);
   }
-
 
   showEndScreen(show: boolean) {
     this.budgetBoardSelected = show;

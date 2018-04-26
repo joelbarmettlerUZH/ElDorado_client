@@ -29,12 +29,12 @@ import {UserService} from './shared/services/user.service';
 import {JoinButtonsComponent} from './main-menu/join-buttons/join-buttons.component';
 import {GameService} from './shared/services/game.service';
 import {CardsService} from './shared/services/cards.service';
-import {CoinsService} from './shared/services/coins.service';
 import {CharacterComponent} from './main-menu/character/character.component';
 import {CharacterSelectionComponent} from './main-menu/character-selection/character-selection.component';
 import {DefaultCharacterComponent} from './main-menu/default-character/default-character.component';
 import {LoadingScreenComponent} from './in-game-screen/loading-screen/loading-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
+import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.component';
 import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
@@ -71,6 +71,7 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     DefaultCharacterComponent,
     LoadingScreenComponent,
     WinnerScreenComponent,
+    MagnifyComponent,
     BudgetBoardComponent,
   ],
   imports: [
@@ -81,7 +82,7 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, CardsService, CoinsService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService],
   bootstrap: [AppComponent]
 })
 

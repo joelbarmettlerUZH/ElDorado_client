@@ -4,11 +4,9 @@ import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
-import {CoinsService} from '../../shared/services/coins.service';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
-// import {Card} from '../../shared/models/Card';
-// import {MoveWrapper} from '../../shared/models/MoveWrapper';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-marketboard',
@@ -19,8 +17,7 @@ export class MarketboardComponent implements OnInit {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
-  // coin Number is displayed (see HTML)
-  public coinNumber: number;
+  public coinNumber = '0';
   public activeSlot: Slot[];
   public passiveSlot: Slot[];
   public purchasableSlot: Slot[];
@@ -31,32 +28,59 @@ export class MarketboardComponent implements OnInit {
   public ownPlayer: Player;
   public player: Player;
   private playerSubscription: Subscription;
+  private coinSubscription: Subscription;
+  public bought = false;
 
   constructor(private gameService: GameService,
-              private coinsService: CoinsService,
               private playerService: PlayerService
   ) {
-    this.coinsService.getLocalCoinNumber().subscribe(response => {
-      this.coinNumber = response;
-    });
     console.log('Marketboard | CoinNumber: ' + this.coinNumber);
   }
 
   ngOnInit() {
-    this.isFadedIn = false;
-    this.getMarket(true);
-    this.marketSubscription = Observable.interval(1000).subscribe(
-      sub => {
-        this.getMarket();
+    this.gameService.rawGetter().subscribe(
+      res => {
+        this.playerService.rawGetter().subscribe(
+          response => {
+            const tempPlayer: Player = response;
+            this.player = tempPlayer;
+            const market: MarketPlace = res;
+            this.isFadedIn = false;
+            this.market = market;
+            console.log('Reached market subscription');
+            this.marketSubscription = Observable.interval(INTERVAL.market()).subscribe(
+              sub => {
+                this.getMarket();
+              }
+            );
+            console.log('Reached player subscription');
+            this.playerSubscription = Observable.interval(INTERVAL.market()).subscribe(
+              sub => {
+                this.player = this.playerService.getPlayer();
+                this.bought = this.player.bought;
+              }
+            );
+            console.log('Reached coin subscription');
+            this.coinSubscription = Observable.interval(1000).subscribe(y => this.updateCoins());
+          });
       }
     );
-    this.playerSubscription = Observable.interval(1000).subscribe(
-      sub => {
-        this.playerService.getPlayer(Number(localStorage.getItem('userId'))).subscribe(player => {
-          this.player = player;
-        });
-      }
-    );
+  }
+
+  updateCoins() {
+
+    console.log(this.playerService.getPlayer().coins);
+    if (Math.floor(this.playerService.getPlayer().coins) !== 0) {
+      this.coinNumber = Math.floor(this.playerService.getPlayer().coins).toPrecision(1);
+    } else {
+      this.coinNumber = '';
+    }
+    if (this.playerService.getPlayer().coins === 0) {
+      this.coinNumber = '0';
+    }
+    if (this.playerService.getPlayer().coins % 1 !== 0) {
+      this.coinNumber = this.coinNumber + '\u00BD';
+    }
   }
 
   // Fade out Market Board
@@ -66,29 +90,25 @@ export class MarketboardComponent implements OnInit {
 
   // Get active market cards
   getMarket(initial: boolean = false) {
-    this.gameService.getMarket()
-      .subscribe(resp => {
-        // console.log('Updating market');
-        if ((JSON.stringify(this.market) === JSON.stringify(resp)) && !initial) {
-          return;
-        }
-        console.log('-Market update: DID change, performing update');
-        this.market = resp;
-        this.purchasableSlot = this.market.purchasable;
-        this.purchasableSlotIds = [];
-        for (let slot of this.purchasableSlot) {
-          this.purchasableSlotIds.push(slot.slotId);
-        }
-        this.passiveSlot = this.market.passive;
-        this.activeSlot = this.market.active;
-        this.purchasableSlot = this.market.purchasable;
-      });
+    const newMarket: MarketPlace = this.gameService.getMarket();
+    if ((JSON.stringify(this.market) === JSON.stringify(newMarket)) && !initial) {
+      return;
+    }
+    console.log('-Market update: DID change, performing update');
+    this.market = newMarket;
+    this.purchasableSlot = this.market.purchasable;
+    this.purchasableSlotIds = [];
+    for (const slot of this.purchasableSlot) {
+      this.purchasableSlotIds.push(slot.slotId);
+    }
+    this.passiveSlot = this.market.passive;
+    this.activeSlot = this.market.active;
+    this.purchasableSlot = this.market.purchasable;
   }
 
   buy(slot) {
     console.log('buy click was triggered:', slot.pile[0].id);
     this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
-    this.coinsService.updateLocalCoinNumber(this.player.coins);
   }
 
   steal(slot) {

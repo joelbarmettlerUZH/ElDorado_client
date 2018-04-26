@@ -3,12 +3,12 @@ import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
-import {CoinsService} from '../../shared/services/coins.service';
 import {Subscription} from 'rxjs/Subscription';
 import {SpecialAction} from '../../shared/models/SpecialAction';
 import {Observable} from 'rxjs/Observable';
 import {GameService} from '../../shared/services/game.service';
 import {Game} from '../../shared/models/Game';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -34,12 +34,12 @@ export class CardSlotComponent implements OnInit {
   private selectedCards: Card[];
   public gameSubscription: Subscription;
   public isCurrent = false;
-  @Output() actionRequest = new EventEmitter<boolean>();
+  public isMagnified = false;
 
+  @Output() actionRequest = new EventEmitter<boolean>();
 
   constructor(private gameService: GameService,
               private cardsService: CardsService,
-              private coinsService: CoinsService,
               private playerService: PlayerService) {
   }
 
@@ -47,28 +47,28 @@ export class CardSlotComponent implements OnInit {
     this.actionPossible = false;
     this.specialAction = new SpecialAction();
     console.log(this.card.name);
-    this.gameSubscription = Observable.interval(300).subscribe(
+    this.gameService.rawGetter().subscribe(
       res => {
-        this.getGame();
+        const game: Game = res;
+        this.isCurrent = game.current.playerId === Number(localStorage.getItem('playerId'));
+        this.playerService.rawGetter().subscribe(
+          response => {
+            const player: Player = response;
+            this.specialAction = player.specialAction;
+          }
+        );
+        this.gameSubscription = Observable.interval(INTERVAL.market()).subscribe(
+          y => {
+            this.getGame();
+          }
+        );
       }
     );
   }
 
   getGame() {
-    this.gameService.getGame().subscribe(
-      response => {
-        const game: Game = response;
-        const ownId = Number(localStorage.getItem('playerId'));
-        game.players.forEach(
-          player => {
-            if (player.playerId === ownId) {
-              this.specialAction = player.specialAction;
-            }
-          }
-        );
-        this.isCurrent = (game.current.playerId === ownId);
-      }
-    );
+    this.isCurrent = this.gameService.getCurrent().playerId === Number(localStorage.getItem('playerId'));
+    this.specialAction = this.playerService.getPlayer().specialAction;
   }
 
   remove() {
@@ -86,7 +86,6 @@ export class CardSlotComponent implements OnInit {
         this.player = response;
         this.hand = this.player.handPile; // not used for now.
         this.cardsService.removeSelectedCard(this.card);
-        this.coinsService.updateLocalCoinNumber(this.player.coins);
       }
     );
   }
@@ -133,8 +132,14 @@ export class CardSlotComponent implements OnInit {
     );
   }
 
+  closeFullscreen($event) {
+    console.log('Requesting to close fullscreen window')
+    const close: boolean = $event;
+    this.magnify(!close);
+  }
 
-
-  magnify() {
+  magnify(mag: boolean) {
+    console.log('Set magnify to ', mag);
+    this.isMagnified = mag;
   }
 }

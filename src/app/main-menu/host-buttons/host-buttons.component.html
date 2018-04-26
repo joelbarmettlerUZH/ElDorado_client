@@ -2,10 +2,10 @@
 
   <button class=button id="{{hostButton.id}}">{{hostButton.name}}</button>
 
-  <input #box class=namebutton id="roomName" (keyup.enter)="updateRoom(box.value)" placeholder="Rumos magnificos">
+  <input #box class=namebutton id="roomName" (keyup.enter)="updateRoom(box.value)" placeholder="Enter Room Name:">
 
   <div *ngFor="let route of routes">
-    <button class=subbutton id="{{route.name}}" (click)="onRouteSelected(route)">{{route.name}}</button>
+    <button class="subbutton path{{route.path}}" id="{{route.name}}" (click)="onRouteSelected(route)">{{route.name}}</button>
   </div>
 
 </div>

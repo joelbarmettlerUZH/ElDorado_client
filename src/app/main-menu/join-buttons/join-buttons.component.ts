@@ -100,11 +100,7 @@ export class JoinButtonsComponent implements OnInit {
           console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
           this.changeCharacterRequest.emit(room);
         });
-
-
-        // d)
       });
-
     });
   }
 
@@ -138,5 +134,4 @@ export class JoinButtonsComponent implements OnInit {
       }
     );
   }
-
 }

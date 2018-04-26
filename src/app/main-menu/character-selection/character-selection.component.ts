@@ -23,7 +23,7 @@ export class CharacterSelectionComponent implements OnInit {
 
   defaultCharacters = POLLCHARACTER;
   private roomSubscription: Subscription;
-  private gameSubscription: Subscription;
+  // private gameSubscription: Subscription;
   public pollRoom: Room;
   characters: PollCharacter[];
   mainMenu: boolean;
@@ -35,44 +35,45 @@ export class CharacterSelectionComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    console.log('character-selection')
+    console.log('character-selection');
     this.characters = this.defaultCharacters.slice(0);
     this.mainMenu = true;
   }
 
   pollingRoom(room: Room) {
-    this.roomSubscription = Observable.interval(300).subscribe(y => {
+    this.roomSubscription = Observable.interval(1000).subscribe(y => {
+      console.log(Number(localStorage.getItem('userId')));
+      this.game = this.gameService.getGame();
+      try {
+        if (this.gameService.getGame().gameId === Number(localStorage.getItem('gameId'))) {
+        const validGame = this.gameService.getGame().gameId > -1;
+        console.log('Rerouting now');
+        this.roomSubscription.unsubscribe();
+        this.router.navigate(['/game']);
+        }
+      } catch (e) {
+        console.log('Game did not start yet');
+      }
       this.roomService.getRoom(room.roomID).subscribe(
         request => {
           if (typeof this.pollRoom === 'undefined' || (JSON.stringify(this.pollRoom) !== JSON.stringify(request))) {
             console.log('change detected');
             this.pollRoom = request;
               for (const character of this.defaultCharacters) {
-                const users = this.pollRoom.users.filter(user => user.character === character.id);
-                  if (users.length > 0) {
-                    character.user = users[0];
-                    character.ready = users[0].ready;
-                    character.name = users[0].name;
-                  } else {
-                    character.user = null;
-                    character.ready = false;
-                    // reset name of unselected character
-                    character.name = this.defaultCharacters.filter(char => char.id === character.id)[0].name;
-                  }
+              const users = this.pollRoom.users.filter(user => user.character === character.id);
+              if (users.length > 0) {
+                character.user = users[0];
+                character.ready = users[0].ready;
+                character.name = users[0].name;
+              } else {
+                character.user = null;
+                character.ready = false;
+                // reset name of unselected character
+                character.name = this.defaultCharacters.filter(char => char.id === character.id)[0].name;
+              }
             }
           }
         });
-    });
-    this.gameSubscription = Observable.interval(1000).subscribe(y => {
-      console.log(Number(localStorage.getItem('userId')));
-      this.gameService.getGame().subscribe(game => {
-        this.game = game;
-        if (this.game.gameId === Number(localStorage.getItem('gameId'))) {
-          this.router.navigate(['/games', room.roomID]);
-          this.roomSubscription.unsubscribe();
-          this.gameSubscription.unsubscribe();
-        }
-      });
     });
   }
 
@@ -85,9 +86,10 @@ export class CharacterSelectionComponent implements OnInit {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+    /*
     if (this.gameSubscription) {
       this.gameSubscription.unsubscribe();
-    }
+    }*/
     this.mainMenu = true;
     this.characters = this.defaultCharacters;
     // this.characters.forEach(char => char.)
@@ -98,9 +100,10 @@ export class CharacterSelectionComponent implements OnInit {
     if (this.roomSubscription) {
       this.roomSubscription.unsubscribe();
     }
+    /*
     if (this.gameSubscription) {
       this.gameSubscription.unsubscribe();
-    }
+    }*/
     this.mainMenu = true;
 
   }

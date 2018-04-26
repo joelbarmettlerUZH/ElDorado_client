@@ -4,7 +4,7 @@
       <app-title></app-title>
       <app-character-selection #selectCharacter></app-character-selection>
       <app-main-menu-button-board (HigherCharacterRequest)="changeCharacters($event)"
-                                  (BackToHomeRequest)="restoreMainMenu($event)"
+                                  (BackToHomeRequest)="restoreMainMenu()"
                                   #childButtonArea></app-main-menu-button-board>
     </div>
   </div>

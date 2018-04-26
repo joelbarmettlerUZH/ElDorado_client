@@ -1,0 +1,30 @@
+.pop {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1 !important;
+  background-color: black;
+  cursor: pointer;
+}
+
+.semitrans{
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.gameRegion {
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+  margin-top: 0;
+}
+
+.card{
+  margin: auto;
+  margin-top: 140px;
+  display: block;
+  width: 327px;
+  heigth: 510px;
+}

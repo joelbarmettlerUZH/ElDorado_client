@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {GameService} from '../shared/services/game.service';
+import {INTERVAL} from '../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -12,7 +13,7 @@ import {GameService} from '../shared/services/game.service';
 })
 export class InGameScreenComponent implements OnInit {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  public loading = 15;
+  public loading = INTERVAL.loading();
   private loadingSubscription: Subscription;
   public lastRoundFinished: boolean;
   public winner: any;
@@ -22,6 +23,7 @@ export class InGameScreenComponent implements OnInit {
               private location: Location,
               private gameService: GameService) {
   }
+
 
   ngOnInit() {
     this.gameSubscription = Observable.interval(5000).subscribe(

@@ -6,6 +6,8 @@ import {Player} from '../../shared/models/Player';
 import {Observable, Subscribable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
+import {INTERVAL} from '../../shared/services/INTERVAL';
+import {Game} from '../../shared/models/Game';
 
 @Component({
   selector: 'app-opponent-board',
@@ -14,43 +16,30 @@ import {GameService} from '../../shared/services/game.service';
 })
 
 export class OpponentBoardComponent implements OnInit {
-  characters = CHARACTERS;
   players: Player[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  public current: number;
+  public current: Player;
 
   private playerSubscription: Subscription;
 
   constructor(private playerService: PlayerService, private gameService: GameService) {}
 
   ngOnInit() {
-    this.playerSubscription = Observable.interval(1000).subscribe(
-      res => {
-        this.getCurrent();
-      }
-    );
-    this.getPlayers();
-    console.log(this.players);
-  }
-
-  getCurrent() {
-    this.gameService.getCurrent().subscribe(
-      res => {
-        const c: Player = res;
-        this.current = c.characterNumber;
-      }
-    );
-  }
-
-  getPlayers(): void {
-    this.gameService.getPlayers()
-      .subscribe(players => {
-        console.log(this.ownPlayerId);
-        const allPlayers: Player[] = players;
-        this.players = allPlayers.filter(
+    this.gameService.rawGetter().subscribe(
+      response => {
+        const game: Game = response;
+        this.players = game.players;
+        this.current = game.current;
+        this.players = this.players.filter(
           player => player.playerId !== this.ownPlayerId
         );
-      });
+        this.playerSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
+          res => {
+            this.current = this.gameService.getCurrent();
+          }
+        );
+        // console.log(this.players);
+      }
+    );
   }
-
 }

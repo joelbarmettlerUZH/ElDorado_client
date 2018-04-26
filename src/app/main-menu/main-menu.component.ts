@@ -4,6 +4,7 @@ import {MainMenuButtonBoardComponent} from './main-menu-button-board/main-menu-b
 import {UserService} from '../shared/services/user.service';
 import {CharacterSelectionComponent} from './character-selection/character-selection.component';
 import {Room} from '../shared/models/Room';
+import {saveGameId} from '../shared/cookieHandler';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit() {
     // delete local storage and respective user when refreshing
+    saveGameId(-1);
     this.restoreStorage();
     this.mainMenuScreen = 'main-menu';
   }
@@ -44,7 +46,7 @@ export class MainMenuComponent implements OnInit {
   // 1. action: on event received: invoke method on select-character component
   // 2. action: see select-character component
   // ToDo exchange paramter
-  private restoreMainMenu() {
+  public restoreMainMenu() {
     this.restoreStorage();
     console.log('Restore MainMenu');
     this.selectCharacter.generateMainMenuView();
@@ -77,7 +79,7 @@ export class MainMenuComponent implements OnInit {
   // a) on got request: call join view on child
   // 4. action: see selected-character component
 
-  private changeCharacters(room: Room) {
+  public changeCharacters(room: Room) {
     console.log('ERHALTEN: HigherCharacterRequest');
     console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
     this.selectCharacter.generateJoinView(room);

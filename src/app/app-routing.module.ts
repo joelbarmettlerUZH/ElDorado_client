@@ -9,13 +9,13 @@ import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-scree
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-menu', pathMatch: 'full'},
+  {path: 'winner-screen', component: WinnerScreenComponent},
   // // otherwise redirect to home
   // { path: '**', redirectTo: '' },
   {path: 'main-menu', component: MainMenuComponent},
-  {path: 'games/:gameId', component: InGameScreenComponent},
-  {path: 'board', component: BoardComponent},
-  {path: 'winner-screen', component: WinnerScreenComponent},
-];
+  {path: 'game', component: InGameScreenComponent},
+  { path: 'board', component: BoardComponent}
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
