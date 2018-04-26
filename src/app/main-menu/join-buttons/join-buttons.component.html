@@ -2,8 +2,9 @@
 
   <button class=joinbutton id="{{joinButton.id}}">{{joinButton.name}}</button>
 
-  <div *ngFor="let room of rooms">
+  <div *ngFor="let room of displayedRooms">
     <button class=subbutton id="{{room.name}}" (click)="onRoomSelected(room)">{{room.name}}</button>
   </div>
-
+  <button class=navigation id="prevRooms" (click)="getPrev()"></button>
+  <button class=navigation id="nextRooms" (click)="getNext()"></button>
 </div>
