@@ -5,7 +5,7 @@ import {CreateRoom} from '../models/createRoom';
 import {User} from '../models/User';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Room} from '../models/Room';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RoomService {
@@ -19,8 +19,8 @@ export class RoomService {
 
 
   // returns all rooms
-  public getAllRooms() {
-    const url = this.baseUrl + 'Room';
+  public getAllRooms(start?: number, end?: number) {
+    const url = this.baseUrl + 'Room?from=' + start + '&to=' + end;
     this.http.get(url).map(res => this.listRooms$ = res.json());
     console.log('service variable:', this.listRooms$);
     return this.http.get(url).map(res => this.listRooms$ = res.json());

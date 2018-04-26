@@ -11,4 +11,4 @@
   </div>
   </div>
 </div>
-<app-winner-screen *ngIf="lastRoundFinished" (endRequest)="showEndScreen($event)"></app-winner-screen>
+<app-winner-screen [winner]=winner *ngIf="lastRoundFinished"></app-winner-screen>

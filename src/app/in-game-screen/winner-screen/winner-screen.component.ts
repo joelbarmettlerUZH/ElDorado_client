@@ -1,8 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {GameService} from '../../shared/services/game.service';
-import {Player} from '../../shared/models/Player';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,25 +7,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./winner-screen.component.css']
 })
 export class WinnerScreenComponent implements OnInit {
-  public winner: Player;
-  private gameSubscription: Subscription;
-  @Output() endRequest = new EventEmitter<boolean>();
+  @Input() winner: any;
 
-  constructor(private gameService: GameService, private router: Router) {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
-    this.gameSubscription = Observable.interval(5000).subscribe(
-      res => {
-        this.gameService.getWinners().subscribe(
-          response => {
-            this.winner = response;
-            if (this.winner) {
-              this.endRequest.emit(true);
-            }
-          });
-      }
-    );
   }
 
   goToMainScreen() {

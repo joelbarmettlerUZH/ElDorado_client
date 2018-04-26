@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {RoomService} from '../../shared/services/room.service';
-import {Subscription} from 'rxjs/Subscription';
 import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
@@ -20,10 +19,9 @@ export class JoinButtonsComponent implements OnInit {
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   characters = POLLCHARACTER;
-  allRooms: Room[];
   displayedRooms: Room[];
+  start: number;
   private numRoomsToShow = 5;
-  public subscription: Subscription;
   public token: string;
   public me: User;
   private preMe: CreateUser;
@@ -39,12 +37,10 @@ export class JoinButtonsComponent implements OnInit {
 
   ngOnInit() {
     this.userId = Number(localStorage.getItem('userId'));
-    this.subscription = this.roomService.getAllRooms().subscribe(
+    this.start = 0;
+    this.roomService.getAllRooms(this.start, this.start + this.numRoomsToShow - 1).subscribe(
       res => {
-        this.allRooms = res;
-        console.log('REST | GET All Rooms ', res);
-        // console.log('log in Join butoons', this.rooms[0]);
-        this.getNext(0);
+        this.displayedRooms = res;
       }
     );
   }
@@ -112,11 +108,35 @@ export class JoinButtonsComponent implements OnInit {
     });
   }
 
-  getPrev(start: number) {
-    this.displayedRooms = this.allRooms.slice(start - this.numRoomsToShow, start);
+  getPrev() {
+    this.start = Math.max(this.start - this.numRoomsToShow, 0);
+    console.log('Previous clicked, start: ' + this.start);
+    console.log('Previous clicked, end: ' + (this.start + this.numRoomsToShow - 1));
+    this.roomService.getAllRooms(this.start, this.start + this.numRoomsToShow - 1).subscribe(
+      res => {
+        this.displayedRooms = res;
+      }
+    );
   }
 
-  getNext(start: number) {
-    this.displayedRooms = this.allRooms.slice(start, this.numRoomsToShow);
+  getNext() {
+    console.log('Next clicked, start: ' + (this.start + this.numRoomsToShow));
+    console.log('Next clicked, end: ' + (this.start + 2 * this.numRoomsToShow - 1));
+
+    this.roomService.getAllRooms(this.start + this.numRoomsToShow, this.start + 2 * this.numRoomsToShow - 1).subscribe(
+      res => {
+        if (res) {
+          this.displayedRooms = res;
+        } else {
+          this.start = this.start - this.numRoomsToShow;
+          this.roomService.getAllRooms(this.start + this.numRoomsToShow, this.start + 2 * this.numRoomsToShow - 1).subscribe(
+            resultat => {
+              this.displayedRooms = resultat;
+            }
+          );
+        }
+      }
+    );
   }
+
 }

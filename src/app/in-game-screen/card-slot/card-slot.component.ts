@@ -97,6 +97,7 @@ export class CardSlotComponent implements OnInit {
     }
     this.isActive = !this.isActive;
     this.actionPossible = false;
+    console.log('actionPossible | pre card selection: ' + this.actionPossible);
     if (this.specialAction.remove > 0) {
       this.remove();
       this.cardsService.removeHandCard(this.card);
@@ -104,6 +105,7 @@ export class CardSlotComponent implements OnInit {
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
       this.actionPossible = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
+      console.log('actionPossible | after card selection: ' + this.actionPossible);
       if (this.actionPossible) {
         const element = document.getElementById('ActionCard');
         this.actionRequest.emit(true);
@@ -125,6 +127,7 @@ export class CardSlotComponent implements OnInit {
 
   performAction() {
     this.actionPossible = false;
+    console.log('actionPossible | after action performed: ' + this.actionPossible);
     this.playerService.performAction(this.card).subscribe(
       res => console.log('Action card was played!')
     );

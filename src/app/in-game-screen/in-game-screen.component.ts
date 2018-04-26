@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
+import {GameService} from '../shared/services/game.service';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -14,12 +15,26 @@ export class InGameScreenComponent implements OnInit {
   public loading = 15;
   private loadingSubscription: Subscription;
   public lastRoundFinished: boolean;
+  public winner: any;
+  private gameSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private gameService: GameService) {
   }
 
   ngOnInit() {
+    this.gameSubscription = Observable.interval(5000).subscribe(
+      res => {
+        this.gameService.getWinners().subscribe(
+          response => {
+            this.winner = response;
+            if (this.winner !== []) {
+              this.lastRoundFinished = true;
+            }
+          });
+      }
+    );
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
@@ -29,9 +44,5 @@ export class InGameScreenComponent implements OnInit {
         }
       }
     );
-  }
-
-  showEndScreen() {
-    this.lastRoundFinished = true;
   }
 }
