@@ -53,7 +53,7 @@ export class GameService {
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Blockade').map(res => res.json());
   }
 
-  // Gets winners
+  // Gets winner
   public getWinners() {
     const gameId = Number(localStorage.getItem('gameId'));
     return this.http.get(this.baseUrl + 'Game/' + gameId + '/Winner').map(res => res.json());

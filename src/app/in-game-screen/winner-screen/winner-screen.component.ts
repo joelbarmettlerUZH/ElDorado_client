@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {Player} from '../../shared/models/Player';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-winner-screen',
@@ -10,10 +11,11 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./winner-screen.component.css']
 })
 export class WinnerScreenComponent implements OnInit {
-  public winners: Player[];
+  public winner: Player;
   private gameSubscription: Subscription;
+  @Output() endRequest = new EventEmitter<boolean>();
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: GameService, private router: Router) {
   }
 
   ngOnInit() {
@@ -21,10 +23,17 @@ export class WinnerScreenComponent implements OnInit {
       res => {
         this.gameService.getWinners().subscribe(
           response => {
-            this.winners = response;
+            this.winner = response;
+            if (this.winner) {
+              this.endRequest.emit(true);
+            }
           });
       }
     );
+  }
+
+  goToMainScreen() {
+    this.router.navigate(['/main-menu']);
   }
 }
 

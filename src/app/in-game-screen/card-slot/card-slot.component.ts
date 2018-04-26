@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
@@ -34,6 +34,7 @@ export class CardSlotComponent implements OnInit {
   private selectedCards: Card[];
   public gameSubscription: Subscription;
   public isCurrent = false;
+  @Output() actionRequest = new EventEmitter<boolean>();
 
 
   constructor(private gameService: GameService,
@@ -105,6 +106,7 @@ export class CardSlotComponent implements OnInit {
       this.actionPossible = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
       if (this.actionPossible) {
         const element = document.getElementById('ActionCard');
+        this.actionRequest.emit(true);
       }
     } else {
       this.cardsService.removeSelectedCard(this.card);

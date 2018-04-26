@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import {PlayerService} from '../shared/services/player.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 
@@ -14,19 +13,25 @@ export class InGameScreenComponent implements OnInit {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public loading = 15;
   private loadingSubscription: Subscription;
+  public lastRoundFinished: boolean;
 
-  constructor(  private route: ActivatedRoute,
-                private location: Location) { }
+  constructor(private route: ActivatedRoute,
+              private location: Location) {
+  }
 
   ngOnInit() {
+    this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
-        res => {
-      this.loading--;
-      if (this.loading <= 0 ) {
-        this.loadingSubscription.unsubscribe();
+      res => {
+        this.loading--;
+        if (this.loading <= 0) {
+          this.loadingSubscription.unsubscribe();
+        }
       }
-    }
     );
   }
 
+  showEndScreen() {
+    this.lastRoundFinished = true;
+  }
 }
