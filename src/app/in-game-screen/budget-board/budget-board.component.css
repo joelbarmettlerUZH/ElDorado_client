@@ -1,0 +1,40 @@
+#budget-board {
+  position: absolute;
+  bottom: 0;
+  left: 554px;
+  background-size: cover;
+  background-color: transparent;
+  background-image: url('../../../assets/GUI_Game/Action-Panel.png');
+  width: 269px;
+  height: 176px;
+  transition: 0.3s;
+}
+
+.budget-board-selected {
+  right: -120px;
+  transition: 2.3s;
+  background-color: transparent;
+}
+
+#endAction {
+  position: absolute;
+  left: 115px;
+  bottom: 40px;
+  background-size: cover;
+  background-image: url('../../../assets/GUI_Game/Button_Endround_YES.png');
+  width: 90px;
+  height: 44px;
+  border: none;
+  background-color: transparent;
+  opacity: 0.85;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
+}
+
