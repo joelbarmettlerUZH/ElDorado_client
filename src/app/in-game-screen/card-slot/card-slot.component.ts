@@ -34,7 +34,7 @@ export class CardSlotComponent implements OnInit {
   private selectedCards: Card[];
   public gameSubscription: Subscription;
   public isCurrent = false;
-
+  public isMagnified = false;
 
   constructor(private gameService: GameService,
               private cardsService: CardsService,
@@ -126,8 +126,14 @@ export class CardSlotComponent implements OnInit {
     );
   }
 
+  closeFullscreen($event) {
+    console.log('Requesting to close fullscreen window')
+    const close: boolean = $event;
+    this.magnify(!close);
+  }
 
-
-  magnify() {
+  magnify(mag: boolean) {
+    console.log('Set magnify to ', mag);
+    this.isMagnified = mag;
   }
 }

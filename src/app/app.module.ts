@@ -34,6 +34,7 @@ import {CharacterSelectionComponent} from './main-menu/character-selection/chara
 import {DefaultCharacterComponent} from './main-menu/default-character/default-character.component';
 import {LoadingScreenComponent} from './in-game-screen/loading-screen/loading-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
+import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -69,6 +70,7 @@ import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-scree
     DefaultCharacterComponent,
     LoadingScreenComponent,
     WinnerScreenComponent,
+    MagnifyComponent,
   ],
   imports: [
     BrowserModule,
