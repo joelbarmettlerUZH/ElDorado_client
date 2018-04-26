@@ -22,6 +22,9 @@ export class CardSlotComponent implements OnInit {
   @Input()
   public card: Card;
 
+  @Input()
+  singleActionCard: boolean;
+
   // store new Handpile after selling/ discarding
   public hand: Card[];
   // intermediate step to store response from selling/discarding
@@ -30,11 +33,12 @@ export class CardSlotComponent implements OnInit {
   public specialAction: SpecialAction;
   public margin = 50;
   public playerSubscription: Subscription;
-  public actionPossible: boolean;
   private selectedCards: Card[];
   public gameSubscription: Subscription;
   public isCurrent = false;
   public isMagnified = false;
+  public isActionCard: boolean;
+
 
   @Output() actionRequest = new EventEmitter<boolean>();
 
@@ -44,7 +48,7 @@ export class CardSlotComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.actionPossible = false;
+    this.isActionCard = false;
     this.specialAction = new SpecialAction();
     console.log(this.card.name);
     this.gameService.rawGetter().subscribe(
@@ -95,19 +99,18 @@ export class CardSlotComponent implements OnInit {
       return;
     }
     this.isActive = !this.isActive;
-    this.actionPossible = false;
-    console.log('actionPossible | pre card selection: ' + this.actionPossible);
+    this.isActionCard = false;
     if (this.specialAction.remove > 0) {
       this.remove();
       this.cardsService.removeHandCard(this.card);
     } else if (this.isActive) {
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
-      this.actionPossible = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
-      console.log('actionPossible | after card selection: ' + this.actionPossible);
-      if (this.actionPossible) {
-        const element = document.getElementById('ActionCard');
+      this.isActionCard = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
+      console.log('singleActionCard | slot: ' + this.singleActionCard);
+      if (this.isActionCard) {
         this.actionRequest.emit(true);
+        console.log('isActionCard | Action Card selected: ' + this.isActionCard);
       }
     } else {
       this.cardsService.removeSelectedCard(this.card);
@@ -125,15 +128,15 @@ export class CardSlotComponent implements OnInit {
   }
 
   performAction() {
-    this.actionPossible = false;
-    console.log('actionPossible | after action performed: ' + this.actionPossible);
+    this.isActionCard = false;
+    console.log('isActionCard | after action performed: ' + this.isActionCard);
     this.playerService.performAction(this.card).subscribe(
       res => console.log('Action card was played!')
     );
   }
 
   closeFullscreen($event) {
-    console.log('Requesting to close fullscreen window')
+    console.log('Requesting to close fullscreen window');
     const close: boolean = $event;
     this.magnify(!close);
   }

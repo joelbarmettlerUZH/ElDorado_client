@@ -16,12 +16,15 @@ import {INTERVAL} from '../../shared/services/INTERVAL';
 })
 export class CardBoardComponent implements OnInit {
 
-  public cards: Card[];
   public isActive = false;
   public player: Player;
-
+  public cards: Card[];
+  public selectedCards: Card[] = [];
+  public singleActionCard: boolean;
   private handPileSubscription: Subscription;
   public budgetBoardSelected: boolean;
+  private cardSucbscription: Subscription;
+
 
   constructor(private playerService: PlayerService,
               private cardsService: CardsService) {
@@ -31,6 +34,7 @@ export class CardBoardComponent implements OnInit {
   // @ViewChild(CardSlotComponent) slot;
 
   ngOnInit() {
+    this.singleActionCard = false;
     this.budgetBoardSelected = false;
     this.playerService.rawGetter().subscribe(
       res => {
@@ -42,6 +46,20 @@ export class CardBoardComponent implements OnInit {
           });
       }
     );
+    this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
+      res => {
+        this.updateCards();
+        this.checkForSingleActionCard();
+      }
+    );
+  }
+
+  updateCards() {
+    const newCards: Card[] = this.cardsService.getSelectedCards();
+    if (newCards.length !== this.selectedCards.length) {
+      console.log('-Card update: Change detected: ', this.selectedCards, newCards);
+      this.selectedCards = newCards;
+    }
   }
 
 
@@ -65,5 +83,16 @@ export class CardBoardComponent implements OnInit {
 
   showEndScreen(show: boolean) {
     this.budgetBoardSelected = show;
+  }
+
+  private checkForSingleActionCard() {
+    if (this.selectedCards.length === 1) {
+      this.singleActionCard = (this.selectedCards[0].type === 'ActionCard' || this.selectedCards[0].type === 'RemoveActionCard');
+      console.log('Card Type | board:  ' + this.selectedCards[0].type);
+      console.log('singleActionCard | board: ' + this.singleActionCard);
+    } else {
+      this.singleActionCard = false;
+      console.log('singleActionCard | board: ' + this.singleActionCard);
+    }
   }
 }

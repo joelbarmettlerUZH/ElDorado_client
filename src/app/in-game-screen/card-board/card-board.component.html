@@ -4,5 +4,7 @@
 <div class="Card-Board" [class.selected]="isActive" (click)="onSelect()">
   <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index"
                  [card]="card"
-                 (actionRequest)="showEndScreen($event)"></app-card-slot>
+                 [singleActionCard]="singleActionCard"
+                 (actionRequest)="showEndScreen($event)"
+  ></app-card-slot>
 </div>
