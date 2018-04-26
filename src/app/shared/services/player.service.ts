@@ -136,4 +136,9 @@ export class PlayerService {
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Blockade/?token=' + this.token, blockade).map(res => res.json());
   }
 
+  // Resets action budget
+  public resetSpecialActions() {
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/EndAction/?token=' + this.token, '').map(res => res.json());
+  }
+
 }

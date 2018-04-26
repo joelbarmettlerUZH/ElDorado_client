@@ -1,7 +1,5 @@
-<div id="budget-board" [class.budget-board-selected]="fadedIn" (click)="onSelect()">
-  <button id="endAction" (click)="endAction()">
-    Action
-    <br>
-    done
-  </button>
-</div>
+<button id="endAction" (click)="endAction()" *ngIf="isPerforming">
+  Action
+  <br>
+  done
+</button>

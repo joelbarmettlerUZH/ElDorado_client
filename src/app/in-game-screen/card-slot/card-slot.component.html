@@ -1,7 +1,3 @@
-<app-budget-board *ngIf="isPerforming"
-                  id="budget-board"
-                  (endActionRequest)="deleteBudgetBoard($event)"></app-budget-board>
-
 <app-magnify [card]="card" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
 
 <div class="Slot" [class.selected]="isActive" (click)="onSelect()">

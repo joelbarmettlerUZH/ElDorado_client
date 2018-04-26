@@ -1,24 +1,6 @@
-#budget-board {
-  position: absolute;
-  bottom: 0;
-  left: 554px;
-  background-size: cover;
-  background-color: transparent;
-  background-image: url('../../../assets/GUI_Game/Action-Panel.png');
-  width: 269px;
-  height: 176px;
-  transition: 0.3s;
-}
-
-.budget-board-selected {
-  right: -80px;
-  transition: 2.3s;
-  background-color: transparent;
-}
-
 #endAction {
   position: absolute;
-  left: 115px;
+  right: -90px;
   bottom: 40px;
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Button_Endround_YES.png');

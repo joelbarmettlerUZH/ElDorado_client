@@ -1,4 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {PlayerService} from '../../shared/services/player.service';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SpecialAction} from '../../shared/models/SpecialAction';
 
 @Component({
   selector: 'app-budget-board',
@@ -7,24 +12,25 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class BudgetBoardComponent implements OnInit {
   @Output() endActionRequest = new EventEmitter<boolean>();
-  public fadedIn: boolean;
+  public isPerforming = false;
+  public SpecialActionSubscribtion: Subscription
 
-
-  constructor() {
+  constructor(private playerService: PlayerService) {
   }
 
   ngOnInit() {
-    this.fadedIn = false;
-  }
-
-  onSelect() {
-    console.log('Is hidden: ' + this.fadedIn);
-    this.fadedIn = !this.fadedIn;
-    console.log('Is hidden: ' + this.fadedIn);
+    this.playerService.rawGetter().subscribe(res => {
+      this.SpecialActionSubscribtion = Observable.interval(INTERVAL.specialAction()).subscribe(response => {
+        const budget: SpecialAction = this.playerService.getPlayer().specialAction;
+        this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;
+      });
+    });
   }
 
   endAction() {
-    this.endActionRequest.emit(false);
+    this.playerService.resetSpecialActions().subscribe(y => {
+      console.log('ended special action');
+    });
   }
 
 

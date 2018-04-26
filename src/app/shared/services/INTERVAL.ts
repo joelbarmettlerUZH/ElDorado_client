@@ -36,4 +36,8 @@ export class INTERVAL {
   static winner(): number {
     return 5000;
   }
+
+  static specialAction(): number {
+    return 1000;
+  }
 }

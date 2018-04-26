@@ -2,4 +2,5 @@
   <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index"
                  [card]="card"
                  [singleActionCard]="singleActionCard"></app-card-slot>
+  <app-budget-board id="budget-board"></app-budget-board>
 </div>
