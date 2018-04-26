@@ -71,3 +71,20 @@ button:disabled {
   opacity: 0.6; /* Real browsers */
   filter: alpha(opacity=60); /* MSIE */
 }
+
+#ownName {
+  left: 100px;
+  position: absolute;
+  bottom: 114px;
+  text-align: center;
+  opacity: 0.85;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
+}
