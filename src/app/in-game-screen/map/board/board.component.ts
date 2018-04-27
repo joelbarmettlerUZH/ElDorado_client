@@ -77,21 +77,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   // Module responsible for dragging and zooming the main board
   panZoom() {
-    const $section = $('#board');
-    const $panzoom = $section.find('.panzoom').panzoom();
+    var $section = $('#board');
+    var $panzoom = $section.find('.panzoom').panzoom();
     $panzoom.parent().on('mousewheel.focal', function (e) {
       e.preventDefault();
-      const delta = e.delta || e.originalEvent.wheelDelta;
-      const zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+      var delta = e.delta || e.originalEvent.wheelDelta;
+      var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
       $panzoom.panzoom('zoom', zoomOut, {
-        minScale: 0.4,
-        maxScale: 0.5,
-        increment: 0.13,
+        increment: 0.1,
         animate: false,
-        // Animation duration (ms)
-        duration: 200,
-        // CSS easing used for scale transition
-        easing: 'ease-in-out',
         focal: e
       });
     });

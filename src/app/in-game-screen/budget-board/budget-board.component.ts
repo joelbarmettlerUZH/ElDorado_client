@@ -11,9 +11,8 @@ import {SpecialAction} from '../../shared/models/SpecialAction';
   styleUrls: ['./budget-board.component.css']
 })
 export class BudgetBoardComponent implements OnInit {
-  @Output() endActionRequest = new EventEmitter<boolean>();
   public isPerforming = false;
-  public SpecialActionSubscribtion: Subscription
+  public SpecialActionSubscribtion: Subscription;
 
   constructor(private playerService: PlayerService) {
   }

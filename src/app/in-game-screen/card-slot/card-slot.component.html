@@ -5,8 +5,8 @@
   <button id="Sell" (click)="sell()"></button>
   <button id="Discard" (click)="discard()"></button>
   <button id="Magnify" (click)="magnify(true)"></button>
-  <button id="ActionCard" *ngIf="singleActionCard && isActionCard && !isPerforming"
-          (click)="performAction()">Action?
+  <button id="ActionCard" *ngIf="singleActionCard && isActionCard"
+          (click)="performAction()">Action
   </button>
 </div>
 
