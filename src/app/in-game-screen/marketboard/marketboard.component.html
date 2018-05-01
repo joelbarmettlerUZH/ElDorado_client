@@ -3,29 +3,15 @@
   <div id="active" class="Slot">
     <div id="coinNumberDisplay">{{coinNumber}}</div>
     <img (click)="$event.stopPropagation()" (click)="takeCard(slot)" *ngFor="let slot of activeSlot"
-         [class.isNotPuchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
+         [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
          class="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
   <div id="passive" class="Slot">
     <img (click)="$event.stopPropagation()" (click)="takeCard(slot)" *ngFor="let slot of passiveSlot"
-         [class.isNotPuchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
+         [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
          class="position"
          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
   </div>
 </div>
 </div>
-
-<!-- // show multiple cards of same type in market
-<div class="Marketboard" id="marketboard" (click)="fadeInOut()">
-  <div id="active">
-    <div id = "position" *ngFor="let slot of activeSlot">
-      <div id = "multiple" *ngFor="let Card of slot.pile">
-        <img  src="../../../assets/Karten/fake{{Card.name}}.png">
-      </div>
-    </div>
-  </div>
-
-  <div id="passive"></div>
-</div>
--->

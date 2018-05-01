@@ -6,8 +6,6 @@ import {Observable} from 'rxjs/Observable';
 import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
 import {INTERVAL} from '../../shared/services/INTERVAL';
-// import {Observable} from 'rxjs/Rx';
-// import {CardSlotComponent} from '../card-slot/card-slot.component';
 
 @Component({
   selector: 'app-card-board',
@@ -22,7 +20,7 @@ export class CardBoardComponent implements OnInit {
   public selectedCards: Card[] = [];
   public singleActionCard: boolean;
   private handPileSubscription: Subscription;
-  private cardSucbscription: Subscription;
+  private cardSubscription: Subscription;
 
 
   constructor(private playerService: PlayerService,
@@ -44,7 +42,7 @@ export class CardBoardComponent implements OnInit {
           });
       }
     );
-    this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
+    this.cardSubscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
       res => {
         this.updateCards();
         this.checkForSingleActionCard();
