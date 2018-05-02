@@ -30,13 +30,21 @@ export class PlayerBoardComponent implements OnInit {
   ngOnInit() {
     this.gameService.rawGetter().subscribe(
       response => {
+        this.playerService.rawGetter().subscribe(
+          res => {
+            this.ownPlayer = res;
+            this.ownCharacterId = this.ownPlayer.characterNumber;
+          }
+        );
         const game: Game = response;
-        this.ownPlayer = game.players.filter(player => player.playerId === this.ownPlayerId)[0];
-        this.ownCharacterId = this.ownPlayer.characterNumber;
         this.current = game.current;
         this.currentSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
-          y => {
-            this.current = this.gameService.getCurrent();
+          () => {
+            try {
+              this.current = this.gameService.getCurrent();
+            } catch (e) {
+              console.log('Error in getting current player for own character');
+            }
           }
         );
       }

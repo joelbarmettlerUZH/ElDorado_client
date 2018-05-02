@@ -65,7 +65,11 @@ export class CardSlotComponent implements OnInit {
         );
         this.gameSubscription = Observable.interval(INTERVAL.market()).subscribe(
           y => {
-            this.getGame();
+            try {
+              this.getGame();
+            } catch (e) {
+              console.log('Error in getting Game for card Slot');
+            }
           }
         );
       }

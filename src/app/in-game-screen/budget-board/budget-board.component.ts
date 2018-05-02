@@ -19,9 +19,13 @@ export class BudgetBoardComponent implements OnInit {
 
   ngOnInit() {
     this.playerService.rawGetter().subscribe(res => {
-      this.SpecialActionSubscribtion = Observable.interval(INTERVAL.specialAction()).subscribe(response => {
-        const budget: SpecialAction = this.playerService.getPlayer().specialAction;
-        this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;
+      this.SpecialActionSubscribtion = Observable.interval(INTERVAL.specialAction()).subscribe(() => {
+        try {
+          const budget: SpecialAction = this.playerService.getPlayer().specialAction;
+          this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;
+        } catch (e) {
+          console.log('Error in performing action');
+        }
       });
     });
   }

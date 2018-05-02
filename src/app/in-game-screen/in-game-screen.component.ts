@@ -35,12 +35,10 @@ export class InGameScreenComponent implements OnInit {
           try {
             this.winner = this.gameService.getWinners();
             this.game = this.gameService.getGame();
-            console.log('winners???', this.winner);
             if (!this.game.running) {
               this.lastRoundFinished = true;
             }
           } catch (e) {
-            console.log('could not get winners yet');
           }
         }
       );
@@ -48,9 +46,14 @@ export class InGameScreenComponent implements OnInit {
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
-        this.loading--;
-        if (this.loading <= 0) {
-          this.loadingSubscription.unsubscribe();
+        try {
+          this.loading--;
+          if (this.loading <= 0) {
+            localStorage.setItem('load', 'notFirst');
+            this.loadingSubscription.unsubscribe();
+          }
+        } catch (e) {
+          console.log('Error in loading screen');
         }
       }
     );

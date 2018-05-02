@@ -50,18 +50,32 @@ export class MarketboardComponent implements OnInit {
             console.log('Reached market subscription');
             this.marketSubscription = Observable.interval(INTERVAL.market()).subscribe(
               sub => {
-                this.getMarket();
+                try {
+                  this.getMarket();
+                } catch (e) {
+                  console.log('Error in getting market');
+                }
               }
             );
             console.log('Reached player subscription');
             this.playerSubscription = Observable.interval(INTERVAL.market()).subscribe(
               sub => {
-                this.player = this.playerService.getPlayer();
-                this.bought = this.player.bought;
+                try {
+                  this.player = this.playerService.getPlayer();
+                  this.bought = this.player.bought;
+                } catch (e) {
+                  console.log('Error in gettin current and bought');
+                }
               }
             );
             console.log('Reached coin subscription');
-            this.coinSubscription = Observable.interval(1000).subscribe(y => this.updateCoins());
+            this.coinSubscription = Observable.interval(1000).subscribe(() => {
+              try {
+                this.updateCoins();
+              } catch (e) {
+                console.log('Error updating coins');
+              }
+            });
           });
       }
     );
@@ -69,7 +83,6 @@ export class MarketboardComponent implements OnInit {
 
   updateCoins() {
 
-    console.log(this.playerService.getPlayer().coins);
     if (Math.floor(this.playerService.getPlayer().coins) !== 0) {
       this.coinNumber = Math.floor(this.playerService.getPlayer().coins).toPrecision(1);
     } else {

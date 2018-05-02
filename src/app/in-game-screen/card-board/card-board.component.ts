@@ -39,15 +39,23 @@ export class CardBoardComponent implements OnInit {
         const player: Player = res;
         this.cards = player.handPile;
         this.handPileSubscription = Observable.interval(INTERVAL.handpile()).subscribe(
-          y => {
-            this.getHandPile();
+          () => {
+            try {
+              this.getHandPile();
+            } catch (e) {
+              console.log('Error in getting Handpile');
+            }
           });
-      }
-    );
-    this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
-      res => {
-        this.updateCards();
-        this.checkForSingleActionCard();
+        this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
+          () => {
+            try {
+              this.updateCards();
+              this.checkForSingleActionCard();
+            } catch (e) {
+              console.log('Error in updating Cards or checking for singlecard');
+            }
+          }
+        );
       }
     );
   }
@@ -60,11 +68,6 @@ export class CardBoardComponent implements OnInit {
     }
   }
 
-
-  pollHandPile() {
-    this.cards = this.cardsService.getHandCards();
-  }
-
   getHandPile() {
     this.player = this.playerService.getPlayer();
     // console.log('HandCards', this.player.handPile);
@@ -74,19 +77,14 @@ export class CardBoardComponent implements OnInit {
   }
 
   onSelect() {
-    console.log('Is hidden: ' + this.isActive);
     this.isActive = !this.isActive;
-    console.log('Is hidden: ' + this.isActive);
   }
 
   private checkForSingleActionCard() {
     if (this.selectedCards.length === 1) {
       this.singleActionCard = (this.selectedCards[0].type === 'ActionCard' || this.selectedCards[0].type === 'RemoveActionCard');
-      console.log('Card Type | board:  ' + this.selectedCards[0].type);
-      console.log('singleActionCard | board: ' + this.singleActionCard);
     } else {
       this.singleActionCard = false;
-      console.log('singleActionCard | board: ' + this.singleActionCard);
     }
   }
 }

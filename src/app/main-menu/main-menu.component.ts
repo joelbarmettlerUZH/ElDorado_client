@@ -36,6 +36,7 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
     // delete local storage and respective user when refreshing
     saveGameId(-1);
+    localStorage.setItem('load', 'first');
     this.restoreStorage();
     this.mainMenuScreen = 'main-menu';
   }

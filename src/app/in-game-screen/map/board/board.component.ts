@@ -296,11 +296,19 @@ export class BoardComponent implements OnInit, AfterViewInit {
             this.updatePlayers(true);
             this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
               res => {
-                this.updatePlayers();
+                try {
+                  this.updatePlayers();
+                } catch (e) {
+                  console.log('Error updating players for board');
+                }
               });
             this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
               res => {
-                this.updateCards();
+                try {
+                  this.updateCards();
+                } catch (e) {
+                  console.log('Error updating cards in board');
+                }
               }
             );
           }
