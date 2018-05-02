@@ -125,6 +125,7 @@ export class MarketboardComponent implements OnInit {
   }
 
   steal(slot) {
+    console.log('steal click was triggered (means you have/had steal budget):', slot.pile[0].id);
     this.playerService.steal(slot).subscribe(x => console.log('Stolen card:', slot.pile[0].name));
   }
 

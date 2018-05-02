@@ -12,14 +12,14 @@ import {SpecialAction} from '../../shared/models/SpecialAction';
 })
 export class BudgetBoardComponent implements OnInit {
   public isPerforming = false;
-  public SpecialActionSubscribtion: Subscription;
+  public SpecialActionSubscription: Subscription;
 
   constructor(private playerService: PlayerService) {
   }
 
   ngOnInit() {
     this.playerService.rawGetter().subscribe(res => {
-      this.SpecialActionSubscribtion = Observable.interval(INTERVAL.specialAction()).subscribe(() => {
+      this.SpecialActionSubscription = Observable.interval(INTERVAL.specialAction()).subscribe(() => {
         try {
           const budget: SpecialAction = this.playerService.getPlayer().specialAction;
           this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;

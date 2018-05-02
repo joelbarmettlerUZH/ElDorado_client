@@ -9,7 +9,7 @@
   right: 356px;
 }
 
-#Panel{
+.Panel{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
   width: 244px;
@@ -17,5 +17,15 @@
   position: absolute;
   top: -205px;
   right: 591px;
+  transition: 0.3s;
 }
 
+.settings-board{
+
+}
+
+.selectSettings{
+  bottom: 120px;
+  /* transition: 2.3s;
+  background-color: transparent; */
+}

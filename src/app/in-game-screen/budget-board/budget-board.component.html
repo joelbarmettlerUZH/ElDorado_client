@@ -1,4 +1,4 @@
-<button id="endAction" (click)="endAction()" *ngIf="isPerforming">
+<button (click)="$event.stopPropagation()" id="endAction" (click)="endAction()" *ngIf="isPerforming">
   Action
   <br>
   done
