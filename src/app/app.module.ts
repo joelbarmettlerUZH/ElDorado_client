@@ -37,6 +37,7 @@ import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-scree
 import {MagnifyComponent} from './in-game-screen/card-slot/magnify/magnify.component';
 import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.component';
 import {BoardService} from './shared/services/board.service';
+import {EldoradoReachedScreenComponent} from './in-game-screen/eldorado-reached-screen/eldorado-reached-screen.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -74,6 +75,7 @@ import {BoardService} from './shared/services/board.service';
     WinnerScreenComponent,
     MagnifyComponent,
     BudgetBoardComponent,
+    EldoradoReachedScreenComponent,
   ],
   imports: [
     BrowserModule,
