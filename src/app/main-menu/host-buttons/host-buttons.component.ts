@@ -27,7 +27,6 @@ export class HostButtonsComponent implements OnInit {
   private preMe: CreateUser;
   private freeCharacterId: number;
   private freeCharacterName: string;
-
   public room: Room;
   public name: string;
   public subscription: Subscription;
@@ -35,9 +34,7 @@ export class HostButtonsComponent implements OnInit {
   public me: User;
   public userId: number;
   private start: number;
-  private numRoutesToShow: number = 5;
-  private hubba: number;
-
+  private numRoutesToShow = 4;
 
   constructor(private roomService: RoomService,
               private userService: UserService,
@@ -47,7 +44,6 @@ export class HostButtonsComponent implements OnInit {
   ngOnInit() {
     this.name = 'Rumos magnificos';
     this.start = 0;
-    console.log('hubba: ' + this.hubba);
     this.boardService.getAllBoards(this.start, this.start + this.numRoutesToShow - 1).subscribe(
       res => {
         this.displayedRoutes = res;

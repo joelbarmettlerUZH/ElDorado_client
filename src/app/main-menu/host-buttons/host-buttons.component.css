@@ -16,13 +16,18 @@
   background-color: transparent;
 }
 
-.subbutton {
-  left: 15px;
+#menubutton-hostgame {
+  top: 0;
+}
+
+.routebutton {
+  position: relative;
+  top: 109px;
+  margin-top: 6px;
+  left: 0;
   background-size: cover;
-  position: absolute;
   width: 218px;
   height: 45px;
-  /* font-family: Arial; */
   color: white;
   font-size: 20px;
   padding: 5px 10px;
@@ -31,8 +36,8 @@
   border: none;
 }
 
-#menubutton-hostgame {
-  top: 0;
+.routebutton-selected {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
 .path0 {
@@ -46,7 +51,6 @@
 
 .path1 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map1.png');
-  top: 160px;
 }
 
 .path1:visited, .path1:focus, .path1:hover, .path1:active {
@@ -55,7 +59,6 @@
 
 .path2 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
-  top: 210px;
 }
 
 .path2:visited, .path2:focus, .path2:hover, .path2:active {
@@ -64,14 +67,57 @@
 
 .path3 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
-  top: 260px;
 }
 
 .path3:visited, .path3:focus, .path3:hover, .path3:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
-.selectedRoute {
+.path4 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+}
+
+.path4:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path5 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+}
+
+.path5:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path6 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+}
+
+.path6:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path7 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+}
+
+.path7:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path99 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
+}
+
+.path99:visited, .path3:focus, .path3:hover, .path2:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path98 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+}
+
+.path98:visited, .path3:focus, .path3:hover, .path3:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
@@ -89,8 +135,13 @@ input {
   opacity: 1; /* Firefox */
 }
 
-button:focus {outline:0 !important;}
-input:focus {outline:0 !important;}
+button:focus {
+  outline: 0 !important;
+}
+
+input:focus {
+  outline: 0 !important;
+}
 
 .namebutton {
   left: 15px;
