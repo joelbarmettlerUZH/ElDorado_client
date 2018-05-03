@@ -153,6 +153,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   removeBlockade($event) {
     const hex: Hexspace = $event;
     let block: Blockade;
+    console.log(hex);
     this.blockades.forEach(
       blockade => {
         blockade.spaces.forEach(
@@ -256,7 +257,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
           space => {
             const hex: HexspaceComponent = this.findHexComponent(space);
             hex.isBlockade = true;
-            hex.isRemovable = false;
             hex.isActive = blockade.cost > 0;
             hex.isRemovable = (this.removable.indexOf(blockade) !== -1);
           }
