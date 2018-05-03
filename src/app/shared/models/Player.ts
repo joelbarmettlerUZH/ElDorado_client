@@ -1,7 +1,5 @@
 import {Card} from './Card';
 import {PlayingPiece} from './PlayingPiece';
-import {Action} from './Action';
-import {CardAction} from './CardAction';
 import {SpecialAction} from './SpecialAction';
 
 export class Player {
@@ -79,7 +77,7 @@ export class Player {
                     "colors": [
                         "SAND"
                     ],
-                    "id": 112
+                    "boardID": 112
                 },
                 {
                     "@type": "MovingCard",
@@ -91,7 +89,7 @@ export class Player {
                     "colors": [
                         "SAND"
                     ],
-                    "id": 113
+                    "boardID": 113
                 },
                 {
                     "@type": "MovingCard",
@@ -103,7 +101,7 @@ export class Player {
                     "colors": [
                         "RIVER"
                     ],
-                    "id": 114
+                    "boardID": 114
                 },
                 {
                     "@type": "MovingCard",
@@ -115,7 +113,7 @@ export class Player {
                     "colors": [
                         "JUNGLE"
                     ],
-                    "id": 115
+                    "boardID": 115
                 }
             ],
             "bought": false

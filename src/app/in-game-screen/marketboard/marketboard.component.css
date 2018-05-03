@@ -56,10 +56,11 @@
   text-align: center;
 }
 
-.Slot{
+.marketHalf {
   width: 82%;
   margin-left: 18%;
 }
+
 #passive{
   margin-top: 60px;
 }
@@ -67,24 +68,19 @@
 .position{
   margin-right: 17px;
   margin-top: 10px;
+  background-color: red;
   width: 109px;
   height: 170px;
+  float: left;
 }
 
-#multiple{
-  margin-left: 10px;
-}
-
-#multiple0{
-  margin-left: 10px;
-}
-
-#multiple1{
-  margin-left: 40px;
-}
-
-#multiple2{
-  margin-left: 80px;
+.pileCard {
+  position: relative;
+  right: 0;
+  top: 0;
+  background-color: blue;
+  width: 109px;
+  height: 170px;
 }
 
 .isNotPuchasable{

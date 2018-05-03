@@ -60,7 +60,7 @@ export class GameService {
     }
   }
 
-  // gets game id
+  // gets game boardID
   public getGame(): Game {
     return this.game;
   }

@@ -19,7 +19,7 @@ export class Slot {
   "colors": [
     "JUNGLE"
   ],
-  "id": 73
+  "boardID": 73
   },
 ]
 },

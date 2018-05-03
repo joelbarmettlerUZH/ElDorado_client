@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PollCharacter} from '../../shared/models/pollCharacter';
 import {UserService} from '../../shared/services/user.service';
-import {Character} from '../../shared/models/character';
 import {User} from '../../shared/models/User';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
 
@@ -27,7 +26,7 @@ export class CharacterComponent implements OnInit {
   }
 
   onSelect() {
-    // this.usedCharacter.name = this.defaultCharacters[this.usedCharacter.id].name;
+    // this.usedCharacter.name = this.defaultCharacters[this.usedCharacter.boardID].name;
     this.userService.getUser(Number(localStorage.getItem('userId'))).subscribe(res => {
       this.user = res;
       this.user.ready = false;

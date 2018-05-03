@@ -1,4 +1,3 @@
-import {BlockadeSpace} from './BlockadeSpace';
 import {Action} from './Action';
 
 export class ActionCard {
@@ -16,7 +15,7 @@ export class ActionCard {
                             "name": "Cartographer",
                             "coinValue": 0.5,
                             "coinCost": 4,
-                            "id": 71,
+                            "boardID": 71,
                             "actions": {
                                 "draw": 2,
                                 "remove": 0,

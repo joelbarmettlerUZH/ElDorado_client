@@ -19,9 +19,6 @@ export class JoinButtonsComponent implements OnInit {
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   characters = POLLCHARACTER;
-  displayedRooms: Room[];
-  start: number;
-  private numRoomsToShow = 5;
   public token: string;
   public me: User;
   private preMe: CreateUser;
@@ -29,6 +26,9 @@ export class JoinButtonsComponent implements OnInit {
   public roomId: number;
   private freeCharacterId: number;
   private freeCharacterName: string;
+  displayedRooms: Room[];
+  start: number;
+  private numRoomsToShow = 5;
 
 
   constructor(private roomService: RoomService,
@@ -65,11 +65,11 @@ export class JoinButtonsComponent implements OnInit {
       });
     }
 
-    // a)2 get id and name of first free character
+    // a)2 get boardID and name of first free character
     this.freeCharacterId = filteredArray[0].id;
     this.freeCharacterName = filteredArray[0].name;
 
-    // a)3 create preUser with this id and name
+    // a)3 create preUser with this boardID and name
     this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
     this.userService.createUser(this.preMe).subscribe(res => {
 
@@ -97,7 +97,7 @@ export class JoinButtonsComponent implements OnInit {
           console.log('REST | POST ' + this.me.name + ' to Room ' + room.name, response);
           // c) changeCharacterRequest to main-menu-button-board component
           console.log('SENT: changeCharacterRequest | from join-buttons');
-          console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
+          console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room boardID: ' + room.roomID + ' room users: ' + room.users);
           this.changeCharacterRequest.emit(room);
         });
       });

@@ -81,7 +81,7 @@ export class MainMenuComponent implements OnInit {
 
   public changeCharacters(room: Room) {
     console.log('ERHALTEN: HigherCharacterRequest');
-    console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
+    console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.selectCharacter.generateJoinView(room);
   }
 

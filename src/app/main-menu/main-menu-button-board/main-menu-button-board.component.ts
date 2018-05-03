@@ -96,7 +96,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
 
   changeCharacters(room: Room) {
     console.log('Received: changeCharacterRequest');
-    console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
+    console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.HigherCharacterRequest.emit(room);
   }
 }

@@ -26,7 +26,7 @@ export class RoomService {
     return this.http.get(url).map(res => this.listRooms$ = res.json());
   }
 
-  // Returns a specific room with id roomId
+  // Returns a specific room with boardID roomId
   public getRoom(roomId: number) {
     const url = this.baseUrl + 'Room/' + roomId;
     return this.http.get(url).map(res => res.json());

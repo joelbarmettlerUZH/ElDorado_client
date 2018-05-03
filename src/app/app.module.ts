@@ -34,8 +34,9 @@ import {CharacterSelectionComponent} from './main-menu/character-selection/chara
 import {DefaultCharacterComponent} from './main-menu/default-character/default-character.component';
 import {LoadingScreenComponent} from './in-game-screen/loading-screen/loading-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
-import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.component';
+import {MagnifyComponent} from './in-game-screen/card-slot/magnify/magnify.component';
 import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.component';
+import {BoardService} from './shared/services/board.service';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -82,7 +83,7 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, CardsService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService],
   bootstrap: [AppComponent]
 })
 

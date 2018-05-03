@@ -16,18 +16,6 @@
   background-color: transparent;
 }
 
-.button:hover {
-  /*background-color: #cfd8dc;*/
-  background-color: transparent;
-
-}
-
-.button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
-}
-
 .subbutton {
   left: 15px;
   background-size: cover;
@@ -47,13 +35,9 @@
   top: 0;
 }
 
-#roomName {
-  top: 60px;
-}
-
 .path0 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map0.png');
-  top: 140px;
+  top: 110px;
 }
 
 .path0:visited, .path0:focus, .path0:hover, .path0:active {
@@ -62,7 +46,8 @@
 
 .path1 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map1.png');
-  top: 190px;}
+  top: 160px;
+}
 
 .path1:visited, .path1:focus, .path1:hover, .path1:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map1.png');
@@ -70,7 +55,7 @@
 
 .path2 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
-  top: 240px;
+  top: 210px;
 }
 
 .path2:visited, .path2:focus, .path2:hover, .path2:active {
@@ -79,10 +64,14 @@
 
 .path3 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
-  top: 290px;
+  top: 260px;
 }
 
 .path3:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.selectedRoute {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
@@ -105,6 +94,7 @@ input:focus {outline:0 !important;}
 
 .namebutton {
   left: 15px;
+  top: 60px;
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/Inputfield_unselected.png');
@@ -134,4 +124,41 @@ input:focus {outline:0 !important;}
 
 .namebutton:active {
   background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.navigation {
+  background-size: cover;
+  position: absolute;
+  width: 32px;
+  height: 33px;
+  background-color: transparent;
+  border: none;
+}
+
+#prevRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button.png');
+  left: 91px;
+  bottom: 0;
+}
+
+#prevRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#prevRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#nextRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button.png');
+  left: 126px;
+  bottom: 0;
+}
+
+#nextRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}
+
+#nextRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
 }

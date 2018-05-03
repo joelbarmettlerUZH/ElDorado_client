@@ -1,5 +1,7 @@
 <div id="mainMenuButtons">
-  <div *ngFor="let button of buttons">
-    <button class=button id="{{button.id}}" (click)="navigateTo(button.id)">{{button.name}}</button>
-  </div>
+  <button class=button id='menubutton-hostgame' (click)="navigateTo('menubutton-hostgame')">Host Game</button>
+  <button class=button id='menubutton-joingame' (click)="navigateTo('menubutton-joingame')">Join Game</button>
+  <button class=button id='menubutton-manual'
+          onclick="window.open('../../../assets/Game_Instructions/manual_en_1.pdf','_blank')">Manual
+  </button>
 </div>

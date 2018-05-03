@@ -1,5 +1,6 @@
 import {Action} from './Action';
 import {Card} from './Card';
+
 export class RemoveActionCard extends Card {
   type: string;
   name: string;
@@ -11,7 +12,7 @@ export class RemoveActionCard extends Card {
 
 /*
 "@type": "RemoveActionCard",
-"id": 37,
+"boardID": 37,
 "name": "Transmitter",
 "coinValue": 0.5,
 "coinCost": 4,
