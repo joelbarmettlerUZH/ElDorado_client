@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Character } from '../../shared/models/character';
-import { CHARACTERS } from '../../shared/models/character-database';
-import { PlayerService } from '../../shared/services/player.service';
+import {Component, OnInit} from '@angular/core';
+import {Character} from '../../shared/models/character';
+import {CHARACTERS} from '../../shared/models/character-database';
+import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {Observable, Subscribable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
@@ -22,7 +22,8 @@ export class OpponentBoardComponent implements OnInit {
 
   private playerSubscription: Subscription;
 
-  constructor(private playerService: PlayerService, private gameService: GameService) {}
+  constructor(private playerService: PlayerService, private gameService: GameService) {
+  }
 
   ngOnInit() {
     this.gameService.rawGetter().subscribe(
@@ -35,7 +36,11 @@ export class OpponentBoardComponent implements OnInit {
         );
         this.playerSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
           res => {
-            this.current = this.gameService.getCurrent();
+            try {
+              this.current = this.gameService.getCurrent();
+            } catch (e) {
+              console.log('Error in getting current player for opponents');
+            }
           }
         );
         // console.log(this.players);

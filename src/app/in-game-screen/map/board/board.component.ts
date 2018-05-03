@@ -151,13 +151,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   removeBlockade($event) {
-    const hex: HexspaceComponent = $event;
+    const hex: Hexspace = $event;
     let block: Blockade;
     this.blockades.forEach(
       blockade => {
         blockade.spaces.forEach(
           space => {
-            if (this.pointToIndex(space.point) === this.pointToIndex(hex.HexSpace.point)) {
+            if (this.pointToIndex(space.point) === this.pointToIndex(hex.point)) {
               console.log('Found blockade to remove');
               block = blockade;
             }
@@ -167,7 +167,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     );
     console.log('Request to remove blockade received with blockade ', block);
     this.playerService.removeBlockade(block).subscribe(
-      res => {
+      () => {
       }
     );
   }
@@ -233,9 +233,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
       return;
     }
     console.log('-Blockades update: DID change, updating them');
-    this.setBlockades(false);
     this.blockades = newBlockades;
-    this.setBlockades(true);
+    this.setBlockades();
   }
 
   setRemovable(remove: boolean) {
@@ -250,8 +249,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  setBlockades(active: boolean) {
-    console.log('Setting blockades to ' + active);
+  setBlockades() {
     this.blockades.forEach(
       blockade => {
         blockade.spaces.forEach(
@@ -259,7 +257,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
             const hex: HexspaceComponent = this.findHexComponent(space);
             hex.isBlockade = true;
             hex.isRemovable = false;
-            hex.isActive = active;
+            hex.isActive = blockade.cost > 0;
             hex.isRemovable = (this.removable.indexOf(blockade) !== -1);
           }
         );
@@ -296,11 +294,19 @@ export class BoardComponent implements OnInit, AfterViewInit {
             this.updatePlayers(true);
             this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
               res => {
-                this.updatePlayers();
+                try {
+                  this.updatePlayers();
+                } catch (e) {
+                  console.log('Error updating players for board');
+                }
               });
             this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
               res => {
-                this.updateCards();
+                try {
+                  this.updateCards();
+                } catch (e) {
+                  console.log('Error updating cards in board');
+                }
               }
             );
           }
