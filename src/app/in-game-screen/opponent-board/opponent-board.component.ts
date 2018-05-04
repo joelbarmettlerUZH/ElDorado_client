@@ -19,10 +19,19 @@ export class OpponentBoardComponent implements OnInit {
   players: Player[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public current: Player;
-
-  private playerSubscription: Subscription;
+  public currentPlayerId = -1;
 
   constructor(private playerService: PlayerService, private gameService: GameService) {
+    this.gameService.currentSub.subscribe(
+      current => {
+        try {
+          this.current = current;
+          this.currentPlayerId = this.current.playerId;
+        } catch (e) {
+          console.log('Opponent Update: Current is not ready yet');
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -30,20 +39,9 @@ export class OpponentBoardComponent implements OnInit {
       response => {
         const game: Game = response;
         this.players = game.players;
-        this.current = game.current;
         this.players = this.players.filter(
           player => player.playerId !== this.ownPlayerId
         );
-        this.playerSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
-          res => {
-            try {
-              this.current = this.gameService.getCurrent();
-            } catch (e) {
-              console.log('Error in getting current player for opponents');
-            }
-          }
-        );
-        // console.log(this.players);
       }
     );
   }

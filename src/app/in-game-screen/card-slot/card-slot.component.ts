@@ -32,9 +32,7 @@ export class CardSlotComponent implements OnInit {
   public isActive = false;
   public specialAction: SpecialAction;
   public margin = 50;
-  public playerSubscription: Subscription;
   private selectedCards: Card[];
-  public gameSubscription: Subscription;
   public isCurrent = false;
   public isMagnified = false;
   public isActionCard: boolean;
@@ -46,47 +44,41 @@ export class CardSlotComponent implements OnInit {
   constructor(private gameService: GameService,
               private cardsService: CardsService,
               private playerService: PlayerService) {
+    // Subscription to current player
+    this.gameService.currentSub.subscribe(
+      current => {
+        try {
+          this.isCurrent = current.playerId === Number(localStorage.getItem('playerId'));
+        } catch (e) {
+          console.log('Card Slot ERROR: Current not yet ready');
+        }
+      }
+    );
+    // Subscription to specialAction budget
+    this.playerService.specialActionSub.subscribe(
+      specialAction => {
+        try {
+          this.specialAction = specialAction;
+          console.log('Card Slot TEMP: Received budget ', this.specialAction);
+        } catch (e) {
+          console.log('Card Slot ERROR: specialAction not yet ready');
+        }
+      }
+    );
   }
 
   ngOnInit() {
     this.isActionCard = false;
     this.budgetBoardSelected = false;
     this.specialAction = new SpecialAction();
-    console.log(this.card.name);
-    this.gameService.rawGetter().subscribe(
-      res => {
-        const game: Game = res;
-        this.isCurrent = game.current.playerId === Number(localStorage.getItem('playerId'));
-        this.playerService.rawGetter().subscribe(
-          response => {
-            const player: Player = response;
-            this.specialAction = player.specialAction;
-          }
-        );
-        this.gameSubscription = Observable.interval(INTERVAL.market()).subscribe(
-          y => {
-            try {
-              this.getGame();
-            } catch (e) {
-              console.log('Error in getting Game for card Slot');
-            }
-          }
-        );
-      }
-    );
-  }
-
-  getGame() {
-    this.isCurrent = this.gameService.getCurrent().playerId === Number(localStorage.getItem('playerId'));
-    this.specialAction = this.playerService.getPlayer().specialAction;
   }
 
   remove() {
     if (this.specialAction.remove > 0) {
-      console.log('Discarding card now');
+      console.log('-Card Slot: Discarding card now');
       this.playerService.remove(this.card).subscribe(res => res);
     } else {
-      console.log('Can not discard due to missing budget');
+      console.log('-Card Slot: Can not discard due to missing budget');
     }
   }
 
@@ -101,7 +93,9 @@ export class CardSlotComponent implements OnInit {
   }
 
   onSelect() {
+    console.log(this.specialAction);
     if (!this.isCurrent) {
+      console.log('-Card slot: No cards can be used when not current player');
       return;
     }
     this.isActive = !this.isActive;
@@ -113,10 +107,10 @@ export class CardSlotComponent implements OnInit {
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
       this.isActionCard = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
-      console.log('singleActionCard | slot: ' + this.singleActionCard);
+      console.log('-Card Slot: singleActionCard | slot: ' + this.singleActionCard);
       if (this.isActionCard) {
         this.actionRequest.emit(true);
-        console.log('isActionCard | Action Card selected: ' + this.isActionCard);
+        console.log('-Card Slot: isActionCard | Action Card selected: ' + this.isActionCard);
       }
     } else {
       this.cardsService.removeSelectedCard(this.card);
@@ -135,18 +129,18 @@ export class CardSlotComponent implements OnInit {
 
   performAction() {
     this.playerService.performAction(this.card).subscribe(
-      res => console.log('Action card was played!')
+      res => console.log('-Card Slot: Action card was played!')
     );
   }
 
   closeFullscreen($event) {
-    console.log('Requesting to close fullscreen window');
+    console.log('-Card Slot: Requesting to close fullscreen window');
     const close: boolean = $event;
     this.magnify(!close);
   }
 
   magnify(mag: boolean) {
-    console.log('Set magnify to ', mag);
+    console.log('-Card Slot: Set magnify to ', mag);
     this.isMagnified = mag;
   }
 }

@@ -19,59 +19,42 @@ export class CardBoardComponent implements OnInit {
   public cards: Card[];
   public selectedCards: Card[] = [];
   public singleActionCard: boolean;
-  private handPileSubscription: Subscription;
-  private cardSubscription: Subscription;
-
 
   constructor(private playerService: PlayerService,
               private cardsService: CardsService) {
-  }
-
-  // used for updating the handcards after selling/discarding
-  // @ViewChild(CardSlotComponent) slot;
-
-  ngOnInit() {
-    this.singleActionCard = false;
-    this.playerService.rawGetter().subscribe(
-      res => {
-        const player: Player = res;
-        this.cards = player.handPile;
-        this.handPileSubscription = Observable.interval(INTERVAL.handpile()).subscribe(
-          () => {
-            try {
-              this.getHandPile();
-            } catch (e) {
-              console.log('Error in getting Handpile');
-            }
-          });
-        this.cardSubscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
-          () => {
-            try {
-              this.updateCards();
-              this.checkForSingleActionCard();
-            } catch (e) {
-              console.log('Error in updating Cards or checking for singlecard');
-            }
-          }
-        );
+    this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.player = player;
+        } catch (e) {
+          console.log('-Card Board Update: Player not yet defined');
+        }
+      }
+    );
+    this.playerService.playerHandcardSub.subscribe(
+      cards => {
+        try {
+          this.cards = cards;
+        } catch (e) {
+          console.log('-Card Board Update: Handcard not defined yet');
+        }
+      }
+    );
+    this.cardsService.selectedardsSub.subscribe(
+      selectedCards => {
+        try {
+          this.selectedCards = selectedCards;
+          this.checkForSingleActionCard();
+        } catch (e) {
+          console.log('-Card Board: Error in updating Cards or checking for singlecard');
+        }
       }
     );
   }
 
-  updateCards() {
-    const newCards: Card[] = this.cardsService.getSelectedCards();
-    if (newCards.length !== this.selectedCards.length) {
-      console.log('-Card update: Change detected: ', this.selectedCards, newCards);
-      this.selectedCards = newCards;
-    }
-  }
 
-  getHandPile() {
-    this.player = this.playerService.getPlayer();
-    // console.log('HandCards', this.player.handPile);
-    if (JSON.stringify(this.player.handPile) !== JSON.stringify(this.cards)) {
-      this.cards = this.player.handPile;
-    }
+  ngOnInit() {
+    this.singleActionCard = false;
   }
 
   onSelect() {

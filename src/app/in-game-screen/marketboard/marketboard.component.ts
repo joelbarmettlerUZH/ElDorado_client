@@ -24,65 +24,44 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlotIds: number[] = [];
   public gameId: number;
   public isActive = false;
-  private marketSubscription: Subscription;
-  public ownPlayer: Player;
   public player: Player;
-  private playerSubscription: Subscription;
-  private coinSubscription: Subscription;
   public bought = false;
+  public coins = 0;
+  public stealBudget = 0;
 
   constructor(private gameService: GameService,
               private playerService: PlayerService
   ) {
-    console.log('Marketboard | CoinNumber: ' + this.coinNumber);
-  }
-
-  ngOnInit() {
-    this.gameService.rawGetter().subscribe(
-      res => {
-        this.playerService.rawGetter().subscribe(
-          response => {
-            const tempPlayer: Player = response;
-            this.player = tempPlayer;
-            const market: MarketPlace = res;
-            this.isFadedIn = false;
-            this.market = market;
-            console.log('Reached market subscription');
-            this.marketSubscription = Observable.interval(INTERVAL.market()).subscribe(
-              sub => {
-                try {
-                  this.getMarket();
-                } catch (e) {
-                  console.log('Error in getting market');
-                }
-              }
-            );
-            console.log('Reached player subscription');
-            this.playerSubscription = Observable.interval(INTERVAL.market()).subscribe(
-              sub => {
-                try {
-                  this.player = this.playerService.getPlayer();
-                  this.bought = this.player.bought;
-                } catch (e) {
-                  console.log('Error in gettin current and bought');
-                }
-              }
-            );
-            console.log('Reached coin subscription');
-            this.coinSubscription = Observable.interval(1000).subscribe(() => {
-              try {
-                this.updateCoins();
-              } catch (e) {
-                console.log('Error updating coins');
-              }
-            });
-          });
+    this.gameService.marketSub.subscribe(
+      market => {
+        try {
+          this.market = market;
+          this.getMarket();
+        } catch (e) {
+          console.log('-Market Update: Market is not ready yet');
+        }
+      }
+    );
+    this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.player = player;
+          this.bought = player.bought;
+          this.coins = player.coins;
+          this.stealBudget = player.specialAction.steal;
+          this.updateCoins();
+        } catch (e) {
+          console.log('-Market Update: Player is not ready yet');
+        }
       }
     );
   }
 
-  updateCoins() {
+  ngOnInit() {
+    this.isFadedIn = false;
+  }
 
+  updateCoins() {
     if (Math.floor(this.playerService.getPlayer().coins) !== 0) {
       this.coinNumber = Math.floor(this.playerService.getPlayer().coins).toPrecision(1);
     } else {
@@ -104,10 +83,6 @@ export class MarketboardComponent implements OnInit {
   // Get active market cards
   getMarket(initial: boolean = false) {
     const newMarket: MarketPlace = this.gameService.getMarket();
-    if ((JSON.stringify(this.market) === JSON.stringify(newMarket)) && !initial) {
-      return;
-    }
-    console.log('-Market update: DID change, performing update');
     this.market = newMarket;
     this.purchasableSlot = this.market.purchasable;
     this.purchasableSlotIds = [];
@@ -120,13 +95,13 @@ export class MarketboardComponent implements OnInit {
   }
 
   buy(slot) {
-    console.log('buy click was triggered:', slot.pile[0].id);
-    this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
+    console.log('-Market: Buy click was triggered:', slot.pile[0].id);
+    this.playerService.buy(slot).subscribe(x => console.log('-Market: Bought card:', slot.pile[0].name));
   }
 
   steal(slot) {
-    console.log('steal click was triggered (means you have/had steal budget):', slot.pile[0].id);
-    this.playerService.steal(slot).subscribe(x => console.log('Stolen card:', slot.pile[0].name));
+    console.log('-Market: Steal click was triggered (means you have/had steal budget):', slot.pile[0].id);
+    this.playerService.steal(slot).subscribe(x => console.log('-Market: Stolen card:', slot.pile[0].name));
   }
 
   takeCard(slot) {

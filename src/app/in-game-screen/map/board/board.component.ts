@@ -14,8 +14,6 @@ import {Game} from '../../../shared/models/Game';
 import {CardsService} from '../../../shared/services/cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
-import {savePlayer, saveUserId} from '../../../shared/cookieHandler';
-import {INTERVAL} from '../../../shared/services/INTERVAL';
 
 declare var $: any;
 
@@ -37,6 +35,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public selectedPlayingPiece: PlayingPiece = null;
   public selectedCards: Card[] = [];
   private reachableHex: HexspaceComponent[] = [];
+  private boardReady = false;
 
   private blockades: Blockade[] = [];
   private removable: Blockade[] = [];
@@ -51,6 +50,39 @@ export class BoardComponent implements OnInit, AfterViewInit {
     private playerService: PlayerService,
     private cardsService: CardsService,
   ) {
+    this.gameService.playersSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updatePlayers();
+          }
+        } catch (e) {
+          console.log('-Board Update: Players not ready yet');
+        }
+      }
+    );
+    this.gameService.currentSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updatePlayers();
+          }
+        } catch (e) {
+          console.log('-Board Update: Players not ready yet');
+        }
+      }
+    );
+    this.cardsService.selectedardsSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updateCards();
+          }
+        } catch (e) {
+          console.log('-Board update: Cards not ready yet');
+        }
+      }
+    );
   }
 
 
@@ -93,25 +125,25 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   // Takes an array of cards and finds all hexspaces on which you can move
   getWay($event) {
-    console.log('Knowing da wea');
+    console.log('-Board: Knowing da wea');
     this.selectedPlayingPiece = $event;
     this.removable = [];
     const cards: Card[] = this.cardsService.getSelectedCards();
     if (cards.length < 1) {
-      console.log('Can not get da wae since no cards are selected');
+      console.log('-Board: Can not get da wae since no cards are selected');
       return;
     }
-    console.log('Path cards are: ', cards);
+    console.log('-Board: Path cards are: ', cards);
     this.selectedCards = cards;
     this.resetReachable();
-    console.log('Path Playing piece is: ', $event);
+    console.log('-Board: Path Playing piece is: ', $event);
     const playingPieceId = this.selectedPlayingPiece.playingPieceId;
     const moveWrapper: MoveWrapper = new MoveWrapper(cards, null);
-    console.log('Finding path with movewarpper: ', moveWrapper);
+    console.log('-Board: Finding path with movewarpper: ', moveWrapper);
     this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
       response => {
         const hexSpaces: Hexspace[] = response;
-        console.log('Reaching hexspaces: ', hexSpaces);
+        console.log('-Board: Reaching hexspaces: ', hexSpaces);
         hexSpaces.forEach(
           hex => {
             const hexComponent = this.findHexComponent(hex);
@@ -127,16 +159,16 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.removable = [];
     const cards = this.cardsService.getSelectedCards();
     if (cards.length < 1) {
-      console.log('Can not move since no cards are selected');
+      console.log('-Board: Can not move since no cards are selected');
       return;
     }
     const hexSpace: Hexspace = $event;
     const playingPieceId = this.selectedPlayingPiece.playingPieceId;
-    console.log('Moving with cards', cards);
+    console.log('-Board: Moving with cards', cards);
     this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
       response => {
         const removableBlockade: Blockade[] = response;
-        console.log('Moved. Now able to remove the following blockades: ', removableBlockade);
+        console.log('-Board: Moved. Now able to remove the following blockades: ', removableBlockade);
         this.setRemovable(false);
         this.removable = removableBlockade;
         this.setRemovable(true);
@@ -158,14 +190,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
         blockade.spaces.forEach(
           space => {
             if (this.pointToIndex(space.point) === this.pointToIndex(hex.point)) {
-              console.log('Found blockade to remove');
+              console.log('-Board: Found blockade to remove');
               block = blockade;
             }
           }
         );
       }
     );
-    console.log('Request to remove blockade received with blockade ', block);
+    console.log('-Board: Request to remove blockade received with blockade ', block);
     this.playerService.removeBlockade(block).subscribe(
       () => {
       }
@@ -189,9 +221,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updatePlayers(initial: boolean = false) {
-    const updatedPlayers: Player[] = this.gameService.getPlayers();
-    if (!initial && JSON.stringify(updatedPlayers) === JSON.stringify(this.players)) {
+  updatePlayers() {
+    let updatedPlayers: Player[] = [];
+    try {
+      updatedPlayers = this.gameService.getPlayers();
+    } catch (e) {
+      console.log('-Board: Game not ready yet, can not update players');
       return;
     }
     console.log('-Player update: changed their state, updating them now');
@@ -286,29 +321,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
       response => {
         this.game = response;
         if (this.hexComponent.toArray().length > 0) {
-          console.log('Change');
+          console.log('-Board: Recognized change in Board');
           this.hexComponents = this.hexComponent.toArray();
           console.log(this.hexComponents.length + ' of ' + this.xDim * this.yDim);
           if (this.hexComponents.length === this.xDim * this.yDim) {
-            console.log('Setting playing pieces now');
-            this.updatePlayers(true);
-            this.playerSubscription = Observable.interval(INTERVAL.move()).subscribe(
-              res => {
-                try {
-                  this.updatePlayers();
-                } catch (e) {
-                  console.log('Error updating players for board');
-                }
-              });
-            this.cardSucbscription = Observable.interval(INTERVAL.selectedCards()).subscribe(
-              res => {
-                try {
-                  this.updateCards();
-                } catch (e) {
-                  console.log('Error updating cards in board');
-                }
-              }
-            );
+            console.log('-Board: Setting playing pieces now');
+            this.boardReady = true;
+            this.updatePlayers();
           }
         }
       }
@@ -316,12 +335,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('Waduhek length is ' + this.hexComponent.toArray().length);
+    console.log('-Board: Length of combined hexSpaces is: ' + this.hexComponent.toArray().length);
     this.initBoard();
     this.hexComponent.changes.subscribe(
       hex => {
         this.initBoard();
       });
+    // this.updatePlayers();
   }
 
 }
