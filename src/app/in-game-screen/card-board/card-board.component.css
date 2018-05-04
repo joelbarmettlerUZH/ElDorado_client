@@ -21,7 +21,7 @@
 .Wrapper3{
   /* width: 695px;  695px 100% wiederholt png einmal, auto lässt karte wieder unten erscheinen*/
   height: auto; /* 176px */
-  overflow-x: scroll;
+  /*overflow-x: scroll;*/
   overflow-y: hidden;
   white-space: nowrap;
   box-sizing: content-box;

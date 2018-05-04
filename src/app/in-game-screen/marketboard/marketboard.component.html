@@ -2,16 +2,24 @@
 <div class="Marketboard" >
   <div id="active" class="Slot">
     <div id="coinNumberDisplay">{{coinNumber}}</div>
-    <img (click)="$event.stopPropagation()" (click)="takeCard(slot)" *ngFor="let slot of activeSlot"
-         [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
-         class="position"
-         src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+      <ng-container *ngFor="let slot of activeSlot">
+        <ng-container *ngIf="!slot.empty">
+          <img (click)="$event.stopPropagation()" (click)="takeCard(slot)"
+            [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
+            class="position"
+            src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+        </ng-container>
+      </ng-container>
   </div>
   <div id="passive" class="Slot">
-    <img (click)="$event.stopPropagation()" (click)="takeCard(slot)" *ngFor="let slot of passiveSlot"
-         [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
-         class="position"
-         src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+    <ng-container *ngFor="let slot of passiveSlot">
+      <ng-container *ngIf="!slot.empty">
+        <img (click)="$event.stopPropagation()" (click)="takeCard(slot)"
+          [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
+          class="position"
+          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 </div>
