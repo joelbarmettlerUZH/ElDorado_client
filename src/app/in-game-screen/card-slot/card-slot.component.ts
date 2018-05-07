@@ -70,7 +70,7 @@ export class CardSlotComponent implements OnInit {
   ngOnInit() {
     this.isActionCard = false;
     this.budgetBoardSelected = false;
-    this.specialAction = new SpecialAction();
+    //this.specialAction = new SpecialAction();
   }
 
   remove() {

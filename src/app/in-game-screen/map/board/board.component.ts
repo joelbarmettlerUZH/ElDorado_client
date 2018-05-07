@@ -292,7 +292,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
           space => {
             const hex: HexspaceComponent = this.findHexComponent(space);
             hex.isBlockade = true;
-            hex.isActive = blockade.cost > 0;
+            hex.isActive = blockade.spaces[0].strength > 0;
             hex.isRemovable = (this.removable.indexOf(blockade) !== -1);
           }
         );
