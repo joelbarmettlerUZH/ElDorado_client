@@ -49,7 +49,9 @@ export class ButtonBoardComponent implements OnInit {
   }
 
   confirmEndRound() {
-    this.confirmationNeeded = true;
+    if (this.ownPlayerId === this.currentPlayerId) {
+      this.confirmationNeeded = true;
+    }
   }
 
   endRound() {

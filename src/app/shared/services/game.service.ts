@@ -30,6 +30,8 @@ export class GameService {
   public winnersSub: BehaviorSubject<Player> = new BehaviorSubject<Player>(this.winners);
   public running: Boolean;
   public runningSub: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(this.running);
+  public blockades: Blockade[];
+  public blockadesSub: BehaviorSubject<Blockade[]> = new BehaviorSubject<Blockade[]>(this.blockades);
   private gameSubscription: Subscription;
   public gameId = -1;
 
@@ -80,6 +82,11 @@ export class GameService {
                 console.log('--Game Update: Received new winners information');
                 this.running = this.game.running;
                 this.runningSub.next(this.running);
+              }
+              if (JSON.stringify(this.game.blockades) !== JSON.stringify(this.blockades)) {
+                console.log('--Game Update: Received new Blockade status information');
+                this.blockades = this.game.blockades;
+                this.blockadesSub.next(this.blockades);
               }
             } catch (e) {
               console.log('--Game Update: Could not fetch Market, Current or Players');

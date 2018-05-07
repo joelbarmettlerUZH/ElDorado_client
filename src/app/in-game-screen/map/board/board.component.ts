@@ -36,6 +36,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public selectedCards: Card[] = [];
   private reachableHex: HexspaceComponent[] = [];
   private boardReady = false;
+  private removableBlockades: number[];
 
   private blockades: Blockade[] = [];
   private removable: Blockade[] = [];
@@ -67,6 +68,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
           if (this.boardReady) {
             this.updatePlayers();
           }
+          this.selectedPlayingPiece = null;
+          this.reachableHex = [];
         } catch (e) {
           console.log('-Board Update: Players not ready yet');
         }
@@ -80,6 +83,26 @@ export class BoardComponent implements OnInit, AfterViewInit {
           }
         } catch (e) {
           console.log('-Board update: Cards not ready yet');
+        }
+      }
+    );
+    this.gameService.blockadesSub.subscribe(
+      blockades => {
+        try {
+          this.blockades = blockades;
+          this.setBlockades();
+        } catch (e) {
+          console.log('-Board update: Blockades not ready yet');
+        }
+      }
+    );
+    this.playerService.removableBlockadesSub.subscribe(
+      removableBlockades => {
+        try {
+          this.removableBlockades = removableBlockades;
+          this.setBlockades();
+        } catch (e) {
+          console.log("-Board update: Removable blockades not ready yet");
         }
       }
     );
@@ -180,6 +203,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
         this.cardsService.removeHandCard(card);
       }
     );
+    this.selectedPlayingPiece = null;
+    this.resetReachable();
   }
 
   removeBlockade($event) {
@@ -259,18 +284,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
       }
     );
     this.players = updatedPlayers;
-    this.updateBlockades();
-  }
-
-  updateBlockades(initial: boolean = false) {
-    const newBlockades: Blockade[] = this.gameService.getBlockades();
-    if ((JSON.stringify(newBlockades) === JSON.stringify(this.blockades)) && !initial) {
-      console.log('-Blockades update: did not change, going on as before.');
-      return;
-    }
-    console.log('-Blockades update: DID change, updating them');
-    this.blockades = newBlockades;
-    this.setBlockades();
   }
 
   setRemovable(remove: boolean) {
@@ -286,14 +299,20 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   setBlockades() {
+    if (typeof this.blockades === 'undefined') {
+      this.blockades = this.gameService.getBlockades();
+    }
     this.blockades.forEach(
       blockade => {
         blockade.spaces.forEach(
           space => {
             const hex: HexspaceComponent = this.findHexComponent(space);
             hex.isBlockade = true;
-            hex.isActive = blockade.spaces[0].strength > 0;
-            hex.isRemovable = (this.removable.indexOf(blockade) !== -1);
+            hex.isActive = space.strength > 0;
+            if (blockade.blockadeId >= 1000) {
+              hex.orientation = 'HORIZONTAL';
+            }
+            hex.isRemovable = (this.removableBlockades.indexOf(blockade.blockadeId) >= 0);
           }
         );
       }
@@ -328,6 +347,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
             console.log('-Board: Setting playing pieces now');
             this.boardReady = true;
             this.updatePlayers();
+            this.setBlockades();
           }
         }
       }

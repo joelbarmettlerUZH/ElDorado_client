@@ -22,9 +22,6 @@ export class CardSlotComponent implements OnInit {
   @Input()
   public card: Card;
 
-  @Input()
-  singleActionCard: boolean;
-
   // store new Handpile after selling/ discarding
   public hand: Card[];
   // intermediate step to store response from selling/discarding
@@ -37,7 +34,7 @@ export class CardSlotComponent implements OnInit {
   public isMagnified = false;
   public isActionCard: boolean;
   public budgetBoardSelected: boolean;
-
+  public singleActionCard = false;
 
   @Output() actionRequest = new EventEmitter<boolean>();
 
@@ -50,7 +47,7 @@ export class CardSlotComponent implements OnInit {
         try {
           this.isCurrent = current.playerId === Number(localStorage.getItem('playerId'));
         } catch (e) {
-          console.log('Card Slot ERROR: Current not yet ready');
+          console.log('-Card Slot Update: Current not yet ready');
         }
       }
     );
@@ -59,9 +56,17 @@ export class CardSlotComponent implements OnInit {
       specialAction => {
         try {
           this.specialAction = specialAction;
-          console.log('Card Slot TEMP: Received budget ', this.specialAction);
         } catch (e) {
-          console.log('Card Slot ERROR: specialAction not yet ready');
+          console.log('-Card Slot Update: specialAction not yet ready');
+        }
+      }
+    );
+    this.cardsService.selectedardsSub.subscribe(
+      selectedCards => {
+        try {
+          this.singleActionCard = selectedCards.length === 1;
+        } catch (e) {
+          console.log('-Card Slot Update: specialAction not yet ready');
         }
       }
     );
@@ -70,7 +75,6 @@ export class CardSlotComponent implements OnInit {
   ngOnInit() {
     this.isActionCard = false;
     this.budgetBoardSelected = false;
-    //this.specialAction = new SpecialAction();
   }
 
   remove() {
