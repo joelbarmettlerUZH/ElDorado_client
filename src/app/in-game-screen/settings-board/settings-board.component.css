@@ -2,11 +2,11 @@
 #Decoration{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/top_menu.png');
-  width: 639px;
-  height: 146px;
+  width: 461px;
+  height: 112px;
   position: absolute;
   top: 0;
-  right: 356px;
+  right: 480px;
 }
 
 .Panel{

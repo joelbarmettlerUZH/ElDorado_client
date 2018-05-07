@@ -127,6 +127,7 @@ export class PlayerService {
 
   // Ends isCurrent round
   public endRound() {
+    this.token = localStorage.getItem('token');
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/End?token=' + this.token, '').map(res => res.json());
   }
 
