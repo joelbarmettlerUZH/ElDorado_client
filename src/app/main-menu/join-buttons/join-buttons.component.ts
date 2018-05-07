@@ -7,6 +7,10 @@ import {UserService} from '../../shared/services/user.service';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {Http} from '@angular/http';
+import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-join-buttons',
@@ -29,15 +33,22 @@ export class JoinButtonsComponent implements OnInit {
   public roomId: number;
   private freeCharacterId: number;
   private freeCharacterName: string;
+  private roomSubscription: Subscription;
+  private FREQUENCY = INTERVAL.room();
+
 
 
   constructor(private roomService: RoomService,
-              private userService: UserService) {
+              private userService: UserService,
+              private http: Http) {
+    this.roomSubscription = Observable.interval(this.FREQUENCY).subscribe(
+      res => this.updateRooms());
   }
-
   ngOnInit() {
     this.userId = Number(localStorage.getItem('userId'));
     this.start = 0;
+  }
+  updateRooms() {
     this.roomService.getAllRooms(this.start, this.start + this.numRoomsToShow - 1).subscribe(
       res => {
         this.displayedRooms = res;
@@ -55,6 +66,7 @@ export class JoinButtonsComponent implements OnInit {
   // 2.b) action: see main-menu component (via HTML)
 
   onRoomSelected(room: Room) {
+
 
     // a)1 get Array of all characters and remove the ones already in use
     let filteredArray = this.characters;

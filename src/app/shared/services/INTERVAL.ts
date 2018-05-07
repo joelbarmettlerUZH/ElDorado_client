@@ -4,6 +4,10 @@ export class INTERVAL {
     return 600;
   }
 
+  static room(): number {
+    return 600;
+  }
+
   static player(): number {
     return 600;
   }

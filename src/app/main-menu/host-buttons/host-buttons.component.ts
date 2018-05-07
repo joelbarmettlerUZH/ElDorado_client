@@ -58,6 +58,7 @@ export class HostButtonsComponent implements OnInit {
   // 2. action: see main-menu-button-board component (via HTML)
 
   onRouteSelected(route: Route) {
+
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
       console.log('ROUTE ID!!!', route.id);
