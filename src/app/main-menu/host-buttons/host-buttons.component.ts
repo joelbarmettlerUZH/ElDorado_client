@@ -23,7 +23,8 @@ export class HostButtonsComponent implements OnInit {
   hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
   characters = POLLCHARACTER;
   public displayedRoutes: Route[];
-  public selectedRouteId: number;
+  public roomRouteId: number;
+  public roomIsCreated = false;
   private preMe: CreateUser;
   private freeCharacterId: number;
   private freeCharacterName: string;
@@ -35,6 +36,7 @@ export class HostButtonsComponent implements OnInit {
   public userId: number;
   private start: number;
   private numRoutesToShow = 4;
+
 
   constructor(private roomService: RoomService,
               private userService: UserService,
@@ -69,11 +71,12 @@ export class HostButtonsComponent implements OnInit {
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
       console.log('ROUTE ID!!!', route.boardID);
+      this.roomIsCreated = true;
       this.roomService.createRoom(this.name, route.boardID).subscribe(res => {
         console.log('REST | POST ' + this.name + ' as new Room', res);
         this.room = res;
 
-        this.selectedRouteId = this.room.boardnumber;
+        this.roomRouteId = this.room.boardnumber;
 
         // b)1 assign first character
         this.freeCharacterId = this.characters[0].id;

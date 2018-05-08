@@ -36,8 +36,8 @@
   border: none;
 }
 
-.routebutton-selected {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+.disabled {
+  pointer-events: none;
 }
 
 .path0 {
@@ -49,6 +49,11 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map0.png');
 }
 
+.path0.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map0.png');
+}
+
+
 .path1 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map1.png');
 }
@@ -57,11 +62,20 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map1.png');
 }
 
+.path1.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map1.png');
+}
+
+
 .path2 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
 }
 
 .path2:visited, .path2:focus, .path2:hover, .path2:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map2.png');
+}
+
+.path2.roomRoute.disabled {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map2.png');
 }
 
@@ -73,11 +87,19 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
+.path3.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
 .path4 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
 }
 
 .path4:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path4.roomRoute.disabled {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
@@ -89,11 +111,19 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
+.path5.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
 .path6 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
 }
 
 .path6:visited, .path3:focus, .path3:hover, .path3:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path6.roomRoute.disabled {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
@@ -105,11 +135,19 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
+.path7.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
 .path99 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
 }
 
 .path99:visited, .path3:focus, .path3:hover, .path2:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path99.roomRoute.disabled {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
 
@@ -120,6 +158,11 @@
 .path98:visited, .path3:focus, .path3:hover, .path3:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
 }
+
+.path99.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
 
 input {
   height: 2em;

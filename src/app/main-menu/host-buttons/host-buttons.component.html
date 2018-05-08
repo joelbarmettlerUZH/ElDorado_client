@@ -6,7 +6,8 @@
 
   <div *ngFor="let route of displayedRoutes">
     <button class="routebutton path{{route.boardID}}"
-            [class.routebutton-selected]="selectedRouteId==route.boardID"
+            [class.roomRoute]="roomRouteId==route.boardID"
+            [class.disabled]="roomIsCreated == true"
             id="{{route.name}}"
             (click)="onRouteSelected(route)">{{route.name}}
     </button>
