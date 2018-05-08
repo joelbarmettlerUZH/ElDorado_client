@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsBoardComponent implements OnInit {
 
+  public isActive = false;
   constructor() { }
 
   ngOnInit() {
+  }
+  onSelect() {
+    console.log('Is activated: ' + this.isActive);
+    this.isActive = !this.isActive;
+    console.log('Is activated: ' + this.isActive);
   }
 
 }

@@ -3,6 +3,7 @@ import {Card} from './Card';
 export class Slot {
   public slotId: number;
   public pile: Card[];
+  public empty: boolean;
 }
 
 

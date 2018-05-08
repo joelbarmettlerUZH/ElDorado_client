@@ -19,41 +19,39 @@ export class InGameScreenComponent implements OnInit {
   private loadingSubscription: Subscription;
   public lastRoundFinished: boolean;
   public winner: Player;
-  private gameSubscription: Subscription;
   public game: Game;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
               private gameService: GameService) {
+    this.gameService.runningSub.subscribe(
+      running => {
+        try {
+          this.winner = this.gameService.getWinners();
+          if (!running) {
+            this.lastRoundFinished = true;
+          }
+        } catch (e) {
+        }
+      }
+    );
   }
 
 
   ngOnInit() {
-    this.gameService.rawGetter().subscribe(response => {
-      this.gameSubscription = Observable.interval(2000).subscribe(
-        res => {
-          try {
-            this.winner = this.gameService.getWinners();
-            this.game = this.gameService.getGame();
-            console.log('winners???', this.winner);
-            if (!this.game.running) {
-              this.lastRoundFinished = true;
-            }
-          } catch (e) {
-            console.log('could not get winners yet');
-          }
-        }
-      );
-    });
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
-        this.loading--;
-        if (this.loading <= 0) {
-          this.loadingSubscription.unsubscribe();
+        try {
+          this.loading--;
+          if (this.loading <= 0) {
+            localStorage.setItem('load', 'notFirst');
+            this.loadingSubscription.unsubscribe();
+          }
+        } catch (e) {
+          console.log('-Loading Screen: Error in loading screen');
         }
       }
     );
   }
 }
-

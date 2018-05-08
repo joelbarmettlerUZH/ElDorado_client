@@ -9,6 +9,7 @@ import {Board} from '../models/board';
 import {MarketPlace} from '../models/MarketPlace';
 import {Blockade} from '../models/Blockade';
 import {INTERVAL} from './INTERVAL';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 
 @Injectable()
@@ -17,7 +18,20 @@ export class GameService {
   private FREQUENCY = INTERVAL.game();
 
   private baseUrl = restUrl.getBaseUrl();
-  private game: Game;
+  public game: Game;
+  public gameSub: BehaviorSubject<Game> = new BehaviorSubject<Game>(this.game);
+  public current: Player;
+  public currentSub: BehaviorSubject<Player> = new BehaviorSubject<Player>(this.current);
+  public players: Player[];
+  public playersSub: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>(this.players);
+  public market: MarketPlace;
+  public marketSub: BehaviorSubject<MarketPlace> = new BehaviorSubject<MarketPlace>(this.market);
+  public winners: Player;
+  public winnersSub: BehaviorSubject<Player> = new BehaviorSubject<Player>(this.winners);
+  public running: Boolean;
+  public runningSub: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(this.running);
+  public blockades: Blockade[];
+  public blockadesSub: BehaviorSubject<Blockade[]> = new BehaviorSubject<Blockade[]>(this.blockades);
   private gameSubscription: Subscription;
   public gameId = -1;
 
@@ -26,17 +40,6 @@ export class GameService {
     this.gameSubscription = Observable.interval(this.FREQUENCY).subscribe(
       res => this.updateGame());
   }
-
-  /*
-  unsubscribeService() {
-    this.gameSubscription.unsubscribe();
-  }
-
-  subscribeService() {
-    this.gameSubscription = Observable.interval(this.FREQUENCY).subscribe(
-      res => this.updateGame());
-  }
-*/
 
   rawGetter() {
     const gameId = Number(localStorage.getItem('gameId'));
@@ -49,7 +52,46 @@ export class GameService {
       this.gameId = Number(localStorage.getItem('gameId'));
       this.rawGetter().subscribe(
         res => {
-          this.game = res;
+          const tmpgame: Game = res;
+          if (JSON.stringify(tmpgame) !== JSON.stringify(this.game)) {
+            console.log('--Game Update: Received new game information');
+            this.game = tmpgame;
+            this.gameSub.next(this.game);
+            try {
+              if (JSON.stringify(this.game.marketPlace) !== JSON.stringify(this.market)) {
+                console.log('--Game Update: Received new Market information');
+                this.market = this.game.marketPlace;
+                this.marketSub.next(this.market);
+              }
+              if (JSON.stringify(this.game.current) !== JSON.stringify(this.current)) {
+                console.log('--Game Update: Received new Current information');
+                this.current = this.game.current;
+                this.currentSub.next(this.current);
+              }
+              if (JSON.stringify(this.game.players) !== JSON.stringify(this.players)) {
+                console.log('--Game Update: Received new players information');
+                this.players = this.game.players;
+                this.playersSub.next(this.players);
+              }
+              if (JSON.stringify(this.game.winners) !== JSON.stringify(this.winners)) {
+                console.log('--Game Update: Received new winners information');
+                this.winners = this.game.winners;
+                this.winnersSub.next(this.winners);
+              }
+              if (JSON.stringify(this.game.running) !== JSON.stringify(this.running)) {
+                console.log('--Game Update: Received new winners information');
+                this.running = this.game.running;
+                this.runningSub.next(this.running);
+              }
+              if (JSON.stringify(this.game.blockades) !== JSON.stringify(this.blockades)) {
+                console.log('--Game Update: Received new Blockade status information');
+                this.blockades = this.game.blockades;
+                this.blockadesSub.next(this.blockades);
+              }
+            } catch (e) {
+              console.log('--Game Update: Could not fetch Market, Current or Players');
+            }
+          }
         },
         err => {
           console.log('Error in getting Game ', this.gameId);

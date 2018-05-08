@@ -2,14 +2,14 @@
 #Decoration{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/top_menu.png');
-  width: 639px;
-  height: 146px;
+  width: 461px;
+  height: 112px;
   position: absolute;
   top: 0;
-  right: 356px;
+  right: 480px;
 }
 
-#Panel{
+.Panel{
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
   width: 244px;
@@ -17,5 +17,15 @@
   position: absolute;
   top: -205px;
   right: 591px;
+  transition: 0.3s;
 }
 
+.settings-board{
+
+}
+
+.selectSettings{
+  bottom: 120px;
+  /* transition: 2.3s;
+  background-color: transparent; */
+}

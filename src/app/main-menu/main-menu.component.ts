@@ -34,9 +34,12 @@ export class MainMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    // clear local storage and delete user.
+    this.userService.deleteUser(Number(localStorage.getItem('userId')));
+    localStorage.clear();
     // delete local storage and respective user when refreshing
     saveGameId(-1);
-    this.restoreStorage();
+    localStorage.setItem('load', 'first');
     this.mainMenuScreen = 'main-menu';
   }
 
@@ -47,7 +50,9 @@ export class MainMenuComponent implements OnInit {
   // 2. action: see select-character component
   // ToDo exchange paramter
   public restoreMainMenu() {
-    this.restoreStorage();
+    // clear local storage and delete user.
+    this.userService.deleteUser(Number(localStorage.getItem('userId')));
+    localStorage.clear();
     console.log('Restore MainMenu');
     this.selectCharacter.generateMainMenuView();
   }
@@ -83,24 +88,5 @@ export class MainMenuComponent implements OnInit {
     console.log('ERHALTEN: HigherCharacterRequest');
     console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.selectCharacter.generateJoinView(room);
-  }
-
-
-  restoreStorage() {
-    if (
-      localStorage.getItem('token') ||
-      localStorage.getItem('userId') ||
-      localStorage.getItem('playerId') ||
-      localStorage.getItem('roomId') ||
-      localStorage.getItem('gameId')
-    ) {
-      console.log('delete token', localStorage.getItem('token'));
-      console.log('delete userId', localStorage.getItem('userId'));
-      console.log('delete playerId', localStorage.getItem('playerId'));
-      console.log('delete roomId', localStorage.getItem('roomId'));
-      console.log('delete gameId', localStorage.getItem('gameId'));
-      this.userService.deleteUser(Number(localStorage.getItem('userId')));
-      // localStorage.clear();
-    }
   }
 }

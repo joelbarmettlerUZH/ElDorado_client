@@ -16,29 +16,37 @@ import {INTERVAL} from '../../shared/services/INTERVAL';
 })
 export class PlayerBoardComponent implements OnInit {
   public game: Game;
-  public handpile: Card[];
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public ownCharacterId: number;
   public ownPlayer: Player;
   public current: Player;
-  private currentSubscription: Subscription;
   public hand: Card[];
+  public currentPlayerId = -1;
 
   constructor(private playerService: PlayerService, private gameService: GameService) {
+    this.gameService.currentSub.subscribe(
+      current => {
+        try {
+          this.current = current;
+          this.currentPlayerId = this.current.playerId;
+        } catch (e) {
+          console.log('-Player Board Update: Current is not ready yet');
+        }
+      }
+    );
   }
 
   ngOnInit() {
     this.gameService.rawGetter().subscribe(
       response => {
-        const game: Game = response;
-        this.ownPlayer = game.players.filter(player => player.playerId === this.ownPlayerId)[0];
-        this.ownCharacterId = this.ownPlayer.characterNumber;
-        this.current = game.current;
-        this.currentSubscription = Observable.interval(INTERVAL.opponent()).subscribe(
-          y => {
-            this.current = this.gameService.getCurrent();
+        this.playerService.rawGetter().subscribe(
+          res => {
+            this.ownPlayer = res;
+            this.ownCharacterId = this.ownPlayer.characterNumber;
           }
         );
+        const game: Game = response;
+        this.current = game.current;
       }
     );
   }

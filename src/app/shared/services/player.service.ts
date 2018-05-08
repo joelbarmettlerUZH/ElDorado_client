@@ -12,6 +12,8 @@ import {GameService} from './game.service';
 import {PlayingPiece} from '../models/PlayingPiece';
 import {Game} from '../models/Game';
 import {INTERVAL} from './INTERVAL';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {SpecialAction} from '../models/SpecialAction';
 
 @Injectable()
 export class PlayerService {
@@ -21,7 +23,15 @@ export class PlayerService {
   private baseUrl = restUrl.getBaseUrl();
   private playerSubscription: Subscription;
   private player: Player;
-
+  public playerSub: BehaviorSubject<Player> = new BehaviorSubject<Player>(this.player);
+  public handcard: Card[] = [];
+  public playerHandcardSub: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>(this.handcard);
+  public specialAction: SpecialAction;
+  public specialActionSub: BehaviorSubject<SpecialAction> = new BehaviorSubject<SpecialAction>(this.specialAction);
+  public coins: number;
+  public coinsSub: BehaviorSubject<number> = new BehaviorSubject<number>(this.coins);
+  public removableBlockades: number[];
+  public removableBlockadesSub: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(this.removableBlockades);
   public playerId = -1;
   public gameId = -1;
   public token = localStorage.getItem('token');
@@ -33,28 +43,40 @@ export class PlayerService {
   updatePlayer() {
     this.gameId = Number(localStorage.getItem('gameId'));
     this.playerId = Number(localStorage.getItem('playerId'));
-    // console.log('Getting player ' + this.gameId);
-    /*
     try {
-      this.gameId = Number(localStorage.getItem('gameId'));
-      this.playerId = Number(localStorage.getItem('playerId'));
-      this.rawGetter().subscribe(
-        res => {
-          this.player = res;
-        },
-        err => {
-          console.log('Error in getting Player ', this.gameId);
+      // console.log('--Player Update: Fetching new player information');
+      const tmpPlayer: Player = this.gameService.getPlayers().filter(player => player.playerId === this.playerId)[0];
+      if (JSON.stringify(tmpPlayer) !== JSON.stringify(this.player)) {
+        console.log('--Player Update: Player information received');
+        this.player = tmpPlayer;
+        this.playerSub.next(this.player);
+        try {
+          if (JSON.stringify(this.handcard) !== JSON.stringify(this.player.handPile)) {
+            console.log('--Player Update: New handards received');
+            this.handcard = this.player.handPile;
+            this.playerHandcardSub.next(this.handcard);
+          }
+          if (JSON.stringify(this.specialAction) !== JSON.stringify(this.player.specialAction)) {
+            console.log('--Player Update: New specialAction received');
+            this.specialAction = this.player.specialAction;
+            this.specialActionSub.next(this.specialAction);
+          }
+          if (JSON.stringify(this.coins) !== JSON.stringify(this.player.coins)) {
+            console.log('--Player Update: New Coins received');
+            this.coins = this.player.coins;
+            this.coinsSub.next(this.coins);
+          }
+          if (JSON.stringify(this.removableBlockades) !== JSON.stringify(this.player.removableBlockades)) {
+            console.log('--Player Update: New removable Blockades received');
+            this.removableBlockades = this.player.removableBlockades;
+            this.removableBlockadesSub.next(this.removableBlockades);
+          }
+        } catch (e) {
+          console.log('--Player Update: ERROR, no player available yet');
         }
-      );
+      }
     } catch (e) {
-      console.log('Players in game are not ready yet');
-    }
-    */
-    try {
-      this.player = this.gameService.getPlayers().filter(player => player.playerId === this.playerId)[0];
-      // console.log('PlayerID is: ' + this.player.playerId);
-    } catch (e) {
-      console.log('No players in game yet');
+      console.log('--Player Update: ERROR, no players in game yet');
       this.player = null;
     }
   }
@@ -112,6 +134,7 @@ export class PlayerService {
 
   // Ends isCurrent round
   public endRound() {
+    this.token = localStorage.getItem('token');
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/End?token=' + this.token, '').map(res => res.json());
   }
 

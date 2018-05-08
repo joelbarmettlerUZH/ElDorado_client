@@ -4,7 +4,6 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {MainMenuComponent} from './main-menu/main-menu.component';
 import {TitleComponent} from './main-menu/title/title.component';
-import {ButtonsComponent} from './main-menu/buttons/buttons.component';
 import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
 import {OpponentBoardComponent} from './in-game-screen/opponent-board/opponent-board.component';
 import {PlayerBoardComponent} from './in-game-screen/player-board/player-board.component';
@@ -50,7 +49,6 @@ import {EldoradoReachedScreenComponent} from './in-game-screen/eldorado-reached-
     // LoginComponent,
     MainMenuComponent,
     TitleComponent,
-    ButtonsComponent,
     InGameScreenComponent,
     OpponentBoardComponent,
     PlayerBoardComponent,

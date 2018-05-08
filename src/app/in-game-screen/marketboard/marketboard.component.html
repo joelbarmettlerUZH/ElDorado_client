@@ -1,52 +1,25 @@
 <div class="Wrapper2" [class.selected]="isActive" (click)="onSelect()">
-  <div class="Marketboard">
-
-    <div id="active" class="marketHalf">
-      <div id="coinNumberDisplay">{{coinNumber}}</div>
-      <div *ngFor="let slot of activeSlot"
-           class="position"
-           [class.isNotPuchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && this.player.specialAction.steal == 0) || (this.player.bought==true && this.player.specialAction.steal == 0) || (slot.pile[0].coinCost > this.player.coins && this.player.specialAction.steal == 0)"
-           (click)="$event.stopPropagation()"
-           (click)="takeCard(slot)">
-        <img class="pileCard"
-             src="../../../assets/Karten/{{slot.pile[0].name}}.png">
-        <!--*ngFor="let card of slot.pile"-->
-      </div>
-    </div>
-
-    <div id="passive" class="marketHalf">
-      <img *ngFor="let slot of passiveSlot"
-           [class.isNotPuchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && this.player.specialAction.steal == 0) || (this.player.bought==true && this.player.specialAction.steal == 0) || (slot.pile[0].coinCost > this.player.coins && this.player.specialAction.steal == 0)"
-           class="position"
-           (click)="$event.stopPropagation()"
-           (click)="takeCard(slot)"
-           src="../../../assets/Karten/{{slot.pile[0].name}}.png">
-    </div>
-
-    <!--<div *ngFor="let slot of activeSlot"-->
-    <!--class="slot"-->
-    <!--(click)="$event.stopPropagation()"-->
-    <!--(click)="takeCard(slot)"-->
-    <!--[class.isNotPuchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)">-->
-    <!--<img *ngFor="let card of slot.pile"-->
-    <!--class="card"-->
-    <!--boardID="card{{slot.pile.indexOf(card)+1}}"-->
-    <!--src="../../../assets/Karten/fake{{card.name}}.png">-->
-    <!--</div>-->
-
+<div class="Marketboard" >
+  <div id="active" class="Slot">
+    <div id="coinNumberDisplay">{{coinNumber}}</div>
+      <ng-container *ngFor="let slot of activeSlot">
+        <ng-container *ngIf="!slot.empty">
+          <img (click)="$event.stopPropagation()" (click)="takeCard(slot)"
+            [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
+            class="position"
+            src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+        </ng-container>
+      </ng-container>
+  </div>
+  <div id="passive" class="Slot">
+    <ng-container *ngFor="let slot of passiveSlot">
+      <ng-container *ngIf="!slot.empty">
+        <img (click)="$event.stopPropagation()" (click)="takeCard(slot)"
+          [class.isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && stealBudget == 0) || (bought==true && stealBudget == 0) || (slot.pile[0].coinCost > coins && stealBudget == 0)"
+          class="position"
+          src="../../../assets/Karten/{{slot.pile[0].name}}.png">
+      </ng-container>
+    </ng-container>
   </div>
 </div>
-
-<!-- // show multiple cards of same type in market
-<div class="Marketboard" boardID="marketboard" (click)="fadeInOut()">
-  <div boardID="active">
-    <div boardID = "position" *ngFor="let slot of activeSlot">
-      <div boardID = "multiple" *ngFor="let Card of slot.pile">
-        <img  src="../../../assets/Karten/fake{{Card.name}}.png">
-      </div>
-    </div>
-  </div>
-
-  <div boardID="passive"></div>
 </div>
--->

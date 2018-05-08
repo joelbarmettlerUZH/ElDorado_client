@@ -35,6 +35,7 @@ export class HexspaceComponent implements OnInit {
   public isPlayingPiece = false;
   public isCurrent = false;
   public isBlockade = false;
+  public orientation = 'VERTICAL';
   public isActive = true;
   public isRemovable = false;
 
@@ -58,12 +59,12 @@ export class HexspaceComponent implements OnInit {
   }
 
   moveTo() {
-    console.log('User requests moving to ' + this.index);
+    console.log('-Hespace: User requests moving to ' + this.index);
     this.move.emit(this.HexSpace);
   }
 
   removeBlockade() {
-    console.log('User requests to remove blockadeEvent ' + this.index);
+    console.log('-Hexspace: User requests to remove blockadeEvent ' + this.index);
     this.blockadeEvent.emit(this.HexSpace);
   }
 
@@ -72,8 +73,8 @@ export class HexspaceComponent implements OnInit {
   }
 
   findPath() {
-    console.log('User requests pathfinder');
-    console.log(this.player);
+    console.log('-HexSpace: User requests pathfinder');
+    // console.log(this.player);
     let playingPiece: PlayingPiece;
     this.player.playingPieces.forEach(
       pP => {
@@ -81,7 +82,7 @@ export class HexspaceComponent implements OnInit {
           playingPiece = pP;
         }
       });
-    console.log('Playingpiece is ' + playingPiece.playingPieceId);
+    console.log('-HexSpace: Playingpiece is ' + playingPiece.playingPieceId);
     this.path.emit(playingPiece);
   }
 
@@ -90,20 +91,20 @@ export class HexspaceComponent implements OnInit {
   }
 
   movesOn(player: Player) {
-    console.log('Player moves on hexspace', player, this.HexSpace);
+    // console.log('Player moves on hexspace', player, this.HexSpace);
     this.player = player;
     this.isPlayingPiece = true;
   }
 
   movesOff() {
-    console.log('Player moves of hexspace', this.player, this.HexSpace);
+    // console.log('Player moves of hexspace', this.player, this.HexSpace);
     this.player = null;
     this.isPlayingPiece = false;
   }
 
   isValid() {
     const valid = this.isCurrent && this.player.playerId === Number(localStorage.getItem('playerId'));
-    console.log('User validating: ' + valid);
+    console.log('-HexSpace: User validating: ' + valid);
     return valid;
   }
 

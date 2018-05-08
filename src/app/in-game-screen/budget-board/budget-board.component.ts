@@ -12,23 +12,25 @@ import {SpecialAction} from '../../shared/models/SpecialAction';
 })
 export class BudgetBoardComponent implements OnInit {
   public isPerforming = false;
-  public SpecialActionSubscribtion: Subscription;
 
   constructor(private playerService: PlayerService) {
+    this.playerService.specialActionSub.subscribe(
+      budget => {
+        try {
+          this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;
+        } catch (e) {
+          console.log('-Budget Board Update: Error in performing action');
+        }
+      }
+    );
   }
 
   ngOnInit() {
-    this.playerService.rawGetter().subscribe(res => {
-      this.SpecialActionSubscribtion = Observable.interval(INTERVAL.specialAction()).subscribe(response => {
-        const budget: SpecialAction = this.playerService.getPlayer().specialAction;
-        this.isPerforming = budget.draw > 0 || budget.remove > 0 || budget.steal > 0;
-      });
-    });
   }
 
   endAction() {
     this.playerService.resetSpecialActions().subscribe(y => {
-      console.log('ended special action');
+      console.log('-Budget board: ended special action');
     });
   }
 

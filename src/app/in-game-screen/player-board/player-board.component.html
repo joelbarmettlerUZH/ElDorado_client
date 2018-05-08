@@ -1,5 +1,5 @@
 <div id="Player-Board">
+  <img class="Character" [class.notCurrent]="ownPlayerId != currentPlayerId" src="../../../assets/GUI_MainMenu/Avatar_{{ownCharacterId}}.png">
   <app-card-board></app-card-board>
-  <app-button-board [current]="current" [ownPlayer]="ownPlayer"></app-button-board>
-  <img class="Character" [class.notCurrent]="ownPlayer.playerId != current.playerId" src="../../../assets/GUI_MainMenu/Avatar_{{ownCharacterId}}.png">
+  <app-button-board></app-button-board>
 </div>

@@ -1,8 +1,8 @@
 <div id="Button-Board">
-  <button id="endRound" [class.notCurrent]="ownPlayer.playerId != current.playerId" *ngIf="!confirmationNeeded"
+  <button id="endRound" [class.notCurrent]="ownPlayerId != currentPlayerId" *ngIf="!confirmationNeeded"
           (click)="confirmEndRound()">END ROUND
   </button>
   <button class="confirmEndRound" id="endRoundYes" *ngIf="confirmationNeeded" (click)="endRound()">Yes</button>
   <button class="confirmEndRound" id="endRoundNo" *ngIf="confirmationNeeded" (click)="breakEndRound()">No</button>
-  <div id="ownName">{{ownPlayer.name}}</div>
+  <div id="ownName">{{ownPlayerName}}</div>
 </div>

@@ -24,7 +24,7 @@ export class MagnifyComponent implements OnInit {
   }
 
   onClick() {
-    console.log('Clicked on fullscreen card');
+    console.log('-Magnify: Clicked on fullscreen card');
     this.closeFullScreen.emit(false);
   }
 

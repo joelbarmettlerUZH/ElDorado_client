@@ -6,14 +6,6 @@
   height: auto; /*768*/
 }
 
-.Wrapper{
-  height: 100%;
-  width: 100px;
-  overflow: auto;
-  margin: 0;
-  padding: 0;
-}
-
 .Wrapper2{
   position: absolute;
   top: 0;
@@ -22,7 +14,7 @@
   height: 768px;
   overflow-y: scroll;
   box-sizing: content-box;
-  transition: 0.6s;
+  transition: 1.2s;
 }
 
 ::-webkit-scrollbar{
@@ -31,7 +23,7 @@
 
 .selected{
   right: -293px;
-  transition: 2.9s;
+  transition: 5.8s;
   background-color: transparent;
 }
 
@@ -41,7 +33,6 @@
   right: 279px;
   padding-left: 20px;
   padding-top: 1px;
-  /*background-color: #c7254e;*/
   width: 50px;
   height: 50px;
   opacity: 0.85;
@@ -56,11 +47,10 @@
   text-align: center;
 }
 
-.marketHalf {
+.Slot{
   width: 82%;
   margin-left: 18%;
 }
-
 #passive{
   margin-top: 60px;
 }
@@ -68,22 +58,11 @@
 .position{
   margin-right: 17px;
   margin-top: 10px;
-  background-color: red;
-  width: 109px;
-  height: 170px;
-  float: left;
-}
-
-.pileCard {
-  position: relative;
-  right: 0;
-  top: 0;
-  background-color: blue;
   width: 109px;
   height: 170px;
 }
 
-.isNotPuchasable{
+.isNotPurchasable{
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%) brightness(90%) !important;
 
