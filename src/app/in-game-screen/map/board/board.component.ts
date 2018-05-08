@@ -68,8 +68,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
           if (this.boardReady) {
             this.updatePlayers();
           }
-          this.selectedPlayingPiece = null;
-          this.reachableHex = [];
+          // this.selectedPlayingPiece = null;
+          // this.reachableHex = [];
         } catch (e) {
           console.log('-Board Update: Players not ready yet');
         }
