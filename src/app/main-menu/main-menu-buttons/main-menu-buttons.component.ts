@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-menu-buttons',
@@ -11,7 +12,7 @@ export class MainMenuButtonsComponent implements OnInit {
   @Output() changeButtonsRequest = new EventEmitter<string>();
   buttons = MAINMENUBUTTONS;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   // B | on main-menu button clicked (see HTML main-menu-buttons)
@@ -23,6 +24,10 @@ export class MainMenuButtonsComponent implements OnInit {
     this.changeButtonsRequest.emit(target);
     console.log(target + ' Button wurde geklickt');
     console.log('Gesendet: changeButtonsRequest | von main-menu-buttons | Target:' + target + ' | Empfänger: main-menu-button-board');
+  }
+
+  gotoTutorial() {
+    this.router.navigate(['/tutorial']);
   }
 
   ngOnInit() {

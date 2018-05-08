@@ -1,0 +1,13 @@
+<div id="tutorial">
+  <div class="textDiv text title">
+  <p>{{titles[index]}}</p>
+  </div>
+  <img src={{resources[index]}} id="gif">
+  <div id="jungleOverlay"></div>
+  <div class="textDiv text sentence" style="margin-top:599px">
+    <p>{{descriptions[index]}}</p>
+  </div>
+  <button class=readyButton id="homeButton" (click)="navigateToMenu()">HOME</button>
+  <button *ngIf="index > 0" class=navigation id="prevRooms" (click)="previous()"></button>
+  <button *ngIf="index < contentLength - 1" class=navigation id="nextRooms" (click)="next()"></button>
+</div>

@@ -1,0 +1,120 @@
+#tutorial {
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+  /* background-image: url("./../../assets/tutorial/background.jpg");*/
+  background-color: black;
+}
+
+.textDiv {
+  width: 100%;
+  height: 60px;
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.text {
+  text-align: center;
+  color: #e0b311;
+  font-family: "Georgia";
+  font-weight: normal;
+}
+
+#jungleOverlay{
+  width: 100%;
+  height: 611px;
+  position: absolute;
+  top: 50px;
+  background-image: url("./../../assets/tutorial/screen_overlay_1.png");
+
+}
+
+#gif {
+  width: 956px;
+  height:537px;
+  background-color: black;
+  position: absolute;
+  top: 80px;
+  left: 205px;
+  display: block;
+}
+
+.title{
+  font-size: 42px;
+}
+
+.sentence {
+  font-size: 16px;
+  color: lightgray;
+  font-weight: lighter;
+}
+
+.readyButton {
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../assets/GUI_MainMenu/BackToMenu.png');
+  background-color: transparent;
+  width: 98px;
+  height: 33px;
+  /* font-family: Arial; */
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.readyButton:hover {
+  background-image: url('../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+}
+
+.readyButton:disabled {
+  background-image: url('../../assets/GUI_MainMenu/BackToMenu_pressed.png');
+  cursor: auto;
+}
+
+#homeButton {
+  bottom: 10px;
+  left: 634px;
+  background-color: transparent;
+}
+
+.navigation {
+  background-size: cover;
+  position: absolute;
+  width: 32px;
+  height: 33px;
+  background-color: transparent;
+  border: none;
+}
+
+#prevRooms {
+  background-image: url('../../assets/GUI_MainMenu/Back_button.png');
+  left: 594px;
+  bottom: 10px;
+}
+
+#prevRooms:hover {
+  background-image: url('../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#prevRooms:active {
+  background-image: url('../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#nextRooms {
+  background-image: url('../../assets/GUI_MainMenu/Forth_button.png');
+  left: 740px;
+  bottom: 10px;
+}
+
+#nextRooms:hover {
+  background-image: url('../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}
+
+#nextRooms:active {
+  background-image: url('../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}
