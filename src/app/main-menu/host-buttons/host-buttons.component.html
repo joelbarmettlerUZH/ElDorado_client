@@ -2,7 +2,7 @@
 
   <button class=button id="{{hostButton.id}}">{{hostButton.name}}</button>
 
-  <input #box class=namebutton (keyup.enter)="updateRoom(box.value)" placeholder="Enter Room Name:">
+  <input #box class=namebutton (keyup)="updateRoom($event)" placeholder="Enter Room Name:">
 
   <div *ngFor="let route of displayedRoutes">
     <button class="routebutton path{{route.boardID}}"

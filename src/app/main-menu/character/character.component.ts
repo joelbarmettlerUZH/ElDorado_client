@@ -35,10 +35,10 @@ export class CharacterComponent implements OnInit {
     });
   }
 
-  updateUser(updatedName) {
-    this.usedCharacter.user.name = updatedName;
-    // this.usedCharacter.name = updatedName;
+  updateUser(event: any) {
+    this.usedCharacter.user.name = event.target.value.toString();
     this.userService.modifyUser(this.usedCharacter.user);
+    console.log(this.usedCharacter.user.name);
     console.log('REST | put | userService.modifyUser(this.me)| this.me = ' + this.usedCharacter.user.name);
   }
 

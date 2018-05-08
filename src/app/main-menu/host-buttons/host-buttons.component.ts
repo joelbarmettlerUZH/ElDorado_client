@@ -52,9 +52,8 @@ export class HostButtonsComponent implements OnInit {
     );
   }
 
-  updateRoom(inputstring) {
-    this.name = inputstring;
-    console.log(this.name);
+  updateRoom(event: any) {
+    this.name = event.target.value.toString();
   }
 
   // A.2 | on host button clicked (see HTML join-buttons component)
