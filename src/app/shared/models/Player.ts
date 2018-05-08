@@ -9,8 +9,8 @@ export class Player {
   name: string;
   characterNumber: number;
   token: string;
-  removeBlockades: number[];
-  blockades: number[];
+  removableBlockades: number[];
+  collectedBlockades: number[];
   coins: number;
   playingPieces: PlayingPiece[];
   specialAction: SpecialAction;

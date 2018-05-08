@@ -3,7 +3,7 @@ import {BlockadeSpace} from './BlockadeSpace';
 export class Blockade {
   spaces: BlockadeSpace[];
   cost: number;
-  blockade_ID: number;
+  blockadeId: number;
 }
 
 /*

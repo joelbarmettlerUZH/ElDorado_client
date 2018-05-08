@@ -2,8 +2,7 @@
   <div class="Wrapper3">
     <div class="scrollbarBoard">
     <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index"
-                 [card]="card"
-                 [singleActionCard]="singleActionCard"></app-card-slot>
+                 [card]="card"></app-card-slot>
     <app-budget-board id="budget-board"></app-budget-board>
     </div>
   </div>

@@ -68,8 +68,8 @@ button:disabled {
 }
 
 .notCurrent {
-  opacity: 0.6; /* Real browsers */
-  filter: alpha(opacity=60); /* MSIE */
+  opacity: 0; /* Real browsers */
+  filter: alpha(opacity=0); /* MSIE */
 }
 
 #ownName {

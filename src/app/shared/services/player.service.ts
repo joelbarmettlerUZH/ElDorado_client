@@ -30,6 +30,8 @@ export class PlayerService {
   public specialActionSub: BehaviorSubject<SpecialAction> = new BehaviorSubject<SpecialAction>(this.specialAction);
   public coins: number;
   public coinsSub: BehaviorSubject<number> = new BehaviorSubject<number>(this.coins);
+  public removableBlockades: number[];
+  public removableBlockadesSub: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(this.removableBlockades);
   public playerId = -1;
   public gameId = -1;
   public token = localStorage.getItem('token');
@@ -63,6 +65,11 @@ export class PlayerService {
             console.log('--Player Update: New Coins received');
             this.coins = this.player.coins;
             this.coinsSub.next(this.coins);
+          }
+          if (JSON.stringify(this.removableBlockades) !== JSON.stringify(this.player.removableBlockades)) {
+            console.log('--Player Update: New removable Blockades received');
+            this.removableBlockades = this.player.removableBlockades;
+            this.removableBlockadesSub.next(this.removableBlockades);
           }
         } catch (e) {
           console.log('--Player Update: ERROR, no player available yet');
