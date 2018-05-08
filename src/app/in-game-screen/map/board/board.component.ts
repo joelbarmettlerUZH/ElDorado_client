@@ -195,6 +195,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
         this.setRemovable(false);
         this.removable = removableBlockade;
         this.setRemovable(true);
+        this.resetReachable();
       }
     );
     this.resetReachable();
