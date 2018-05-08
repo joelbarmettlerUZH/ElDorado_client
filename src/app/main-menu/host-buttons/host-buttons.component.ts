@@ -72,7 +72,6 @@ export class HostButtonsComponent implements OnInit {
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
       console.log('ROUTE ID!!!', route.boardID);
-      this.roomIsCreated = true;
       this.roomService.createRoom(this.name, route.boardID).subscribe(res => {
         console.log('REST | POST ' + this.name + ' as new Room', res);
         this.room = res;
@@ -117,6 +116,7 @@ export class HostButtonsComponent implements OnInit {
               console.log('SENT: changeCharacterRequest | from host-buttons');
               console.log('room name: ' + this.room.name + ' room boardID: ' + this.room.roomID);
               this.changeCharacterRequest.emit(this.room);
+              this.roomIsCreated = true;
             });
           });
         });

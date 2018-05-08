@@ -2,11 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
-import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
-import {INTERVAL} from '../../shared/services/INTERVAL';
 
 @Component({
   selector: 'app-marketboard',
@@ -23,6 +20,7 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlot: Slot[];
   public purchasableSlotIds: number[] = [];
   public gameId: number;
+  public gameName: String;
   public isActive = false;
   public player: Player;
   public bought = false;
