@@ -99,7 +99,6 @@ export class MarketboardComponent implements OnInit {
   }
 
   magnify(mag: boolean) {
-    console.log("magnify")
     this.isMagnified = mag;
   }
 
@@ -109,7 +108,6 @@ export class MarketboardComponent implements OnInit {
   }
 
   setMagnified(card) {
-    console.log("seeeet")
     this.magnifiedCard = card;
     this.magnify(true);
   }

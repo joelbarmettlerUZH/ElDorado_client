@@ -67,7 +67,6 @@ export class MarketCardComponent implements OnInit {
   }
 
   magnify(card) {
-    console.log("emitttttttttttttttttttt")
     this.magnifiyCard.emit(card);
   }
 }

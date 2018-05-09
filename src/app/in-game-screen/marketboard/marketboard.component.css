@@ -56,6 +56,7 @@
 }
 
 #coinNumberDisplay {
+  text-align: right;
   position: absolute;
   top: 0px;
   right: 279px;
