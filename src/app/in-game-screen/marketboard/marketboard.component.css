@@ -2,8 +2,8 @@
 .Marketboard{
   background-image: url('../../../assets/GUI_Game/Right_Markt.png'), url('../../../assets/GUI_Game/Right_Markt_repeat.png');
   background-repeat: no-repeat, repeat-y;
-  width: 100%;
-  height: auto; /*768*/
+  width: 330px;
+  height: 1550px;
 }
 
 #gameName {
