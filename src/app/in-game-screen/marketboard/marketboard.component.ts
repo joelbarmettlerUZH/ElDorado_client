@@ -29,7 +29,7 @@ export class MarketboardComponent implements OnInit {
 
 
   constructor(private gameService: GameService,
-              private playerService: PlayerService
+               private playerService: PlayerService
   ) {
     this.gameService.marketSub.subscribe(
       market => {
@@ -94,21 +94,7 @@ export class MarketboardComponent implements OnInit {
     this.purchasableSlot = this.market.purchasable;
   }
 
-  buy(slot) {
-    console.log('-Market: Buy click was triggered:', slot.pile[0].id);
-    this.playerService.buy(slot).subscribe(x => console.log('-Market: Bought card:', slot.pile[0].name));
-  }
 
-  steal(slot) {
-    console.log('-Market: Steal click was triggered (means you have/had steal budget):', slot.pile[0].id);
-    this.playerService.steal(slot).subscribe(x => console.log('-Market: Stolen card:', slot.pile[0].name));
-  }
 
-  takeCard(slot) {
-    if (this.player.specialAction.steal === 0) {
-      this.buy(slot);
-    } else {
-      this.steal(slot);
-    }
-  }
+
 }
