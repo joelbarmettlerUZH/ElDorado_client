@@ -22,7 +22,7 @@ export class RoomService {
   public getAllRooms(start?: number, end?: number) {
     const url = this.baseUrl + 'Room?from=' + start + '&to=' + end;
     this.http.get(url).map(res => this.listRooms$ = res.json());
-    console.log('service variable:', this.listRooms$);
+    // console.log('service variable:', this.listRooms$);
     return this.http.get(url).map(res => this.listRooms$ = res.json());
   }
 

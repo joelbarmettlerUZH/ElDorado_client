@@ -81,7 +81,7 @@ export class JoinButtonsComponent implements OnInit {
     this.freeCharacterName = filteredArray[0].name;
 
     // a)3 create preUser with this id and name
-    this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
+    this.preMe = new CreateUser('Player ' + (5 - filteredArray.length), this.freeCharacterId);
     this.userService.createUser(this.preMe).subscribe(res => {
 
       // 3.1 save assigned token and ID of preMe
