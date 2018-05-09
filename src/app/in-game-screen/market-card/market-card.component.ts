@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {CardsService} from '../../shared/services/cards.service';
 import {Slot} from '../../shared/models/Slot';
@@ -18,6 +18,10 @@ export class MarketCardComponent implements OnInit {
 
   @Input()
   public slot: Slot;
+
+  @Output()
+  public magnifiyCard = new EventEmitter<Card>();
+
 
   public name: String;
   public isMagnified = false;
@@ -42,14 +46,7 @@ export class MarketCardComponent implements OnInit {
     this.name = this.card.name;
   }
 
-  magnify(mag: boolean) {
-    this.isMagnified = mag;
-  }
 
-  closeFullscreen($event) {
-    const close: boolean = $event;
-    this.magnify(!close);
-  }
 
   buy(slot) {
     console.log('-Market: Buy click was triggered:', slot.pile[0].id);
@@ -67,6 +64,11 @@ export class MarketCardComponent implements OnInit {
     } else {
       this.steal(slot);
     }
+  }
+
+  magnify(card) {
+    console.log("emitttttttttttttttttttt")
+    this.magnifiyCard.emit(card);
   }
 }
 

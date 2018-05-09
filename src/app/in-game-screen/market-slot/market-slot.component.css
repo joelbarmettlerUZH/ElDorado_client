@@ -15,5 +15,12 @@
   margin: 5px 5px 10px 5px;
 }
 
+.isNotPurchasable {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%) brightness(90%) !important;
+
+  /* opacity: 0.6; */
+  /* filter: alpha(opacity=60); *//* MSIE */
+}
 
 

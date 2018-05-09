@@ -1,5 +1,5 @@
 <div id="Market-Slot">
   <ng-container *ngFor="let card of pile">
-    <app-market-card (click)="$event.stopPropagation()" class="marketCard" [card]="card" [slot]="slot"></app-market-card>
+    <app-market-card (magnifiyCard)="magnify($event)" [class.isNotPurchasable]="isNotPurchasable" (click)="$event.stopPropagation()" class="marketCard" [card]="card" [slot]="slot"></app-market-card>
   </ng-container>
 </div>

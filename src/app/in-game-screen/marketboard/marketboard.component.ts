@@ -4,6 +4,7 @@ import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
+import {Card} from '../../shared/models/Card';
 
 @Component({
   selector: 'app-marketboard',
@@ -26,6 +27,9 @@ export class MarketboardComponent implements OnInit {
   public coins = 0;
   public stealBudget = 0;
   public gameName: String;
+  public magnifiedCard: Card;
+  public isMagnified: boolean;
+
 
 
   constructor(private gameService: GameService,
@@ -94,7 +98,20 @@ export class MarketboardComponent implements OnInit {
     this.purchasableSlot = this.market.purchasable;
   }
 
+  magnify(mag: boolean) {
+    console.log("magnify")
+    this.isMagnified = mag;
+  }
 
+  closeFullscreen($event) {
+    const close: boolean = $event;
+    this.magnify(!close);
+  }
 
+  setMagnified(card) {
+    console.log("seeeet")
+    this.magnifiedCard = card;
+    this.magnify(true);
+  }
 
 }
