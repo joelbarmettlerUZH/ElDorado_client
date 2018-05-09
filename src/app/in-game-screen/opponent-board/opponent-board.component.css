@@ -7,6 +7,7 @@
 
 #opponentSpace
 {
+  margin-top: 20px;
   width: 200px;
   top: 0;
   left: 0;
@@ -53,4 +54,10 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+}
+
+.hut{
+  top: -13px;
+  left:5px;
+  position: absolute;
 }

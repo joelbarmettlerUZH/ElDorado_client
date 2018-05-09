@@ -42,3 +42,9 @@
   transition: 2.3s;
   background-color: transparent;
 }
+
+.bush {
+  position: absolute;
+  right: -80px;
+  bottom: 0;
+}

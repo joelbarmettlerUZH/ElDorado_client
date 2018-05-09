@@ -20,6 +20,8 @@ export class OpponentBoardComponent implements OnInit {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public current: Player;
   public currentPlayerId = -1;
+  public first: Player;
+
 
   constructor(private playerService: PlayerService, private gameService: GameService) {
     this.gameService.currentSub.subscribe(
@@ -39,9 +41,11 @@ export class OpponentBoardComponent implements OnInit {
       response => {
         const game: Game = response;
         this.players = game.players;
+        this.first = this.players[0];
         this.players = this.players.filter(
           player => player.playerId !== this.ownPlayerId
         );
+
       }
     );
   }

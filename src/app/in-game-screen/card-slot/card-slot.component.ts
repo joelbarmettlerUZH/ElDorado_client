@@ -84,6 +84,7 @@ export class CardSlotComponent implements OnInit {
     } else {
       console.log('-Card Slot: Can not discard due to missing budget');
     }
+    this.cardsService.removeHandCard(this.card);
   }
 
   sell() {
@@ -106,7 +107,6 @@ export class CardSlotComponent implements OnInit {
     this.isActionCard = false;
     if (this.specialAction.remove > 0) {
       this.remove();
-      this.cardsService.removeHandCard(this.card);
     } else if (this.isActive) {
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
