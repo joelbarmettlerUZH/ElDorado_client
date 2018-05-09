@@ -61,3 +61,11 @@
   left:5px;
   position: absolute;
 }
+
+#historyArea{
+  position: relative;
+  height: 40px;
+  top: -120px;
+  left: 120px;
+  width: 0;
+}

@@ -1,0 +1,9 @@
+<div id="hisotry">
+  <div id="actionArea" *ngFor="let action of history">
+    <ng-container *ngFor="let card of action.cards">
+      <img class="actionCard" src="./../../../../assets/Karten/{{card.name}}.png">
+    </ng-container>
+    <img class="actionType" src="./../../../../assets/GUI_Game/{{action.actionName}}.png">
+  </div>
+</div>
+

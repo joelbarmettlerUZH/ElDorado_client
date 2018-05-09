@@ -30,7 +30,6 @@ export class MarketSlotComponent implements OnInit {
   }
 
   magnify(card) {
-    console.log("eeeeeeeeeeeeeeeeeeeemit")
     this.magnifiyCard2.emit(card);
   }
 }

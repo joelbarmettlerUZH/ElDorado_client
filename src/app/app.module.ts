@@ -39,6 +39,7 @@ import {BoardService} from './shared/services/board.service';
 import {EldoradoReachedScreenComponent} from './in-game-screen/eldorado-reached-screen/eldorado-reached-screen.component';
 import {MarketCardComponent} from './in-game-screen/market-card/market-card.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
+import { HistoryComponent } from './in-game-screen/opponent-board/history/history.component';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -78,6 +79,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
     EldoradoReachedScreenComponent,
     TutorialComponent,
     MarketCardComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

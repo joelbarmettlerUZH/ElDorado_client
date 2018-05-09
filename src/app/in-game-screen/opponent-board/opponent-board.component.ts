@@ -34,6 +34,17 @@ export class OpponentBoardComponent implements OnInit {
         }
       }
     );
+    this.gameService.playersSub.subscribe(
+      players => {
+        try {
+          this.players = players.filter(
+            player => player.playerId !== this.ownPlayerId
+          );
+        } catch (e) {
+          console.log('Opponent Update: Players not ready yet');
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -45,7 +56,6 @@ export class OpponentBoardComponent implements OnInit {
         this.players = this.players.filter(
           player => player.playerId !== this.ownPlayerId
         );
-
       }
     );
   }

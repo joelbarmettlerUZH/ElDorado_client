@@ -1,6 +1,7 @@
 import {Card} from './Card';
 import {PlayingPiece} from './PlayingPiece';
 import {SpecialAction} from './SpecialAction';
+import {CardAction} from './CardAction';
 
 export class Player {
   playerId: number;
@@ -12,7 +13,7 @@ export class Player {
   coins: number;
   playingPieces: PlayingPiece[];
   specialAction: SpecialAction;
-  // history: CardAction;
+  history: CardAction[];
   handPile: Card[];
   bought: boolean;
 }
