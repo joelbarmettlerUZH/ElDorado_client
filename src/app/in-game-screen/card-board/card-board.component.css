@@ -6,16 +6,16 @@
   display: inline-flex;
   width: auto; */
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 268px;
   width: 695px;
-  height: 221px; /* height 176px, width 695px ODER 100%
+  height: 221px; /*  height 176px, width 695px ODER 100%
   position: absolute; */
   transition: 0.3s;
 }
 
 .scrollbarBoard{
-  display: inline-flex;
+  display: flex;
 }
 
 .Wrapper3{
@@ -34,7 +34,7 @@
 
 
 ::-webkit-scrollbar{
-  background: transparent;
+  /* background: transparent; */
 }
 
 .selectedCardboard2{
