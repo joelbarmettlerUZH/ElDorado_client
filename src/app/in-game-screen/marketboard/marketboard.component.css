@@ -3,20 +3,28 @@
   background-image: url('../../../assets/GUI_Game/Right_Markt.png'), url('../../../assets/GUI_Game/Right_Markt_repeat.png');
   background-repeat: no-repeat, repeat-y;
   width: 330px;
-  height: 1550px;
+  height: 1650px;
+  position: absolute;
 }
 
 #gameName {
+  height: 0px;
+  position: relative;
+  top: -30px;
+  text-align: center;
   font-style: italic;
   font-size: 14px;
   font-weight: normal;
   color: #fcf6e4;
-  padding: 5px 10px;
+  /*padding: 5px 10px;*/
   text-shadow: 2px 1px black;
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+
 }
+
+
 
 .Wrapper {
   height: 100%;
@@ -49,7 +57,7 @@
 
 #coinNumberDisplay {
   position: absolute;
-  top: 38px;
+  top: 0px;
   right: 279px;
   padding-left: 35px;
   padding-top: 1px;
@@ -67,12 +75,23 @@
   border: 0;
 }
 
-.Slot{
+#active{
+  position: absolute;
   width: 82%;
-  margin-left: 18%;
+  top: 40px;
+  left: 40px;
+  /*padding-left: -38px;*/
+
+  /*margin-top: 80px;*/
 }
 #passive{
-  margin-top: 60px;
+  position: absolute;
+  width: 82%;
+  top: 600px;
+  left: 40px;
+  /*padding-left: -38px;*/
+
+  /*margin-top: 80px;*/
 }
 
 #multiple {
@@ -91,11 +110,4 @@
   margin-left: 80px;
 }
 
-.isNotPurchasable {
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%) brightness(90%) !important;
-
-  /* opacity: 0.6; */
-  /* filter: alpha(opacity=60); *//* MSIE */
-}
 

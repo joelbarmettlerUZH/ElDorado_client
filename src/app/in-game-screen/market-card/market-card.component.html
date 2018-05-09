@@ -1,5 +1,4 @@
-<app-magnify [card]="card" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
 <div class="smallCard" href="#">
-  <img src="./../../../assets/Karten/{{name}}.png">
-  <button id="magnifyAction" class='button' (click)="magnify(true)"></button>
+  <img (click)="takeCard(slot)" (click)="$event.stopPropagation()" src="./../../../assets/Karten/{{name}}.png">
+  <button id="magnifyAction" class='button' (click)="magnify(slot.pile[0])" (click)="$event.stopPropagation()"></button>
 </div>

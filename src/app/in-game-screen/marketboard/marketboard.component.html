@@ -1,18 +1,25 @@
+<app-magnify  [card]="magnifiedCard" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
 <div class="Wrapper2" [class.selected]="isActive" (click)="onSelect()">
   <div class="Marketboard">
 
-    <div id="active" class="Slot">
+    <div id="active">
       <div id="coinNumberDisplay">{{coinNumber}}</div>
       <ng-container *ngFor="let slot of activeSlot">
-        <app-market-slot [pile]="slot.pile"></app-market-slot>
+        <ng-container *ngIf="!slot.empty">
+          <app-market-slot (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
+                           [isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
+                           class="position" [slot]="slot"></app-market-slot>
+        </ng-container>
       </ng-container>
     </div>
-
-    <div id="gameName"> {{gameName}}</div>
-
-    <div id="passive" class="Slot">
+    <div id="passive">
+      <div id="gameName"> PASSIVE </div>
       <ng-container *ngFor="let slot of passiveSlot">
-        <app-market-slot [pile]="slot.pile"></app-market-slot>
+        <ng-container *ngIf="!slot.empty">
+          <app-market-slot (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
+                           [isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
+                           class="position" [slot]="slot"></app-market-slot>
+        </ng-container>
       </ng-container>
     </div>
 

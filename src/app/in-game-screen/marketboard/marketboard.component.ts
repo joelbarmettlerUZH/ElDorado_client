@@ -4,6 +4,7 @@ import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
+import {Card} from '../../shared/models/Card';
 
 @Component({
   selector: 'app-marketboard',
@@ -26,10 +27,13 @@ export class MarketboardComponent implements OnInit {
   public coins = 0;
   public stealBudget = 0;
   public gameName: String;
+  public magnifiedCard: Card;
+  public isMagnified: boolean;
+
 
 
   constructor(private gameService: GameService,
-              private playerService: PlayerService
+               private playerService: PlayerService
   ) {
     this.gameService.marketSub.subscribe(
       market => {
@@ -94,21 +98,20 @@ export class MarketboardComponent implements OnInit {
     this.purchasableSlot = this.market.purchasable;
   }
 
-  buy(slot) {
-    console.log('-Market: Buy click was triggered:', slot.pile[0].id);
-    this.playerService.buy(slot).subscribe(x => console.log('-Market: Bought card:', slot.pile[0].name));
+  magnify(mag: boolean) {
+    console.log("magnify")
+    this.isMagnified = mag;
   }
 
-  steal(slot) {
-    console.log('-Market: Steal click was triggered (means you have/had steal budget):', slot.pile[0].id);
-    this.playerService.steal(slot).subscribe(x => console.log('-Market: Stolen card:', slot.pile[0].name));
+  closeFullscreen($event) {
+    const close: boolean = $event;
+    this.magnify(!close);
   }
 
-  takeCard(slot) {
-    if (this.player.specialAction.steal === 0) {
-      this.buy(slot);
-    } else {
-      this.steal(slot);
-    }
+  setMagnified(card) {
+    console.log("seeeet")
+    this.magnifiedCard = card;
+    this.magnify(true);
   }
+
 }
