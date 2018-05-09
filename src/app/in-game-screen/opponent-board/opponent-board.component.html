@@ -2,6 +2,7 @@
   <div id="opponent" *ngFor="let player of players">
     <img id="opponentImg" [class.notCurrent]="currentPlayerId != player.playerId"
          src="../../../assets/GUI_Game/Opponent_{{player.characterNumber}}.png">
+    <img *ngIf="first.playerId === players[0].playerId" class="hut" src="../../../assets/GUI_Game/hut.png">
     <div id="opponentName"> {{player.name}}</div>
   </div>
 </div>
