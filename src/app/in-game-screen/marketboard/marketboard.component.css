@@ -6,6 +6,18 @@
   height: auto; /*768*/
 }
 
+#gameName {
+  font-style: italic;
+  font-size: 14px;
+  font-weight: normal;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
+}
+
 .Wrapper {
   height: 100%;
   width: 100px;
@@ -61,13 +73,6 @@
 }
 #passive{
   margin-top: 60px;
-}
-
-.position{
-  margin-right: 17px;
-  margin-top: 10px;
-  width: 109px;
-  height: 170px;
 }
 
 #multiple {

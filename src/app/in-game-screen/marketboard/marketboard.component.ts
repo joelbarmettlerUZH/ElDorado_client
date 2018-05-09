@@ -20,12 +20,13 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlot: Slot[];
   public purchasableSlotIds: number[] = [];
   public gameId: number;
-  public gameName: String;
   public isActive = false;
   public player: Player;
   public bought = false;
   public coins = 0;
   public stealBudget = 0;
+  public gameName: String;
+
 
   constructor(private gameService: GameService,
               private playerService: PlayerService
@@ -57,6 +58,7 @@ export class MarketboardComponent implements OnInit {
 
   ngOnInit() {
     this.isFadedIn = false;
+    this.gameName = this.gameService.getGame().gameId.toString();
   }
 
   updateCoins() {

@@ -1,0 +1,5 @@
+<app-magnify [card]="card" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
+<div class="smallCard" href="#">
+  <img src="./../../../assets/Karten/{{name}}.png">
+  <button id="magnifyAction" class='button' (click)="magnify(true)"></button>
+</div>

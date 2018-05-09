@@ -1,6 +1,17 @@
-.Card{
-  position: absolute;
+.marketCard {
+  position: relative;
   background-size: cover;
-  bottom: 230px;
-  left: 40px;
+  bottom: 0;
+  width: 9px;
+  height: 100%;
+  display: inline-block;
+  float: left;
 }
+
+#Market-Slot {
+  width: 119px;
+  height: 153px;
+  float: left;
+  margin: 5px 5px 10px 5px;
+}
+
