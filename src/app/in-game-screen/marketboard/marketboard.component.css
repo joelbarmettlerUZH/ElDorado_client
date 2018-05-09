@@ -10,7 +10,7 @@
 #gameName {
   height: 0px;
   position: relative;
-  top: -35px;
+  top: -30px;
   text-align: center;
   font-style: italic;
   font-size: 14px;
@@ -75,15 +75,22 @@
   border: 0;
 }
 
-.Slot{
-  position: relative;
+#active{
+  position: absolute;
   width: 82%;
-  margin-left: 10%;
   top: 40px;
+  left: 40px;
+  /*padding-left: -38px;*/
+
+  /*margin-top: 80px;*/
 }
 #passive{
-  top: 100px;
-  position: relative;
+  position: absolute;
+  width: 82%;
+  top: 600px;
+  left: 40px;
+  /*padding-left: -38px;*/
+
   /*margin-top: 80px;*/
 }
 

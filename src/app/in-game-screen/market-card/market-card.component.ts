@@ -58,7 +58,7 @@ export class MarketCardComponent implements OnInit {
     this.playerService.steal(slot).subscribe(x => console.log('-Market: Stolen card:', slot.pile[0].name));
   }
 
-  takeCard(slot) {
+  takeCard(slot: Slot) {
     if (this.player.specialAction.steal === 0) {
       this.buy(slot);
     } else {
