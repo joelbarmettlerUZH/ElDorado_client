@@ -261,15 +261,16 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.removable = removableBlockade;
         this.setRemovable(true);
         this.resetReachable();
+        this.resetReachable();
+        this.selectedPlayingPiece = null;
+        cards.forEach(
+          card => {
+            this.cardsService.removeHandCard(card);
+          }
+        );
+        this.resetReachable();
       }
     );
-    this.resetReachable();
-    cards.forEach(
-      card => {
-        this.cardsService.removeHandCard(card);
-      }
-    );
-    this.selectedPlayingPiece = null;
     this.resetReachable();
   }
 
