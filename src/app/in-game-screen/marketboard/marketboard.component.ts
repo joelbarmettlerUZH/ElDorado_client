@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {Card} from '../../shared/models/Card';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-marketboard',
   templateUrl: './marketboard.component.html',
   styleUrls: ['./marketboard.component.css']
 })
-export class MarketboardComponent implements OnInit {
+export class MarketboardComponent implements OnInit, OnDestroy {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
@@ -30,12 +31,13 @@ export class MarketboardComponent implements OnInit {
   public magnifiedCard: Card;
   public isMagnified: boolean;
 
-
+  private playerSubscribtion: Subscription;
+  private marketSubscribtion: Subscription;
 
   constructor(private gameService: GameService,
                private playerService: PlayerService
   ) {
-    this.gameService.marketSub.subscribe(
+    /*this.gameService.marketSub.subscribe(
       market => {
         try {
           this.market = market;
@@ -57,10 +59,33 @@ export class MarketboardComponent implements OnInit {
           console.log('-Market Update: Player is not ready yet');
         }
       }
-    );
+    );*/
   }
 
   ngOnInit() {
+    this.marketSubscribtion = this.gameService.marketSub.subscribe(
+      market => {
+        try {
+          this.market = market;
+          this.getMarket();
+        } catch (e) {
+          console.log('-Market Update: Market is not ready yet');
+        }
+      }
+    );
+    this.playerSubscribtion = this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.player = player;
+          this.bought = player.bought;
+          this.coins = player.coins;
+          this.stealBudget = player.specialAction.steal;
+          this.updateCoins();
+        } catch (e) {
+          console.log('-Market Update: Player is not ready yet');
+        }
+      }
+    );
     this.isFadedIn = false;
     this.gameName = this.gameService.getGame().gameId.toString();
   }
@@ -112,4 +137,8 @@ export class MarketboardComponent implements OnInit {
     this.magnify(true);
   }
 
+  ngOnDestroy() {
+    this.playerSubscribtion.unsubscribe();
+    this.marketSubscribtion.unsubscribe();
+  }
 }

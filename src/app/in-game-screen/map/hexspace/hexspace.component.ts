@@ -80,10 +80,10 @@ export class HexspaceComponent implements OnInit {
       pP => {
         if (this.pointToIndex(pP.standsOn.point) === this.pointToIndex(this.HexSpace.point)) {
           playingPiece = pP;
+          console.log('-HexSpace: Playingpiece is ' + playingPiece.playingPieceId);
+          this.path.emit(playingPiece);
         }
       });
-    console.log('-HexSpace: Playingpiece is ' + playingPiece.playingPieceId);
-    this.path.emit(playingPiece);
   }
 
   pointToIndex(point: Point) {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Board} from '../../../shared/models/board';
 import {Hexspace} from '../../../shared/models/hexSpace';
@@ -23,7 +23,7 @@ declare var $: any;
   styleUrls: ['./board.component.css'],
 })
 
-export class BoardComponent implements OnInit, AfterViewInit {
+export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   public hexagons: Hexspace[];
   public game: Game;
   public xDim: number;
@@ -43,15 +43,19 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   private playerSubscription: Subscription;
   private cardSucbscription: Subscription;
+  private currentSucbscription: Subscription;
+  private blockadeSucbscription: Subscription;
+  private removableSucbscription: Subscription;
+
+
+
 
   @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
 
-  constructor(
-    private gameService: GameService,
-    private playerService: PlayerService,
-    private cardsService: CardsService,
-  ) {
-    this.gameService.playersSub.subscribe(
+  constructor(private gameService: GameService,
+              private playerService: PlayerService,
+              private cardsService: CardsService) {
+    /*this.gameService.playersSub.subscribe(
       () => {
         try {
           if (this.boardReady) {
@@ -75,6 +79,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
         }
       }
     );
+    //this.cardSucbscription.unsubscribe();
     this.cardsService.selectedardsSub.subscribe(
       () => {
         try {
@@ -106,10 +111,69 @@ export class BoardComponent implements OnInit, AfterViewInit {
         }
       }
     );
+    // this.ngOnInit();*/
   }
 
 
   ngOnInit() {
+    this.playerSubscription = this.gameService.playersSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updatePlayers();
+          }
+        } catch (e) {
+          console.log('-Board Update: Players not ready yet');
+        }
+      }
+    );
+    this.currentSucbscription = this.gameService.currentSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updatePlayers();
+          }
+          // this.selectedPlayingPiece = null;
+          // this.reachableHex = [];
+        } catch (e) {
+          console.log('-Board Update: Players not ready yet');
+        }
+      }
+    );
+    //this.cardSucbscription.unsubscribe();
+    this.cardSucbscription = this.cardsService.selectedardsSub.subscribe(
+      () => {
+        try {
+          if (this.boardReady) {
+            this.updateCards();
+          }
+        } catch (e) {
+          console.log('-Board update: Cards not ready yet');
+        }
+      }
+    );
+    this.blockadeSucbscription = this.gameService.blockadesSub.subscribe(
+      blockades => {
+        try {
+          this.blockades = blockades;
+          this.setBlockades();
+        } catch (e) {
+          console.log('-Board update: Blockades not ready yet');
+        }
+      }
+    );
+    this.removableSucbscription = this.playerService.removableBlockadesSub.subscribe(
+      removableBlockades => {
+        try {
+          this.removableBlockades = removableBlockades;
+          this.setBlockades();
+        } catch (e) {
+          console.log("-Board update: Removable blockades not ready yet");
+        }
+      }
+    );
+
+
     this.gameService.rawGetter().subscribe(
       res => {
         const game: Game = res;
@@ -165,6 +229,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     console.log('-Board: Finding path with movewarpper: ', moveWrapper);
     this.playerService.findPath(moveWrapper, playingPieceId).subscribe(
       response => {
+        console.log(response);
         const hexSpaces: Hexspace[] = response;
         console.log('-Board: Reaching hexspaces: ', hexSpaces);
         hexSpaces.forEach(
@@ -365,5 +430,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
     // this.updatePlayers();
   }
 
+  ngOnDestroy() {
+    this.playerSubscription.unsubscribe();
+    this.currentSucbscription.unsubscribe();
+    //this.cardSucbscription.unsubscribe();
+    this.cardSucbscription.unsubscribe()
+    this.blockadeSucbscription.unsubscribe();
+    this.removableSucbscription.unsubscribe();
+  }
 }
 

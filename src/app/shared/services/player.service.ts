@@ -43,6 +43,7 @@ export class PlayerService {
   updatePlayer() {
     this.gameId = Number(localStorage.getItem('gameId'));
     this.playerId = Number(localStorage.getItem('playerId'));
+    this.token = localStorage.getItem('token');
     try {
       // console.log('--Player Update: Fetching new player information');
       const tmpPlayer: Player = this.gameService.getPlayers().filter(player => player.playerId === this.playerId)[0];
@@ -104,6 +105,10 @@ export class PlayerService {
 
   // Sells the provided card and returns modified player
   public sell(card: Card) {
+    console.log("sell service")
+    console.log(this.playerId);
+    console.log(this.token);
+
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Sell?token=' + this.token, card).map(res => res.json());
   }
 
@@ -134,7 +139,6 @@ export class PlayerService {
 
   // Ends isCurrent round
   public endRound() {
-    this.token = localStorage.getItem('token');
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/End?token=' + this.token, '').map(res => res.json());
   }
 
@@ -145,7 +149,8 @@ export class PlayerService {
 
   // FindPath
   public findPath(moveWrapper: MoveWrapper, playingPieceId: number) {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Path/' + playingPieceId + '?token=' + this.token, moveWrapper).map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Path/' + playingPieceId + '?token=' + this.token,
+      moveWrapper).map(res => res.json());
   }
 
   // Move
