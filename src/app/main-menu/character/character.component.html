@@ -3,7 +3,7 @@
   <div class="readyTick" *ngIf="usedCharacter.ready"></div>
   <div class="image" id="imagecharacter{{usedCharacter.id}}" [class.grayedoutPossible]="usedCharacter.user === null"
        [class.grayedout]="usedCharacter.user === null" (click)="onSelect()"></div>
- <input maxlength="12" #namebox class="nameBox" [class.ownNameBox]="usedCharacter.user !== null && usedCharacter.user.userID === ownUserId"
+ <input maxlength="8" #namebox class="nameBox" [class.ownNameBox]="usedCharacter.user !== null && usedCharacter.user.userID === ownUserId"
          (keyup)="updateUser($event)"
          placeholder={{usedCharacter.name}} [readonly]="usedCharacter.user !== null && usedCharacter.user.userID !== ownUserId" *ngIf="usedCharacter.user !== null">
   <button class=readyButton id="homeButton" *ngIf="usedCharacter.user !== null && usedCharacter.user.userID === ownUserId" (click)="onReady()">
