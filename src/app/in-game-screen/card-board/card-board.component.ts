@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {PlayerService} from '../../shared/services/player.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ import {INTERVAL} from '../../shared/services/INTERVAL';
   templateUrl: './card-board.component.html',
   styleUrls: ['./card-board.component.css']
 })
-export class CardBoardComponent implements OnInit {
+export class CardBoardComponent implements OnInit, OnDestroy {
 
   public isActive = false;
   public player: Player;
@@ -20,9 +20,13 @@ export class CardBoardComponent implements OnInit {
   public selectedCards: Card[] = [];
   public singleActionCard: boolean;
 
+  private playerSubscription: Subscription;
+  private handCardSubscribtion: Subscription;
+  private selectedCardSubscription: Subscription;
+
   constructor(private playerService: PlayerService,
               private cardsService: CardsService) {
-    this.playerService.playerSub.subscribe(
+    /*this.playerService.playerSub.subscribe(
       player => {
         try {
           this.player = player;
@@ -50,10 +54,40 @@ export class CardBoardComponent implements OnInit {
         }
       }
     );
+    // this.ngOnInit();*/
   }
 
 
   ngOnInit() {
+    this.playerSubscription = this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.player = player;
+        } catch (e) {
+          console.log('-Card Board Update: Player not yet defined');
+        }
+      }
+    );
+    this.handCardSubscribtion = this.playerService.playerHandcardSub.subscribe(
+      cards => {
+        try {
+          this.cards = cards;
+        } catch (e) {
+          console.log('-Card Board Update: Handcard not defined yet');
+        }
+      }
+    );
+    this.selectedCardSubscription = this.cardsService.selectedardsSub.subscribe(
+      selectedCards => {
+        try {
+          this.selectedCards = selectedCards;
+          this.checkForSingleActionCard();
+        } catch (e) {
+          console.log('-Card Board: Error in updating Cards or checking for singlecard');
+        }
+      }
+    );
+    // this.ngOnInit();
     this.singleActionCard = false;
   }
 
@@ -67,5 +101,11 @@ export class CardBoardComponent implements OnInit {
     } else {
       this.singleActionCard = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.selectedCardSubscription.unsubscribe();
+    this.handCardSubscribtion.unsubscribe();
+    this.playerSubscription.unsubscribe();
   }
 }

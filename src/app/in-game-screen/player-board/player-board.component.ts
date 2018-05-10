@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card} from '../../shared/models/Card';
 import {Game} from '../../shared/models/Game';
 import {PlayerService} from '../../shared/services/player.service';
@@ -14,7 +14,7 @@ import {INTERVAL} from '../../shared/services/INTERVAL';
   templateUrl: './player-board.component.html',
   styleUrls: ['./player-board.component.css']
 })
-export class PlayerBoardComponent implements OnInit {
+export class PlayerBoardComponent implements OnInit, OnDestroy {
   public game: Game;
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public ownCharacterId: number;
@@ -23,8 +23,23 @@ export class PlayerBoardComponent implements OnInit {
   public hand: Card[];
   public currentPlayerId = -1;
 
+  public currentSubscribtion: Subscription;
+
   constructor(private playerService: PlayerService, private gameService: GameService) {
-    this.gameService.currentSub.subscribe(
+    /*this.gameService.currentSub.subscribe(
+      current => {
+        try {
+          this.current = current;
+          this.currentPlayerId = this.current.playerId;
+        } catch (e) {
+          console.log('-Player Board Update: Current is not ready yet');
+        }
+      }
+    );*/
+  }
+
+  ngOnInit() {
+    this.currentSubscribtion = this.gameService.currentSub.subscribe(
       current => {
         try {
           this.current = current;
@@ -34,9 +49,6 @@ export class PlayerBoardComponent implements OnInit {
         }
       }
     );
-  }
-
-  ngOnInit() {
     this.gameService.rawGetter().subscribe(
       response => {
         this.playerService.rawGetter().subscribe(
@@ -49,6 +61,10 @@ export class PlayerBoardComponent implements OnInit {
         this.current = game.current;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.currentSubscribtion.unsubscribe();
   }
 
 }

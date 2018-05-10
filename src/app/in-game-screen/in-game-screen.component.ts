@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
@@ -13,7 +13,7 @@ import {Game} from '../shared/models/Game';
   templateUrl: './in-game-screen.component.html',
   styleUrls: ['./in-game-screen.component.css']
 })
-export class InGameScreenComponent implements OnInit {
+export class InGameScreenComponent implements OnInit, OnDestroy {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public loading = INTERVAL.loading();
   private loadingSubscription: Subscription;
@@ -21,10 +21,27 @@ export class InGameScreenComponent implements OnInit {
   public winner: Player;
   public game: Game;
 
+  private runningSubscribtion: Subscription;
+
   constructor(private route: ActivatedRoute,
               private location: Location,
               private gameService: GameService) {
-    this.gameService.runningSub.subscribe(
+    /*this.gameService.runningSub.subscribe(
+      running => {
+        try {
+          this.winner = this.gameService.getWinners();
+          if (!running) {
+            this.lastRoundFinished = true;
+          }
+        } catch (e) {
+        }
+      }
+    );*/
+  }
+
+
+  ngOnInit() {
+    this.runningSubscribtion = this.gameService.runningSub.subscribe(
       running => {
         try {
           this.winner = this.gameService.getWinners();
@@ -35,10 +52,6 @@ export class InGameScreenComponent implements OnInit {
         }
       }
     );
-  }
-
-
-  ngOnInit() {
     this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
@@ -53,5 +66,9 @@ export class InGameScreenComponent implements OnInit {
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.runningSubscribtion.unsubscribe();
   }
 }
