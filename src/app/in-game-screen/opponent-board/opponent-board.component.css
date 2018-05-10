@@ -5,6 +5,10 @@
   position: absolute;
 }
 
+#opponentDiv{
+
+}
+
 #opponentSpace
 {
   margin-top: 20px;
@@ -16,6 +20,7 @@
 
 #opponentImg {
   margin-top: 0;
+  position: relative;
 }
 
 #o0{
@@ -54,6 +59,7 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+  height: 0;
 }
 
 .hut{
@@ -64,8 +70,7 @@
 
 #historyArea{
   position: relative;
-  height: 40px;
-  top: -120px;
+  top: -97px;
   left: 120px;
   width: 0;
 }

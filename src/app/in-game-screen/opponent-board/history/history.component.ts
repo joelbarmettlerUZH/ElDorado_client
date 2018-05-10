@@ -13,8 +13,17 @@ export class HistoryComponent implements OnInit {
   @Input()
   public history: CardAction[];
 
+  @Output() actionRequest = new EventEmitter<boolean>();
+
+  public isMagnified = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  magnify(mag: boolean) {
+    console.log('-Card Slot: Set magnify to ', mag);
+    this.isMagnified = mag;
   }
 }
