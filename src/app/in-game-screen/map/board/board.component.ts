@@ -163,6 +163,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.removableSucbscription = this.playerService.removableBlockadesSub.subscribe(
       removableBlockades => {
         try {
+          console.log('-Board update: Received new removable blockades!');
           this.removableBlockades = removableBlockades;
           this.setBlockades();
         } catch (e) {
