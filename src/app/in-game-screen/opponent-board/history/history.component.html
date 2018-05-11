@@ -1,10 +1,10 @@
 <div id="hisotry">
   <div id="actionArea" *ngFor="let action of history">
     <ng-container *ngFor="let card of action.cards">
-      <app-magnify [card]="card" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
-      <img (click)="magnify(true)" class="actionCard" src="./../../../../assets/Karten/{{card.name}}.png">
+      <img (click)="magnify(card, true)" class="actionCard" src="./../../../../assets/Karten/{{card.name}}.png">
     </ng-container>
-    <img (click)="magnify(true)" class="actionType" src="./../../../../assets/GUI_Game/{{action.actionName}}.png">
+    <img class="actionType" src="./../../../../assets/GUI_Game/{{action.actionName}}.png">
   </div>
 </div>
+<app-magnify [card]="magCard" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
 

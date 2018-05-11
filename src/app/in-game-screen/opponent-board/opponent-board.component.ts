@@ -1,12 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Character} from '../../shared/models/character';
-import {CHARACTERS} from '../../shared/models/character-database';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
-import {Observable, Subscribable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
-import {INTERVAL} from '../../shared/services/INTERVAL';
 import {Game} from '../../shared/models/Game';
 
 @Component({
@@ -64,10 +60,10 @@ export class OpponentBoardComponent implements OnInit, OnDestroy {
     this.playerSubscribtion = this.gameService.playersSub.subscribe(
       players => {
         try {
+          this.first = players[0];
           this.players = players.filter(
             player => player.playerId !== this.ownPlayerId
           );
-          this.first = this.players[0];
         } catch (e) {
           console.log('Opponent Update: Players not ready yet');
         }

@@ -16,14 +16,16 @@ export class HistoryComponent implements OnInit {
   @Output() actionRequest = new EventEmitter<boolean>();
 
   public isMagnified = false;
+  public magCard: Card;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  magnify(mag: boolean) {
+  magnify(card: Card, mag: boolean) {
     console.log('-Card Slot: Set magnify to ', mag);
+    this.magCard = card;
     this.isMagnified = mag;
   }
 }

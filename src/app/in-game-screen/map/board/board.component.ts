@@ -48,8 +48,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   private removableSucbscription: Subscription;
 
 
-
-
   @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
 
   constructor(private gameService: GameService,
@@ -140,7 +138,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     );
-    //this.cardSucbscription.unsubscribe();
+    // this.cardSubscription.unsubscribe();
     this.cardSucbscription = this.cardsService.selectedardsSub.subscribe(
       () => {
         try {
@@ -168,7 +166,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
           this.removableBlockades = removableBlockades;
           this.setBlockades();
         } catch (e) {
-          console.log("-Board update: Removable blockades not ready yet");
+          console.log('-Board update: Removable blockades not ready yet');
         }
       }
     );
@@ -256,12 +254,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.playerService.move(new MoveWrapper(cards, hexSpace), playingPieceId).subscribe(
       response => {
         const removableBlockade: Blockade[] = response;
-        console.log('-Board: Moved. Now able to remove the following blockades: ', removableBlockade);
-        this.setRemovable(false);
-        this.removable = removableBlockade;
-        this.setRemovable(true);
-        this.resetReachable();
-        this.resetReachable();
         this.selectedPlayingPiece = null;
         cards.forEach(
           card => {
@@ -353,22 +345,17 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.players = updatedPlayers;
   }
 
-  setRemovable(remove: boolean) {
-    this.removable.forEach(
-      blockade => {
-        blockade.spaces.forEach(
-          hex => {
-            this.findHexComponent(hex).isRemovable = remove;
-          }
-        );
-      }
-    );
-  }
-
   setBlockades() {
     if (typeof this.blockades === 'undefined') {
       this.blockades = this.gameService.getBlockades();
     }
+    /*
+        console.log('-Board: Moved. Now able to remove the following blockades: ', removableBlockade);
+        this.setRemovable(false);
+        this.removable = removableBlockade;
+        this.setRemovable(true);
+        this.resetReachable();
+     */
     this.blockades.forEach(
       blockade => {
         blockade.spaces.forEach(
@@ -434,8 +421,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.playerSubscription.unsubscribe();
     this.currentSucbscription.unsubscribe();
-    //this.cardSucbscription.unsubscribe();
-    this.cardSucbscription.unsubscribe()
+    // this.cardSucbscription.unsubscribe();
+    this.cardSucbscription.unsubscribe();
     this.blockadeSucbscription.unsubscribe();
     this.removableSucbscription.unsubscribe();
   }
