@@ -29,3 +29,19 @@
   /* transition: 2.3s;
   background-color: transparent; */
 }
+
+#GameName {
+  position: relative;
+  bottom: 762px;
+  right: 38px;
+  height: 38px;
+  width: 196px;
+  font-style: italic;
+  font-size: 25px;
+  font-weight: normal;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  letter-spacing: 0.5px;
+  border: 0;
+}

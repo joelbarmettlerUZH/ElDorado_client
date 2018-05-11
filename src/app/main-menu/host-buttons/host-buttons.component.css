@@ -18,6 +18,7 @@
 
 #menubutton-hostgame {
   top: 0;
+
 }
 
 .routebutton {
@@ -92,77 +93,40 @@
 }
 
 .path4 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map4.png');
 }
 
 .path4:visited, .path3:focus, .path3:hover, .path3:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map4.png');
 }
 
 .path4.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map4.png');
 }
 
 .path5 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map5.png');
 }
 
 .path5:visited, .path3:focus, .path3:hover, .path3:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map5.png');
 }
 
 .path5.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map5.png');
 }
 
 .path6 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map6.png');
 }
 
 .path6:visited, .path3:focus, .path3:hover, .path3:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
 }
 
 .path6.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
 }
-
-.path7 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
-}
-
-.path7:visited, .path3:focus, .path3:hover, .path3:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
-.path7.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
-.path99 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
-}
-
-.path99:visited, .path3:focus, .path3:hover, .path2:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
-.path99.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
-.path98 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
-}
-
-.path98:visited, .path3:focus, .path3:hover, .path3:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
-.path99.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
-}
-
 
 input {
   height: 2em;
@@ -187,12 +151,12 @@ input:focus {
 }
 
 .namebutton {
-  left: 15px;
+  left: -4px;
   top: 60px;
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/Inputfield_unselected.png');
-  width: 218px;
+  width: 252px;
   height: 45px;
   /* font-family: Arial; */
   color: white;

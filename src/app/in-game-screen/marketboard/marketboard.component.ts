@@ -141,4 +141,6 @@ export class MarketboardComponent implements OnInit, OnDestroy {
     this.playerSubscribtion.unsubscribe();
     this.marketSubscribtion.unsubscribe();
   }
+
 }
+

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GameService} from '../../shared/services/game.service';
 
 @Component({
   selector: 'app-settings-board',
@@ -8,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsBoardComponent implements OnInit {
 
   public isActive = false;
-  constructor() { }
+  public gameName: String = '';
+
+  constructor(private gameService: GameService) {
+    this.gameName = this.gameService.getGame().gameName;
+  }
 
   ngOnInit() {
   }
+
   onSelect() {
     console.log('Is activated: ' + this.isActive);
     this.isActive = !this.isActive;
