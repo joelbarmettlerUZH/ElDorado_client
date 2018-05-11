@@ -69,6 +69,7 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("destroooooooooooyito");
     this.runningSubscribtion.unsubscribe();
   }
 }

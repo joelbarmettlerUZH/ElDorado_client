@@ -24,6 +24,7 @@ export class PlayerBoardComponent implements OnInit, OnDestroy {
   public currentPlayerId = -1;
 
   public currentSubscribtion: Subscription;
+  public playerSubscribtion: Subscription;
 
   constructor(private playerService: PlayerService, private gameService: GameService) {
     /*this.gameService.currentSub.subscribe(
@@ -39,6 +40,7 @@ export class PlayerBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.currentSubscribtion = this.gameService.currentSub.subscribe(
       current => {
         try {
@@ -49,22 +51,20 @@ export class PlayerBoardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.gameService.rawGetter().subscribe(
-      response => {
-        this.playerService.rawGetter().subscribe(
-          res => {
-            this.ownPlayer = res;
-            this.ownCharacterId = this.ownPlayer.characterNumber;
-          }
-        );
-        const game: Game = response;
-        this.current = game.current;
+    this.playerSubscribtion = this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.ownPlayer = player;
+          this.ownCharacterId = this.ownPlayer.characterNumber;
+        } catch (e) {
+          console.log('-Player Board Update: PLayer is not ready yet');
+        }
       }
     );
   }
 
   ngOnDestroy() {
     this.currentSubscribtion.unsubscribe();
+    this.playerSubscribtion.unsubscribe();
   }
-
 }

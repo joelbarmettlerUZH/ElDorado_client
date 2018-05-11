@@ -35,7 +35,7 @@ export class HexspaceComponent implements OnInit {
   public isPlayingPiece = false;
   public isCurrent = false;
   public isBlockade = false;
-  public orientation = 'VERTICAL';
+  public orientation: number;
   public isActive = true;
   public isRemovable = false;
 

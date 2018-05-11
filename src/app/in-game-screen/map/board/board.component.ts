@@ -215,7 +215,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedPlayingPiece = $event;
     this.removable = [];
     const cards: Card[] = this.cardsService.getSelectedCards();
-    if (cards.length < 1) {
+    if (cards.length < 0) {
       console.log('-Board: Can not get da wae since no cards are selected');
       return;
     }
@@ -286,24 +286,20 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('-Board: Request to remove blockade received with blockade ', block);
     this.playerService.removeBlockade(block).subscribe(
       () => {
+        this.selectedPlayingPiece = null;
       }
     );
+    this.resetReachable();
   }
 
   updateCards() {
     const newCards: Card[] = this.cardsService.getSelectedCards();
-    if (newCards.length !== this.selectedCards.length) {
-      console.log('-Card update: Change detected: ', this.selectedCards, newCards);
-      this.selectedCards = newCards;
-      if (newCards.length === 0) {
-        this.resetReachable();
-      } else {
-        console.log('-Card update: New cards selected, getting da wae');
-        if (this.selectedPlayingPiece !== null) {
-          console.log('-Card update: Getting wae again with old playing piece');
-          this.getWay(this.selectedPlayingPiece);
-        }
-      }
+    console.log('-Card update: Change detected: ', this.selectedCards, newCards);
+    this.selectedCards = newCards;
+    console.log('-Card update: New cards selected, getting da wae');
+    if (this.selectedPlayingPiece !== null) {
+      console.log('-Card update: Getting wae again with old playing piece');
+      this.getWay(this.selectedPlayingPiece);
     }
   }
 
@@ -364,9 +360,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             const hex: HexspaceComponent = this.findHexComponent(space);
             hex.isBlockade = true;
             hex.isActive = space.strength > 0;
-            if (blockade.blockadeId >= 1000) {
-              hex.orientation = 'HORIZONTAL';
-            }
+            hex.orientation = space.orientation;
             hex.isRemovable = (this.removableBlockades.indexOf(blockade.blockadeId) >= 0);
           }
         );

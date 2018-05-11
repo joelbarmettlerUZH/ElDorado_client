@@ -17,6 +17,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class ButtonBoardComponent implements OnInit, OnDestroy {
 
   private currentSubscribtion: Subscription;
+  private playerSubscribtion: Subscription;
 
   constructor(private playerService: PlayerService,
               private gameService: GameService,
@@ -51,10 +52,13 @@ export class ButtonBoardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.playerService.rawGetter().subscribe(
+    this.playerSubscribtion = this.playerService.playerSub.subscribe(
       player => {
-        const tmpPlayer: Player = player;
-        this.ownPlayerName = tmpPlayer.name;
+        try {
+          this.ownPlayerName = player.name;
+        } catch (e) {
+          console.log('-Player Board Update: PLayer is not ready yet');
+        }
       }
     );
     this.confirmationNeeded = false;
@@ -84,5 +88,6 @@ export class ButtonBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.currentSubscribtion.unsubscribe();
+    this.playerSubscribtion.unsubscribe();
   }
 }

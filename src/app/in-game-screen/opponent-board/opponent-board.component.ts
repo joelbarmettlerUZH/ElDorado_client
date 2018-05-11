@@ -73,10 +73,14 @@ export class OpponentBoardComponent implements OnInit, OnDestroy {
       response => {
         const game: Game = response;
         this.players = game.players;
+        console.log(this.players);
         this.first = this.players[0];
         this.players = this.players.filter(
           player => player.playerId !== this.ownPlayerId
         );
+        console.log(this.players);
+        console.log(this.first);
+
       }
     );
   }

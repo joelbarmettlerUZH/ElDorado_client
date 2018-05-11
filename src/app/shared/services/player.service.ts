@@ -105,10 +105,6 @@ export class PlayerService {
 
   // Sells the provided card and returns modified player
   public sell(card: Card) {
-    console.log("sell service")
-    console.log(this.playerId);
-    console.log(this.token);
-
     return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/Sell?token=' + this.token, card).map(res => res.json());
   }
 
@@ -166,7 +162,7 @@ export class PlayerService {
 
   // Resets action budget
   public resetSpecialActions() {
-    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/EndAction/?token=' + this.token, '').map(res => res.json());
+    return this.http.put(this.baseUrl + 'Player/' + this.playerId + '/EndAction/?token=' + this.token, '');
   }
 
 }
