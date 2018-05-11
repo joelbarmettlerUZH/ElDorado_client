@@ -19,4 +19,5 @@ export class Game {
   public blockades: Blockade[];
   public marketPlace: MarketPlace;
   public memento: Memento;
+  public gameName: String;
 }
