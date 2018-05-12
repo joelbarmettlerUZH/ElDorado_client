@@ -12,10 +12,11 @@ export class SettingsBoardComponent implements OnInit {
   public gameName: String = '';
 
   constructor(private gameService: GameService) {
-    this.gameName = this.gameService.getGame().gameName;
+
   }
 
   ngOnInit() {
+    this.gameName = this.gameService.getGame().gameName;
   }
 
   onSelect() {

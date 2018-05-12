@@ -41,6 +41,7 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.lastRoundFinished = false;
     this.runningSubscribtion = this.gameService.runningSub.subscribe(
       running => {
         try {
@@ -52,7 +53,6 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.lastRoundFinished = false;
     this.loadingSubscription = Observable.interval(1000).subscribe(
       res => {
         try {
@@ -69,7 +69,8 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("destroooooooooooyito");
+    console.log('OnDestroy')
     this.runningSubscribtion.unsubscribe();
+    this.loadingSubscription.unsubscribe();
   }
 }
