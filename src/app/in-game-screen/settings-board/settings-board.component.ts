@@ -24,5 +24,4 @@ export class SettingsBoardComponent implements OnInit {
     this.isActive = !this.isActive;
     console.log('Is activated: ' + this.isActive);
   }
-
 }

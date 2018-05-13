@@ -1,0 +1,24 @@
+#Panel {
+  width: 244px;
+  height: 311px;
+  background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
+  background-size: cover;
+}
+
+.settingButton {
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
+  background-color: transparent;
+  width: 218px;
+  height: 45px;
+  position: relative;
+  top: 20px;
+  left: 0;
+  margin-top: 6px;
+  color: white;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: left;
+  border: none;
+}
+
