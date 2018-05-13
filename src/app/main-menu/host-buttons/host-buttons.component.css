@@ -96,7 +96,7 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map4.png');
 }
 
-.path4:visited, .path3:focus, .path3:hover, .path3:active {
+.path4:visited, .path4:focus, .path4:hover, .path4:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map4.png');
 }
 
@@ -108,7 +108,7 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map5.png');
 }
 
-.path5:visited, .path3:focus, .path3:hover, .path3:active {
+.path5:visited, .path5:focus, .path5:hover, .path5:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map5.png');
 }
 
@@ -120,7 +120,7 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map6.png');
 }
 
-.path6:visited, .path3:focus, .path3:hover, .path3:active {
+.path6:visited, .path6:focus, .path6:hover, .path6:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
 }
 
