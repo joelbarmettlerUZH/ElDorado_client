@@ -1,5 +1,5 @@
 
-#Decoration{
+#Decoration {
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/top_menu.png');
   width: 461px;
@@ -7,27 +7,20 @@
   position: absolute;
   top: 0;
   right: 480px;
+  pointer-events: none;
 }
 
-.Panel{
-  background-size: cover;
-  background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
-  width: 244px;
-  height: 311px;
+.SettingPanel {
   position: absolute;
   top: -205px;
   right: 591px;
-  transition: 0.3s;
+  transition: 0.6s;
 }
 
-.settings-board{
-
-}
-
-.selectSettings{
-  bottom: 120px;
-  /* transition: 2.3s;
-  background-color: transparent; */
+.PanelSelected {
+  top: +54px;
+  transition: 2.9s;
+  background-color: transparent;
 }
 
 #GameName {
