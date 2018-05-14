@@ -6,7 +6,7 @@
       <div id="coinNumberDisplay">{{coinNumber}}</div>
       <ng-container *ngFor="let slot of activeSlot">
         <ng-container *ngIf="!slot.empty">
-          <app-market-slot (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
+          <app-market-slot *ngIf="player" (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
                            [isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
                            class="position" [slot]="slot"></app-market-slot>
         </ng-container>
@@ -16,12 +16,11 @@
       <div id="gameName"> PASSIVE </div>
       <ng-container *ngFor="let slot of passiveSlot">
         <ng-container *ngIf="!slot.empty">
-          <app-market-slot (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
+          <app-market-slot *ngIf="player" (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
                            [isNotPurchasable]="(purchasableSlotIds.indexOf(slot.slotId) == -1 && player.specialAction.steal == 0) || (bought==true && player.specialAction.steal == 0) || (slot.pile[0].coinCost > player.coins && player.specialAction.steal == 0)"
                            class="position" [slot]="slot"></app-market-slot>
         </ng-container>
       </ng-container>
     </div>
-
   </div>
 </div>

@@ -9,16 +9,21 @@
   background-size: cover;
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   background-color: transparent;
-  width: 218px;
+  width: 198px;
   height: 45px;
   position: relative;
   top: 20px;
   left: 0;
   margin-top: 6px;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
+  text-align: center;
   padding: 5px 10px;
-  text-align: left;
   border: none;
+  opacity: 0.85;
+  font-weight: bold;
+  text-shadow: 2px 1px black;
+  letter-spacing: 0.5px;
+  border: 0;
 }
 

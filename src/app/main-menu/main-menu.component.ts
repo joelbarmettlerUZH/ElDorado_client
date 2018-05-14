@@ -7,6 +7,7 @@ import {Room} from '../shared/models/Room';
 import {saveGameId} from '../shared/cookieHandler';
 
 
+
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
@@ -89,4 +90,5 @@ export class MainMenuComponent implements OnInit {
     console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.selectCharacter.generateJoinView(room);
   }
+
 }

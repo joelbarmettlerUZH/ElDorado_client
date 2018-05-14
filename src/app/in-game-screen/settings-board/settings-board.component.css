@@ -14,12 +14,12 @@
   position: absolute;
   top: -205px;
   right: 599px;
-  transition: 0.6s;
+  transition: 1.9s;
 }
 
 .PanelSelected {
   top: +54px;
-  transition: 2.9s;
+  transition: 0.6s;
   background-color: transparent;
 }
 

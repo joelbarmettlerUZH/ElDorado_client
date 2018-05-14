@@ -14,6 +14,7 @@ import {Game} from '../../../shared/models/Game';
 import {CardsService} from '../../../shared/services/cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Blockade} from '../../../shared/models/Blockade';
+import {SettingsService} from '../../../shared/services/settings.service';
 
 declare var $: any;
 
@@ -47,69 +48,11 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   private blockadeSucbscription: Subscription;
   private removableSucbscription: Subscription;
 
-
   @ViewChildren('hexspaceComponent') hexComponent: QueryList<HexspaceComponent>;
 
   constructor(private gameService: GameService,
               private playerService: PlayerService,
               private cardsService: CardsService) {
-    /*this.gameService.playersSub.subscribe(
-      () => {
-        try {
-          if (this.boardReady) {
-            this.updatePlayers();
-          }
-        } catch (e) {
-          console.log('-Board Update: Players not ready yet');
-        }
-      }
-    );
-    this.gameService.currentSub.subscribe(
-      () => {
-        try {
-          if (this.boardReady) {
-            this.updatePlayers();
-          }
-          // this.selectedPlayingPiece = null;
-          // this.reachableHex = [];
-        } catch (e) {
-          console.log('-Board Update: Players not ready yet');
-        }
-      }
-    );
-    //this.cardSucbscription.unsubscribe();
-    this.cardsService.selectedardsSub.subscribe(
-      () => {
-        try {
-          if (this.boardReady) {
-            this.updateCards();
-          }
-        } catch (e) {
-          console.log('-Board update: Cards not ready yet');
-        }
-      }
-    );
-    this.gameService.blockadesSub.subscribe(
-      blockades => {
-        try {
-          this.blockades = blockades;
-          this.setBlockades();
-        } catch (e) {
-          console.log('-Board update: Blockades not ready yet');
-        }
-      }
-    );
-    this.playerService.removableBlockadesSub.subscribe(
-      removableBlockades => {
-        try {
-          this.removableBlockades = removableBlockades;
-          this.setBlockades();
-        } catch (e) {
-          console.log("-Board update: Removable blockades not ready yet");
-        }
-      }
-    );
-    // this.ngOnInit();*/
   }
 
 
@@ -171,7 +114,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     );
-
 
     this.gameService.rawGetter().subscribe(
       res => {
@@ -343,8 +285,9 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setBlockades() {
-    if (typeof this.blockades === 'undefined') {
-      this.blockades = this.gameService.getBlockades();
+    if (typeof this.blockades === 'undefined' || typeof this.removableBlockades === 'undefined') {
+      console.log('-Board update: Blockades not ready yet');
+      return;
     }
     /*
         console.log('-Board: Moved. Now able to remove the following blockades: ', removableBlockade);

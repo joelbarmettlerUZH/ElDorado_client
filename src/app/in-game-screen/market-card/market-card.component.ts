@@ -6,6 +6,7 @@ import {PlayerService} from '../../shared/services/player.service';
 import {GameService} from '../../shared/services/game.service';
 import {Player} from '../../shared/models/Player';
 import {Subscription} from 'rxjs/Subscription';
+import {SettingsService} from '../../shared/services/settings.service';
 
 @Component({
   selector: 'app-market-card',
@@ -31,17 +32,7 @@ export class MarketCardComponent implements OnInit, OnDestroy {
   private playerSubscribtion: Subscription;
 
   constructor(private gameService: GameService,
-              private playerService: PlayerService
-  ) {
-    /*this.playerService.playerSub.subscribe(
-      player => {
-        try {
-          this.player = player;
-        } catch (e) {
-          console.log('-Market Update: Player is not ready yet');
-        }
-      }
-    );*/
+              private playerService: PlayerService) {
   }
 
   ngOnInit() {

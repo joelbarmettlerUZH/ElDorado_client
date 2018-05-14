@@ -27,7 +27,6 @@ export class MarketboardComponent implements OnInit, OnDestroy {
   public bought = false;
   public coins = 0;
   public stealBudget = 0;
-  public gameName: String;
   public magnifiedCard: Card;
   public isMagnified: boolean;
 
@@ -87,7 +86,6 @@ export class MarketboardComponent implements OnInit, OnDestroy {
       }
     );
     this.isFadedIn = false;
-    this.gameName = this.gameService.getGame().gameId.toString();
   }
 
   updateCoins() {

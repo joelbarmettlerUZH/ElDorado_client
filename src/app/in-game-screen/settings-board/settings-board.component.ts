@@ -16,12 +16,14 @@ export class SettingsBoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gameName = this.gameService.getGame().gameName;
+    this.gameService.rawGetter().subscribe(
+      game => {
+        this.gameName = game.name;
+      }
+    );
   }
 
   onSelect() {
-    console.log('Is activated: ' + this.isActive);
     this.isActive = !this.isActive;
-    console.log('Is activated: ' + this.isActive);
   }
 }

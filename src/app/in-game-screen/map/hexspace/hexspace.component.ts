@@ -1,15 +1,17 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {Player} from '../../../shared/models/Player';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
+import {SettingsService} from '../../../shared/services/settings.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-hexspace',
   templateUrl: './hexspace.component.html',
   styleUrls: ['./hexspace.component.css'],
 })
-export class HexspaceComponent implements OnInit {
+export class HexspaceComponent implements OnInit, OnDestroy {
 
   @Input()
   public yDim: number;
@@ -43,10 +45,27 @@ export class HexspaceComponent implements OnInit {
   public strength: number;
   public index: number;
 
-  constructor() {
+  public showPathfinder: Boolean;
+  private pathfinderSubscription: Subscription;
+
+  public showCurrent: Boolean;
+  private showCurrentSubscription: Subscription;
+
+  constructor(private settingsService: SettingsService) {
   }
 
   ngOnInit() {
+    this.pathfinderSubscription = this.settingsService.showPathfinderSub.subscribe(
+      show => {
+        this.showPathfinder = show;
+      }
+    );
+
+    this.showCurrentSubscription = this.settingsService.showCurrentSub.subscribe(
+      show => {
+        this.showCurrent = show;
+      }
+    );
 
     this.color = this.HexSpace.color;
     this.index = (this.HexSpace.point.x * this.yDim) + this.HexSpace.point.y;
@@ -118,5 +137,10 @@ export class HexspaceComponent implements OnInit {
     if (this.isBlockade && this.isRemovable) {
       this.removeBlockade();
     }
+  }
+
+  ngOnDestroy() {
+    this.pathfinderSubscription.unsubscribe();
+    this.showCurrentSubscription.unsubscribe();
   }
 }

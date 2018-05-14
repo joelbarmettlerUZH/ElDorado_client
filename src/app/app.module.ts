@@ -41,6 +41,7 @@ import {MarketCardComponent} from './in-game-screen/market-card/market-card.comp
 import {TutorialComponent} from './tutorial/tutorial.component';
 import {HistoryComponent} from './in-game-screen/opponent-board/history/history.component';
 import {PanelComponent} from './in-game-screen/panel/panel.component';
+import {SettingsService} from './shared/services/settings.service';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -91,7 +92,7 @@ import {PanelComponent} from './in-game-screen/panel/panel.component';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService, SettingsService],
   bootstrap: [AppComponent]
 })
 

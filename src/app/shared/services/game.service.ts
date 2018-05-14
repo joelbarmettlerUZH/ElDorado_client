@@ -32,6 +32,7 @@ export class GameService {
   public runningSub: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(this.running);
   public blockades: Blockade[];
   public blockadesSub: BehaviorSubject<Blockade[]> = new BehaviorSubject<Blockade[]>(this.blockades);
+
   private gameSubscription: Subscription;
   public gameId = -1;
 

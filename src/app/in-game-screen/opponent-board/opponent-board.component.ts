@@ -4,6 +4,7 @@ import {Player} from '../../shared/models/Player';
 import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
 import {Game} from '../../shared/models/Game';
+import {SettingsService} from '../../shared/services/settings.service';
 
 @Component({
   selector: 'app-opponent-board',
@@ -21,29 +22,12 @@ export class OpponentBoardComponent implements OnInit, OnDestroy {
   private curentSubscribtion: Subscription;
   private playerSubscribtion: Subscription;
 
-  constructor(private playerService: PlayerService, private gameService: GameService) {
-    /*this.gameService.currentSub.subscribe(
-      current => {
-        try {
-          this.current = current;
-          this.currentPlayerId = this.current.playerId;
-        } catch (e) {
-          console.log('Opponent Update: Current is not ready yet');
-        }
-      }
-    );
-    this.gameService.playersSub.subscribe(
-      players => {
-        try {
-          this.players = players.filter(
-            player => player.playerId !== this.ownPlayerId
-          );
-          this.first = this.players[0];
-        } catch (e) {
-          console.log('Opponent Update: Players not ready yet');
-        }
-      }
-    );*/
+  public showCurrent: Boolean;
+  private currentSubscription: Subscription;
+
+  constructor(private playerService: PlayerService,
+              private gameService: GameService,
+              private settingsService: SettingsService) {
   }
 
   ngOnInit() {
@@ -69,6 +53,11 @@ export class OpponentBoardComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.currentSubscription = this.settingsService.showCurrentSub.subscribe(
+      show => {
+        this.showCurrent = show;
+      }
+    );
     this.gameService.rawGetter().subscribe(
       response => {
         const game: Game = response;
@@ -88,5 +77,6 @@ export class OpponentBoardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.curentSubscribtion.unsubscribe();
     this.playerSubscribtion.unsubscribe();
+    this.currentSubscription.unsubscribe();
   }
 }

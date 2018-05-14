@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {GameService} from '../../shared/services/game.service';
 import {Observable} from 'rxjs/Observable';
 import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SettingsService} from '../../shared/services/settings.service';
 // import {Player} from '../../shared/models/Player';
 
 @Component({
@@ -17,7 +18,7 @@ import {INTERVAL} from '../../shared/services/INTERVAL';
 export class PlayerBoardComponent implements OnInit, OnDestroy {
   public game: Game;
   public ownPlayerId = Number(localStorage.getItem('playerId'));
-  public ownCharacterId: number;
+  public ownCharacterId: number = 0;
   public ownPlayer: Player;
   public current: Player;
   public hand: Card[];
@@ -26,17 +27,12 @@ export class PlayerBoardComponent implements OnInit, OnDestroy {
   public currentSubscribtion: Subscription;
   public playerSubscribtion: Subscription;
 
-  constructor(private playerService: PlayerService, private gameService: GameService) {
-    /*this.gameService.currentSub.subscribe(
-      current => {
-        try {
-          this.current = current;
-          this.currentPlayerId = this.current.playerId;
-        } catch (e) {
-          console.log('-Player Board Update: Current is not ready yet');
-        }
-      }
-    );*/
+  public showCurrent: Boolean;
+  private showCurrentSubscription: Subscription;
+
+  constructor(private playerService: PlayerService,
+              private gameService: GameService,
+              private settingsService: SettingsService) {
   }
 
   ngOnInit() {
@@ -61,10 +57,16 @@ export class PlayerBoardComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.showCurrentSubscription = this.settingsService.showCurrentSub.subscribe(
+      show => {
+        this.showCurrent = show;
+      }
+    );
   }
 
   ngOnDestroy() {
     this.currentSubscribtion.unsubscribe();
     this.playerSubscribtion.unsubscribe();
+    this.showCurrentSubscription.unsubscribe();
   }
 }
