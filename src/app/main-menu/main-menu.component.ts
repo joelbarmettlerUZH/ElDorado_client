@@ -5,6 +5,7 @@ import {UserService} from '../shared/services/user.service';
 import {CharacterSelectionComponent} from './character-selection/character-selection.component';
 import {Room} from '../shared/models/Room';
 import {saveGameId} from '../shared/cookieHandler';
+import {SoundService} from '../shared/services/sound.service';
 
 
 
@@ -27,11 +28,13 @@ export class MainMenuComponent implements OnInit {
   @ViewChild('childButtonArea')
   private childButtonArea: MainMenuButtonBoardComponent;
 
+  public musicPlaying: Boolean = true;
+
   mainMenuScreen: string;
   me: User;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class MainMenuComponent implements OnInit {
     saveGameId(-1);
     localStorage.setItem('load', 'first');
     this.mainMenuScreen = 'main-menu';
+    this.sound.backgroundMusicState();
   }
 
 
@@ -58,23 +62,6 @@ export class MainMenuComponent implements OnInit {
     this.selectCharacter.generateMainMenuView();
   }
 
-  // TO DELETE ?
-  // // B | on main-menu button clicked (see HTML main-menu-buttons)
-  // // 5. action:
-  // // a) call corresponding view on child component
-  // // 6. action: see select-character component
-  //
-  // private hostGame(defaultRoom) {
-  //   console.log('REST: room created');
-  //   this.roomService.createRoom(this.defaultRoom.name, this.defaultRoom.boardnumber)
-  //     .subscribe(roomURL => {
-  //       this.roomIDURI = roomURL;
-  //       console.log(this.roomIDURI);
-  //       // this.roomID = roomURL.split('/').slice(-1)[0] ;
-  //       // console.log(this.roomID);
-  //     });
-  //   this.childCharacter.generateHostView();
-  // }
 
   private consultManual() {
     this.selectCharacter.generateManualView();
@@ -91,4 +78,9 @@ export class MainMenuComponent implements OnInit {
     this.selectCharacter.generateJoinView(room);
   }
 
+  public musicState() {
+    this.musicPlaying = !this.musicPlaying;
+    this.sound.backgroundMusicState(this.musicPlaying);
+    this.sound.soundState(this.musicPlaying);
+  }
 }

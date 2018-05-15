@@ -11,6 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {Http} from '@angular/http';
 import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-join-buttons',
@@ -40,7 +41,8 @@ export class JoinButtonsComponent implements OnInit {
 
   constructor(private roomService: RoomService,
               private userService: UserService,
-              private http: Http) {
+              private http: Http,
+              private sound: SoundService) {
     this.roomSubscription = Observable.interval(this.FREQUENCY).subscribe(
       res => this.updateRooms());
   }
@@ -66,7 +68,7 @@ export class JoinButtonsComponent implements OnInit {
   // 2.b) action: see main-menu component (via HTML)
 
   onRoomSelected(room: Room) {
-
+    this.sound.click();
     // a)1 get Array of all characters and remove the ones already in use
     let filteredArray = this.characters;
     console.log('pre filteredArray', filteredArray);
@@ -116,6 +118,7 @@ export class JoinButtonsComponent implements OnInit {
   }
 
   getPrev() {
+    this.sound.back();
     this.start = Math.max(this.start - this.numRoomsToShow, 0);
     console.log('Previous clicked, start: ' + this.start);
     console.log('Previous clicked, end: ' + (this.start + this.numRoomsToShow - 1));
@@ -127,6 +130,7 @@ export class JoinButtonsComponent implements OnInit {
   }
 
   getNext() {
+    this.sound.back();
     console.log('Next clicked, start: ' + (this.start + this.numRoomsToShow));
     console.log('Next clicked, end: ' + (this.start + 2 * this.numRoomsToShow - 1));
 

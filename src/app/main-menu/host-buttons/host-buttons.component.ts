@@ -10,6 +10,7 @@ import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
 import {BoardService} from '../../shared/services/board.service';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-host-buttons',
@@ -40,7 +41,8 @@ export class HostButtonsComponent implements OnInit {
 
   constructor(private roomService: RoomService,
               private userService: UserService,
-              private boardService: BoardService) {
+              private boardService: BoardService,
+              private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -68,7 +70,7 @@ export class HostButtonsComponent implements OnInit {
   // 2. action: see main-menu-button-board component (via HTML)
 
   onRouteSelected(route: Route) {
-
+    this.sound.click();
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
       console.log('ROUTE ID!!!', route.boardID);
@@ -126,6 +128,7 @@ export class HostButtonsComponent implements OnInit {
 
 
   getPrev() {
+    this.sound.back();
     this.start = Math.max(this.start - this.numRoutesToShow, 0);
     console.log('Previous clicked, start: ' + this.start);
     console.log('Previous clicked, end: ' + (this.start + this.numRoutesToShow - 1));
@@ -137,6 +140,7 @@ export class HostButtonsComponent implements OnInit {
   }
 
   getNext() {
+    this.sound.back();
     console.log('Next clicked, start: ' + (this.start + this.numRoutesToShow));
     console.log('Next clicked, end: ' + (this.start + 2 * this.numRoutesToShow - 1));
 

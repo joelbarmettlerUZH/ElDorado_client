@@ -7,6 +7,7 @@ import {GameService} from '../shared/services/game.service';
 import {INTERVAL} from '../shared/services/INTERVAL';
 import {Player} from '../shared/models/Player';
 import {Game} from '../shared/models/Game';
+import {SoundService} from '../shared/services/sound.service';
 
 @Component({
   selector: 'app-in-game-screen',
@@ -25,18 +26,8 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private location: Location,
-              private gameService: GameService) {
-    /*this.gameService.runningSub.subscribe(
-      running => {
-        try {
-          this.winner = this.gameService.getWinners();
-          if (!running) {
-            this.lastRoundFinished = true;
-          }
-        } catch (e) {
-        }
-      }
-    );*/
+              private gameService: GameService,
+              private sound: SoundService) {
   }
 
 
@@ -66,10 +57,11 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.sound.backgroundMusicState();
   }
 
   ngOnDestroy() {
-    console.log('OnDestroy')
+    console.log('OnDestroy');
     this.runningSubscribtion.unsubscribe();
     this.loadingSubscription.unsubscribe();
   }

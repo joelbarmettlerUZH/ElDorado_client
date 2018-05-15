@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import {GameService} from '../../shared/services/game.service';
 import {Game} from '../../shared/models/Game';
 import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SoundService} from '../../shared/services/sound.service';
 
 // import {CARDS} from '../../shared/models/Card-database';
 
@@ -41,12 +42,12 @@ export class CardSlotComponent implements OnInit, OnDestroy {
   private specialActionSubscription: Subscription;
 
 
-
   @Output() actionRequest = new EventEmitter<boolean>();
 
   constructor(private gameService: GameService,
               private cardsService: CardsService,
-              private playerService: PlayerService) {
+              private playerService: PlayerService,
+              private sound: SoundService) {
     // Subscription to current player
     /*this.gameService.currentSub.subscribe(
       current => {
@@ -112,13 +113,13 @@ export class CardSlotComponent implements OnInit, OnDestroy {
     // this.ngOnInit();
 
 
-
     this.isActionCard = false;
     this.budgetBoardSelected = false;
   }
 
   remove() {
     if (this.specialAction.remove > 0) {
+      this.sound.remove();
       console.log('-Card Slot: Discarding card now');
       this.playerService.remove(this.card).subscribe(res => res);
     } else {
@@ -128,8 +129,9 @@ export class CardSlotComponent implements OnInit, OnDestroy {
   }
 
   sell() {
-    console.log("pressed Sell");
+    console.log('pressed Sell');
     console.log(this.isCurrent);
+    this.sound.sell();
     this.playerService.sell(this.card).subscribe(
       response => {
         console.log(response);
@@ -151,6 +153,7 @@ export class CardSlotComponent implements OnInit, OnDestroy {
     if (this.specialAction.remove > 0) {
       this.remove();
     } else if (this.isActive) {
+      this.sound.card();
       this.cardsService.addSelectedCard(this.card);
       this.selectedCards = this.cardsService.getSelectedCards();
       this.isActionCard = this.selectedCards.length === 1 && (this.card.type === 'ActionCard' || this.card.type === 'RemoveActionCard');
@@ -165,6 +168,7 @@ export class CardSlotComponent implements OnInit, OnDestroy {
   }
 
   discard() {
+    this.sound.discard();
     this.playerService.discard(this.card).subscribe(
       response => {
         this.player = response;
@@ -175,6 +179,7 @@ export class CardSlotComponent implements OnInit, OnDestroy {
   }
 
   performAction() {
+    this.sound.click();
     this.playerService.performAction(this.card).subscribe(
       res => console.log('-Card Slot: Action card was played!')
     );
@@ -187,6 +192,7 @@ export class CardSlotComponent implements OnInit, OnDestroy {
   }
 
   magnify(mag: boolean) {
+    this.sound.click();
     console.log('-Card Slot: Set magnify to ', mag);
     this.isMagnified = mag;
   }

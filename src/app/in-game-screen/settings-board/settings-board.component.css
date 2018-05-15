@@ -30,7 +30,8 @@
   height: 38px;
   width: 196px;
   font-style: italic;
-  font-size: 25px;
+  font-size: 21px;
+  opacity: 0.85;
   font-weight: normal;
   color: #fcf6e4;
   padding: 5px 10px;

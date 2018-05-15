@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
 import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-card-board',
@@ -25,36 +26,8 @@ export class CardBoardComponent implements OnInit, OnDestroy {
   private selectedCardSubscription: Subscription;
 
   constructor(private playerService: PlayerService,
-              private cardsService: CardsService) {
-    /*this.playerService.playerSub.subscribe(
-      player => {
-        try {
-          this.player = player;
-        } catch (e) {
-          console.log('-Card Board Update: Player not yet defined');
-        }
-      }
-    );
-    this.playerService.playerHandcardSub.subscribe(
-      cards => {
-        try {
-          this.cards = cards;
-        } catch (e) {
-          console.log('-Card Board Update: Handcard not defined yet');
-        }
-      }
-    );
-    this.cardsService.selectedardsSub.subscribe(
-      selectedCards => {
-        try {
-          this.selectedCards = selectedCards;
-          this.checkForSingleActionCard();
-        } catch (e) {
-          console.log('-Card Board: Error in updating Cards or checking for singlecard');
-        }
-      }
-    );
-    // this.ngOnInit();*/
+              private cardsService: CardsService,
+              private sound: SoundService) {
   }
 
 
@@ -93,6 +66,11 @@ export class CardBoardComponent implements OnInit, OnDestroy {
 
   onSelect() {
     this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.sound.close();
+    } else {
+      this.sound.open();
+    }
   }
 
   private checkForSingleActionCard() {

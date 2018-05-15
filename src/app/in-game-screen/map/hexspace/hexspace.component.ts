@@ -5,6 +5,7 @@ import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
 import {SettingsService} from '../../../shared/services/settings.service';
 import {Subscription} from 'rxjs/Subscription';
+import {SoundService} from '../../../shared/services/sound.service';
 
 @Component({
   selector: 'app-hexspace',
@@ -51,7 +52,7 @@ export class HexspaceComponent implements OnInit, OnDestroy {
   public showCurrent: Boolean;
   private showCurrentSubscription: Subscription;
 
-  constructor(private settingsService: SettingsService) {
+  constructor(private settingsService: SettingsService, private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -129,12 +130,15 @@ export class HexspaceComponent implements OnInit, OnDestroy {
 
   performAction() {
     if (this.isReachable) {
+      this.sound.move();
       this.moveTo();
     }
     if (this.isPlayingPiece && this.isValid()) {
+      this.sound.player();
       this.findPath();
     }
     if (this.isBlockade && this.isRemovable) {
+      this.sound.collect();
       this.removeBlockade();
     }
   }

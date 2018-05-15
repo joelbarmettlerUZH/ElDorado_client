@@ -6,6 +6,7 @@ import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
 import {Card} from '../../shared/models/Card';
 import {Subscription} from 'rxjs/Subscription';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-marketboard',
@@ -34,31 +35,8 @@ export class MarketboardComponent implements OnInit, OnDestroy {
   private marketSubscribtion: Subscription;
 
   constructor(private gameService: GameService,
-               private playerService: PlayerService
-  ) {
-    /*this.gameService.marketSub.subscribe(
-      market => {
-        try {
-          this.market = market;
-          this.getMarket();
-        } catch (e) {
-          console.log('-Market Update: Market is not ready yet');
-        }
-      }
-    );
-    this.playerService.playerSub.subscribe(
-      player => {
-        try {
-          this.player = player;
-          this.bought = player.bought;
-          this.coins = player.coins;
-          this.stealBudget = player.specialAction.steal;
-          this.updateCoins();
-        } catch (e) {
-          console.log('-Market Update: Player is not ready yet');
-        }
-      }
-    );*/
+              private playerService: PlayerService,
+              private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -105,6 +83,11 @@ export class MarketboardComponent implements OnInit, OnDestroy {
   // Fade out Market Board
   onSelect() {
     this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.sound.close();
+    } else {
+      this.sound.open();
+    }
   }
 
   // Get active market cards

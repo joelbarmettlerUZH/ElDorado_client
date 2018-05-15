@@ -8,6 +8,7 @@ import {Player} from '../../shared/models/Player';
 import {CardsService} from '../../shared/services/cards.service';
 import {GameService} from '../../shared/services/game.service';
 import {Subscription} from 'rxjs/Subscription';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-button-board',
@@ -21,7 +22,8 @@ export class ButtonBoardComponent implements OnInit, OnDestroy {
 
   constructor(private playerService: PlayerService,
               private gameService: GameService,
-              private cardsService: CardsService) {
+              private cardsService: CardsService,
+              private sound: SoundService) {
     /*this.gameService.currentSub.subscribe(
       current => {
         try {
@@ -65,12 +67,14 @@ export class ButtonBoardComponent implements OnInit, OnDestroy {
   }
 
   confirmEndRound() {
+    this.sound.click();
     if (this.ownPlayerId === this.currentPlayerId) {
       this.confirmationNeeded = true;
     }
   }
 
   endRound() {
+    this.sound.click();
     this.confirmationNeeded = false;
     this.playerService.endRound().subscribe(
       response => {
@@ -83,6 +87,7 @@ export class ButtonBoardComponent implements OnInit, OnDestroy {
   }
 
   breakEndRound() {
+    this.sound.back();
     this.confirmationNeeded = false;
   }
 

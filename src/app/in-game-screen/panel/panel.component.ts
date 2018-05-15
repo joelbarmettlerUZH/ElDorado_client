@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../shared/services/settings.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-panel',
@@ -22,7 +23,10 @@ export class PanelComponent implements OnInit, OnDestroy {
   private marketSubscription: Subscription;
   public showMarket: Boolean;
 
-  constructor(private settingsService: SettingsService, private router: Router) {
+  public playMusic: Boolean = true;
+  public playSound: Boolean = true;
+
+  constructor(private settingsService: SettingsService, private router: Router, private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -56,18 +60,34 @@ export class PanelComponent implements OnInit, OnDestroy {
   }
 
   showPathfinderClick() {
+    this.sound.click();
     this.settingsService.showPathfinderState();
   }
 
   showCurrentClick() {
+    this.sound.click();
     this.settingsService.showCurrentState();
   }
 
   showMarketClick() {
+    this.sound.click();
     this.settingsService.showMarketState();
   }
 
+  musicClick() {
+    this.sound.click();
+    this.playMusic = !this.playMusic;
+    this.sound.backgroundMusicState(this.playMusic);
+  }
+
+  soundClick() {
+    this.sound.click();
+    this.playSound = !this.playSound;
+    this.sound.soundState(this.playSound);
+  }
+
   leaveGame() {
+    this.sound.click();
     this.router.navigate(['/main-menu']);
   }
 

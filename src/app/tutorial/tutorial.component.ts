@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {SoundService} from '../shared/services/sound.service';
 
 @Component({
   selector: 'app-tutorial',
@@ -14,10 +15,13 @@ export class TutorialComponent implements OnInit {
   public index = 0;
   public contentLength: number;
 
-  constructor(private router: Router) {
+  public musicPlaying: Boolean = true;
+
+  constructor(private router: Router, private sound: SoundService) {
   }
 
   ngOnInit() {
+    this.sound.backgroundMusicState();
     this.titles = [
       '1.) Organize your View',
       '2.) Move your playing piece',
@@ -38,15 +42,23 @@ export class TutorialComponent implements OnInit {
   }
 
   navigateToMenu() {
+    this.sound.click();
     this.router.navigate(['/main-menu']);
   }
 
   previous() {
+    this.sound.back();
     this.index--;
   }
 
   next() {
+    this.sound.back();
     this.index++;
+  }
+
+  public musicState() {
+    this.musicPlaying = !this.musicPlaying;
+    this.sound.backgroundMusicState(this.musicPlaying);
   }
 
 }

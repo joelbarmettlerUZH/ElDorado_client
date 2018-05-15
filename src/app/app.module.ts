@@ -42,6 +42,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
 import {HistoryComponent} from './in-game-screen/opponent-board/history/history.component';
 import {PanelComponent} from './in-game-screen/panel/panel.component';
 import {SettingsService} from './shared/services/settings.service';
+import {SoundService} from './shared/services/sound.service';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -92,7 +93,7 @@ import {SettingsService} from './shared/services/settings.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService, SettingsService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService, SettingsService, SoundService],
   bootstrap: [AppComponent]
 })
 

@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {INTERVAL} from '../../shared/services/INTERVAL';
 import {SpecialAction} from '../../shared/models/SpecialAction';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-budget-board',
@@ -14,7 +15,7 @@ export class BudgetBoardComponent implements OnInit, OnDestroy {
   public isPerforming = false;
   private specialActionSubscribtion: Subscription;
 
-  constructor(private playerService: PlayerService) {
+  constructor(private playerService: PlayerService, private sound: SoundService) {
     /*this.specialActionSubscribtion = this.playerService.specialActionSub.subscribe(
       budget => {
         try {
@@ -39,6 +40,7 @@ export class BudgetBoardComponent implements OnInit, OnDestroy {
   }
 
   endAction() {
+    this.sound.click();
     this.playerService.resetSpecialActions().subscribe(y => {
       console.log('-Budget board: ended special action');
     });

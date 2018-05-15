@@ -10,4 +10,5 @@
   <button class=readyButton id="homeButton" (click)="navigateToMenu()">HOME</button>
   <button *ngIf="index > 0" class=navigation id="prevRooms" (click)="previous()"></button>
   <button *ngIf="index < contentLength - 1" class=navigation id="nextRooms" (click)="next()"></button>
+  <img id="musicMuter" (click)="musicState()" src="./../../assets/GUI_MainMenu/mute_{{musicPlaying}}.png">
 </div>

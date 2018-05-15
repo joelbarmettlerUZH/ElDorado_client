@@ -22,3 +22,12 @@
 body{
   background-color: black;
 }
+
+#musicMuter{
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}

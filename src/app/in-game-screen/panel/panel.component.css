@@ -10,20 +10,22 @@
   background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
   background-color: transparent;
   width: 198px;
-  height: 45px;
+  height: 25px;
   position: relative;
   top: 20px;
   left: 0;
-  margin-top: 6px;
+  margin-top: 9px;
   color: white;
-  font-size: 15px;
+  font-size: 13px;
   text-align: center;
-  padding: 5px 10px;
+  padding-top: 3px;
   border: none;
   opacity: 0.85;
-  font-weight: bold;
   text-shadow: 2px 1px black;
   letter-spacing: 0.5px;
   border: 0;
 }
 
+.settingButton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}

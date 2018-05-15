@@ -10,10 +10,10 @@
 #gameName {
   height: 0;
   position: relative;
-  top: -50px;
+  top: -55px;
   text-align: center;
   font-style: italic;
-  font-size: 14px;
+  font-size: 19px;
   font-weight: normal;
   color: #fcf6e4;
   /*padding: 5px 10px;*/
@@ -21,6 +21,7 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+  opacity: 0.85;
 
 }
 
