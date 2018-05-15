@@ -3,6 +3,11 @@
     <div class="reachedText Sentence1">This is</div>
     <img class="centerImg" id="lettering" src="./../../../assets/GUI_Game/ElDorado_Schrift_cropped.png">
     <img class="centerImg" id="town" src="./../../../assets/GUI_Game/ElDorado_Town.jpg">
-    <div class="reachedText Sentence2">No person has ever seen this magnificient place before you.</div>
+    <div class="reachedText Sentence2" *ngIf="reachedNum == 1">No person has ever seen this magnificient place before
+      you.
+    </div>
+    <div class="reachedText Sentence2" *ngIf="reachedNum > 1">Only {{reachedNum}} persons has ever seen this
+      magnificient place before you.
+    </div>
   </div>
 </div>

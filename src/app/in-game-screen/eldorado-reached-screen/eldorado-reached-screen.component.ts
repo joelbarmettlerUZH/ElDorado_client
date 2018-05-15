@@ -6,10 +6,12 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./eldorado-reached-screen.component.css']
 })
 export class EldoradoReachedScreenComponent implements OnInit {
+  reachedNum: number;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.reachedNum = 0;
   }
 }

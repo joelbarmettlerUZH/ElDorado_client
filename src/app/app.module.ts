@@ -42,6 +42,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
 import {HistoryComponent} from './in-game-screen/opponent-board/history/history.component';
 import {PanelComponent} from './in-game-screen/panel/panel.component';
 import {SettingsService} from './shared/services/settings.service';
+import {LastRoundBoardComponent} from './in-game-screen/last-round-board/last-round-board.component';
 import {SoundService} from './shared/services/sound.service';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
@@ -84,6 +85,7 @@ import {SoundService} from './shared/services/sound.service';
     MarketCardComponent,
     HistoryComponent,
     PanelComponent,
+    LastRoundBoardComponent,
   ],
   imports: [
     BrowserModule,

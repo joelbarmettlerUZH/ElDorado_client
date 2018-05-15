@@ -4,6 +4,7 @@
   <div id="InGameScreen">
     <app-board></app-board>
     <app-opponent-board></app-opponent-board>
+    <app-last-round-board></app-last-round-board>
     <app-marketplace></app-marketplace>
     <app-player-board></app-player-board>
     <app-settings-board></app-settings-board>
@@ -11,3 +12,4 @@
   </div>
 </div>
 <app-winner-screen [winner]=winner *ngIf="lastRoundFinished"></app-winner-screen>
+<app-eldorado-reached-screen *ngIf="thisPlayerReachedEldorado"></app-eldorado-reached-screen>

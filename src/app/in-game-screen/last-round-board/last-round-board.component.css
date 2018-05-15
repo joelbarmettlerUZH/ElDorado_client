@@ -1,0 +1,23 @@
+#LastRoundBoard {
+  position: absolute;
+  top: 0;
+  left: 843px;
+  width: 192px;
+  height: 88px;
+  background-size: cover;
+  /*background-image: url('');*/
+  background-color: forestgreen;
+}
+
+#LastRoundText {
+  position: relative;
+  top: 29px;
+  left: 0;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fcf6e4;
+  text-shadow: 2px 1px black;
+  letter-spacing: 0.5px;
+  border: 0;
+}

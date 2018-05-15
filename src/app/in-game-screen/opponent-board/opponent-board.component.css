@@ -44,14 +44,14 @@
   top: 291px;
 }
 
-#opponentName {
+#opponentName[_ngcontent-c13] {
   margin-top: 0;
   position: relative;
-  top: -71px;
-  left: 46px;
+  top: -65px;
+  left: 39px;
   opacity: 0.85;
   font-style: italic;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   color: #fcf6e4;
   padding: 5px 10px;
