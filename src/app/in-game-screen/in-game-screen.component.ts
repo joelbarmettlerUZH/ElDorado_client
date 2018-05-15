@@ -18,7 +18,7 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
   public ownPlayerId = Number(localStorage.getItem('playerId'));
   public loading = INTERVAL.loading();
   private loadingSubscription: Subscription;
-  public lastRoundFinished: boolean;
+  public lastRoundFinished = false;
   public winner: Player;
   public game: Game;
   public thisPlayerReachedEldorado = false;
@@ -34,7 +34,6 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.lastRoundFinished = false;
     this.runningSubscribtion = this.gameService.runningSub.subscribe(
       running => {
         try {
@@ -60,15 +59,18 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
       }
     );
     this.sound.backgroundMusicState();
+    this.sound.soundState();
     this.winnersSubscription = this.gameService.winnersSub.subscribe(
       winners => {
         try {
           this.winners = winners;
           if (this.winners.playerId === this.ownPlayerId) {
+            console.log('-Ingame: This player reached elDorado!');
             this.thisPlayerReachedEldorado = true;
           }
         } catch (e) {
-          console.log('');
+          this.thisPlayerReachedEldorado = false;
+          console.log('-Ingame: This player did not yet reach eldorado!');
         }
       }
     );
@@ -78,5 +80,6 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
     console.log('OnDestroy');
     this.runningSubscribtion.unsubscribe();
     this.loadingSubscription.unsubscribe();
+    this.winnersSubscription.unsubscribe();
   }
 }

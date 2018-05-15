@@ -1,23 +1,29 @@
 #LastRoundBoard {
   position: absolute;
-  top: 0;
-  left: 843px;
+  top: 45px;
+  left: 680px;
   width: 192px;
   height: 88px;
   background-size: cover;
   /*background-image: url('');*/
-  background-color: forestgreen;
+  background-image: url('./../../../assets/GUI_Game/lastRound.png');
+  -ms-transform: rotate(15deg); /* IE 9 */
+  -webkit-transform: rotate(15deg); /* Safari */
+  transform: rotate(15deg);
+  pointer-events: none;
 }
 
 #LastRoundText {
   position: relative;
-  top: 29px;
+  top: 60px;
   left: 0;
   font-style: italic;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #fcf6e4;
   text-shadow: 2px 1px black;
   letter-spacing: 0.5px;
   border: 0;
+  opacity: 0.85;
+  pointer-events: none;
 }
