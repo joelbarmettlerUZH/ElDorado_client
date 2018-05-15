@@ -46,6 +46,7 @@ export class MainMenuComponent implements OnInit {
     localStorage.setItem('load', 'first');
     this.mainMenuScreen = 'main-menu';
     this.sound.backgroundMusicState();
+    this.sound.soundState();
   }
 
 

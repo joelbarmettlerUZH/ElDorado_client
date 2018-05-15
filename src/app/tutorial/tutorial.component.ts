@@ -22,6 +22,7 @@ export class TutorialComponent implements OnInit {
 
   ngOnInit() {
     this.sound.backgroundMusicState();
+    this.sound.soundState();
     this.titles = [
       '1.) Organize your View',
       '2.) Move your playing piece',
@@ -68,6 +69,7 @@ export class TutorialComponent implements OnInit {
   public musicState() {
     this.musicPlaying = !this.musicPlaying;
     this.sound.backgroundMusicState(this.musicPlaying);
+    this.sound.soundState(!this.musicPlaying);
   }
 
 }
