@@ -106,3 +106,7 @@ button:disabled {
   letter-spacing: 0.5px;
   border: 0;
 }
+
+button:focus {
+  outline: 0 !important;
+}

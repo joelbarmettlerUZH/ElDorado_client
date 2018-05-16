@@ -77,3 +77,7 @@
 .main:disabled {
   background-image: url('../../../assets/GUI_MainMenu/BackToMenu_pressed.png');
 }
+
+button:focus {
+  outline: 0 !important;
+}

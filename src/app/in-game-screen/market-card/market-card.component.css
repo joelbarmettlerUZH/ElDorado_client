@@ -41,3 +41,7 @@ img:hover + .button, .button:hover {
   height: 153px;
   /*add styling for img here*/
 }
+
+button:focus {
+  outline: 0 !important;
+}

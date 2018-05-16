@@ -29,3 +29,7 @@
 .settingButton:hover {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
 }
+
+button:focus {
+  outline: 0 !important;
+}

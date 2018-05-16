@@ -34,7 +34,7 @@ button {
 
 button:hover {
   background-color: transparent;
-  border: 1px solid black;
+  filter: brightness(85%);
 }
 
 button:disabled {
@@ -87,4 +87,9 @@ button:disabled {
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+}
+
+button:focus {
+  outline: 0 !important;
+  border: none;
 }

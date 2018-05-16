@@ -127,3 +127,7 @@
   height: 32px;
   cursor: pointer;
 }
+
+button:focus {
+  outline: 0 !important;
+}
