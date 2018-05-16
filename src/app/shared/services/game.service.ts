@@ -74,9 +74,9 @@ export class GameService {
                 this.players = this.game.players;
                 this.playersSub.next(this.players);
               }
-              if (JSON.stringify(this.game.winners) !== JSON.stringify(this.winners)) {
+              if (JSON.stringify(this.game.winner) !== JSON.stringify(this.winners)) {
                 console.log('--Game Update: Received new winners information');
-                this.winners = this.game.winners;
+                this.winners = this.game.winner;
                 this.winnersSub.next(this.winners);
               }
               if (JSON.stringify(this.game.running) !== JSON.stringify(this.running)) {
@@ -135,7 +135,7 @@ export class GameService {
 
   // Gets winners
   public getWinners(): Player {
-    return this.game.winners;
+    return this.game.winner;
   }
 
   public isRunning(): boolean {

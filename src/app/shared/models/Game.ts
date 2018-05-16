@@ -15,7 +15,7 @@ export class Game {
   public running: boolean;
   public pathMatrix: Board;
   public players: Player[];
-  public winners: Player;
+  public winner: Player;
   public blockades: Blockade[];
   public marketPlace: MarketPlace;
   public memento: Memento;
