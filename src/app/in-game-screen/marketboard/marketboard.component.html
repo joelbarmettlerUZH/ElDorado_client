@@ -13,7 +13,7 @@
       </ng-container>
     </div>
     <div id="passive">
-      <div id="gameName"> PASSIVE </div>
+      <div id="gameName"> PASSIVE MARKET </div>
       <ng-container *ngFor="let slot of passiveSlot">
         <ng-container *ngIf="!slot.empty">
           <app-market-slot *ngIf="player" (click)="$event.stopPropagation()" (magnifiyCard2)="setMagnified($event)"
