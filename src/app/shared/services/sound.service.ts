@@ -18,6 +18,8 @@ export class SoundService {
   private cardSound = new Audio('./../../../assets/sounds/card_1.mp3');
   private removeSound = new Audio('./../../../assets/sounds/remove_1.mp3');
   private playerSound = new Audio('./../../../assets/sounds/player_1.mp3');
+  private endSound = new Audio('./../../../assets/sounds/endround_1.mp3');
+  private winnerSound = new Audio('./../../../assets/sounds/winner_1.mp3');
 
   constructor() {
     this.backgroundMusic.addEventListener('ended', function() {
@@ -107,6 +109,22 @@ export class SoundService {
       this.backgroundMusic.play();
     } else {
       this.backgroundMusic.pause();
+    }
+  }
+
+  public lastroundState(play: Boolean = true) {
+    if (play) {
+      this.endSound.play();
+    } else {
+      this.endSound.pause();
+    }
+  }
+
+  public winnerState(play: Boolean = true) {
+    if (play) {
+      this.winnerSound.play();
+    } else {
+      this.winnerSound.pause();
     }
   }
 

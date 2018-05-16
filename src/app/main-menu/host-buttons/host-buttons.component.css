@@ -129,15 +129,15 @@
 }
 
 .path7 {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_map6.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map7.png');
 }
 
 .path7:visited, .path7:focus, .path7:hover, .path7:active {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map7.png');
 }
 
 .path7.roomRoute.disabled {
-  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map7.png');
 }
 
 input {

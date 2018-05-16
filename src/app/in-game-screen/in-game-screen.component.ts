@@ -40,6 +40,9 @@ export class InGameScreenComponent implements OnInit, OnDestroy {
           this.winner = this.gameService.getWinners();
           if (!running) {
             this.lastRoundFinished = true;
+            this.sound.backgroundMusicState(false);
+            this.sound.lastroundState(false);
+            this.sound.winnerState(true);
           }
         } catch (e) {
         }

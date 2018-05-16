@@ -20,6 +20,7 @@ export class WinnerScreenComponent implements OnInit {
 
   goToMainScreen() {
     this.sound.back();
+    this.sound.winnerState(false);
     this.router.navigate(['/main-menu']);
   }
 }
