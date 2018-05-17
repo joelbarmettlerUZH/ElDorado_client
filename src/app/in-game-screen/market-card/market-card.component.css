@@ -17,6 +17,10 @@
   border: none;
 }
 
+#magnifyAction:hover {
+  background-image: url('../../../assets/GUI_Game/Karte_buttons_magnify_pressed.png');
+}
+
 .button {
   display: none;
 }

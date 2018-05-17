@@ -1,4 +1,4 @@
-<div *ngIf="fullscreen" class="pop semitrans" (click)="onClick()">
+<div *ngIf="fullscreen" class="pop semitrans" (click)="onClick()" (click)="$event.stopPropagation()">
   <div class="gameRegion">
     <img class="pileCard" src="./../../../../assets/Karten/HD/{{card.name}}.png">
   </div>
