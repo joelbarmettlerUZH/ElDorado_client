@@ -3,6 +3,7 @@ import {Card} from './Card';
 export class Slot {
   public slotId: number;
   public pile: Card[];
+  public empty: boolean;
 }
 
 
@@ -19,7 +20,7 @@ export class Slot {
   "colors": [
     "JUNGLE"
   ],
-  "id": 73
+  "boardID": 73
   },
 ]
 },

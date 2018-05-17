@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GameService} from '../../shared/services/game.service';
 import {MarketPlace} from '../../shared/models/MarketPlace';
 import {Slot} from '../../shared/models/Slot';
-import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
 import {PlayerService} from '../../shared/services/player.service';
 import {Player} from '../../shared/models/Player';
-import {INTERVAL} from '../../shared/services/INTERVAL';
+import {Card} from '../../shared/models/Card';
+import {Subscription} from 'rxjs/Subscription';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-marketboard',
   templateUrl: './marketboard.component.html',
   styleUrls: ['./marketboard.component.css']
 })
-export class MarketboardComponent implements OnInit {
+export class MarketboardComponent implements OnInit, OnDestroy {
   isFadedIn: boolean;
   cards: any[];
   private market: MarketPlace;
@@ -24,52 +24,49 @@ export class MarketboardComponent implements OnInit {
   public purchasableSlotIds: number[] = [];
   public gameId: number;
   public isActive = false;
-  private marketSubscription: Subscription;
-  public ownPlayer: Player;
   public player: Player;
-  private playerSubscription: Subscription;
-  private coinSubscription: Subscription;
   public bought = false;
+  public coins = 0;
+  public stealBudget = 0;
+  public magnifiedCard: Card;
+  public isMagnified: boolean;
+
+  private playerSubscribtion: Subscription;
+  private marketSubscribtion: Subscription;
 
   constructor(private gameService: GameService,
-              private playerService: PlayerService
-  ) {
-    console.log('Marketboard | CoinNumber: ' + this.coinNumber);
+              private playerService: PlayerService,
+              private sound: SoundService) {
   }
 
   ngOnInit() {
-    this.gameService.rawGetter().subscribe(
-      res => {
-        this.playerService.rawGetter().subscribe(
-          response => {
-            const tempPlayer: Player = response;
-            this.player = tempPlayer;
-            const market: MarketPlace = res;
-            this.isFadedIn = false;
-            this.market = market;
-            console.log('Reached market subscription');
-            this.marketSubscription = Observable.interval(INTERVAL.market()).subscribe(
-              sub => {
-                this.getMarket();
-              }
-            );
-            console.log('Reached player subscription');
-            this.playerSubscription = Observable.interval(INTERVAL.market()).subscribe(
-              sub => {
-                this.player = this.playerService.getPlayer();
-                this.bought = this.player.bought;
-              }
-            );
-            console.log('Reached coin subscription');
-            this.coinSubscription = Observable.interval(1000).subscribe(y => this.updateCoins());
-          });
+    this.marketSubscribtion = this.gameService.marketSub.subscribe(
+      market => {
+        try {
+          this.market = market;
+          this.getMarket();
+        } catch (e) {
+          console.log('-Market Update: Market is not ready yet');
+        }
       }
     );
+    this.playerSubscribtion = this.playerService.playerSub.subscribe(
+      player => {
+        try {
+          this.player = player;
+          this.bought = player.bought;
+          this.coins = player.coins;
+          this.stealBudget = player.specialAction.steal;
+          this.updateCoins();
+        } catch (e) {
+          console.log('-Market Update: Player is not ready yet');
+        }
+      }
+    );
+    this.isFadedIn = false;
   }
 
   updateCoins() {
-
-    console.log(this.playerService.getPlayer().coins);
     if (Math.floor(this.playerService.getPlayer().coins) !== 0) {
       this.coinNumber = Math.floor(this.playerService.getPlayer().coins).toPrecision(1);
     } else {
@@ -86,15 +83,16 @@ export class MarketboardComponent implements OnInit {
   // Fade out Market Board
   onSelect() {
     this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.sound.close();
+    } else {
+      this.sound.open();
+    }
   }
 
   // Get active market cards
   getMarket(initial: boolean = false) {
     const newMarket: MarketPlace = this.gameService.getMarket();
-    if ((JSON.stringify(this.market) === JSON.stringify(newMarket)) && !initial) {
-      return;
-    }
-    console.log('-Market update: DID change, performing update');
     this.market = newMarket;
     this.purchasableSlot = this.market.purchasable;
     this.purchasableSlotIds = [];
@@ -106,20 +104,24 @@ export class MarketboardComponent implements OnInit {
     this.purchasableSlot = this.market.purchasable;
   }
 
-  buy(slot) {
-    console.log('buy click was triggered:', slot.pile[0].id);
-    this.playerService.buy(slot).subscribe(x => console.log('bought card:', slot.pile[0].name));
+  magnify(mag: boolean) {
+    this.isMagnified = mag;
   }
 
-  steal(slot) {
-    this.playerService.steal(slot).subscribe(x => console.log('Stolen card:', slot.pile[0].name));
+  closeFullscreen($event) {
+    const close: boolean = $event;
+    this.magnify(!close);
   }
 
-  takeCard(slot) {
-    if (this.player.specialAction.steal === 0) {
-      this.buy(slot);
-    } else {
-      this.steal(slot);
-    }
+  setMagnified(card) {
+    this.magnifiedCard = card;
+    this.magnify(true);
   }
+
+  ngOnDestroy() {
+    this.playerSubscribtion.unsubscribe();
+    this.marketSubscribtion.unsubscribe();
+  }
+
 }
+

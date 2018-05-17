@@ -1,0 +1,53 @@
+.pop {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1 !important;
+  background-color: black;
+}
+
+.gameRegion {
+  position: relative;
+  margin: auto;
+  width: 1366px;
+  height: 768px;
+  background-color: black;
+  margin-top: 0;
+}
+
+.text {
+  width: 700px;
+}
+
+.reachedText {
+  text-align: center;
+  color: #e0b311;
+  font-family: "Georgia"
+}
+
+.Sentence1 {
+  margin-top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.Sentence2 {
+  margin-top: 15px;
+  font-size: 30px;
+}
+
+#lettering {
+  width: 400px;
+}
+
+.centerImg {
+  margin: auto;
+  display: block;
+}
+
+#town {
+  margin-top: 30px;
+  height: 600px;
+}

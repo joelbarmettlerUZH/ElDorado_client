@@ -4,7 +4,6 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {MainMenuComponent} from './main-menu/main-menu.component';
 import {TitleComponent} from './main-menu/title/title.component';
-import {ButtonsComponent} from './main-menu/buttons/buttons.component';
 import {InGameScreenComponent} from './in-game-screen/in-game-screen.component';
 import {OpponentBoardComponent} from './in-game-screen/opponent-board/opponent-board.component';
 import {PlayerBoardComponent} from './in-game-screen/player-board/player-board.component';
@@ -34,8 +33,17 @@ import {CharacterSelectionComponent} from './main-menu/character-selection/chara
 import {DefaultCharacterComponent} from './main-menu/default-character/default-character.component';
 import {LoadingScreenComponent} from './in-game-screen/loading-screen/loading-screen.component';
 import {WinnerScreenComponent} from './in-game-screen/winner-screen/winner-screen.component';
-import { MagnifyComponent } from './in-game-screen/card-slot/magnify/magnify.component';
+import {MagnifyComponent} from './in-game-screen/card-slot/magnify/magnify.component';
 import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.component';
+import {BoardService} from './shared/services/board.service';
+import {EldoradoReachedScreenComponent} from './in-game-screen/eldorado-reached-screen/eldorado-reached-screen.component';
+import {MarketCardComponent} from './in-game-screen/market-card/market-card.component';
+import {TutorialComponent} from './tutorial/tutorial.component';
+import {HistoryComponent} from './in-game-screen/opponent-board/history/history.component';
+import {PanelComponent} from './in-game-screen/panel/panel.component';
+import {SettingsService} from './shared/services/settings.service';
+import {LastRoundBoardComponent} from './in-game-screen/last-round-board/last-round-board.component';
+import {SoundService} from './shared/services/sound.service';
 // import { HttpClientModule} from '@angular/common/http';
 // import {LoginComponent} from './login/login.component';
 // import {routing} from './app.routing';
@@ -48,7 +56,6 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     // LoginComponent,
     MainMenuComponent,
     TitleComponent,
-    ButtonsComponent,
     InGameScreenComponent,
     OpponentBoardComponent,
     PlayerBoardComponent,
@@ -73,6 +80,12 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     WinnerScreenComponent,
     MagnifyComponent,
     BudgetBoardComponent,
+    EldoradoReachedScreenComponent,
+    TutorialComponent,
+    MarketCardComponent,
+    HistoryComponent,
+    PanelComponent,
+    LastRoundBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +95,7 @@ import {BudgetBoardComponent} from './in-game-screen/budget-board/budget-board.c
     HttpModule,
     JsonpModule
   ],
-  providers: [RoomService, PlayerService, UserService, GameService, CardsService],
+  providers: [RoomService, PlayerService, UserService, GameService, CardsService, BoardService, SettingsService, SoundService],
   bootstrap: [AppComponent]
 })
 

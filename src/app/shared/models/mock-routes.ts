@@ -1,8 +1,8 @@
 import {Route} from './route';
 
 export const ROUTES: Route[] = [
-  {id: 0, name: 'First Quest', path: 0},
-  {id: 0, name: 'Hills of Gold', path: 1},
-  {id: 0, name: 'Home Stretch', path: 2},
-  {id: 99, name: 'Ending fast', path: 3}
+  {boardID: 0, name: 'First Quest'},
+  {boardID: 1, name: 'Hills of Gold'},
+  {boardID: 2, name: 'Home Stretch'},
+  {boardID: 3, name: 'Ending fast'}
 ];

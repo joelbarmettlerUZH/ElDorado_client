@@ -16,25 +16,19 @@
   background-color: transparent;
 }
 
-.button:hover {
-  /*background-color: #cfd8dc;*/
-  background-color: transparent;
+#menubutton-hostgame {
+  top: 0;
 
 }
 
-.button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
-}
-
-.subbutton {
-  left: 15px;
+.routebutton {
+  position: relative;
+  top: 109px;
+  margin-top: 6px;
+  left: 0;
   background-size: cover;
-  position: absolute;
   width: 218px;
   height: 45px;
-  /* font-family: Arial; */
   color: white;
   font-size: 20px;
   padding: 5px 10px;
@@ -43,47 +37,107 @@
   border: none;
 }
 
-#menubutton-hostgame {
-  top: 0;
-}
-
-#roomName {
-  top: 60px;
+.disabled {
+  pointer-events: none;
 }
 
 .path0 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map0.png');
-  top: 140px;
+  top: 110px;
 }
 
 .path0:visited, .path0:focus, .path0:hover, .path0:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map0.png');
 }
 
+.path0.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map0.png');
+}
+
+
 .path1 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map1.png');
-  top: 190px;}
+}
 
 .path1:visited, .path1:focus, .path1:hover, .path1:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map1.png');
 }
 
+.path1.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map1.png');
+}
+
+
 .path2 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map2.png');
-  top: 240px;
 }
 
 .path2:visited, .path2:focus, .path2:hover, .path2:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map2.png');
 }
 
+.path2.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map2.png');
+}
+
 .path3 {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_map3.png');
-  top: 290px;
 }
 
 .path3:visited, .path3:focus, .path3:hover, .path3:active {
   background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path3.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map3.png');
+}
+
+.path4 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map4.png');
+}
+
+.path4:visited, .path4:focus, .path4:hover, .path4:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map4.png');
+}
+
+.path4.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map4.png');
+}
+
+.path5 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map5.png');
+}
+
+.path5:visited, .path5:focus, .path5:hover, .path5:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map5.png');
+}
+
+.path5.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map5.png');
+}
+
+.path6 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map6.png');
+}
+
+.path6:visited, .path6:focus, .path6:hover, .path6:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
+}
+
+.path6.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map6.png');
+}
+
+.path7 {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_map7.png');
+}
+
+.path7:visited, .path7:focus, .path7:hover, .path7:active {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map7.png');
+}
+
+.path7.roomRoute.disabled {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed_map7.png');
 }
 
 input {
@@ -100,15 +154,21 @@ input {
   opacity: 1; /* Firefox */
 }
 
-button:focus {outline:0 !important;}
-input:focus {outline:0 !important;}
+button:focus {
+  outline: 0 !important;
+}
+
+input:focus {
+  outline: 0 !important;
+}
 
 .namebutton {
-  left: 15px;
+  left: -4px;
+  top: 60px;
   background-size: cover;
   position: absolute;
   background-image: url('../../../assets/GUI_MainMenu/Inputfield_unselected.png');
-  width: 218px;
+  width: 252px;
   height: 45px;
   /* font-family: Arial; */
   color: white;
@@ -134,4 +194,41 @@ input:focus {outline:0 !important;}
 
 .namebutton:active {
   background-image: url('../../../assets/GUI_MainMenu/Inputfield_selected.png');
+}
+
+.navigation {
+  background-size: cover;
+  position: absolute;
+  width: 32px;
+  height: 33px;
+  background-color: transparent;
+  border: none;
+}
+
+#prevRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button.png');
+  left: 91px;
+  bottom: 0;
+}
+
+#prevRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#prevRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Back_button_pressed.png');
+}
+
+#nextRooms {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button.png');
+  left: 126px;
+  bottom: 0;
+}
+
+#nextRooms:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
+}
+
+#nextRooms:active {
+  background-image: url('../../../assets/GUI_MainMenu/Forth_button_pressed.png');
 }

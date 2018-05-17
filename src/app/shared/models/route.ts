@@ -1,5 +1,4 @@
 export class Route {
-  id: number;
+  boardID: number;
   name: string;
-  path: number;
 }

@@ -1,4 +1,5 @@
 import {Card} from './Card';
+
 export class MovingCard extends Card {
   type: string;
   name: string;
@@ -21,6 +22,6 @@ export class MovingCard extends Card {
 "colors": [
   "SAND"
 ],
-"id": 112
+"boardID": 112
 },
  */

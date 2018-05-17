@@ -1,4 +1,8 @@
-<div id="settings-board">
-  <div id="Panel"></div>
+<div class="settings-board">
+  <app-panel class="SettingPanel" [class.PanelSelected]="isActive" (click)="onSelect()"></app-panel>
   <div id="Decoration"></div>
+  <div id="GameName">
+    <p>{{gameName}}</p>
+  </div>
 </div>
+

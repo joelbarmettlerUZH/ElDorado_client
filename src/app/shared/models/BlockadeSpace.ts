@@ -9,6 +9,7 @@ export class BlockadeSpace extends Hexspace {
   public color: string;
   public point: Point;
   public parentBlockade: number;
+  public orientation: number;
 }
 
 

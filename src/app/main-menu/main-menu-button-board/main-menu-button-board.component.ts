@@ -3,6 +3,7 @@ import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {JoinButtonsComponent} from '../join-buttons/join-buttons.component';
 import {Room} from '../../shared/models/Room';
 import {User} from '../../shared/models/User';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-main-menu-button-board',
@@ -29,7 +30,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
   homeButton = false;
   me: User;
 
-  constructor() {
+  constructor(private sound: SoundService) {
   }
 
   ngOnInit() {
@@ -65,6 +66,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
   // e) restore main menu view: characters not clickable
 
   navigateToMenu() {
+    this.sound.click();
     console.log('navigateToMenu clicked');
 
     // a) let sub menu disappear
@@ -96,7 +98,7 @@ export class MainMenuButtonBoardComponent implements OnInit {
 
   changeCharacters(room: Room) {
     console.log('Received: changeCharacterRequest');
-    console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
+    console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.HigherCharacterRequest.emit(room);
   }
 }

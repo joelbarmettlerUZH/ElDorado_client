@@ -5,8 +5,13 @@
   position: absolute;
 }
 
+#opponentDiv{
+
+}
+
 #opponentSpace
 {
+  margin-top: 20px;
   width: 200px;
   top: 0;
   left: 0;
@@ -15,6 +20,7 @@
 
 #opponentImg {
   margin-top: 0;
+  position: relative;
 }
 
 #o0{
@@ -38,19 +44,46 @@
   top: 291px;
 }
 
-#opponentName {
+#opponentName[_ngcontent-c13] {
   margin-top: 0;
   position: relative;
-  top: -71px;
-  left: 46px;
+  top: -65px;
+  left: 39px;
   opacity: 0.85;
   font-style: italic;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: normal;
   color: #fcf6e4;
   padding: 5px 10px;
   text-shadow: 2px 1px black;
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
+  height: 0;
+}
+
+#blockades{
+  margin-top: 0;
+  position: relative;
+  top: -53px;
+  left: 25px;
+  height: 10px;
+  background-color: transparent;
+}
+
+.blockadeImg{
+  height: 35px;
+}
+
+.hut{
+  top: -13px;
+  left:5px;
+  position: absolute;
+}
+
+#historyArea{
+  position: relative;
+  top: -97px;
+  left: 120px;
+  width: 0;
 }

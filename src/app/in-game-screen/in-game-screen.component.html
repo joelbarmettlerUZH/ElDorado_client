@@ -1,10 +1,10 @@
 <app-loading-screen *ngIf="loading > 0"></app-loading-screen>
-<style type="text/css">body {overflow:hidden;}</style>
-<div class="scrollbar">
-  <div id="Screen" align="center">
+<div>
+  <div id="Screen" align="center" class="scrollbar">
   <div id="InGameScreen">
     <app-board></app-board>
     <app-opponent-board></app-opponent-board>
+    <app-last-round-board></app-last-round-board>
     <app-marketplace></app-marketplace>
     <app-player-board></app-player-board>
     <app-settings-board></app-settings-board>
@@ -12,3 +12,4 @@
   </div>
 </div>
 <app-winner-screen [winner]=winner *ngIf="lastRoundFinished"></app-winner-screen>
+<!--<app-eldorado-reached-screen *ngIf="!thisPlayerReachedEldorado"></app-eldorado-reached-screen>-->

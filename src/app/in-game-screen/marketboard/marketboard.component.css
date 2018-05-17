@@ -2,11 +2,30 @@
 .Marketboard{
   background-image: url('../../../assets/GUI_Game/Right_Markt.png'), url('../../../assets/GUI_Game/Right_Markt_repeat.png');
   background-repeat: no-repeat, repeat-y;
-  width: 100%;
-  height: auto; /*768*/
+  width: 330px;
+  height: 1650px;
+  position: absolute;
 }
 
-.Wrapper{
+#gameName {
+  height: 0;
+  position: relative;
+  top: -52px;
+  text-align: center;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: normal;
+  color: #fcf6e4;
+  /*padding: 5px 10px;*/
+  text-shadow: 2px 1px black;
+  cursor: hand;
+  letter-spacing: 0.5px;
+  border: 0;
+  opacity: 0.85;
+
+}
+
+.Wrapper {
   height: 100%;
   width: 100px;
   overflow: auto;
@@ -21,6 +40,7 @@
   width: 330px;
   height: 768px;
   overflow-y: scroll;
+  overflow-x: hidden;
   box-sizing: content-box;
   transition: 0.6s;
 }
@@ -30,16 +50,17 @@
 }
 
 .selected{
-  right: -293px;
+  right: -280px;
   transition: 2.9s;
   background-color: transparent;
 }
 
 #coinNumberDisplay {
+  text-align: right;
   position: absolute;
-  top: 38px;
-  right: 279px;
-  padding-left: 20px;
+  top: 20px;
+  right: 285px;
+  padding-left: 25px;
   padding-top: 1px;
   /*background-color: #c7254e;*/
   width: 50px;
@@ -53,45 +74,41 @@
   cursor: hand;
   letter-spacing: 0.5px;
   border: 0;
-  text-align: center;
 }
 
-.Slot{
+#active{
+  position: absolute;
   width: 82%;
-  margin-left: 18%;
+  top: 20px;
+  left: 45px;
+  /*padding-left: -38px;*/
+
+  /*margin-top: 80px;*/
 }
 #passive{
-  margin-top: 60px;
+  position: absolute;
+  width: 82%;
+  top: 620px;
+  left: 45px;
+  /*padding-left: -38px;*/
+
+  /*margin-top: 80px;*/
 }
 
-.position{
-  margin-right: 17px;
-  margin-top: 10px;
-  width: 109px;
-  height: 170px;
-}
-
-#multiple{
+#multiple {
   margin-left: 10px;
 }
 
-#multiple0{
+#multiple0 {
   margin-left: 10px;
 }
 
-#multiple1{
+#multiple1 {
   margin-left: 40px;
 }
 
-#multiple2{
+#multiple2 {
   margin-left: 80px;
 }
 
-.isNotPuchasable{
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%) brightness(90%) !important;
-
-  /* opacity: 0.6; */
-  /* filter: alpha(opacity=60); *//* MSIE */
-}
 

@@ -1,0 +1,9 @@
+<div id="Panel">
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="showPathfinderClick()">Visualize Path: <u>{{showPathfinder}}</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="showCurrentClick()">Visualize Current: <u>{{showCurrent}}</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="showMarketClick()">Visualize Market: <u>{{showMarket}}</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="musicClick()">Music: <u>{{playMusic}}</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="soundClick()">Sounds: <u>{{playSound}}</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" onclick="window.open('../../../assets/Game_Instructions/manual_en_1.pdf','_blank')">Read <u>manual</u></button>
+  <button class="settingButton" (click)="$event.stopPropagation()" (click)="leaveGame()"><u>Leave Game</u></button>
+</div>

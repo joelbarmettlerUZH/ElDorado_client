@@ -1,0 +1,47 @@
+.smallCard {
+  background-size: cover;
+  position: relative;
+  width: 109px;
+  height: 153px;
+  cursor: pointer;
+}
+
+#magnifyAction {
+  background-image: url('../../../assets/GUI_Game/Karte_buttons_magnify.png');
+  background-size: cover;
+  background-color: transparent;
+  width: 32px;
+  height: 33px;
+  position: relative;
+  bottom: 89px;
+  border: none;
+}
+
+.button {
+  display: none;
+}
+
+img:hover + .button, .button:hover {
+  display: inline-block;
+}
+
+.smallCard:hover {
+  background-color: transparent;
+  cursor: hand;
+}
+
+.smallCard:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+.smallCard img {
+  width: auto;
+  height: 153px;
+  /*add styling for img here*/
+}
+
+button:focus {
+  outline: 0 !important;
+}

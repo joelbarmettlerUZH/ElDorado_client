@@ -1,15 +1,11 @@
 <app-magnify [card]="card" [fullscreen]="isMagnified" (closeFullScreen)="magnify($event)"></app-magnify>
 
-<div class="Slot" [class.selected]="isActive" (click)="onSelect()">
+<div class="Slot" (click)="$event.stopPropagation()" [class.selectedCard]="isActive" (click)="onSelect()">
   <app-card [card]="card" [removable]="specialAction.remove > 0"></app-card>
   <button id="Sell" (click)="sell()"></button>
   <button id="Discard" (click)="discard()"></button>
   <button id="Magnify" (click)="magnify(true)"></button>
-  <button id="ActionCard" *ngIf="singleActionCard && isActionCard"
+  <button id="ActionCard" *ngIf="singleActionCard && isActionCard" (click)="$event.stopPropagation()"
           (click)="performAction()">Action
   </button>
 </div>
-
-<!--
-[ngStyle]="{'margin-top' : margin }"
--->

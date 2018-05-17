@@ -1,6 +1,10 @@
-<div class="Card-Board" [class.selected]="isActive" (click)="onSelect()">
-  <app-card-slot (click)="$event.stopPropagation()" *ngFor="let card of cards; let i = index"
-                 [card]="card"
-                 [singleActionCard]="singleActionCard"></app-card-slot>
-  <app-budget-board id="budget-board"></app-budget-board>
+<div class="Card-Board" [class.selectedCardboard2]="isActive" (click)="onSelect()">
+  <div class="Wrapper3">
+    <div class="scrollbarBoard">
+    <app-card-slot *ngFor="let card of cards; let i = index"
+                 [card]="card"></app-card-slot>
+    <img class="bush" src="./../../../assets/GUI_Game/bush_cardboard.png">
+    <app-budget-board id="budget-board"></app-budget-board>
+    </div>
+  </div>
 </div>

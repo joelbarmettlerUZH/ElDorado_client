@@ -1,21 +1,41 @@
 
-#Decoration{
+#Decoration {
   background-size: cover;
   background-image: url('../../../assets/GUI_Game/top_menu.png');
-  width: 639px;
-  height: 146px;
+  width: 461px;
+  height: 112px;
   position: absolute;
   top: 0;
-  right: 356px;
+  right: 480px;
+  pointer-events: none;
 }
 
-#Panel{
-  background-size: cover;
-  background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
-  width: 244px;
-  height: 311px;
+.SettingPanel {
   position: absolute;
   top: -205px;
-  right: 591px;
+  right: 599px;
+  transition: 1.9s;
 }
 
+.PanelSelected {
+  top: +54px;
+  transition: 0.6s;
+  background-color: transparent;
+}
+
+#GameName {
+  position: relative;
+  bottom: 758px;
+  right: 44px;
+  height: 38px;
+  width: 196px;
+  font-style: italic;
+  font-size: 20px;
+  opacity: 0.85;
+  font-weight: normal;
+  color: #fcf6e4;
+  padding: 5px 10px;
+  text-shadow: 2px 1px black;
+  letter-spacing: 0.5px;
+  border: 0;
+}

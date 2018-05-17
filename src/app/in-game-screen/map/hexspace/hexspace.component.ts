@@ -1,15 +1,18 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Hexspace} from '../../../shared/models/hexSpace';
 import {Player} from '../../../shared/models/Player';
 import {PlayingPiece} from '../../../shared/models/PlayingPiece';
 import {Point} from '../../../shared/models/point';
+import {SettingsService} from '../../../shared/services/settings.service';
+import {Subscription} from 'rxjs/Subscription';
+import {SoundService} from '../../../shared/services/sound.service';
 
 @Component({
   selector: 'app-hexspace',
   templateUrl: './hexspace.component.html',
   styleUrls: ['./hexspace.component.css'],
 })
-export class HexspaceComponent implements OnInit {
+export class HexspaceComponent implements OnInit, OnDestroy {
 
   @Input()
   public yDim: number;
@@ -35,6 +38,7 @@ export class HexspaceComponent implements OnInit {
   public isPlayingPiece = false;
   public isCurrent = false;
   public isBlockade = false;
+  public orientation: number;
   public isActive = true;
   public isRemovable = false;
 
@@ -42,10 +46,27 @@ export class HexspaceComponent implements OnInit {
   public strength: number;
   public index: number;
 
-  constructor() {
+  public showPathfinder: Boolean;
+  private pathfinderSubscription: Subscription;
+
+  public showCurrent: Boolean;
+  private showCurrentSubscription: Subscription;
+
+  constructor(private settingsService: SettingsService, private sound: SoundService) {
   }
 
   ngOnInit() {
+    this.pathfinderSubscription = this.settingsService.showPathfinderSub.subscribe(
+      show => {
+        this.showPathfinder = show;
+      }
+    );
+
+    this.showCurrentSubscription = this.settingsService.showCurrentSub.subscribe(
+      show => {
+        this.showCurrent = show;
+      }
+    );
 
     this.color = this.HexSpace.color;
     this.index = (this.HexSpace.point.x * this.yDim) + this.HexSpace.point.y;
@@ -58,12 +79,12 @@ export class HexspaceComponent implements OnInit {
   }
 
   moveTo() {
-    console.log('User requests moving to ' + this.index);
+    console.log('-Hespace: User requests moving to ' + this.index);
     this.move.emit(this.HexSpace);
   }
 
   removeBlockade() {
-    console.log('User requests to remove blockadeEvent ' + this.index);
+    console.log('-Hexspace: User requests to remove blockadeEvent ' + this.index);
     this.blockadeEvent.emit(this.HexSpace);
   }
 
@@ -72,17 +93,17 @@ export class HexspaceComponent implements OnInit {
   }
 
   findPath() {
-    console.log('User requests pathfinder');
-    console.log(this.player);
+    console.log('-HexSpace: User requests pathfinder');
+    // console.log(this.player);
     let playingPiece: PlayingPiece;
     this.player.playingPieces.forEach(
       pP => {
         if (this.pointToIndex(pP.standsOn.point) === this.pointToIndex(this.HexSpace.point)) {
           playingPiece = pP;
+          console.log('-HexSpace: Playingpiece is ' + playingPiece.playingPieceId);
+          this.path.emit(playingPiece);
         }
       });
-    console.log('Playingpiece is ' + playingPiece.playingPieceId);
-    this.path.emit(playingPiece);
   }
 
   pointToIndex(point: Point) {
@@ -90,32 +111,40 @@ export class HexspaceComponent implements OnInit {
   }
 
   movesOn(player: Player) {
-    console.log('Player moves on hexspace', player, this.HexSpace);
+    // console.log('Player moves on hexspace', player, this.HexSpace);
     this.player = player;
     this.isPlayingPiece = true;
   }
 
   movesOff() {
-    console.log('Player moves of hexspace', this.player, this.HexSpace);
+    // console.log('Player moves of hexspace', this.player, this.HexSpace);
     this.player = null;
     this.isPlayingPiece = false;
   }
 
   isValid() {
     const valid = this.isCurrent && this.player.playerId === Number(localStorage.getItem('playerId'));
-    console.log('User validating: ' + valid);
+    console.log('-HexSpace: User validating: ' + valid);
     return valid;
   }
 
   performAction() {
     if (this.isReachable) {
+      this.sound.move();
       this.moveTo();
     }
     if (this.isPlayingPiece && this.isValid()) {
+      this.sound.player();
       this.findPath();
     }
     if (this.isBlockade && this.isRemovable) {
+      this.sound.collect();
       this.removeBlockade();
     }
+  }
+
+  ngOnDestroy() {
+    this.pathfinderSubscription.unsubscribe();
+    this.showCurrentSubscription.unsubscribe();
   }
 }

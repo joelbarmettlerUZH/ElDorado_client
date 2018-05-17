@@ -25,9 +25,10 @@
   right: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.45;
   transition: .5s ease;
   background-color: red;
+  border-radius: 10px;
 }
 
 .Card img{

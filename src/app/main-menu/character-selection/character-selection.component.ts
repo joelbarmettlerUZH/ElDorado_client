@@ -43,8 +43,8 @@ export class CharacterSelectionComponent implements OnInit {
   pollingRoom(room: Room) {
     this.roomSubscription = Observable.interval(1000).subscribe(y => {
       console.log(Number(localStorage.getItem('userId')));
-      this.game = this.gameService.getGame();
       try {
+        this.game = this.gameService.getGame();
         if (this.gameService.getGame().gameId === Number(localStorage.getItem('gameId'))) {
         const validGame = this.gameService.getGame().gameId > -1;
         console.log('Rerouting now');

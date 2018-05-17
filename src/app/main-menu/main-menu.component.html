@@ -6,6 +6,7 @@
       <app-main-menu-button-board (HigherCharacterRequest)="changeCharacters($event)"
                                   (BackToHomeRequest)="restoreMainMenu()"
                                   #childButtonArea></app-main-menu-button-board>
+      <img id="musicMuter" (click)="musicState()" src="./../../assets/GUI_MainMenu/mute_{{musicPlaying}}.png">
     </div>
   </div>
 </div>

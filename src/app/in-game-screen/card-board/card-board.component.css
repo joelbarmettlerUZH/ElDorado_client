@@ -1,17 +1,50 @@
 .Card-Board{
-  background-size: cover;
-  background-color: transparent;
+  /* background-size: cover;
+  background-color: transparent; */
   background-image: url('../../../assets/GUI_Game/Bottom_Cards.png');
-  width: 695px;
-  height: 176px; /* 176 px*/
+  /*background-repeat: repeat-x;
+  display: inline-flex;
+  width: auto; */
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 268px;
+  width: 695px;
+  height: 221px; /*  height 176px, width 695px ODER 100%
+  position: absolute; */
   transition: 0.3s;
 }
 
-.selected{
+.scrollbarBoard{
+  display: flex;
+}
+
+.Wrapper3{
+  /* width: 695px;  695px 100% wiederholt png einmal, auto lässt karte wieder unten erscheinen*/
+  height: 221px; /* 176px */
+  /*overflow-x: scroll;*/
+  overflow-y: hidden;
+  white-space: nowrap;
+  box-sizing: content-box;
+  transition: 0.6s;
+}
+
+.CardScroll{
+  display: inline-block;
+}
+
+
+::-webkit-scrollbar{
+  /* background: transparent; */
+}
+
+.selectedCardboard2{
   bottom: -120px;
   transition: 2.3s;
   background-color: transparent;
+}
+
+.bush {
+  position: absolute;
+  right: -80px;
+  bottom: 0;
 }

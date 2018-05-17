@@ -1,0 +1,35 @@
+#Panel {
+  width: 244px;
+  height: 311px;
+  background-image: url('../../../assets/GUI_Game/Upper_Settings.png');
+  background-size: cover;
+}
+
+.settingButton {
+  background-size: cover;
+  background-image: url('../../../assets/GUI_MainMenu/Subutton.png');
+  background-color: transparent;
+  width: 178px;
+  height: 25px;
+  position: relative;
+  top: 10px;
+  left: 0;
+  margin-top: 9px;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  padding-top: 3px;
+  border: none;
+  opacity: 0.85;
+  text-shadow: 2px 1px black;
+  letter-spacing: 0.5px;
+  border: 0;
+}
+
+.settingButton:hover {
+  background-image: url('../../../assets/GUI_MainMenu/Subutton_Pressed.png');
+}
+
+button:focus {
+  outline: 0 !important;
+}

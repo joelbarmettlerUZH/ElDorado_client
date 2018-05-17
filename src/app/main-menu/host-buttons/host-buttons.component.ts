@@ -1,16 +1,16 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ROUTES} from '../../shared/models/mock-routes';
 import {MAINMENUBUTTONS} from '../../shared/models/button-database';
 import {Route} from '../../shared/models/route';
 import {Subscription} from 'rxjs/Subscription';
 import {Room} from '../../shared/models/Room';
-import {CHARACTERS} from '../../shared/models/character-database';
 import {User} from '../../shared/models/User';
 import {UserService} from '../../shared/services/user.service';
 import {RoomService} from '../../shared/services/room.service';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
+import {BoardService} from '../../shared/services/board.service';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-host-buttons',
@@ -18,34 +18,46 @@ import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
   styleUrls: ['./host-buttons.component.css']
 })
 export class HostButtonsComponent implements OnInit {
-  routes = ROUTES;
+  @Output() passUserRequest = new EventEmitter<User>();
+  @Output() changeCharacterRequest = new EventEmitter<Room>();
+
   hostButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-hostgame');
+  characters = POLLCHARACTER;
+  public displayedRoutes: Route[];
+  public roomRouteId: number;
+  public roomIsCreated = false;
+  private preMe: CreateUser;
+  private freeCharacterId: number;
+  private freeCharacterName: string;
   public room: Room;
   public name: string;
   public subscription: Subscription;
-  characters = POLLCHARACTER;
   public token: string;
   public me: User;
-  @Output() passUserRequest = new EventEmitter<User>();
   public userId: number;
-  private preMe: CreateUser;
-  private freeCharacterId: number;
-
-  @Output() changeCharacterRequest = new EventEmitter<Room>();
-  private freeCharacterName: string;
+  private start: number;
+  private numRoutesToShow = 4;
 
 
   constructor(private roomService: RoomService,
-              private userService: UserService) {
+              private userService: UserService,
+              private boardService: BoardService,
+              private sound: SoundService) {
   }
 
   ngOnInit() {
     this.name = 'Rumos magnificos';
+    this.start = 0;
+    this.boardService.getAllBoards(this.start, this.start + this.numRoutesToShow - 1).subscribe(
+      res => {
+        this.displayedRoutes = res;
+        console.log('FirstRoute: ' + this.displayedRoutes[0]);
+      }
+    );
   }
 
-  updateRoom(inputstring) {
-    this.name = inputstring;
-    console.log(this.name);
+  updateRoom(event: any) {
+    this.name = event.target.value.toString();
   }
 
   // A.2 | on host button clicked (see HTML join-buttons component)
@@ -58,18 +70,21 @@ export class HostButtonsComponent implements OnInit {
   // 2. action: see main-menu-button-board component (via HTML)
 
   onRouteSelected(route: Route) {
+    this.sound.click();
     // a) create room
     if (this.name !== 'Rumos magnificos' && this.name !== '') {
-      console.log('ROUTE ID!!!', route.id);
-      this.roomService.createRoom(this.name, route.id).subscribe(res => {
+      console.log('ROUTE ID!!!', route.boardID);
+      this.roomService.createRoom(this.name, route.boardID).subscribe(res => {
         console.log('REST | POST ' + this.name + ' as new Room', res);
         this.room = res;
+
+        this.roomRouteId = this.room.boardnumber;
 
         // b)1 assign first character
         this.freeCharacterId = this.characters[0].id;
         this.freeCharacterName = this.characters[0].name;
 
-        // b)2 create preUser with this id and name
+        // b)2 create preUser with this boardID and name
         this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
         console.log(this.preMe);
         this.userService.createUser(this.preMe).subscribe(resul => {
@@ -101,18 +116,54 @@ export class HostButtonsComponent implements OnInit {
 
               // d) changeCharacterRequest to main-menu-button-board component
               console.log('SENT: changeCharacterRequest | from host-buttons');
-              console.log('room name: ' + this.room.name + ' room id: ' + this.room.roomID);
+              console.log('room name: ' + this.room.name + ' room boardID: ' + this.room.roomID);
               this.changeCharacterRequest.emit(this.room);
+              this.roomIsCreated = true;
             });
           });
         });
       });
     }
   }
+
+
+  getPrev() {
+    this.sound.back();
+    this.start = Math.max(this.start - this.numRoutesToShow, 0);
+    console.log('Previous clicked, start: ' + this.start);
+    console.log('Previous clicked, end: ' + (this.start + this.numRoutesToShow - 1));
+    this.boardService.getAllBoards(this.start, this.start + this.numRoutesToShow - 1).subscribe(
+      res => {
+        this.displayedRoutes = res;
+      }
+    );
+  }
+
+  getNext() {
+    this.sound.back();
+    console.log('Next clicked, start: ' + (this.start + this.numRoutesToShow));
+    console.log('Next clicked, end: ' + (this.start + 2 * this.numRoutesToShow - 1));
+
+    this.boardService.getAllBoards(this.start + this.numRoutesToShow, this.start + 2 * this.numRoutesToShow - 1).subscribe(
+      res => {
+        if (res) {
+          this.displayedRoutes = res;
+        } else {
+          this.start = this.start - this.numRoutesToShow;
+          this.boardService.getAllBoards(this.start + this.numRoutesToShow, this.start + 2 * this.numRoutesToShow - 1).subscribe(
+            resultat => {
+              this.displayedRoutes = resultat;
+            }
+          );
+        }
+      }
+    );
+  }
 }
 
 // ToDO: In Template set button position automatically
 // ToDO: In Template das, was von allen button Typen geshared wird, in eine Klasse
+
 
 
 

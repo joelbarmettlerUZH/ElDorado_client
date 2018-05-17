@@ -1,0 +1,33 @@
+#hisotry{
+  width: 300px;
+  background-color: transparent;
+}
+
+#actionArea{
+  height: 1px;
+  width: auto;
+  float: left;
+  margin-left: -15px;
+}
+
+.actionCard{
+  height: 40px;
+  width: auto;
+  float: left;
+  cursor: pointer;
+}
+
+.actionType{
+  position: relative;
+  top: -25px;
+  left: -24px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.actionType:hover{
+  opacity: 0.0;
+  filter: alpha(opacity=0); /* For IE8 and earlier */
+  cursor: pointer;
+}

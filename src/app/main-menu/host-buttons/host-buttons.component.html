@@ -2,10 +2,19 @@
 
   <button class=button id="{{hostButton.id}}">{{hostButton.name}}</button>
 
-  <input #box class=namebutton id="roomName" (keyup.enter)="updateRoom(box.value)" placeholder="Enter Room Name:">
+  <input maxlength="10" #box class=namebutton [class.disabled]="roomIsCreated == true" (keyup)="updateRoom($event)"
+         placeholder="Enter Room Name:">
 
-  <div *ngFor="let route of routes">
-    <button class="subbutton path{{route.path}}" id="{{route.name}}" (click)="onRouteSelected(route)">{{route.name}}</button>
+  <div *ngFor="let route of displayedRoutes">
+    <button class="routebutton path{{route.boardID}}"
+            [class.roomRoute]="roomRouteId==route.boardID"
+            [class.disabled]="roomIsCreated == true"
+            id="{{route.name}}"
+            (click)="onRouteSelected(route)">{{route.name}}
+    </button>
   </div>
+
+  <button class=navigation id="prevRooms" (click)="getPrev()"></button>
+  <button class=navigation id="nextRooms" (click)="getNext()"></button>
 
 </div>

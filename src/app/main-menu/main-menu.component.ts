@@ -5,6 +5,8 @@ import {UserService} from '../shared/services/user.service';
 import {CharacterSelectionComponent} from './character-selection/character-selection.component';
 import {Room} from '../shared/models/Room';
 import {saveGameId} from '../shared/cookieHandler';
+import {SoundService} from '../shared/services/sound.service';
+
 
 
 @Component({
@@ -26,18 +28,25 @@ export class MainMenuComponent implements OnInit {
   @ViewChild('childButtonArea')
   private childButtonArea: MainMenuButtonBoardComponent;
 
+  public musicPlaying: Boolean = true;
+
   mainMenuScreen: string;
   me: User;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private sound: SoundService) {
   }
 
   ngOnInit() {
+    // clear local storage and delete user.
+    this.userService.deleteUser(Number(localStorage.getItem('userId')));
+    localStorage.clear();
     // delete local storage and respective user when refreshing
     saveGameId(-1);
-    this.restoreStorage();
+    localStorage.setItem('load', 'first');
     this.mainMenuScreen = 'main-menu';
+    this.sound.backgroundMusicState(true);
+    this.sound.soundState(true);
   }
 
 
@@ -47,28 +56,13 @@ export class MainMenuComponent implements OnInit {
   // 2. action: see select-character component
   // ToDo exchange paramter
   public restoreMainMenu() {
-    this.restoreStorage();
+    // clear local storage and delete user.
+    this.userService.deleteUser(Number(localStorage.getItem('userId')));
+    localStorage.clear();
     console.log('Restore MainMenu');
     this.selectCharacter.generateMainMenuView();
   }
 
-  // TO DELETE ?
-  // // B | on main-menu button clicked (see HTML main-menu-buttons)
-  // // 5. action:
-  // // a) call corresponding view on child component
-  // // 6. action: see select-character component
-  //
-  // private hostGame(defaultRoom) {
-  //   console.log('REST: room created');
-  //   this.roomService.createRoom(this.defaultRoom.name, this.defaultRoom.boardnumber)
-  //     .subscribe(roomURL => {
-  //       this.roomIDURI = roomURL;
-  //       console.log(this.roomIDURI);
-  //       // this.roomID = roomURL.split('/').slice(-1)[0] ;
-  //       // console.log(this.roomID);
-  //     });
-  //   this.childCharacter.generateHostView();
-  // }
 
   private consultManual() {
     this.selectCharacter.generateManualView();
@@ -81,26 +75,13 @@ export class MainMenuComponent implements OnInit {
 
   public changeCharacters(room: Room) {
     console.log('ERHALTEN: HigherCharacterRequest');
-    console.log('Room id: ' + room.roomID + ' Room name: ' + room.name);
+    console.log('Room boardID: ' + room.roomID + ' Room name: ' + room.name);
     this.selectCharacter.generateJoinView(room);
   }
 
-
-  restoreStorage() {
-    if (
-      localStorage.getItem('token') ||
-      localStorage.getItem('userId') ||
-      localStorage.getItem('playerId') ||
-      localStorage.getItem('roomId') ||
-      localStorage.getItem('gameId')
-    ) {
-      console.log('delete token', localStorage.getItem('token'));
-      console.log('delete userId', localStorage.getItem('userId'));
-      console.log('delete playerId', localStorage.getItem('playerId'));
-      console.log('delete roomId', localStorage.getItem('roomId'));
-      console.log('delete gameId', localStorage.getItem('gameId'));
-      this.userService.deleteUser(Number(localStorage.getItem('userId')));
-      // localStorage.clear();
-    }
+  public musicState() {
+    this.musicPlaying = !this.musicPlaying;
+    this.sound.backgroundMusicState(this.musicPlaying);
+    this.sound.soundState(this.musicPlaying);
   }
 }

@@ -51,5 +51,9 @@ button:disabled {
   top: 160px;
 }
 
+#tutorial{
+  top: 240px;
+}
+
 button:focus {outline:0 !important;}
 

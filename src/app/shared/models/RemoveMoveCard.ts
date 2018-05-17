@@ -1,4 +1,5 @@
 import {Card} from './Card';
+
 export class RemoveMovingCard extends Card {
   type: string;
   name: string;
@@ -12,7 +13,7 @@ export class RemoveMovingCard extends Card {
 
 /*
 "@type": "RemoveMoveCard",
-"id": 29,
+"boardID": 29,
 "name": "Treasure chest",
 "coinValue": 4,
 "coinCost": 3,

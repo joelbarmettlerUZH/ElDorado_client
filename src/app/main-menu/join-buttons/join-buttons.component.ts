@@ -7,6 +7,11 @@ import {UserService} from '../../shared/services/user.service';
 import {CreateUser} from '../../shared/models/createUser';
 import {saveGameId, savePlayerId, saveRoomId, saveTOKEN, saveUserId} from '../../shared/cookieHandler';
 import {POLLCHARACTER} from '../../shared/models/defaultPollCharacters';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {Http} from '@angular/http';
+import {INTERVAL} from '../../shared/services/INTERVAL';
+import {SoundService} from '../../shared/services/sound.service';
 
 @Component({
   selector: 'app-join-buttons',
@@ -19,9 +24,6 @@ export class JoinButtonsComponent implements OnInit {
 
   joinButton = MAINMENUBUTTONS.find(obj => obj.id === 'menubutton-joingame');
   characters = POLLCHARACTER;
-  displayedRooms: Room[];
-  start: number;
-  private numRoomsToShow = 5;
   public token: string;
   public me: User;
   private preMe: CreateUser;
@@ -29,15 +31,26 @@ export class JoinButtonsComponent implements OnInit {
   public roomId: number;
   private freeCharacterId: number;
   private freeCharacterName: string;
+  displayedRooms: Room[];
+  start: number;
+  private numRoomsToShow = 5;
+  private roomSubscription: Subscription;
+  private FREQUENCY = INTERVAL.room();
+
 
 
   constructor(private roomService: RoomService,
-              private userService: UserService) {
+              private userService: UserService,
+              private http: Http,
+              private sound: SoundService) {
+    this.roomSubscription = Observable.interval(this.FREQUENCY).subscribe(
+      res => this.updateRooms());
   }
-
   ngOnInit() {
     this.userId = Number(localStorage.getItem('userId'));
     this.start = 0;
+  }
+  updateRooms() {
     this.roomService.getAllRooms(this.start, this.start + this.numRoomsToShow - 1).subscribe(
       res => {
         this.displayedRooms = res;
@@ -55,7 +68,7 @@ export class JoinButtonsComponent implements OnInit {
   // 2.b) action: see main-menu component (via HTML)
 
   onRoomSelected(room: Room) {
-
+    this.sound.click();
     // a)1 get Array of all characters and remove the ones already in use
     let filteredArray = this.characters;
     console.log('pre filteredArray', filteredArray);
@@ -70,7 +83,7 @@ export class JoinButtonsComponent implements OnInit {
     this.freeCharacterName = filteredArray[0].name;
 
     // a)3 create preUser with this id and name
-    this.preMe = new CreateUser(this.freeCharacterName, this.freeCharacterId);
+    this.preMe = new CreateUser('Player ' + (5 - filteredArray.length), this.freeCharacterId);
     this.userService.createUser(this.preMe).subscribe(res => {
 
       // 3.1 save assigned token and ID of preMe
@@ -97,7 +110,7 @@ export class JoinButtonsComponent implements OnInit {
           console.log('REST | POST ' + this.me.name + ' to Room ' + room.name, response);
           // c) changeCharacterRequest to main-menu-button-board component
           console.log('SENT: changeCharacterRequest | from join-buttons');
-          console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room id: ' + room.roomID + ' room users: ' + room.users);
+          console.log('SENT: changeCharacterRequest | room name: ' + room.name + ' room boardID: ' + room.roomID + ' room users: ' + room.users);
           this.changeCharacterRequest.emit(room);
         });
       });
@@ -105,6 +118,7 @@ export class JoinButtonsComponent implements OnInit {
   }
 
   getPrev() {
+    this.sound.back();
     this.start = Math.max(this.start - this.numRoomsToShow, 0);
     console.log('Previous clicked, start: ' + this.start);
     console.log('Previous clicked, end: ' + (this.start + this.numRoomsToShow - 1));
@@ -116,6 +130,7 @@ export class JoinButtonsComponent implements OnInit {
   }
 
   getNext() {
+    this.sound.back();
     console.log('Next clicked, start: ' + (this.start + this.numRoomsToShow));
     console.log('Next clicked, end: ' + (this.start + 2 * this.numRoomsToShow - 1));
 

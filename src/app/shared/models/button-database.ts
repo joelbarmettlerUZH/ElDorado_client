@@ -7,10 +7,10 @@ export const MAINMENUBUTTONS: Button[] = [
 ];
 
 // const schuwppa = MAINMENUBUTTONS.map(button => {
-//   return {id: button.id, show: false};
+//   return {boardID: button.boardID, show: false};
 // });
 //
 //
-// const th: {id: string, show: boolean} = schuwppa.find(item => item.id === 'menubutton-hostgame');
+// const th: {boardID: string, show: boolean} = schuwppa.find(item => item.boardID === 'menubutton-hostgame');
 //
 
