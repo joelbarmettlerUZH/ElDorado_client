@@ -109,4 +109,5 @@ FINISH JUHU --> deploy with now with `firebase deploy`
 2. `firebase deploy`
 
 
-by sali zumberi, 2018
+
+Hire us: [Software Entwickler in Zürich](https://polygon-software.ch)!
